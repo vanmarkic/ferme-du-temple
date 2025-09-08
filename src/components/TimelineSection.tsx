@@ -132,15 +132,16 @@ export const TimelineSection = () => {
         </div>
 
         <div className="mt-16 text-center">
-          <Card className="bg-gradient-to-r from-nature-green/10 to-accent/10 border-nature-green/20">
+          <Card className="bg-warm-beige border-nature-green/20 shadow-warm">
             <CardContent className="p-8">
-              <h3 className="text-2xl font-bold text-foreground mb-4">
-                NOUS VOULONS FAIRE DE L'HABITAT PARTAGÉ DE LA FERME DU TEMPLE
+              <h3 className="text-2xl md:text-3xl font-bold text-forest-dark mb-4 font-poppins leading-tight">
+                NOUS VOULONS FAIRE DE L'HABITAT PARTAGÉ<br/>
+                DE LA FERME DU TEMPLE
               </h3>
-              <p className="text-xl text-muted-foreground mb-2">
+              <p className="text-xl md:text-2xl font-bold text-forest-dark mb-2 font-poppins">
                 UN LIEU JOYEUX ET AIMANT,
               </p>
-              <p className="text-xl text-muted-foreground">
+              <p className="text-xl md:text-2xl font-bold text-forest-dark font-poppins">
                 OUVERT ET CHALEUREUX, OÙ L'ABONDANCE DE LA VIE PEUT ÊTRE CÉLÉBRÉE !
               </p>
             </CardContent>

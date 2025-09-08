@@ -13,6 +13,10 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ['Poppins', 'system-ui', 'sans-serif'],
+        'poppins': ['Poppins', 'sans-serif'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -54,6 +58,8 @@ export default {
           cream: "hsl(var(--soft-cream))",
           dark: "hsl(var(--forest-dark))",
         },
+        "warm-beige": "hsl(var(--warm-beige))",
+        "forest-dark": "hsl(var(--forest-dark))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
