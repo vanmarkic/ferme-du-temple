@@ -34,7 +34,7 @@ export const PricingSection = () => {
             INVESTISSEMENT ET FINANCEMENT
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Il nous reste <span className="font-semibold text-nature-green">6 sur 10 unités</span> de m² variables à acquérir. 
+            Il nous reste <span className="font-semibold text-nature-green">6 sur 12 unités</span> de m² variables à acquérir. 
             Les typologies restent à imaginer ensemble.
           </p>
         </div>
