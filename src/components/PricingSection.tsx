@@ -75,42 +75,7 @@ export const PricingSection = () => {
 
         <Card className="bg-white shadow-warm">
           <CardContent className="p-8">
-            <div className="grid md:grid-cols-2 gap-8">
-              <div>
-                <h3 className="text-2xl font-bold text-foreground mb-6">
-                  STRUCTURE JURIDIQUE
-                </h3>
-                <div className="space-y-4">
-                  <div className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-nature-green mt-0.5 flex-shrink-0" />
-                    <div>
-                      <h4 className="font-semibold text-foreground">La Ferme du Temple</h4>
-                      <p className="text-sm text-muted-foreground">
-                        Propriétaire des terres et espaces communs selon le principe du Community Land Trust
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-nature-green mt-0.5 flex-shrink-0" />
-                    <div>
-                      <h4 className="font-semibold text-foreground">Propriété des lots</h4>
-                      <p className="text-sm text-muted-foreground">
-                        Chaque entité propriétaire de son lot de bâti avec pleine jouissance
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-nature-green mt-0.5 flex-shrink-0" />
-                    <div>
-                      <h4 className="font-semibold text-foreground">Pérennité des valeurs</h4>
-                      <p className="text-sm text-muted-foreground">
-                        Le collectif assure la cohérence de tous les projets du lieu
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
+            <div className="max-w-2xl mx-auto">
               <div>
                 <h3 className="text-2xl font-bold text-foreground mb-6">
                   COÛT TOTAL DU PROJET
