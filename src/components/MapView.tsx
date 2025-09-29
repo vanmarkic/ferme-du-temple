@@ -17,16 +17,16 @@ export const MapView = () => {
   useEffect(() => {
     if (!mapRef.current || mapInstanceRef.current) return;
 
-    // Initialize map
-    const map = L.map(mapRef.current).setView([50.4089, 3.9111], 15);
+    // Initialize map - Coordinates for Ferme du Temple, Frameries
+    const map = L.map(mapRef.current).setView([50.4015, 3.8962], 15);
 
     // Add OpenStreetMap tiles
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(map);
 
-    // Add marker
-    const marker = L.marker([50.4089, 3.9111]).addTo(map);
+    // Add marker for Ferme du Temple
+    const marker = L.marker([50.4015, 3.8962]).addTo(map);
     marker.bindPopup(
       "<strong>La Ferme du Temple</strong><br />227 rue Joseph Wauters<br />7080 Frameries, Belgique"
     );
