@@ -9,8 +9,7 @@ export const PricingSection = () => {
       count: "6 UNITÉS",
       price: "187 500 €",
       breakdown: [
-        { label: "Redevance", amount: "50 000 €" },
-        { label: "Achat lot privatif (Emphytéose)", amount: "17 500 €" },
+        { label: "Achat lot privatif (Emphytéose)", amount: "67 500 €" },
         { label: "Travaux estimés (2000€/M²)", amount: "120 000 €" }
       ],
       popular: false
@@ -20,8 +19,7 @@ export const PricingSection = () => {
       count: "1 UNITÉ",
       price: "341 000 €",
       breakdown: [
-        { label: "Redevance", amount: "66 000 €" },
-        { label: "Achat lot privatif (Emphytéose)", amount: "35 000 €" },
+        { label: "Achat lot privatif (Emphytéose)", amount: "101 000 €" },
         { label: "Travaux estimés (2000€/M²)", amount: "240 000 €" }
       ],
       popular: true
