@@ -28,7 +28,7 @@ export const MapView = () => {
     // Add marker for Ferme du Temple
     const marker = L.marker([50.4015, 3.8962]).addTo(map);
     marker.bindPopup(
-      "<strong>La Ferme du Temple</strong><br />227 rue Joseph Wauters<br />7080 Frameries, Belgique"
+      "<strong>La Ferme du Temple</strong><br />225 avenue Joseph Wauters<br />7080 Frameries, Belgique"
     );
 
     mapInstanceRef.current = map;
