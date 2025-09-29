@@ -16,7 +16,6 @@ export const InscriptionForm = () => {
     prenom: "",
     email: "",
     telephone: "",
-    ville: "",
     motivation: "",
     besoinsSpecifiques: "",
     newsletter: false,
@@ -48,7 +47,6 @@ export const InscriptionForm = () => {
       prenom: "",
       email: "",
       telephone: "",
-      ville: "",
       motivation: "",
       besoinsSpecifiques: "",
       newsletter: false,
@@ -126,16 +124,6 @@ export const InscriptionForm = () => {
                     placeholder="+32 XXX XX XX XX"
                   />
                 </div>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="ville">Ville actuelle</Label>
-                <Input
-                  id="ville"
-                  value={formData.ville}
-                  onChange={(e) => handleChange("ville", e.target.value)}
-                  placeholder="Votre ville actuelle"
-                />
               </div>
 
               <div className="space-y-2">
