@@ -55,7 +55,7 @@ export const LocationSection = () => {
                 </Card>
               </div>
 
-              <Card className="border-accent/30 bg-gradient-to-r from-nature-beige to-nature-cream">
+              <Card className="border-accent/30 bg-card">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-3 mb-3">
                     <Plane className="w-5 h-5 text-nature-brown" />

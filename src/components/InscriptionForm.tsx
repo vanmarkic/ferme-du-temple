@@ -65,7 +65,7 @@ export const InscriptionForm = () => {
   };
 
   return (
-    <section id="inscription" className="py-20 bg-gradient-to-b from-background to-nature-cream">
+    <section id="inscription" className="py-20 bg-background">
       <div className="max-w-4xl mx-auto px-6">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">

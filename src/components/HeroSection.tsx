@@ -11,7 +11,7 @@ export const HeroSection = () => {
           alt="La Ferme du Temple - Habitat partagé historique"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-nature-green/80 via-nature-green/60 to-transparent"></div>
+        <div className="absolute inset-0 bg-nature-green/70"></div>
       </div>
       
       {/* Content */}

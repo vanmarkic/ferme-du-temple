@@ -90,7 +90,7 @@ export const TimelineSection = () => {
 
         <div className="relative">
           {/* Timeline line */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-nature-green via-accent to-muted hidden lg:block"></div>
+          <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-nature-green hidden lg:block"></div>
 
           <div className="space-y-12">
             {timeline.map((period, index) => {

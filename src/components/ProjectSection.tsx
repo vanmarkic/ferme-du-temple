@@ -21,7 +21,7 @@ export const ProjectSection = () => {
   ];
 
   return (
-    <section id="projet" className="py-20 bg-gradient-to-b from-background to-nature-beige">
+    <section id="projet" className="py-20 bg-background">
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
@@ -39,7 +39,7 @@ export const ProjectSection = () => {
             return (
               <Card key={index} className="group hover:shadow-warm transition-all duration-300 hover:-translate-y-2">
                 <CardContent className="p-8 text-center">
-                  <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-nature-green to-accent rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-16 h-16 mx-auto mb-6 bg-nature-green rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                     <Icon className="w-8 h-8 text-white" />
                   </div>
                   <h3 className="text-xl font-bold text-foreground mb-4">
