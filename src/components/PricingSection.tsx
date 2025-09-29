@@ -71,12 +71,12 @@ export const PricingSection = () => {
             <div className="max-w-2xl mx-auto">
               <div>
                 <h3 className="text-2xl font-bold text-foreground mb-6">
-                  OFFRE ACCEPTÉE (hors frais de notaire)
+                  OFFRE ACCEPTÉE
                 </h3>
                 <div className="bg-nature-beige/50 rounded-xl p-6">
                   <div className="text-center mb-6">
                     <div className="text-4xl font-bold text-nature-green mb-2">
-                      650 000 €
+                      650 000 € (hors frais de notaire)
                     </div>
                     <p className="text-lg font-semibold text-foreground">LA FERME DU TEMPLE</p>
                   </div>
