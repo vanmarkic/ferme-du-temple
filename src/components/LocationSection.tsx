@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { MapPin, Train, Car, Plane } from "lucide-react";
+import { MapView } from "./MapView";
 
 export const LocationSection = () => {
   return (
@@ -102,6 +103,15 @@ export const LocationSection = () => {
                 <li>• Serre de 80 mètres</li>
               </ul>
             </div>
+          </div>
+        </div>
+
+        <div className="mt-12">
+          <h3 className="text-2xl font-bold text-foreground mb-6 text-center">
+            Localisation sur la carte
+          </h3>
+          <div className="rounded-xl overflow-hidden shadow-lg border border-nature-green/20">
+            <MapView />
           </div>
         </div>
       </div>
