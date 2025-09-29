@@ -67,13 +67,13 @@ export const PropertyCarousel = () => {
       </div>
 
       <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
-        <DialogContent className="max-w-7xl w-[95vw] h-[95vh] p-0 bg-black/95 border-none">
+        <DialogContent className="max-w-7xl w-[95vw] h-[95vh] p-0 bg-black/95 border-none z-[9999]">
           <DialogTitle className="sr-only">
             {selectedImage?.alt}
           </DialogTitle>
           <button
             onClick={() => setSelectedImage(null)}
-            className="absolute top-4 right-4 z-50 p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+            className="absolute top-4 right-4 z-[10000] p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
             aria-label="Fermer"
           >
             <X className="w-6 h-6 text-white" />
