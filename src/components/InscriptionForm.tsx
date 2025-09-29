@@ -17,7 +17,6 @@ export const InscriptionForm = () => {
     email: "",
     telephone: "",
     ville: "",
-    profession: "",
     situationFamiliale: "",
     motivation: "",
     newsletter: false,
@@ -50,7 +49,6 @@ export const InscriptionForm = () => {
       email: "",
       telephone: "",
       ville: "",
-      profession: "",
       situationFamiliale: "",
       motivation: "",
       newsletter: false,
@@ -130,25 +128,14 @@ export const InscriptionForm = () => {
                 </div>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <Label htmlFor="ville">Ville actuelle</Label>
-                  <Input
-                    id="ville"
-                    value={formData.ville}
-                    onChange={(e) => handleChange("ville", e.target.value)}
-                    placeholder="Votre ville actuelle"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="profession">Profession</Label>
-                  <Input
-                    id="profession"
-                    value={formData.profession}
-                    onChange={(e) => handleChange("profession", e.target.value)}
-                    placeholder="Votre profession"
-                  />
-                </div>
+              <div className="space-y-2">
+                <Label htmlFor="ville">Ville actuelle</Label>
+                <Input
+                  id="ville"
+                  value={formData.ville}
+                  onChange={(e) => handleChange("ville", e.target.value)}
+                  placeholder="Votre ville actuelle"
+                />
               </div>
 
               <div className="space-y-2">
