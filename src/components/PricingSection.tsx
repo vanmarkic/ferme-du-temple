@@ -6,7 +6,6 @@ export const PricingSection = () => {
   const units = [
     {
       size: "60 M²",
-      count: "6 UNITÉS",
       price: "187 500 €",
       breakdown: [
         { label: "Achat lot privatif", amount: "67 500 €" },
@@ -16,7 +15,6 @@ export const PricingSection = () => {
     },
     {
       size: "120 M²",
-      count: "1 UNITÉ",
       price: "341 000 €",
       breakdown: [
         { label: "Achat lot privatif", amount: "101 000 €" },
@@ -48,9 +46,6 @@ export const PricingSection = () => {
                 </Badge>
               )}
               <CardHeader className="text-center">
-                <CardTitle className="text-2xl font-bold text-foreground">
-                  {unit.count}
-                </CardTitle>
                 <p className="text-lg text-muted-foreground">{unit.size}</p>
                 <div className="text-3xl font-bold text-nature-green">
                   {unit.price}
