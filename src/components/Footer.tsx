@@ -11,8 +11,7 @@ export const Footer = () => {
     { name: "ALTERA", url: "www.alteraprojects.be", role: "Accompagnement" },
     { name: "HABITAT ET PARTICIPATION", url: "www.habitat-participation.be", role: "Accompagnement" },
     { name: "CARTON 123", url: "www.carton123.be", role: "Architectes" },
-    { name: "NOTAIRE ERNEUX", url: "", role: "Notaire" },
-    { name: "VDK", url: "www.vdk.be/fr", role: "Banque" }
+    { name: "NOTAIRE ERNEUX", url: "", role: "Notaire" }
   ];
 
   return (
