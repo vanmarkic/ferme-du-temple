@@ -33,53 +33,10 @@ export const PricingSection = () => {
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Il nous reste <span className="font-semibold text-nature-green">6 sur 12 unités</span> de m² variables à acquérir. 
-            Les typologies restent à imaginer ensemble.
           </p>
         </div>
 
-        <Card className="bg-white shadow-warm mb-12">
-          <CardContent className="p-8">
-            <div className="max-w-2xl mx-auto">
-              <div>
-                <h3 className="text-2xl font-bold text-foreground mb-4">
-                  ACQUISITION INITIALE DE L'ENSEMBLE DE LA PROPRIÉTÉ
-                </h3>
-                <p className="text-muted-foreground mb-6">
-                  Offre acceptée pour l'acquisition de l'ensemble de la ferme et des terres, qui sera ensuite divisé en lots distincts.
-                </p>
-                <div className="bg-nature-beige/50 rounded-xl p-6">
-                  <div className="text-center mb-6">
-                    <div className="text-4xl font-bold text-nature-green mb-2">
-                      650 000 €
-                    </div>
-                    <p className="text-lg font-semibold text-foreground">LA FERME DU TEMPLE</p>
-                  </div>
-                  <div className="space-y-3">
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Prix achat terres et ferme</span>
-                      <span className="font-semibold">650 000 € (hors frais de notaire)</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Achat en division</span>
-                      <span className="font-semibold">Division en lots prévue entre le compromis et l'acte</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <div className="mb-8">
-          <h3 className="text-2xl font-bold text-foreground mb-4 text-center">
-            EXEMPLES D'INVESTISSEMENT PAR LOT
-          </h3>
-          <p className="text-center text-muted-foreground mb-8">
-            Estimation des coûts pour différentes superficies
-          </p>
-        </div>
-
-        <div className="grid lg:grid-cols-2 gap-8">
+        <div className="grid lg:grid-cols-2 gap-8 mb-12">
           {units.map((unit, index) => (
             <Card key={index} className={`relative ${unit.popular ? 'border-nature-green shadow-warm' : ''}`}>
               <CardHeader className="text-center">
@@ -101,9 +58,44 @@ export const PricingSection = () => {
                   ))}
                 </div>
               </CardContent>
+              
+          
             </Card>
           ))}
+      
         </div>
+
+        <Card className="bg-white shadow-warm">
+          <CardContent className="p-8">
+            <div className="max-w-2xl mx-auto">
+              <div>
+                <h3 className="text-2xl font-bold text-foreground mb-6">
+                  OFFRE ACCEPTÉE (hors frais de notaire)
+                </h3>
+                <div className="bg-nature-beige/50 rounded-xl p-6">
+                  <div className="text-center mb-6">
+                    <div className="text-4xl font-bold text-nature-green mb-2">
+                      650 000 €
+                    </div>
+                    <p className="text-lg font-semibold text-foreground">LA FERME DU TEMPLE</p>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Prix achat terres et ferme</span>
+                      <span className="font-semibold">650 000 €</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Achat en division</span>
+                      <span className="font-semibold">Divison en lots prévues entre le compromis et l'acte</span>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </CardContent>
+        </Card>
       </div>
     </section>
   );
