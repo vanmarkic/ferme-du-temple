@@ -120,14 +120,14 @@ export const PricingSection = () => {
                 <div className="bg-nature-beige/50 rounded-xl p-6">
                   <div className="text-center mb-6">
                     <div className="text-4xl font-bold text-nature-green mb-2">
-                      839 500 €
+                      759 500 €
                     </div>
                     <p className="text-lg font-semibold text-foreground">LA FERME DU TEMPLE</p>
                   </div>
                   <div className="space-y-3">
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Prix achat terres et ferme</span>
-                      <span className="font-semibold">730 000 €</span>
+                      <span className="font-semibold">650 000 €</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Frais enregistrement + notaire</span>
