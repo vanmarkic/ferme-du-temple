@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { MapPin, Train, Car, Plane } from "lucide-react";
 import { MapView } from "./MapView";
+import { PropertyCarousel } from "./PropertyCarousel";
 
 export const LocationSection = () => {
   return (
@@ -95,7 +96,7 @@ export const LocationSection = () => {
 
         <div className="mt-16 p-10 bg-nature-green/10 rounded-xl">
           <h4 className="text-3xl font-bold text-foreground mb-8">Le domaine aujourd'hui</h4>
-          <ul className="space-y-4 text-lg text-muted-foreground">
+          <ul className="space-y-4 text-lg text-muted-foreground mb-12">
             <li>• 7 hectares de prairies arborées</li>
             <li>• Ruisseau traversant la parcelle</li>
             <li>• Imposant corps de logis historique</li>
@@ -104,6 +105,11 @@ export const LocationSection = () => {
             <li>• Écuries surmontées de fenils</li>
             <li>• Serre de 80 mètres</li>
           </ul>
+          
+          <div className="mt-8">
+            <h5 className="text-2xl font-semibold text-foreground mb-6">Découvrez le domaine en images</h5>
+            <PropertyCarousel />
+          </div>
         </div>
 
         <div className="mt-12">
