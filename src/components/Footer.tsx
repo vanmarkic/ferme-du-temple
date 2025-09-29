@@ -76,7 +76,7 @@ export const Footer = () => {
             <h3 className="text-2xl font-bold mb-6">Rejoignez-nous</h3>
             <p className="text-gray-300 mb-6 leading-relaxed">
               N'hésitez pas à nous contacter si vous désirez avoir plus d'informations 
-              sur le projet, la fondation et la Ferme du Temple. Nous nous ferons un 
+              sur le projet et la Ferme du Temple. Nous nous ferons un 
               plaisir de vous en dire davantage.
             </p>
             <Button 

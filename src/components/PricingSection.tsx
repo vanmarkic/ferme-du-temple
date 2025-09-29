@@ -58,7 +58,7 @@ export const PricingSection = () => {
                   {unit.price}
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Prix total estimé + mensualité remboursement emprunt fondation
+                  Prix total estimé
                 </p>
               </CardHeader>
               <CardContent>
@@ -86,7 +86,7 @@ export const PricingSection = () => {
                   <div className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-nature-green mt-0.5 flex-shrink-0" />
                     <div>
-                      <h4 className="font-semibold text-foreground">Fondation de la Ferme du Temple</h4>
+                      <h4 className="font-semibold text-foreground">La Ferme du Temple</h4>
                       <p className="text-sm text-muted-foreground">
                         Propriétaire des terres et espaces communs selon le principe du Community Land Trust
                       </p>
@@ -106,7 +106,7 @@ export const PricingSection = () => {
                     <div>
                       <h4 className="font-semibold text-foreground">Pérennité des valeurs</h4>
                       <p className="text-sm text-muted-foreground">
-                        La fondation assure la cohérence de tous les projets du lieu
+                        Le collectif assure la cohérence de tous les projets du lieu
                       </p>
                     </div>
                   </div>

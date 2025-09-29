@@ -28,7 +28,6 @@ export const TimelineSection = () => {
       icon: Building,
       events: [
         "Nouvelles recrues Beaver",
-        "Création de la Fondation de la Ferme du Temple",
         "Signature du compromis et de la vente",
         "Mesures conservatoires sur le bâtiment",
         "Faisabilité + programmation avec les architectes Carton 123"
