@@ -17,7 +17,6 @@ export const InscriptionForm = () => {
     email: "",
     telephone: "",
     ville: "",
-    situationFamiliale: "",
     motivation: "",
     besoinsSpecifiques: "",
     newsletter: false,
@@ -50,7 +49,6 @@ export const InscriptionForm = () => {
       email: "",
       telephone: "",
       ville: "",
-      situationFamiliale: "",
       motivation: "",
       besoinsSpecifiques: "",
       newsletter: false,
@@ -138,23 +136,6 @@ export const InscriptionForm = () => {
                   onChange={(e) => handleChange("ville", e.target.value)}
                   placeholder="Votre ville actuelle"
                 />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="situationFamiliale">Situation familiale</Label>
-                <Select onValueChange={(value) => handleChange("situationFamiliale", value)}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Sélectionnez votre situation" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="celibataire">Célibataire</SelectItem>
-                    <SelectItem value="couple">En couple</SelectItem>
-                    <SelectItem value="famille-1-enfant">Famille avec 1 enfant</SelectItem>
-                    <SelectItem value="famille-2-enfants">Famille avec 2 enfants</SelectItem>
-                    <SelectItem value="famille-3-enfants-plus">Famille avec 3+ enfants</SelectItem>
-                    <SelectItem value="autre">Autre</SelectItem>
-                  </SelectContent>
-                </Select>
               </div>
 
               <div className="space-y-2">
