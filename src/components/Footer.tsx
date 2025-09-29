@@ -4,7 +4,8 @@ import { Mail, MapPin } from "lucide-react";
 export const Footer = () => {
   const contacts = [
     "Annabelle Czyz", "Cathy Weyders", "Colin Ponthot", 
-    "Gerd De Wilde", "Jeremy Michel", "Julie Luyten", "Séverin Malaud"
+    "Jeremy Michel", "Julie Luyten", "Manuela Capraro", 
+    "Dragan Markovic", "Séverin Malaud"
   ];
 
   const partenaires = [
