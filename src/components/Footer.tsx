@@ -39,7 +39,7 @@ export const Footer = () => {
             </div>
 
             <div className="mt-8">
-              <h4 className="font-semibold mb-3">Personnes de contact</h4>
+              <h4 className="font-semibold mb-3">Membres du projet</h4>
               <div className="grid grid-cols-1 gap-1 text-sm text-gray-300">
                 {contacts.map((contact, index) => (
                   <span key={index}>{contact}</span>
