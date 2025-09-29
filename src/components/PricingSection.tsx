@@ -9,7 +9,7 @@ export const PricingSection = () => {
       count: "6 UNITÉS",
       price: "187 500 €",
       breakdown: [
-        { label: "Achat lot privatif (Emphytéose)", amount: "67 500 €" },
+        { label: "Achat lot privatif", amount: "67 500 €" },
         { label: "Travaux estimés (2000€/M²)", amount: "120 000 €" }
       ],
       popular: false
@@ -19,7 +19,7 @@ export const PricingSection = () => {
       count: "1 UNITÉ",
       price: "341 000 €",
       breakdown: [
-        { label: "Achat lot privatif (Emphytéose)", amount: "101 000 €" },
+        { label: "Achat lot privatif", amount: "101 000 €" },
         { label: "Travaux estimés (2000€/M²)", amount: "240 000 €" }
       ],
       popular: true
@@ -93,7 +93,7 @@ export const PricingSection = () => {
                   <div className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-nature-green mt-0.5 flex-shrink-0" />
                     <div>
-                      <h4 className="font-semibold text-foreground">Droit d'emphytéose</h4>
+                      <h4 className="font-semibold text-foreground">Propriété des lots</h4>
                       <p className="text-sm text-muted-foreground">
                         Chaque entité propriétaire de son lot de bâti avec pleine jouissance
                       </p>
