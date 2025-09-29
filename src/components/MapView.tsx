@@ -18,7 +18,7 @@ export const MapView = () => {
     if (!mapRef.current || mapInstanceRef.current) return;
 
     // Initialize map - Coordinates for Ferme du Temple, Frameries
-    const map = L.map(mapRef.current).setView([50.3993, 3.9047], 15);
+    const map = L.map(mapRef.current).setView([50.3993, 3.9047], 9);
 
     // Add OpenStreetMap tiles
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
