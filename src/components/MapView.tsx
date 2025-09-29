@@ -18,7 +18,7 @@ export const MapView = () => {
     if (!mapRef.current || mapInstanceRef.current) return;
 
     // Initialize map - Coordinates for Ferme du Temple, Frameries
-    const map = L.map(mapRef.current).setView([50.4015, 3.8962], 15);
+    const map = L.map(mapRef.current).setView([50.3993, 3.9047], 15);
 
     // Add OpenStreetMap tiles
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -26,7 +26,7 @@ export const MapView = () => {
     }).addTo(map);
 
     // Add marker for Ferme du Temple
-    const marker = L.marker([50.399354221188204, 3.9047276651386693]).addTo(map);
+    const marker = L.marker([50.3993, 3.9047]).addTo(map);
     marker.bindPopup(
       "<strong>La Ferme du Temple</strong><br />227 rue Joseph Wauters<br />7080 Frameries, Belgique"
     );
