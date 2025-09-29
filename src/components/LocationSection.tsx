@@ -91,9 +91,9 @@ export const LocationSection = () => {
               </p>
             </div>
 
-            <div className="mt-8 p-6 bg-nature-green/10 rounded-xl">
-              <h4 className="font-semibold text-foreground mb-3">Le domaine aujourd'hui</h4>
-              <ul className="space-y-2 text-sm text-muted-foreground">
+            <div className="mt-12 p-10 bg-nature-green/10 rounded-xl">
+              <h4 className="text-3xl font-bold text-foreground mb-8">Le domaine aujourd'hui</h4>
+              <ul className="space-y-4 text-lg text-muted-foreground">
                 <li>• 7 hectares de prairies arborées</li>
                 <li>• Ruisseau traversant la parcelle</li>
                 <li>• Imposant corps de logis historique</li>
