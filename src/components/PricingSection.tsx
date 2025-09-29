@@ -78,12 +78,12 @@ export const PricingSection = () => {
             <div className="max-w-2xl mx-auto">
               <div>
                 <h3 className="text-2xl font-bold text-foreground mb-6">
-                  COÛT TOTAL DU PROJET
+                  OFFRE ACCEPTÉE (hors frais de notaire)
                 </h3>
                 <div className="bg-nature-beige/50 rounded-xl p-6">
                   <div className="text-center mb-6">
                     <div className="text-4xl font-bold text-nature-green mb-2">
-                      759 500 €
+                      650 000 €
                     </div>
                     <p className="text-lg font-semibold text-foreground">LA FERME DU TEMPLE</p>
                   </div>
@@ -93,8 +93,9 @@ export const PricingSection = () => {
                       <span className="font-semibold">650 000 €</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">Frais enregistrement + notaire</span>
-                      <span className="font-semibold">109 500 €</span>
+                      <span className="text-muted-foreground">Achat en division</span>
+                      <span className="font-semibold">Divison en lots prévues entre le compromis et l'acte</span>
+                      
                     </div>
                   </div>
                 </div>
