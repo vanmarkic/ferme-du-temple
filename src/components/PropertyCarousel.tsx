@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import property1 from "@/assets/property-1.webp";
 import property2 from "@/assets/property-2.webp";
 import property3 from "@/assets/property-3.webp";
@@ -27,7 +28,36 @@ const propertyImages = [
 ];
 
 export const PropertyCarousel = () => {
-  const [selectedImage, setSelectedImage] = useState<{ src: string; alt: string } | null>(null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
+
+  const handlePrevious = useCallback(() => {
+    if (selectedImageIndex !== null) {
+      setSelectedImageIndex((selectedImageIndex - 1 + propertyImages.length) % propertyImages.length);
+    }
+  }, [selectedImageIndex]);
+
+  const handleNext = useCallback(() => {
+    if (selectedImageIndex !== null) {
+      setSelectedImageIndex((selectedImageIndex + 1) % propertyImages.length);
+    }
+  }, [selectedImageIndex]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (selectedImageIndex !== null) {
+        if (e.key === 'ArrowLeft') {
+          handlePrevious();
+        } else if (e.key === 'ArrowRight') {
+          handleNext();
+        } else if (e.key === 'Escape') {
+          setSelectedImageIndex(null);
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedImageIndex, handlePrevious, handleNext]);
   return (
     <>
       <div className="w-full">
@@ -44,7 +74,7 @@ export const PropertyCarousel = () => {
                 <div className="p-2">
                   <div 
                     className="relative aspect-video overflow-hidden rounded-lg cursor-pointer group"
-                    onClick={() => setSelectedImage(image)}
+                    onClick={() => setSelectedImageIndex(index)}
                   >
                     <img
                       src={image.src}
@@ -66,26 +96,54 @@ export const PropertyCarousel = () => {
         </Carousel>
       </div>
 
-      <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
+      <Dialog open={selectedImageIndex !== null} onOpenChange={() => setSelectedImageIndex(null)}>
         <DialogContent className="max-w-7xl w-[95vw] h-[95vh] p-0 bg-black/95 border-none z-[9999]">
           <DialogTitle className="sr-only">
-            {selectedImage?.alt}
+            {selectedImageIndex !== null ? propertyImages[selectedImageIndex].alt : ''}
           </DialogTitle>
+          
           <button
-            onClick={() => setSelectedImage(null)}
+            onClick={() => setSelectedImageIndex(null)}
             className="absolute top-4 right-4 z-[10000] p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
             aria-label="Fermer"
           >
             <X className="w-6 h-6 text-white" />
           </button>
-          {selectedImage && (
-            <div className="w-full h-full flex items-center justify-center p-4">
-              <img
-                src={selectedImage.src}
-                alt={selectedImage.alt}
-                className="max-w-full max-h-full object-contain"
-              />
-            </div>
+
+          {selectedImageIndex !== null && (
+            <>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="absolute left-4 top-1/2 -translate-y-1/2 z-[10000] h-12 w-12 rounded-full bg-white/10 hover:bg-white/20 text-white"
+                onClick={handlePrevious}
+                aria-label="Photo précédente"
+              >
+                <ChevronLeft className="w-8 h-8" />
+              </Button>
+
+              <Button
+                variant="ghost"
+                size="icon"
+                className="absolute right-4 top-1/2 -translate-y-1/2 z-[10000] h-12 w-12 rounded-full bg-white/10 hover:bg-white/20 text-white"
+                onClick={handleNext}
+                aria-label="Photo suivante"
+              >
+                <ChevronRight className="w-8 h-8" />
+              </Button>
+
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-[10000] px-4 py-2 rounded-full bg-white/10 text-white text-sm">
+                {selectedImageIndex + 1} / {propertyImages.length}
+              </div>
+
+              <div className="w-full h-full flex items-center justify-center p-4">
+                <img
+                  src={propertyImages[selectedImageIndex].src}
+                  alt={propertyImages[selectedImageIndex].alt}
+                  className="max-w-full max-h-full object-contain"
+                />
+              </div>
+            </>
           )}
         </DialogContent>
       </Dialog>
