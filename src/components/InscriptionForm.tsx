@@ -19,7 +19,6 @@ export const InscriptionForm = () => {
     ville: "",
     profession: "",
     situationFamiliale: "",
-    uniteSouhaitee: "",
     motivation: "",
     newsletter: false,
     rencontre: false
@@ -53,7 +52,6 @@ export const InscriptionForm = () => {
       ville: "",
       profession: "",
       situationFamiliale: "",
-      uniteSouhaitee: "",
       motivation: "",
       newsletter: false,
       rencontre: false
@@ -153,37 +151,21 @@ export const InscriptionForm = () => {
                 </div>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <Label htmlFor="situationFamiliale">Situation familiale</Label>
-                  <Select onValueChange={(value) => handleChange("situationFamiliale", value)}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Sélectionnez votre situation" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="celibataire">Célibataire</SelectItem>
-                      <SelectItem value="couple">En couple</SelectItem>
-                      <SelectItem value="famille-1-enfant">Famille avec 1 enfant</SelectItem>
-                      <SelectItem value="famille-2-enfants">Famille avec 2 enfants</SelectItem>
-                      <SelectItem value="famille-3-enfants-plus">Famille avec 3+ enfants</SelectItem>
-                      <SelectItem value="autre">Autre</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="uniteSouhaitee">Unité souhaitée</Label>
-                  <Select onValueChange={(value) => handleChange("uniteSouhaitee", value)}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Taille d'unité recherchée" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="60m2">60 m² (187 500€)</SelectItem>
-                      <SelectItem value="120m2">120 m² (341 000€)</SelectItem>
-                      <SelectItem value="autre-taille">Autre taille à définir</SelectItem>
-                      <SelectItem value="pas-sur">Pas encore sûr·e</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
+              <div className="space-y-2">
+                <Label htmlFor="situationFamiliale">Situation familiale</Label>
+                <Select onValueChange={(value) => handleChange("situationFamiliale", value)}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Sélectionnez votre situation" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="celibataire">Célibataire</SelectItem>
+                    <SelectItem value="couple">En couple</SelectItem>
+                    <SelectItem value="famille-1-enfant">Famille avec 1 enfant</SelectItem>
+                    <SelectItem value="famille-2-enfants">Famille avec 2 enfants</SelectItem>
+                    <SelectItem value="famille-3-enfants-plus">Famille avec 3+ enfants</SelectItem>
+                    <SelectItem value="autre">Autre</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
 
               <div className="space-y-2">
