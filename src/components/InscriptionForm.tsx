@@ -228,7 +228,8 @@ export const InscriptionForm = () => {
 
               <p className="text-sm text-muted-foreground text-center">
                 En envoyant ce formulaire, vous acceptez d'être contacté·e par le collectif Beaver 
-                pour échanger sur votre candidature. Vos données ne seront pas partagées avec des tiers.
+                pour échanger sur votre candidature. Vos données ne seront pas partagées avec des tiers 
+                et seront conservées durant 3 ans maximum.
               </p>
             </form>
           </CardContent>
