@@ -19,6 +19,7 @@ export const InscriptionForm = () => {
     ville: "",
     situationFamiliale: "",
     motivation: "",
+    besoinsSpecifiques: "",
     newsletter: false,
     rencontre: false
   });
@@ -51,6 +52,7 @@ export const InscriptionForm = () => {
       ville: "",
       situationFamiliale: "",
       motivation: "",
+      besoinsSpecifiques: "",
       newsletter: false,
       rencontre: false
     });
@@ -164,6 +166,17 @@ export const InscriptionForm = () => {
                   placeholder="Parlez-nous de votre motivation pour rejoindre le projet Beaver, vos valeurs, ce qui vous attire dans l'habitat partagé..."
                   rows={5}
                   required
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="besoinsSpecifiques">Besoins spécifiques</Label>
+                <Textarea
+                  id="besoinsSpecifiques"
+                  value={formData.besoinsSpecifiques}
+                  onChange={(e) => handleChange("besoinsSpecifiques", e.target.value)}
+                  placeholder="Avez-vous des besoins spécifiques ou des contraintes particulières que nous devrions connaître ? (accessibilité, allergies, etc.)"
+                  rows={4}
                 />
               </div>
 
