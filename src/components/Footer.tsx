@@ -11,7 +11,7 @@ export const Footer = () => {
     { name: "ALTERA", url: "www.alteraprojects.be", role: "Accompagnement" },
     { name: "HABITAT ET PARTICIPATION", url: "www.habitat-participation.be", role: "Accompagnement" },
     { name: "CARTON 123", url: "www.carton123.be", role: "Architectes" },
-    { name: "NOTAIRE ERNEUX", url: "www.nclnotaires.be", role: "Notaire" },
+    { name: "NOTAIRE ERNEUX", url: "", role: "Notaire" },
     { name: "VDK", url: "www.vdk.be/fr", role: "Banque" }
   ];
 
@@ -60,14 +60,16 @@ export const Footer = () => {
                 <div key={index}>
                   <h4 className="font-semibold text-accent">{partenaire.name}</h4>
                   <p className="text-sm text-gray-300">{partenaire.role}</p>
-                  <a 
-                    href={`https://${partenaire.url}`} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-sm text-gray-400 hover:text-accent transition-colors"
-                  >
-                    {partenaire.url}
-                  </a>
+                  {partenaire.url && (
+                    <a 
+                      href={`https://${partenaire.url}`} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-sm text-gray-400 hover:text-accent transition-colors"
+                    >
+                      {partenaire.url}
+                    </a>
+                  )}
                 </div>
               ))}
             </div>
