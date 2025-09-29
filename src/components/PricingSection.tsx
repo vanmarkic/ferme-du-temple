@@ -40,11 +40,6 @@ export const PricingSection = () => {
         <div className="grid lg:grid-cols-2 gap-8 mb-12">
           {units.map((unit, index) => (
             <Card key={index} className={`relative ${unit.popular ? 'border-nature-green shadow-warm' : ''}`}>
-              {unit.popular && (
-                <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-nature-green">
-                  Exemple disponible
-                </Badge>
-              )}
               <CardHeader className="text-center">
                 <p className="text-lg text-muted-foreground">{unit.size}</p>
                 <div className="text-3xl font-bold text-nature-green">
