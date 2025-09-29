@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Mail, Instagram, MapPin } from "lucide-react";
+import { Mail, MapPin } from "lucide-react";
 
 export const Footer = () => {
   const contacts = [
@@ -28,10 +28,6 @@ export const Footer = () => {
                 <a href="mailto:habitatbeaver@gmail.com" className="hover:text-accent transition-colors">
                   habitatbeaver@gmail.com
                 </a>
-              </div>
-              <div className="flex items-center gap-3">
-                <Instagram className="w-5 h-5 text-accent flex-shrink-0" />
-                <span>@habitatbeaver</span>
               </div>
               <div className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-accent flex-shrink-0 mt-1" />
