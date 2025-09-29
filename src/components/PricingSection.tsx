@@ -69,6 +69,12 @@ export const PricingSection = () => {
                   ))}
                 </div>
               </CardContent>
+              
+            <div className="mt-8 p-4 bg-accent/10 rounded-lg">
+              <p className="text-sm text-muted-foreground text-center">
+                <strong>Attention :</strong> Ces prix sont uniquement indiqués pour donner un ordre de grandeur et ne sont pas garantis.
+              </p>
+            </div>
             </Card>
           ))}
         </div>
@@ -102,11 +108,6 @@ export const PricingSection = () => {
               </div>
             </div>
 
-            <div className="mt-8 p-4 bg-accent/10 rounded-lg">
-              <p className="text-sm text-muted-foreground text-center">
-                <strong>Attention :</strong> Ces prix sont uniquement indiqués pour donner un ordre de grandeur et ne sont pas garantis.
-              </p>
-            </div>
           </CardContent>
         </Card>
       </div>
