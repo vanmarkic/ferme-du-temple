@@ -16,6 +16,8 @@ export default {
       fontFamily: {
         sans: ['Poppins', 'system-ui', 'sans-serif'],
         'poppins': ['Poppins', 'sans-serif'],
+        'montserrat': ['Montserrat', 'sans-serif'],
+        'display': ['Montserrat', 'Poppins', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -51,6 +53,10 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        magenta: {
+          DEFAULT: "hsl(var(--magenta))",
+          dark: "hsl(var(--magenta-dark))",
+        },
         nature: {
           green: "hsl(var(--nature-green))",
           brown: "hsl(var(--earth-brown))",
@@ -59,7 +65,8 @@ export default {
           dark: "hsl(var(--forest-dark))",
         },
         "warm-beige": "hsl(var(--warm-beige))",
-        "forest-dark": "hsl(var(--forest-dark))",
+        "concrete-light": "hsl(var(--concrete-light))",
+        "text-dark": "hsl(var(--text-dark))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
