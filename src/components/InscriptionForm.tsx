@@ -5,11 +5,11 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
-import { Send, Heart } from "lucide-react";
+import { Send, Heart, Loader2 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 export const InscriptionForm = () => {
-  const {
-    toast
-  } = useToast();
+  const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     nom: "",
     prenom: "",
@@ -20,10 +20,10 @@ export const InscriptionForm = () => {
     newsletter: false,
     rencontre: false
   });
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validation simple
+    // Validation
     if (!formData.nom || !formData.prenom || !formData.email || !formData.motivation) {
       toast({
         title: "Informations manquantes",
@@ -33,23 +33,41 @@ export const InscriptionForm = () => {
       return;
     }
 
-    // Simulation de l'envoi
-    toast({
-      title: "Candidature envoyée ! 🌱",
-      description: "Nous vous recontacterons très prochainement pour échanger sur votre projet."
-    });
+    setIsSubmitting(true);
 
-    // Reset du formulaire
-    setFormData({
-      nom: "",
-      prenom: "",
-      email: "",
-      telephone: "",
-      motivation: "",
-      besoinsSpecifiques: "",
-      newsletter: false,
-      rencontre: false
-    });
+    try {
+      const { data, error } = await supabase.functions.invoke('submit-inscription', {
+        body: formData
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Candidature envoyée ! 🌱",
+        description: "Nous vous recontacterons très prochainement pour échanger sur votre projet."
+      });
+
+      // Reset du formulaire
+      setFormData({
+        nom: "",
+        prenom: "",
+        email: "",
+        telephone: "",
+        motivation: "",
+        besoinsSpecifiques: "",
+        newsletter: false,
+        rencontre: false
+      });
+    } catch (error: any) {
+      console.error("Erreur lors de l'envoi:", error);
+      toast({
+        title: "Erreur",
+        description: "Une erreur est survenue lors de l'envoi de votre candidature. Veuillez réessayer.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
   const handleChange = (field: string, value: string | boolean) => {
     setFormData(prev => ({
@@ -119,10 +137,24 @@ export const InscriptionForm = () => {
                   
 
                   <div className="relative">
-                    
-                    <Button type="submit" variant="nature" size="lg" className="w-full relative z-10 bg-magenta hover:bg-magenta/90 text-white uppercase tracking-wider text-lg py-6">
-                      <Send className="w-5 h-5 mr-2" />
-                      Envoyer ma candidature
+                    <Button 
+                      type="submit" 
+                      disabled={isSubmitting}
+                      variant="nature" 
+                      size="lg" 
+                      className="w-full relative z-10 bg-magenta hover:bg-magenta/90 text-white uppercase tracking-wider text-lg py-6 disabled:opacity-50"
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                          Envoi en cours...
+                        </>
+                      ) : (
+                        <>
+                          <Send className="w-5 h-5 mr-2" />
+                          Envoyer ma candidature
+                        </>
+                      )}
                     </Button>
                   </div>
 
