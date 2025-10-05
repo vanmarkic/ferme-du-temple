@@ -104,7 +104,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Send confirmation email with sanitized content
     const emailResponse = await resend.emails.send({
-      from: "Beaver Project <onboarding@resend.dev>",
+      from: "La Ferme du Temple <contact@lafermedutemple.be>",
       to: [inscriptionData.email],
       subject: "Votre candidature au projet Beaver 🌱",
       html: `
