@@ -7,6 +7,18 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { Send, Heart, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { z } from "zod";
+
+const inscriptionSchema = z.object({
+  nom: z.string().trim().min(1, "Le nom est requis").max(100, "Le nom est trop long"),
+  prenom: z.string().trim().min(1, "Le prénom est requis").max(100, "Le prénom est trop long"),
+  email: z.string().trim().email("Email invalide").max(255, "L'email est trop long"),
+  telephone: z.string().trim().max(20, "Le téléphone est trop long").optional().or(z.literal("")),
+  motivation: z.string().trim().min(1, "La motivation est requise").max(2000, "La motivation est trop longue"),
+  besoinsSpecifiques: z.string().trim().max(1000, "Les besoins spécifiques sont trop longs").optional().or(z.literal("")),
+  newsletter: z.boolean(),
+  rencontre: z.boolean(),
+});
 export const InscriptionForm = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -23,11 +35,13 @@ export const InscriptionForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validation
-    if (!formData.nom || !formData.prenom || !formData.email || !formData.motivation) {
+    // Validate form data with Zod
+    const validation = inscriptionSchema.safeParse(formData);
+    if (!validation.success) {
+      const firstError = validation.error.errors[0];
       toast({
-        title: "Informations manquantes",
-        description: "Veuillez remplir tous les champs obligatoires.",
+        title: "Validation error",
+        description: firstError.message,
         variant: "destructive"
       });
       return;
@@ -37,7 +51,7 @@ export const InscriptionForm = () => {
 
     try {
       const { data, error } = await supabase.functions.invoke('submit-inscription', {
-        body: formData
+        body: validation.data
       });
 
       if (error) throw error;
@@ -59,10 +73,9 @@ export const InscriptionForm = () => {
         rencontre: false
       });
     } catch (error: any) {
-      console.error("Erreur lors de l'envoi:", error);
       toast({
         title: "Erreur",
-        description: "Une erreur est survenue lors de l'envoi de votre candidature. Veuillez réessayer.",
+        description: "Une erreur est survenue. Veuillez réessayer plus tard.",
         variant: "destructive"
       });
     } finally {
