@@ -25,6 +25,8 @@ export const HeroSection = () => {
               src={interior1} 
               alt="Intérieur de la Ferme du Temple"
               className="w-full h-[70vh] object-cover shadow-2xl"
+              loading="eager"
+              decoding="async"
             />
           </div>
 
@@ -56,6 +58,8 @@ export const HeroSection = () => {
               src={buildingExterior} 
               alt="Bâtiment extérieur de la ferme"
               className="w-full h-[50vh] object-cover relative z-20"
+              loading="lazy"
+              decoding="async"
             />
           </div>
 
@@ -68,6 +72,8 @@ export const HeroSection = () => {
               src={communityField} 
               alt="Communauté dans les champs"
               className="w-full h-[40vh] object-cover shadow-xl"
+              loading="lazy"
+              decoding="async"
             />
             <div className="mt-8 bg-butter-yellow/30 p-6 -ml-8">
               <p className="text-sm uppercase tracking-widest text-rich-black font-medium">
@@ -85,6 +91,8 @@ export const HeroSection = () => {
               src={greenhouse} 
               alt="Serres de la ferme"
               className="w-full h-[45vh] object-cover relative z-20"
+              loading="lazy"
+              decoding="async"
             />
           </div>
         </div>
