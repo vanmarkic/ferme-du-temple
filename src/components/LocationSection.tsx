@@ -114,7 +114,10 @@ export const LocationSection = () => {
             <img 
               src={floorPlan} 
               alt="Plan de la Ferme du Temple"
-              className="w-full h-auto shadow-2xl"
+              className="w-full h-auto shadow-2xl max-w-2xl"
+              loading="lazy"
+              decoding="async"
+              style={{ maxHeight: '800px', objectFit: 'contain' }}
             />
           </div>
         </div>

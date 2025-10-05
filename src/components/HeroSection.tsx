@@ -27,6 +27,7 @@ export const HeroSection = () => {
               className="w-full h-[70vh] object-cover shadow-2xl"
               loading="eager"
               decoding="async"
+              style={{ maxWidth: '1200px', maxHeight: '800px' }}
             />
           </div>
 
@@ -60,6 +61,7 @@ export const HeroSection = () => {
               className="w-full h-[50vh] object-cover relative z-20"
               loading="lazy"
               decoding="async"
+              style={{ maxWidth: '800px', maxHeight: '600px' }}
             />
           </div>
 
@@ -74,6 +76,7 @@ export const HeroSection = () => {
               className="w-full h-[40vh] object-cover shadow-xl"
               loading="lazy"
               decoding="async"
+              style={{ maxWidth: '800px', maxHeight: '500px' }}
             />
             <div className="mt-8 bg-butter-yellow/30 p-6 -ml-8">
               <p className="text-sm uppercase tracking-widest text-rich-black font-medium">
@@ -93,6 +96,7 @@ export const HeroSection = () => {
               className="w-full h-[45vh] object-cover relative z-20"
               loading="lazy"
               decoding="async"
+              style={{ maxWidth: '900px', maxHeight: '550px' }}
             />
           </div>
         </div>
