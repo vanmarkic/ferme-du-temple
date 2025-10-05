@@ -18,7 +18,7 @@ export const HeroSection = () => {
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-center text-white">
         <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
           L'HABITAT PARTAGÉ
-          <span className="block text-accent text-4xl md:text-6xl mt-2">
+          <span className="block text-butter-yellow text-4xl md:text-6xl mt-2 font-extrabold">
             DE LA FERME DU TEMPLE
           </span>
         </h1>
