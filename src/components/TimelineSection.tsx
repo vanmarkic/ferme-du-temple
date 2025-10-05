@@ -47,7 +47,6 @@ export const TimelineSection = () => {
       status: "future",
       icon: Home,
       events: [
-        "Acte complexe",
         "Travaux d'infrastructures",
         "Début des travaux privatifs",
         "Emménagement à la ferme"
