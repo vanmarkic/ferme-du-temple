@@ -1,35 +1,23 @@
-import heroImage from "@/assets/ferme-du-temple-hero.jpg";
-
 export const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image */}
-      <div className="absolute inset-0 z-0">
-        <img
-          src={heroImage}
-          alt="La Ferme du Temple - Habitat partagé historique"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-nature-green/70"></div>
-      </div>
-      
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-butter-yellow">
       {/* Content */}
-      <div className="relative z-10 max-w-4xl mx-auto px-6 text-center text-white">
-        <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+      <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
+        <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight text-rich-black">
           L'HABITAT PARTAGÉ
-          <span className="block text-butter-yellow text-4xl md:text-6xl mt-2 font-extrabold">
+          <span className="block text-magenta text-4xl md:text-6xl mt-2 font-extrabold">
             DE LA FERME DU TEMPLE
           </span>
         </h1>
         
         <div className="max-w-3xl mx-auto mb-8">
-          <p className="text-xl md:text-2xl font-medium mb-4">
+          <p className="text-xl md:text-2xl font-medium mb-4 text-rich-black">
             UN LIEU DE VIE ANCRÉ DANS LE TERRITOIRE,
           </p>
-          <p className="text-xl md:text-2xl font-medium mb-4">
+          <p className="text-xl md:text-2xl font-medium mb-4 text-rich-black">
             DYNAMIQUE ET PRODUCTIF,
           </p>
-          <p className="text-xl md:text-2xl font-medium">
+          <p className="text-xl md:text-2xl font-medium text-rich-black">
             S'ARTICULANT AUTOUR DE LA CULTURE DES ARTS ET DE LA TERRE
           </p>
         </div>
@@ -37,8 +25,8 @@ export const HeroSection = () => {
       
       {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-white/70 rounded-full mt-2"></div>
+        <div className="w-6 h-10 border-2 border-rich-black/50 rounded-full flex justify-center">
+          <div className="w-1 h-3 bg-rich-black/70 rounded-full mt-2"></div>
         </div>
       </div>
     </section>
