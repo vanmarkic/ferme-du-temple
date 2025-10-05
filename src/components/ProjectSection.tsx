@@ -44,7 +44,7 @@ export const ProjectSection = () => {
           ))}
         </div>
 
-        <div className="bg-white rounded-2xl p-8 md:p-12 shadow-warm">
+        <div className="bg-white p-8 md:p-12 shadow-warm">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <h3 className="text-3xl font-bold text-foreground mb-6">

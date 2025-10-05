@@ -63,7 +63,7 @@ All colors MUST be HSL.
     --shadow-yellow: 0 8px 25px -8px hsl(var(--butter-yellow) / 0.4);
     --shadow-warm: 0 4px 20px -4px hsl(var(--magenta) / 0.15);
 
-    --radius: 0.5rem;
+    --radius: 0rem;
 
     --sidebar-background: 0 0% 98%;
 
