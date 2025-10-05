@@ -71,8 +71,7 @@ export const ProjectSection = () => {
               </p>
             </div>
             <div className="text-center">
-              <div className="text-6xl mb-4">🦫</div>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-muted-foreground mb-4">
                 7 adultes • 5 enfants • 4 unités de logement
               </p>
               <p className="text-sm text-muted-foreground mt-2">
