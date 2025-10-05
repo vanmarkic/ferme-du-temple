@@ -1,29 +1,29 @@
 import { Check } from "lucide-react";
-
 export const PricingSection = () => {
-  const units = [
-    {
-      size: "60 M²",
-      price: "187 500 €",
-      breakdown: [
-        { label: "Achat lot privatif", amount: "67 500 €" },
-        { label: "Travaux estimés (2000€/M²)", amount: "120 000 €" }
-      ],
-      popular: false
-    },
-    {
-      size: "120 M²",
-      price: "341 000 €",
-      breakdown: [
-        { label: "Achat lot privatif", amount: "101 000 €" },
-        { label: "Travaux estimés (2000€/M²)", amount: "240 000 €" }
-      ],
-      popular: true
-    }
-  ];
-
-  return (
-    <section className="py-48 bg-background">
+  const units = [{
+    size: "60 M²",
+    price: "187 500 €",
+    breakdown: [{
+      label: "Achat lot privatif",
+      amount: "67 500 €"
+    }, {
+      label: "Travaux estimés (2000€/M²)",
+      amount: "120 000 €"
+    }],
+    popular: false
+  }, {
+    size: "120 M²",
+    price: "341 000 €",
+    breakdown: [{
+      label: "Achat lot privatif",
+      amount: "101 000 €"
+    }, {
+      label: "Travaux estimés (2000€/M²)",
+      amount: "240 000 €"
+    }],
+    popular: true
+  }];
+  return <section className="py-48 bg-background">
       <div className="container mx-auto px-4">
         {/* Title - Bauhaus Asymmetric */}
         <div className="grid grid-cols-12 gap-0 mb-48">
@@ -32,11 +32,11 @@ export const PricingSection = () => {
             <div className="relative">
               <div className="absolute -top-16 right-0 w-48 h-48 bg-butter-yellow/30"></div>
               <h2 className="text-5xl md:text-7xl font-bold text-foreground mb-12 relative z-10">
-                INVESTISSEMENT<br/>ET FINANCEMENT
+                INVESTISSEMENT<br />ET FINANCEMENT
               </h2>
               <div className="bg-magenta text-white p-8 inline-block">
                 <p className="text-2xl font-bold">
-                  6 sur 12 unités<br/>disponibles
+                  6 sur 12 unités<br />disponibles
                 </p>
               </div>
             </div>
@@ -61,12 +61,10 @@ export const PricingSection = () => {
                 </p>
               </div>
               <div className="space-y-4 border-t-2 border-rich-black pt-8">
-                {units[0].breakdown.map((item, i) => (
-                  <div key={i} className="flex justify-between items-start">
+                {units[0].breakdown.map((item, i) => <div key={i} className="flex justify-between items-start">
                     <span className="text-sm text-muted-foreground flex-1">{item.label}</span>
                     <span className="font-bold text-foreground ml-4">{item.amount}</span>
-                  </div>
-                ))}
+                  </div>)}
               </div>
             </div>
           </div>
@@ -78,9 +76,7 @@ export const PricingSection = () => {
               <div className="bg-butter-yellow p-12 relative z-10">
                 <div className="flex items-center gap-4 mb-4">
                   <p className="text-lg text-rich-black uppercase tracking-wider">Surface</p>
-                  <div className="bg-magenta text-white px-4 py-1 text-sm font-bold uppercase">
-                    Populaire
-                  </div>
+                  
                 </div>
                 <div className="text-6xl font-bold text-rich-black mb-8">
                   {units[1].size}
@@ -94,12 +90,10 @@ export const PricingSection = () => {
                   </p>
                 </div>
                 <div className="space-y-4 border-t-2 border-rich-black pt-8">
-                  {units[1].breakdown.map((item, i) => (
-                    <div key={i} className="flex justify-between items-start">
+                  {units[1].breakdown.map((item, i) => <div key={i} className="flex justify-between items-start">
                       <span className="text-sm text-rich-black flex-1">{item.label}</span>
                       <span className="font-bold text-rich-black ml-4">{item.amount}</span>
-                    </div>
-                  ))}
+                    </div>)}
                 </div>
               </div>
             </div>
@@ -145,6 +139,5 @@ export const PricingSection = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
