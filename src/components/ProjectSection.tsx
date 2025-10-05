@@ -80,40 +80,40 @@ export const ProjectSection = () => {
         </div>
 
         {/* Collective Beaver - Asymmetric Grid */}
-        <div className="grid grid-cols-12 gap-16 items-start">
+        <div className="grid grid-cols-12 gap-4 md:gap-16 items-start">
           {/* White Space Left */}
           <div className="hidden md:block col-span-2"></div>
 
           {/* Content */}
-          <div className="col-span-12 md:col-span-8">
-            <div className="relative">
+          <div className="col-span-12 md:col-span-8 px-4 md:px-0">
+            <div className="relative overflow-hidden">
               <div className="absolute -top-12 left-0 w-2 h-48 bg-magenta"></div>
               
-              <h3 className="text-4xl md:text-6xl font-bold text-foreground mb-16 ml-12">
+              <h3 className="text-3xl md:text-4xl lg:text-6xl font-bold text-foreground mb-12 md:mb-16 ml-8 md:ml-12 break-words">
                 POURQUOI LE<br/>COLLECTIF BEAVER?
               </h3>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-                <div className="space-y-8">
-                  <p className="text-muted-foreground leading-relaxed">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
+                <div className="space-y-6 md:space-y-8">
+                  <p className="text-muted-foreground leading-relaxed text-sm md:text-base">
                     Le nom Beaver signifie Castor en anglais. Ce mammifère fait partie d'une espèce-ingénieure 
                     qui, comme l'être humain, aménage son écosystème et modifie intentionnellement son cadre de vie.
                   </p>
-                  <p className="text-muted-foreground leading-relaxed">
+                  <p className="text-muted-foreground leading-relaxed text-sm md:text-base">
                     Espèce facilitatrice d'échanges et "ingénieure de la nature" tout comme le castor, 
                     nous souhaitons fonder un nouveau lieu d'accueil et transformer positivement notre environnement 
                     en soutenant une transition sociale et écologique.
                   </p>
                 </div>
                 
-                <div className="bg-butter-yellow p-8 self-start">
-                  <p className="text-2xl font-bold text-rich-black mb-6">
+                <div className="bg-butter-yellow p-6 md:p-8 self-start">
+                  <p className="text-xl md:text-2xl font-bold text-rich-black mb-4 md:mb-6">
                     7 adultes<br/>
                     5 enfants<br/>
                     4 unités de logement
                   </p>
-                  <div className="h-0.5 w-16 bg-magenta mb-6"></div>
-                  <p className="text-sm text-rich-black uppercase tracking-wider leading-loose">
+                  <div className="h-0.5 w-16 bg-magenta mb-4 md:mb-6"></div>
+                  <p className="text-xs md:text-sm text-rich-black uppercase tracking-wider leading-loose">
                     Architectes<br/>
                     Photographes<br/>
                     Artistes<br/>
