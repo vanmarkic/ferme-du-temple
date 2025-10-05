@@ -31,7 +31,7 @@ export const ProjectSection = () => {
 
         <div className="grid md:grid-cols-3 gap-8 mb-16">
           {poles.map((pole, index) => (
-            <Card key={index} className="group hover:shadow-warm transition-all duration-300 hover:-translate-y-2">
+            <Card key={index} className="group hover:shadow-warm transition-shadow duration-300">
               <CardContent className="p-8 text-center">
                 <h3 className="text-xl font-bold text-foreground mb-4">
                   {pole.title}
