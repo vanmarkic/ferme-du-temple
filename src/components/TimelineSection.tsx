@@ -107,10 +107,10 @@ export const TimelineSection = () => {
                             {getStatusLabel(period.status)}
                           </Badge>
                         </div>
-                        <ul className="space-y-2">
+                        <ul className="space-y-2 list-none">
                           {period.events.map((event, i) => (
                             <li key={i} className="text-muted-foreground leading-relaxed">
-                              • {event}
+                              {event}
                             </li>
                           ))}
                         </ul>
