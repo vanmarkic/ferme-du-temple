@@ -17,57 +17,113 @@ export const ProjectSection = () => {
   ];
 
   return (
-    <section id="projet" className="py-20 bg-background">
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+    <section id="projet" className="py-48 bg-background">
+      <div className="container mx-auto px-4">
+        {/* Title with Bauhaus Geometry */}
+        <div className="relative mb-48 ml-0 md:ml-32">
+          <div className="absolute -top-16 -left-8 w-64 h-2 bg-magenta"></div>
+          <h2 className="text-5xl md:text-7xl font-bold text-foreground mb-12">
             LE PROJET
           </h2>
-          <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-            L'habitat partagé de La Ferme du Temple est une pépinière de projets mixtes et innovants, 
-            articulée autour de trois pôles principaux qui s'enrichissent mutuellement.
-          </p>
+          <div className="max-w-2xl">
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              L'habitat partagé de La Ferme du Temple est une pépinière de projets mixtes et innovants, 
+              articulée autour de trois pôles principaux qui s'enrichissent mutuellement.
+            </p>
+          </div>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
-          {poles.map((pole, index) => (
-            <Card key={index} className="group hover:shadow-warm transition-shadow duration-300">
-              <CardContent className="p-8 text-center">
-                <h3 className="text-xl font-bold text-foreground mb-4">
-                  {pole.title}
-                </h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  {pole.description}
-                </p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
-        <div className="bg-white p-8 md:p-12 shadow-warm">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h3 className="text-3xl font-bold text-foreground mb-6">
-                POURQUOI LE COLLECTIF BEAVER?
+        {/* Three Poles - Asymmetric Bauhaus Layout */}
+        <div className="grid grid-cols-12 gap-0 mb-64">
+          {/* Pole 1 - Top Left */}
+          <div className="col-span-12 md:col-span-4 mb-16 md:mb-0">
+            <div className="bg-butter-yellow p-12 h-full relative">
+              <div className="absolute top-0 right-0 w-16 h-16 bg-magenta"></div>
+              <h3 className="text-2xl font-bold text-rich-black mb-6 uppercase tracking-wider">
+                {poles[0].title}
               </h3>
-              <p className="text-muted-foreground leading-relaxed mb-4">
-                Le nom Beaver signifie Castor en anglais. Ce mammifère fait partie d'une espèce-ingénieure 
-                qui, comme l'être humain, aménage son écosystème et modifie intentionnellement son cadre de vie.
-              </p>
-              <p className="text-muted-foreground leading-relaxed">
-                Espèce facilitatrice d'échanges et "ingénieure de la nature" tout comme le castor, 
-                nous souhaitons fonder un nouveau lieu d'accueil et transformer positivement notre environnement 
-                en soutenant une transition sociale et écologique.
+              <p className="text-rich-black leading-relaxed">
+                {poles[0].description}
               </p>
             </div>
-            <div className="text-center">
-              <p className="text-sm text-muted-foreground mb-4">
-                7 adultes • 5 enfants • 4 unités de logement
+          </div>
+
+          {/* White Space */}
+          <div className="hidden md:block col-span-1"></div>
+
+          {/* Pole 2 - Middle Right, Offset Down */}
+          <div className="col-span-12 md:col-span-5 md:mt-24 mb-16 md:mb-0">
+            <div className="bg-background border-2 border-rich-black p-12 h-full">
+              <h3 className="text-2xl font-bold text-foreground mb-6 uppercase tracking-wider">
+                {poles[1].title}
+              </h3>
+              <p className="text-muted-foreground leading-relaxed">
+                {poles[1].description}
               </p>
-              <p className="text-sm text-muted-foreground mt-2">
-                Architectes • Photographes • Artistes • Enseignants<br/>
-                Musiciens • Herboristes • Entrepreneurs
-              </p>
+            </div>
+          </div>
+
+          {/* Pole 3 - Bottom Left, Full Width on Mobile */}
+          <div className="col-span-12 md:col-span-6 md:col-start-2 md:mt-32">
+            <div className="relative">
+              <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-magenta/20 z-0"></div>
+              <div className="bg-butter-yellow/30 p-12 relative z-10">
+                <h3 className="text-2xl font-bold text-rich-black mb-6 uppercase tracking-wider">
+                  {poles[2].title}
+                </h3>
+                <p className="text-rich-black leading-relaxed">
+                  {poles[2].description}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Collective Beaver - Asymmetric Grid */}
+        <div className="grid grid-cols-12 gap-16 items-start">
+          {/* White Space Left */}
+          <div className="hidden md:block col-span-2"></div>
+
+          {/* Content */}
+          <div className="col-span-12 md:col-span-8">
+            <div className="relative">
+              <div className="absolute -top-12 left-0 w-2 h-48 bg-magenta"></div>
+              
+              <h3 className="text-4xl md:text-6xl font-bold text-foreground mb-16 ml-12">
+                POURQUOI LE<br/>COLLECTIF BEAVER?
+              </h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+                <div className="space-y-8">
+                  <p className="text-muted-foreground leading-relaxed">
+                    Le nom Beaver signifie Castor en anglais. Ce mammifère fait partie d'une espèce-ingénieure 
+                    qui, comme l'être humain, aménage son écosystème et modifie intentionnellement son cadre de vie.
+                  </p>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Espèce facilitatrice d'échanges et "ingénieure de la nature" tout comme le castor, 
+                    nous souhaitons fonder un nouveau lieu d'accueil et transformer positivement notre environnement 
+                    en soutenant une transition sociale et écologique.
+                  </p>
+                </div>
+                
+                <div className="bg-butter-yellow p-8 self-start">
+                  <p className="text-2xl font-bold text-rich-black mb-6">
+                    7 adultes<br/>
+                    5 enfants<br/>
+                    4 unités de logement
+                  </p>
+                  <div className="h-0.5 w-16 bg-magenta mb-6"></div>
+                  <p className="text-sm text-rich-black uppercase tracking-wider leading-loose">
+                    Architectes<br/>
+                    Photographes<br/>
+                    Artistes<br/>
+                    Enseignants<br/>
+                    Musiciens<br/>
+                    Herboristes<br/>
+                    Entrepreneurs
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
