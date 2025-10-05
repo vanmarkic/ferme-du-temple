@@ -23,14 +23,14 @@ export const PricingSection = () => {
     }],
     popular: true
   }];
-  return <section className="py-48 bg-background">
+  return <section className="py-48 bg-background overflow-hidden">
       <div className="container mx-auto px-4">
         {/* Title - Bauhaus Asymmetric */}
         <div className="grid grid-cols-12 gap-0 mb-48">
           <div className="col-span-12 md:col-span-2"></div>
           <div className="col-span-12 md:col-span-8">
-            <div className="relative">
-              <div className="absolute -top-16 right-0 w-48 h-48 bg-butter-yellow/30"></div>
+            <div className="relative overflow-hidden">
+              <div className="hidden md:block absolute -top-16 right-0 w-48 h-48 bg-butter-yellow/30"></div>
               <h2 className="text-5xl md:text-7xl font-bold text-foreground mb-12 relative z-10">
                 INVESTISSEMENT<br />ET FINANCEMENT
               </h2>
@@ -71,8 +71,8 @@ export const PricingSection = () => {
 
           {/* 120 M² - Offset and Overlapping */}
           <div className="col-span-12 md:col-span-6 md:col-start-6 md:-mt-24 relative z-30">
-            <div className="relative">
-              <div className="absolute -bottom-12 -right-12 w-32 h-32 bg-magenta z-0"></div>
+            <div className="relative overflow-hidden">
+              <div className="hidden md:block absolute -bottom-12 -right-12 w-32 h-32 bg-magenta z-0"></div>
               <div className="bg-butter-yellow p-12 relative z-10">
                 <div className="flex items-center gap-4 mb-4">
                   <p className="text-lg text-rich-black uppercase tracking-wider">Surface</p>

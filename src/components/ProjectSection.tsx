@@ -17,11 +17,11 @@ export const ProjectSection = () => {
   ];
 
   return (
-    <section id="projet" className="py-48 bg-background">
+    <section id="projet" className="py-48 bg-background overflow-hidden">
       <div className="container mx-auto px-4">
         {/* Title with Bauhaus Geometry */}
         <div className="relative mb-48 ml-0 md:ml-32">
-          <div className="absolute -top-16 -left-8 w-64 h-2 bg-magenta"></div>
+          <div className="hidden md:block absolute -top-16 -left-8 w-64 h-2 bg-magenta"></div>
           <h2 className="text-5xl md:text-7xl font-bold text-foreground mb-12">
             LE PROJET
           </h2>
@@ -65,8 +65,8 @@ export const ProjectSection = () => {
 
           {/* Pole 3 - Bottom Left, Full Width on Mobile */}
           <div className="col-span-12 md:col-span-6 md:col-start-2 md:mt-32">
-            <div className="relative">
-              <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-magenta/20 z-0"></div>
+            <div className="relative overflow-hidden">
+              <div className="hidden md:block absolute -bottom-8 -right-8 w-32 h-32 bg-magenta/20 z-0"></div>
               <div className="bg-butter-yellow/30 p-12 relative z-10">
                 <h3 className="text-2xl font-bold text-rich-black mb-6 uppercase tracking-wider">
                   {poles[2].title}
