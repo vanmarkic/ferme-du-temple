@@ -20,15 +20,34 @@ export const MapView = () => {
     // Initialize map - Coordinates for Ferme du Temple, Frameries
     const map = L.map(mapRef.current).setView([50.3993, 3.9047], 9);
 
-    // Add OpenStreetMap tiles
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    // Add minimalist Carto tiles with custom styling
+    L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      maxZoom: 19,
     }).addTo(map);
 
+    // Create custom marker icon with brand colors
+    const customIcon = L.divIcon({
+      className: 'custom-map-marker',
+      html: `<div style="
+        width: 24px; 
+        height: 24px; 
+        background-color: hsl(330, 90%, 50%); 
+        border: 3px solid hsl(0, 0%, 5%);
+        border-radius: 50%;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      "></div>`,
+      iconSize: [24, 24],
+      iconAnchor: [12, 12],
+    });
+
     // Add marker for Ferme du Temple
-    const marker = L.marker([50.3993, 3.9047]).addTo(map);
+    const marker = L.marker([50.3993, 3.9047], { icon: customIcon }).addTo(map);
     marker.bindPopup(
-      "<strong>La Ferme du Temple</strong><br />227 rue Joseph Wauters<br />7080 Frameries, Belgique"
+      `<div style="font-family: system-ui; padding: 8px;">
+        <strong style="color: hsl(330, 90%, 50%); font-size: 14px;">La Ferme du Temple</strong><br/>
+        <span style="color: hsl(0, 0%, 10%); font-size: 12px;">227 rue Joseph Wauters<br/>7080 Frameries, Belgique</span>
+      </div>`
     );
 
     mapInstanceRef.current = map;
@@ -45,8 +64,11 @@ export const MapView = () => {
   return (
     <div
       ref={mapRef}
-      className="w-full h-full"
-      style={{ minHeight: "450px" }}
+      className="w-full h-full border-4 border-rich-black"
+      style={{ 
+        minHeight: "450px",
+        filter: "grayscale(20%) contrast(1.1)"
+      }}
     />
   );
 };
