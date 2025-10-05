@@ -7,17 +7,10 @@ export const Footer = () => {
     "Dragan Markovic", "Séverin Malaud"
   ];
 
-  const partenaires = [
-    { name: "ALTERA", url: "www.alteraprojects.be", role: "Accompagnement" },
-    { name: "HABITAT ET PARTICIPATION", url: "www.habitat-participation.be", role: "Accompagnement" },
-    { name: "CARTON 123", url: "www.carton123.be", role: "Architectes" },
-    { name: "NOTAIRE ERNEUX", url: "", role: "Notaire" }
-  ];
-
   return (
     <footer className="bg-nature-dark text-white py-16">
       <div className="max-w-6xl mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="max-w-4xl mx-auto">
           {/* Contact */}
           <div>
             <h3 className="text-2xl font-bold mb-6">Contact</h3>
@@ -38,29 +31,6 @@ export const Footer = () => {
                   <span key={index}>{contact}</span>
                 ))}
               </div>
-            </div>
-          </div>
-
-          {/* Partenaires */}
-          <div>
-            <h3 className="text-2xl font-bold mb-6">Nos partenaires</h3>
-            <div className="space-y-4">
-              {partenaires.map((partenaire, index) => (
-                <div key={index}>
-                  <h4 className="font-semibold text-accent">{partenaire.name}</h4>
-                  <p className="text-sm text-gray-300">{partenaire.role}</p>
-                  {partenaire.url && (
-                    <a 
-                      href={`https://${partenaire.url}`} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-sm text-gray-400 hover:text-accent transition-colors"
-                    >
-                      {partenaire.url}
-                    </a>
-                  )}
-                </div>
-              ))}
             </div>
           </div>
         </div>
