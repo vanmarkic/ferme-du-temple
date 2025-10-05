@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { Mail, MapPin } from "lucide-react";
 
 export const Footer = () => {
@@ -18,7 +17,7 @@ export const Footer = () => {
   return (
     <footer className="bg-nature-dark text-white py-16">
       <div className="max-w-6xl mx-auto px-6">
-        <div className="grid lg:grid-cols-3 gap-12">
+        <div className="grid lg:grid-cols-2 gap-12">
           {/* Contact */}
           <div>
             <h3 className="text-2xl font-bold mb-6">Contact</h3>
@@ -69,23 +68,6 @@ export const Footer = () => {
                 </div>
               ))}
             </div>
-          </div>
-
-          {/* Call to action */}
-          <div>
-            <h3 className="text-2xl font-bold mb-6">Rejoignez-nous</h3>
-            <p className="text-gray-300 mb-6 leading-relaxed">
-              N'hésitez pas à nous contacter si vous désirez avoir plus d'informations 
-              sur le projet et la Ferme du Temple. Nous nous ferons un 
-              plaisir de vous en dire davantage.
-            </p>
-            <Button 
-              variant="nature"
-              onClick={() => document.getElementById('inscription')?.scrollIntoView({ behavior: 'smooth' })}
-              className="w-full"
-            >
-              Candidater maintenant
-            </Button>
           </div>
         </div>
 
