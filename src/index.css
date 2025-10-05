@@ -27,7 +27,7 @@ All colors MUST be HSL.
     --muted-foreground: 0 0% 40%;
 
     --accent: 330 90% 50%;
-    --accent-foreground: 0 0% 100%;
+    --accent-foreground: 0 0% 10%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
@@ -36,13 +36,15 @@ All colors MUST be HSL.
     --input: 40 15% 95%;
     --ring: 330 90% 50%;
 
-    /* Custom design tokens - Inspired by the print design */
+    /* Custom design tokens - Bold print-inspired palette */
     --magenta: 330 90% 50%;
     --magenta-dark: 330 70% 40%;
+    --butter-yellow: 48 95% 76%;
     --warm-beige: 40 30% 92%;
     --soft-cream: 40 35% 98%;
     --concrete-light: 40 15% 95%;
     --text-dark: 0 0% 10%;
+    --rich-black: 0 0% 5%;
     
     /* Legacy tokens for compatibility */
     --nature-green: 330 90% 50%;
@@ -51,11 +53,14 @@ All colors MUST be HSL.
     
     /* Gradients - Bold and modern */
     --gradient-magenta: linear-gradient(135deg, hsl(var(--magenta)), hsl(var(--magenta-dark)));
+    --gradient-yellow: linear-gradient(135deg, hsl(var(--butter-yellow)), hsl(48 90% 70%));
     --gradient-beige: linear-gradient(180deg, hsl(var(--warm-beige)), hsl(var(--soft-cream)));
     --gradient-hero: linear-gradient(135deg, hsl(var(--magenta) / 0.9), hsl(var(--magenta-dark) / 0.8));
+    --gradient-accent: linear-gradient(120deg, hsl(var(--butter-yellow)), hsl(var(--magenta)));
     
     /* Shadows */
     --shadow-magenta: 0 10px 30px -10px hsl(var(--magenta) / 0.3);
+    --shadow-yellow: 0 8px 25px -8px hsl(var(--butter-yellow) / 0.4);
     --shadow-warm: 0 4px 20px -4px hsl(var(--magenta) / 0.15);
 
     --radius: 0.5rem;
