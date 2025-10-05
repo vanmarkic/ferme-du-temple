@@ -67,11 +67,7 @@ export const InscriptionForm = () => {
               <h2 className="text-5xl md:text-7xl font-bold text-foreground mb-12 relative z-10 uppercase">
                 Rejoindre<br />l'aventure
               </h2>
-              <p className="text-xl text-muted-foreground max-w-2xl leading-relaxed">
-                Vous êtes intéressé·e par notre projet d'habitat partagé ? 
-                Remplissez ce formulaire pour témoigner votre intérêt envers le projet. 
-                Nous vous recontacterons dans les semaines à venir pour vous communiquer le reste du processus.
-              </p>
+              <p className="text-xl text-muted-foreground max-w-2xl leading-relaxed">Remplissez ce formulaire pour témoigner votre intérêt envers le projet. Nous vous recontacterons dans les semaines à venir pour vous communiquer le reste du processus.</p>
             </div>
           </div>
         </div>
