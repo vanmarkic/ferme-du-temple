@@ -68,7 +68,8 @@ export const InscriptionForm = () => {
                 Rejoindre<br />l'aventure
               </h2>
               <p className="text-xl text-muted-foreground max-w-2xl leading-relaxed">
-                pour témoigner votre intérêt envers le projet. Nous vous recontacterons dans les semaines à venir pour vous communiquer le reste du processus.
+                Vous êtes intéressé·e par notre projet d'habitat partagé ? 
+                Remplissez ce formulaire pour candidater comme futur·e co-acquéreur·se.
               </p>
             </div>
           </div>
