@@ -32,6 +32,16 @@ export const Footer = () => {
                 ))}
               </div>
             </div>
+
+            {/* Partners - Restored */}
+            <div className="mt-8">
+              <h4 className="font-semibold mb-3">Partenaires</h4>
+              <div className="grid grid-cols-1 gap-2 text-sm text-gray-300">
+                <p><strong>Architectes :</strong> Carton 123</p>
+                <p><strong>Notaire :</strong> Maître Delphine Delhaye</p>
+                <p><strong>Conseil en management :</strong> Altera Consulting</p>
+              </div>
+            </div>
           </div>
         </div>
 

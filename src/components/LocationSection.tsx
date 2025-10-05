@@ -1,123 +1,174 @@
-import { Card, CardContent } from "@/components/ui/card";
 import { MapPin, Train, Car, Plane } from "lucide-react";
 import { MapView } from "./MapView";
 import { PropertyCarousel } from "./PropertyCarousel";
+import floorPlan from "@/assets/floor-plan.png";
+
 
 export const LocationSection = () => {
   return (
-    <section className="py-20 bg-white">
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <h2 className="text-4xl font-bold text-foreground mb-8">
-              LA FERME DU TEMPLE
-            </h2>
-            <div className="space-y-6">
-              <div className="flex items-start gap-4">
-                <MapPin className="w-6 h-6 text-nature-green mt-1 flex-shrink-0" />
-                <div>
-                  <h3 className="text-xl font-semibold text-foreground mb-2">Localisation</h3>
-                  <p className="text-muted-foreground">
-                    227 rue Joseph Wauters, 7080 Frameries<br/>
-                    Proche de Mons, Province du Hainaut, Belgique
+    <section className="py-48 bg-background">
+      <div className="container mx-auto px-4">
+        {/* Section Title - Bauhaus Style */}
+        <div className="grid grid-cols-12 gap-0 mb-48">
+          <div className="col-span-12 md:col-span-7">
+            <div className="relative">
+              <div className="absolute -left-8 top-0 w-2 h-64 bg-butter-yellow"></div>
+              <h2 className="text-5xl md:text-7xl font-bold text-foreground mb-12 ml-8">
+                LA FERME<br/>DU TEMPLE
+              </h2>
+            </div>
+          </div>
+          <div className="col-span-12 md:col-span-5 md:mt-24">
+            <div className="flex items-start gap-4 bg-butter-yellow p-8">
+              <MapPin className="w-8 h-8 text-magenta mt-1 flex-shrink-0" />
+              <div>
+                <p className="text-lg font-bold text-rich-black mb-2">227 avenue Joseph Wauters</p>
+                <p className="text-rich-black">7080 Frameries</p>
+                <p className="text-rich-black">Province du Hainaut, Belgique</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Transport Grid - Asymmetric Layout */}
+        <div className="grid grid-cols-12 gap-8 mb-64">
+          {/* Train */}
+          <div className="col-span-12 md:col-span-5 relative">
+            <div className="absolute -top-8 -left-8 w-24 h-24 bg-magenta/20"></div>
+            <div className="bg-background border-2 border-rich-black p-8 relative z-10">
+              <div className="flex items-center gap-3 mb-6">
+                <Train className="w-6 h-6 text-magenta" />
+                <h4 className="font-bold text-xl uppercase tracking-wider">Transport ferroviaire</h4>
+              </div>
+              <ul className="space-y-3 text-muted-foreground">
+                <li>Gare SNCB Frameries : 5min à pied</li>
+                <li>Mons : 5min en train</li>
+                <li>Bruxelles : 1H05</li>
+                <li>Tournai : 45min</li>
+                <li>Lille : 1H20</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* White Space */}
+          <div className="hidden md:block col-span-1"></div>
+
+          {/* Car - Offset */}
+          <div className="col-span-12 md:col-span-5 md:mt-24">
+            <div className="bg-butter-yellow p-8">
+              <div className="flex items-center gap-3 mb-6">
+                <Car className="w-6 h-6 text-rich-black" />
+                <h4 className="font-bold text-xl uppercase tracking-wider text-rich-black">Transport routier</h4>
+              </div>
+              <ul className="space-y-3 text-rich-black">
+                <li>Mons : 15min</li>
+                <li>Bruxelles : 1h</li>
+                <li>Tournai : 1h</li>
+                <li>Vélo via Ravel : 25min vers Mons</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Airport - Full Width Below */}
+          <div className="col-span-12 md:col-span-4 md:col-start-3">
+            <div className="bg-butter-yellow/30 border-2 border-butter-yellow p-8">
+              <div className="flex items-center gap-3 mb-4">
+                <Plane className="w-6 h-6 text-rich-black" />
+                <h4 className="font-bold text-xl uppercase tracking-wider">Aéroport</h4>
+              </div>
+              <p className="text-muted-foreground">Aéroport de Charleroi : 40min en voiture</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Historical Heritage - Overlapping Layout */}
+        <div className="grid grid-cols-12 gap-0 mb-64">
+          <div className="col-span-12 md:col-span-6 md:col-start-2 mb-16 md:mb-0">
+            <div className="relative">
+              <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-magenta z-0"></div>
+              <div className="bg-background p-12 relative z-10">
+                <h3 className="text-3xl md:text-5xl font-bold text-foreground mb-8 uppercase">
+                  Un patrimoine<br/>historique<br/>exceptionnel
+                </h3>
+                <div className="space-y-6 text-muted-foreground leading-relaxed">
+                  <p>
+                    La Ferme du Temple garde en elle les souvenirs d'un passé chargé d'histoire. 
+                    Son histoire commence avec les chevaliers de l'Ordre des Templiers qui firent bâtir 
+                    une chapelle datant du XIIe siècle.
+                  </p>
+                  <p>
+                    Le Temple était une commanderie, le siège d'une exploitation agricole servant de 
+                    pied à terre, d'auberge et de relais pour les membres de l'Ordre.
+                  </p>
+                  <p>
+                    En 1858, Victor Mirland, industriel français, acheta la « Ferme du Temple » 
+                    pour y développer une fabrique de pâtes de fruits et confitures « Mirland & Cie » 
+                    jusqu'en 1979.
                   </p>
                 </div>
               </div>
+            </div>
+          </div>
 
-              <div className="grid sm:grid-cols-2 gap-6">
-                <Card className="border-nature-green/20">
-                  <CardContent className="p-6">
-                    <div className="flex items-center gap-3 mb-3">
-                      <Train className="w-5 h-5 text-nature-green" />
-                      <h4 className="font-semibold">Transport ferroviaire</h4>
-                    </div>
-                    <ul className="text-sm text-muted-foreground space-y-1">
-                      <li>Gare SNCB Frameries : 5min à pied</li>
-                      <li>Mons : 5min en train</li>
-                      <li>Bruxelles : 1H05</li>
-                      <li>Tournai : 45min</li>
-                      <li>Lille : 1H20</li>
-                    </ul>
-                  </CardContent>
-                </Card>
+          <div className="col-span-12 md:col-span-5 md:-ml-16 relative z-20">
+            <img 
+              src={floorPlan} 
+              alt="Plan de la Ferme du Temple"
+              className="w-full h-auto shadow-2xl"
+            />
+          </div>
+        </div>
 
-                <Card className="border-nature-green/20">
-                  <CardContent className="p-6">
-                    <div className="flex items-center gap-3 mb-3">
-                      <Car className="w-5 h-5 text-nature-green" />
-                      <h4 className="font-semibold">Transport routier</h4>
-                    </div>
-                    <ul className="text-sm text-muted-foreground space-y-1">
-                      <li>Mons : 15min</li>
-                      <li>Bruxelles : 1h</li>
-                      <li>Tournai : 1h</li>
-                      <li>Vélo via Ravel : 25min vers Mons</li>
-                    </ul>
-                  </CardContent>
-                </Card>
+        {/* Domain Today - Bold Typography */}
+        <div className="grid grid-cols-12 gap-16 mb-32">
+          <div className="col-span-12 md:col-span-8 md:col-start-3">
+            <div className="relative">
+              <div className="absolute top-0 left-0 w-32 h-2 bg-magenta"></div>
+              <h4 className="text-4xl md:text-6xl font-bold text-foreground mb-16 mt-8">
+                Le domaine<br/>aujourd'hui
+              </h4>
+              
+              <div className="grid md:grid-cols-2 gap-x-16 gap-y-6 text-lg">
+                <div className="space-y-6">
+                  <p className="text-muted-foreground leading-relaxed">7 hectares de prairies arborées</p>
+                  <p className="text-muted-foreground leading-relaxed">Ruisseau traversant la parcelle</p>
+                  <p className="text-muted-foreground leading-relaxed">Imposant corps de logis historique</p>
+                  <p className="text-muted-foreground leading-relaxed">Ancienne chapelle du XIIe siècle</p>
+                </div>
+                <div className="space-y-6">
+                  <p className="text-muted-foreground leading-relaxed">Ancienne forge et ateliers</p>
+                  <p className="text-muted-foreground leading-relaxed">Écuries surmontées de fenils</p>
+                  <p className="text-muted-foreground leading-relaxed">Serre de 80 mètres</p>
+                </div>
               </div>
-
-              <Card className="border-accent/30 bg-card">
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-3 mb-3">
-                    <Plane className="w-5 h-5 text-nature-brown" />
-                    <h4 className="font-semibold">Aéroport</h4>
-                  </div>
-                  <p className="text-sm text-muted-foreground">
-                    Aéroport de Charleroi : 40min en voiture
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-
-          <div>
-            <h3 className="text-2xl font-bold text-foreground mb-6">
-              UN PATRIMOINE HISTORIQUE EXCEPTIONNEL
-            </h3>
-            <div className="space-y-4 text-muted-foreground">
-              <p>
-                La Ferme du Temple garde en elle les souvenirs d'un passé chargé d'histoire. 
-                Son histoire commence avec les chevaliers de l'Ordre des Templiers qui firent bâtir 
-                une chapelle datant du XIIe siècle.
-              </p>
-              <p>
-                Le Temple était une commanderie, le siège d'une exploitation agricole servant de 
-                pied à terre, d'auberge et de relais pour les membres de l'Ordre.
-              </p>
-              <p>
-                En 1858, Victor Mirland, industriel français, acheta la « Ferme du Temple » 
-                pour y développer une fabrique de pâtes de fruits et confitures « Mirland & Cie » 
-                jusqu'en 1979.
-              </p>
             </div>
           </div>
         </div>
 
-        <div className="mt-16 p-10 bg-nature-green/10 rounded-xl">
-          <h4 className="text-3xl font-bold text-foreground mb-8">Le domaine aujourd'hui</h4>
-          <ul className="space-y-4 text-lg text-muted-foreground mb-12">
-            <li>• 7 hectares de prairies arborées</li>
-            <li>• Ruisseau traversant la parcelle</li>
-            <li>• Imposant corps de logis historique</li>
-            <li>• Ancienne chapelle du XIIe siècle</li>
-            <li>• Ancienne forge et ateliers</li>
-            <li>• Écuries surmontées de fenils</li>
-            <li>• Serre de 80 mètres</li>
-          </ul>
-          
-          <div className="mt-8">
-            <h5 className="text-2xl font-semibold text-foreground mb-6">Découvrez le domaine en images</h5>
-            <PropertyCarousel />
+        {/* Property Carousel */}
+        <div className="mb-48">
+          <div className="mb-12 ml-0 md:ml-16">
+            <h5 className="text-3xl md:text-5xl font-bold text-foreground uppercase">
+              Découvrez le domaine<br/>en images
+            </h5>
           </div>
+          <PropertyCarousel />
         </div>
 
-        <div className="mt-12">
-          <h3 className="text-2xl font-bold text-foreground mb-6 text-center">
-            Localisation sur la carte
-          </h3>
-          <div className="rounded-xl overflow-hidden shadow-lg border border-nature-green/20">
-            <MapView />
+        {/* Map */}
+        <div className="grid grid-cols-12 gap-0">
+          <div className="col-span-12 md:col-span-10 md:col-start-2">
+            <div className="relative">
+              <div className="absolute -top-8 -right-8 w-64 h-64 bg-butter-yellow/30 z-0"></div>
+              <div className="relative z-10">
+                <h3 className="text-3xl font-bold text-foreground mb-8 uppercase tracking-wider">
+                  Localisation sur la carte
+                </h3>
+                <div className="shadow-2xl border-4 border-rich-black">
+                  <MapView />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

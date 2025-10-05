@@ -1,4 +1,3 @@
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CalendarDays, MapPin, Building, Home } from "lucide-react";
 
@@ -58,8 +57,8 @@ export const TimelineSection = () => {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "completed": return "bg-nature-green text-white";
-      case "current": return "bg-accent text-foreground";
+      case "completed": return "bg-magenta text-white";
+      case "current": return "bg-butter-yellow text-rich-black";
       case "future": return "bg-muted text-muted-foreground";
       default: return "bg-muted text-muted-foreground";
     }
@@ -75,76 +74,86 @@ export const TimelineSection = () => {
   };
 
   return (
-    <section className="py-20 bg-white">
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-foreground mb-6">
-            PLANNING PRÉVISIONNEL
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Nous travaillons depuis plus d'un an au montage de notre futur habitat partagé. 
-            Voici les grandes étapes de notre parcours vers l'emménagement.
-          </p>
-        </div>
-
-        <div className="relative">
-          {/* Timeline line */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-nature-green hidden lg:block"></div>
-
-          <div className="space-y-12">
-            {timeline.map((period, index) => {
-              const Icon = period.icon;
-              const isLeft = index % 2 === 0;
-              
-              return (
-                <div key={period.year} className={`flex items-center ${isLeft ? 'lg:flex-row' : 'lg:flex-row-reverse'} flex-col`}>
-                  <div className={`w-full lg:w-5/12 ${isLeft ? 'lg:pr-8' : 'lg:pl-8'}`}>
-                    <Card className={`${period.status === 'current' ? 'border-accent shadow-warm' : ''}`}>
-                      <CardContent className="p-6">
-                        <div className="flex items-center justify-between mb-4">
-                          <h3 className="text-2xl font-bold text-foreground">{period.year}</h3>
-                          <Badge className={getStatusColor(period.status)}>
-                            {getStatusLabel(period.status)}
-                          </Badge>
-                        </div>
-                        <ul className="space-y-2 list-none">
-                          {period.events.map((event, i) => (
-                            <li key={i} className="text-muted-foreground leading-relaxed">
-                              {event}
-                            </li>
-                          ))}
-                        </ul>
-                      </CardContent>
-                    </Card>
-                  </div>
-
-                  {/* Timeline icon */}
-                  <div className="flex items-center justify-center w-16 h-16 bg-white border-4 border-nature-green rounded-full my-4 lg:my-0 relative z-10">
-                    <Icon className="w-6 h-6 text-nature-green" />
-                  </div>
-
-                  <div className="w-full lg:w-5/12"></div>
-                </div>
-              );
-            })}
+    <section className="py-48 bg-background">
+      <div className="container mx-auto px-4">
+        {/* Title */}
+        <div className="grid grid-cols-12 gap-0 mb-48">
+          <div className="col-span-12 md:col-span-8 md:col-start-3">
+            <div className="relative">
+              <div className="absolute -top-8 left-0 w-64 h-2 bg-magenta"></div>
+              <h2 className="text-5xl md:text-7xl font-bold text-foreground mb-12 mt-8">
+                PLANNING<br/>PRÉVISIONNEL
+              </h2>
+              <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl">
+                Nous travaillons depuis plus d'un an au montage de notre futur habitat partagé. 
+                Voici les grandes étapes de notre parcours vers l'emménagement.
+              </p>
+            </div>
           </div>
         </div>
 
-        <div className="mt-16 text-center">
-          <Card className="bg-warm-beige border-nature-green/20 shadow-warm">
-            <CardContent className="p-8">
-              <h3 className="text-2xl md:text-3xl font-bold text-forest-dark mb-4 font-poppins leading-tight">
-                NOUS VOULONS FAIRE DE L'HABITAT PARTAGÉ<br/>
-                DE LA FERME DU TEMPLE
-              </h3>
-              <p className="text-xl md:text-2xl font-bold text-forest-dark mb-2 font-poppins">
-                UN LIEU JOYEUX ET AIMANT,
-              </p>
-              <p className="text-xl md:text-2xl font-bold text-forest-dark font-poppins">
-                OUVERT ET CHALEUREUX, OÙ L'ABONDANCE DE LA VIE PEUT ÊTRE CÉLÉBRÉE !
-              </p>
-            </CardContent>
-          </Card>
+        {/* Timeline - Asymmetric Grid */}
+        <div className="space-y-32">
+          {timeline.map((period, index) => {
+            const Icon = period.icon;
+            const isLeft = index % 2 === 0;
+            
+            return (
+              <div key={period.year} className={`grid grid-cols-12 gap-8 ${!isLeft ? 'md:flex-row-reverse' : ''}`}>
+                {/* Year & Icon */}
+                <div className={`col-span-12 md:col-span-3 ${!isLeft ? 'md:col-start-10 md:text-right' : ''}`}>
+                  <div className={`inline-flex items-center gap-4 ${!isLeft ? 'md:flex-row-reverse' : ''}`}>
+                    <div className="w-16 h-16 bg-magenta flex items-center justify-center">
+                      <Icon className="w-8 h-8 text-white" />
+                    </div>
+                    <div className="text-5xl font-bold text-foreground">
+                      {period.year}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className={`col-span-12 md:col-span-7 ${!isLeft ? 'md:col-start-2' : 'md:col-start-5'}`}>
+                  <div className={`relative ${period.status === 'current' ? 'bg-butter-yellow' : 'bg-background border-2 border-rich-black'} p-10`}>
+                    {period.status === 'current' && (
+                      <div className="absolute -top-8 -right-8 w-32 h-32 bg-magenta/20"></div>
+                    )}
+                    <div className="relative z-10">
+                      <Badge className={`${getStatusColor(period.status)} mb-6 uppercase tracking-wider`}>
+                        {getStatusLabel(period.status)}
+                      </Badge>
+                      <ul className="space-y-4 list-none">
+                        {period.events.map((event, i) => (
+                          <li key={i} className={`text-lg leading-relaxed ${period.status === 'current' ? 'text-rich-black' : 'text-muted-foreground'}`}>
+                            {event}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Final Statement - Bold Typography */}
+        <div className="grid grid-cols-12 gap-0 mt-48">
+          <div className="col-span-12 md:col-span-10 md:col-start-2">
+            <div className="relative">
+              <div className="absolute -bottom-16 -left-16 w-64 h-64 bg-butter-yellow/30"></div>
+              <div className="bg-magenta text-white p-16 relative z-10">
+                <h3 className="text-3xl md:text-5xl font-bold mb-8 leading-tight uppercase">
+                  Nous voulons faire de l'habitat partagé de la Ferme du Temple
+                </h3>
+                <div className="space-y-4 text-2xl md:text-3xl font-bold">
+                  <p>Un lieu joyeux et aimant,</p>
+                  <p>Ouvert et chaleureux,</p>
+                  <p>Où l'abondance de la vie peut être célébrée !</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
