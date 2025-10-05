@@ -1,20 +1,16 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Home, Palette, Sprout } from "lucide-react";
 
 export const ProjectSection = () => {
   const poles = [
     {
-      icon: Home,
       title: "PÔLE HABITAT",
       description: "Une dizaine d'habitations autonomes en copropriété avec des espaces communs : cuisine collective, salle polyvalente, ateliers, espaces d'accueil."
     },
     {
-      icon: Palette,
       title: "PÔLE CULTUREL",
       description: "Un espace pollinisateur pour faire fleurir des idées, cultiver l'art sous différentes formes et tisser des liens sociaux. Un lieu de création et diffusion culturelle."
     },
     {
-      icon: Sprout,
       title: "PÔLE TERRE",
       description: "Plus de 7 hectares pour développer un 'domaine gourmand' : potager, forêt comestible, vergers, vignoble, plantes aromatiques et médicinales."
     }
@@ -34,24 +30,18 @@ export const ProjectSection = () => {
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 mb-16">
-          {poles.map((pole, index) => {
-            const Icon = pole.icon;
-            return (
-              <Card key={index} className="group hover:shadow-warm transition-all duration-300 hover:-translate-y-2">
-                <CardContent className="p-8 text-center">
-                  <div className="w-16 h-16 mx-auto mb-6 bg-nature-green rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <Icon className="w-8 h-8 text-white" />
-                  </div>
-                  <h3 className="text-xl font-bold text-foreground mb-4">
-                    {pole.title}
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {pole.description}
-                  </p>
-                </CardContent>
-              </Card>
-            );
-          })}
+          {poles.map((pole, index) => (
+            <Card key={index} className="group hover:shadow-warm transition-all duration-300 hover:-translate-y-2">
+              <CardContent className="p-8 text-center">
+                <h3 className="text-xl font-bold text-foreground mb-4">
+                  {pole.title}
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  {pole.description}
+                </p>
+              </CardContent>
+            </Card>
+          ))}
         </div>
 
         <div className="bg-white rounded-2xl p-8 md:p-12 shadow-warm">
