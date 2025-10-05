@@ -6,9 +6,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { Send, Heart } from "lucide-react";
-
 export const InscriptionForm = () => {
-  const { toast } = useToast();
+  const {
+    toast
+  } = useToast();
   const [formData, setFormData] = useState({
     nom: "",
     prenom: "",
@@ -19,10 +20,9 @@ export const InscriptionForm = () => {
     newsletter: false,
     rencontre: false
   });
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validation simple
     if (!formData.nom || !formData.prenom || !formData.email || !formData.motivation) {
       toast({
@@ -36,7 +36,7 @@ export const InscriptionForm = () => {
     // Simulation de l'envoi
     toast({
       title: "Candidature envoyée ! 🌱",
-      description: "Nous vous recontacterons très prochainement pour échanger sur votre projet.",
+      description: "Nous vous recontacterons très prochainement pour échanger sur votre projet."
     });
 
     // Reset du formulaire
@@ -51,13 +51,13 @@ export const InscriptionForm = () => {
       rencontre: false
     });
   };
-
   const handleChange = (field: string, value: string | boolean) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData(prev => ({
+      ...prev,
+      [field]: value
+    }));
   };
-
-  return (
-    <section id="inscription" className="py-48 bg-background">
+  return <section id="inscription" className="py-48 bg-background">
       <div className="container mx-auto px-4">
         {/* Title - Bauhaus Style */}
         <div className="grid grid-cols-12 gap-0 mb-48">
@@ -65,7 +65,7 @@ export const InscriptionForm = () => {
             <div className="relative">
               <div className="absolute -top-16 -right-8 w-48 h-48 bg-magenta/20"></div>
               <h2 className="text-5xl md:text-7xl font-bold text-foreground mb-12 relative z-10 uppercase">
-                Rejoindre<br/>l'aventure
+                Rejoindre<br />l'aventure
               </h2>
               <p className="text-xl text-muted-foreground max-w-2xl leading-relaxed">
                 Vous êtes intéressé·e par notre projet d'habitat partagé ? 
@@ -90,103 +90,39 @@ export const InscriptionForm = () => {
                   <div className="grid md:grid-cols-2 gap-8">
                     <div className="space-y-3">
                       <Label htmlFor="nom" className="text-lg font-bold uppercase tracking-wider">Nom *</Label>
-                      <Input
-                        id="nom"
-                        value={formData.nom}
-                        onChange={(e) => handleChange("nom", e.target.value)}
-                        placeholder="Votre nom"
-                        className="border-2 border-rich-black"
-                        required
-                      />
+                      <Input id="nom" value={formData.nom} onChange={e => handleChange("nom", e.target.value)} placeholder="Votre nom" className="border-2 border-rich-black" required />
                     </div>
                     <div className="space-y-3">
                       <Label htmlFor="prenom" className="text-lg font-bold uppercase tracking-wider">Prénom *</Label>
-                      <Input
-                        id="prenom"
-                        value={formData.prenom}
-                        onChange={(e) => handleChange("prenom", e.target.value)}
-                        placeholder="Votre prénom"
-                        className="border-2 border-rich-black"
-                        required
-                      />
+                      <Input id="prenom" value={formData.prenom} onChange={e => handleChange("prenom", e.target.value)} placeholder="Votre prénom" className="border-2 border-rich-black" required />
                     </div>
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-8">
                     <div className="space-y-3">
                       <Label htmlFor="email" className="text-lg font-bold uppercase tracking-wider">Email *</Label>
-                      <Input
-                        id="email"
-                        type="email"
-                        value={formData.email}
-                        onChange={(e) => handleChange("email", e.target.value)}
-                        placeholder="votre@email.com"
-                        className="border-2 border-rich-black"
-                        required
-                      />
+                      <Input id="email" type="email" value={formData.email} onChange={e => handleChange("email", e.target.value)} placeholder="votre@email.com" className="border-2 border-rich-black" required />
                     </div>
                     <div className="space-y-3">
                       <Label htmlFor="telephone" className="text-lg font-bold uppercase tracking-wider">Téléphone</Label>
-                      <Input
-                        id="telephone"
-                        value={formData.telephone}
-                        onChange={(e) => handleChange("telephone", e.target.value)}
-                        placeholder="+32 XXX XX XX XX"
-                        className="border-2 border-rich-black"
-                      />
+                      <Input id="telephone" value={formData.telephone} onChange={e => handleChange("telephone", e.target.value)} placeholder="+32 XXX XX XX XX" className="border-2 border-rich-black" />
                     </div>
                   </div>
 
                   <div className="space-y-3">
                     <Label htmlFor="motivation" className="text-lg font-bold uppercase tracking-wider">Votre motivation *</Label>
-                    <Textarea
-                      id="motivation"
-                      value={formData.motivation}
-                      onChange={(e) => handleChange("motivation", e.target.value)}
-                      placeholder="Parlez-nous de votre motivation pour rejoindre le projet Beaver, vos valeurs, ce qui vous attire dans l'habitat partagé..."
-                      rows={5}
-                      className="border-2 border-rich-black"
-                      required
-                    />
+                    <Textarea id="motivation" value={formData.motivation} onChange={e => handleChange("motivation", e.target.value)} placeholder="Parlez-nous de votre motivation pour rejoindre le projet Beaver, vos valeurs, ce qui vous attire dans l'habitat partagé..." rows={5} className="border-2 border-rich-black" required />
                   </div>
 
                   <div className="space-y-3">
                     <Label htmlFor="besoinsSpecifiques" className="text-lg font-bold uppercase tracking-wider">Besoins spécifiques</Label>
-                    <Textarea
-                      id="besoinsSpecifiques"
-                      value={formData.besoinsSpecifiques}
-                      onChange={(e) => handleChange("besoinsSpecifiques", e.target.value)}
-                      placeholder="Avez-vous des besoins spécifiques ou des contraintes particulières que nous devrions connaître ? (accessibilité, allergies, etc.)"
-                      rows={4}
-                      className="border-2 border-rich-black"
-                    />
+                    <Textarea id="besoinsSpecifiques" value={formData.besoinsSpecifiques} onChange={e => handleChange("besoinsSpecifiques", e.target.value)} placeholder="Avez-vous des besoins spécifiques ou des contraintes particulières que nous devrions connaître ? (accessibilité, allergies, etc.)" rows={4} className="border-2 border-rich-black" />
                   </div>
 
-                  <div className="space-y-6 bg-butter-yellow/10 p-8 border-2 border-butter-yellow">
-                    <div className="flex items-center space-x-3">
-                      <Checkbox
-                        id="newsletter"
-                        checked={formData.newsletter}
-                        onCheckedChange={(checked) => handleChange("newsletter", checked === true)}
-                      />
-                      <Label htmlFor="newsletter" className="text-base leading-relaxed cursor-pointer">
-                        Je souhaite recevoir les actualités du projet par email
-                      </Label>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <Checkbox
-                        id="rencontre"
-                        checked={formData.rencontre}
-                        onCheckedChange={(checked) => handleChange("rencontre", checked === true)}
-                      />
-                      <Label htmlFor="rencontre" className="text-base leading-relaxed cursor-pointer">
-                        J'aimerais organiser une rencontre pour visiter le lieu et rencontrer le collectif
-                      </Label>
-                    </div>
-                  </div>
+                  
 
                   <div className="relative">
-                    <div className="absolute -top-4 -right-4 w-16 h-16 bg-magenta z-0"></div>
+                    
                     <Button type="submit" variant="nature" size="lg" className="w-full relative z-10 bg-magenta hover:bg-magenta/90 text-white uppercase tracking-wider text-lg py-6">
                       <Send className="w-5 h-5 mr-2" />
                       Envoyer ma candidature
@@ -204,6 +140,5 @@ export const InscriptionForm = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
