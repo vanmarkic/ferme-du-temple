@@ -14,6 +14,30 @@ export type Database = {
   }
   public: {
     Tables: {
+      inscription_attempts: {
+        Row: {
+          attempted_at: string
+          created_at: string
+          email: string | null
+          id: string
+          ip_address: string
+        }
+        Insert: {
+          attempted_at?: string
+          created_at?: string
+          email?: string | null
+          id?: string
+          ip_address: string
+        }
+        Update: {
+          attempted_at?: string
+          created_at?: string
+          email?: string | null
+          id?: string
+          ip_address?: string
+        }
+        Relationships: []
+      }
       inscriptions: {
         Row: {
           besoins_specifiques: string | null
@@ -58,7 +82,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      cleanup_old_inscription_attempts: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never

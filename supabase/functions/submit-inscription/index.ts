@@ -55,6 +55,13 @@ const handler = async (req: Request): Promise<Response> => {
     const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
+    // Get client IP address
+    const clientIP = req.headers.get("x-forwarded-for")?.split(",")[0] || 
+                     req.headers.get("x-real-ip") || 
+                     "unknown";
+
+    console.log("Request from IP:", clientIP);
+
     const requestData = await req.json();
     
     // Validate input data
@@ -71,6 +78,61 @@ const handler = async (req: Request): Promise<Response> => {
     }
 
     const inscriptionData = validation.data;
+
+    // Rate limiting check - Allow max 3 submissions per IP in last hour
+    const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString();
+    const { data: recentAttempts, error: attemptsError } = await supabase
+      .from("inscription_attempts")
+      .select("id")
+      .eq("ip_address", clientIP)
+      .gte("attempted_at", oneHourAgo);
+
+    if (attemptsError) {
+      console.error("Error checking rate limit:", attemptsError);
+    }
+
+    if (recentAttempts && recentAttempts.length >= 3) {
+      console.log("Rate limit exceeded for IP:", clientIP);
+      return new Response(
+        JSON.stringify({ 
+          error: "Trop de tentatives. Veuillez réessayer dans une heure." 
+        }),
+        {
+          status: 429,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+
+    // Also check email-based rate limiting - max 2 per email per day
+    const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+    const { data: emailAttempts } = await supabase
+      .from("inscription_attempts")
+      .select("id")
+      .eq("email", inscriptionData.email)
+      .gte("attempted_at", oneDayAgo);
+
+    if (emailAttempts && emailAttempts.length >= 2) {
+      console.log("Email rate limit exceeded:", inscriptionData.email);
+      return new Response(
+        JSON.stringify({ 
+          error: "Cette adresse email a déjà été utilisée récemment." 
+        }),
+        {
+          status: 429,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+
+    // Record this attempt
+    await supabase
+      .from("inscription_attempts")
+      .insert({
+        ip_address: clientIP,
+        email: inscriptionData.email,
+      });
+
     console.log("Received valid inscription:", { email: inscriptionData.email });
 
     // Insert into database
