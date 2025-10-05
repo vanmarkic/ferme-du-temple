@@ -25,7 +25,7 @@ export const Footer = () => {
               <div className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-accent flex-shrink-0 mt-1" />
                 <div>
-                  <p>227 rue Joseph Wauters</p>
+                  <p>227 avenue Joseph Wauters</p>
                   <p>7080 Frameries, Belgique</p>
                 </div>
               </div>
