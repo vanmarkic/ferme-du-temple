@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/ferme-du-temple-hero.jpg";
 
 export const HeroSection = () => {
@@ -33,25 +32,6 @@ export const HeroSection = () => {
           <p className="text-xl md:text-2xl font-medium">
             S'ARTICULANT AUTOUR DE LA CULTURE DES ARTS ET DE LA TERRE
           </p>
-        </div>
-        
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <Button 
-            variant="nature" 
-            size="lg"
-            onClick={() => document.getElementById('inscription')?.scrollIntoView({ behavior: 'smooth' })}
-            className="text-lg px-8 py-6"
-          >
-            Rejoindre l'aventure
-          </Button>
-          <Button 
-            variant="outline" 
-            size="lg"
-            onClick={() => document.getElementById('projet')?.scrollIntoView({ behavior: 'smooth' })}
-            className="text-lg px-8 py-6 bg-white/10 border-white/30 text-white hover:bg-white/20"
-          >
-            Découvrir le projet
-          </Button>
         </div>
       </div>
       
