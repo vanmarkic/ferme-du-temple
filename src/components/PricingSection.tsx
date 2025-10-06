@@ -49,7 +49,7 @@ export const PricingSection = () => {
           <div className="col-span-12 md:col-span-5 mb-16 md:mb-0 relative z-20">
             <div className="bg-background border-4 border-rich-black p-12">
               <p className="text-lg text-muted-foreground uppercase tracking-wider mb-2">Surface</p>
-              <div className="text-6xl font-bold text-foreground mb-8">
+              <div className="text-6xl font-bold font-display text-foreground mb-8">
                 {units[0].size}
               </div>
               <div className="mb-8">
@@ -78,7 +78,7 @@ export const PricingSection = () => {
                   <p className="text-lg text-rich-black uppercase tracking-wider">Surface</p>
                   
                 </div>
-                <div className="text-6xl font-bold text-rich-black mb-8">
+                <div className="text-6xl font-bold font-display text-rich-black mb-8">
                   {units[1].size}
                 </div>
                 <div className="mb-8">
