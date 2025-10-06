@@ -31,7 +31,7 @@ export const PricingSection = () => {
           <div className="col-span-12 md:col-span-8">
             <div className="relative overflow-hidden">
               <div className="hidden md:block absolute -top-16 right-0 w-48 h-48 bg-butter-yellow/30"></div>
-              <h2 className="text-5xl md:text-7xl font-display text-foreground mb-12 relative z-10">
+              <h2 className="text-3xl md:text-7xl font-display text-foreground mb-12 relative z-10 break-words">
                 INVESTISSEMENT<br />ET FINANCEMENT
               </h2>
               <div className="bg-magenta text-white p-8 inline-block">
