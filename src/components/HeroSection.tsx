@@ -27,7 +27,7 @@ export const HeroSection = () => {
             <img 
               src={interior1} 
               alt="Intérieur de la Ferme du Temple"
-              className="w-full h-[70vh] object-cover shadow-2xl"
+              className="w-full h-[70vh] object-cover shadow-2xl mx-auto"
               loading="eager"
               decoding="async"
               style={{ maxWidth: '1200px', maxHeight: '800px' }}
