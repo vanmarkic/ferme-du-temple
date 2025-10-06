@@ -2,7 +2,7 @@ export const CollaborationSection = () => {
   return (
     <section id="collaboration" className="py-16 px-4 bg-background">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center">
+        <h2 className="text-4xl md:text-5xl font-display mb-12 text-center">
           COLLABORATION
         </h2>
 

@@ -22,7 +22,7 @@ export const ProjectSection = () => {
         {/* Title with Bauhaus Geometry */}
         <div className="relative mb-48 ml-0 md:ml-32">
           <div className="hidden md:block absolute -top-16 -left-8 w-64 h-2 bg-magenta"></div>
-          <h2 className="text-5xl md:text-7xl font-bold text-foreground mb-12">
+          <h2 className="text-5xl md:text-7xl font-display text-foreground mb-12">
             LE PROJET
           </h2>
           <div className="max-w-2xl">
@@ -89,7 +89,7 @@ export const ProjectSection = () => {
             <div className="relative overflow-hidden">
               <div className="absolute -top-12 left-0 w-2 h-48 bg-magenta"></div>
               
-              <h3 className="text-3xl md:text-4xl lg:text-6xl font-bold text-foreground mb-12 md:mb-16 ml-8 md:ml-12 break-words">
+              <h3 className="text-3xl md:text-4xl lg:text-6xl font-display text-foreground mb-12 md:mb-16 ml-8 md:ml-12 break-words">
                 POURQUOI LE<br/>COLLECTIF BEAVER?
               </h3>
               

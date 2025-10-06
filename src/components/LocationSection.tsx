@@ -13,7 +13,7 @@ export const LocationSection = () => {
           <div className="col-span-12 md:col-span-7">
             <div className="relative">
               <div className="absolute -left-8 top-0 w-2 h-64 bg-butter-yellow"></div>
-              <h2 className="text-5xl md:text-7xl font-bold text-foreground mb-12 ml-8">
+              <h2 className="text-5xl md:text-7xl font-display text-foreground mb-12 ml-8">
                 LA FERME<br/>DU TEMPLE
               </h2>
             </div>
@@ -87,7 +87,7 @@ export const LocationSection = () => {
             <div className="relative">
               <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-magenta z-0"></div>
               <div className="bg-background p-12 relative z-10">
-                <h3 className="text-3xl md:text-5xl font-bold text-foreground mb-8 uppercase">
+                <h3 className="text-3xl md:text-5xl font-display text-foreground mb-8 uppercase">
                   Un patrimoine<br/>historique<br/>exceptionnel
                 </h3>
                 <div className="space-y-6 text-muted-foreground leading-relaxed">
@@ -127,7 +127,7 @@ export const LocationSection = () => {
           <div className="max-w-5xl mx-auto">
             <div className="relative overflow-hidden">
               <div className="absolute top-0 left-0 w-16 md:w-32 h-2 bg-magenta"></div>
-              <h4 className="text-3xl md:text-6xl font-bold text-foreground mb-16 mt-8 break-words">
+              <h4 className="text-3xl md:text-6xl font-display text-foreground mb-16 mt-8 break-words">
                 Le domaine<br/>aujourd'hui
               </h4>
               
@@ -151,7 +151,7 @@ export const LocationSection = () => {
         {/* Property Carousel */}
         <div className="mb-48">
           <div className="mb-12 ml-0 md:ml-16">
-            <h5 className="text-3xl md:text-5xl font-bold text-foreground uppercase">
+            <h5 className="text-3xl md:text-5xl font-display text-foreground uppercase">
               Découvrez le domaine<br/>en images
             </h5>
           </div>

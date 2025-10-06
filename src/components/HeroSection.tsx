@@ -33,7 +33,7 @@ export const HeroSection = () => {
 
           {/* Overlapping Text Block */}
           <div className="col-span-12 md:col-span-5 md:col-start-7 md:-ml-32 relative z-30 bg-butter-yellow p-12 md:mt-24">
-            <h2 className="text-3xl md:text-5xl font-bold mb-8 text-magenta">
+            <h2 className="text-3xl md:text-5xl font-display mb-8 text-magenta">
               DE LA FERME DU TEMPLE
             </h2>
             <div className="space-y-6 text-rich-black">

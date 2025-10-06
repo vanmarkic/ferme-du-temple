@@ -95,7 +95,7 @@ export const InscriptionForm = () => {
           <div className="col-span-12 md:col-span-8 md:col-start-3">
             <div className="relative">
               <div className="absolute -top-16 -right-8 w-48 h-48 bg-magenta/20"></div>
-              <h2 className="text-5xl md:text-7xl font-bold text-foreground mb-12 relative z-10 uppercase">
+              <h2 className="text-5xl md:text-7xl font-display text-foreground mb-12 relative z-10 uppercase">
                 Rejoindre<br />l'aventure
               </h2>
               <p className="text-xl text-muted-foreground max-w-2xl leading-relaxed">Remplissez ce formulaire pour témoigner votre intérêt envers le projet. Nous vous recontacterons dans les semaines à venir pour vous communiquer le reste du processus.</p>
