@@ -23,11 +23,11 @@ export const HeroSection = () => {
         {/* Asymmetric Grid with Overlapping Images */}
         <div className="grid grid-cols-12 gap-0 mb-48">
           {/* Large Interior Image - Starting Point */}
-          <div className="col-span-12 md:col-span-7 relative z-20 mb-8 md:mb-0">
+          <div className="col-span-12 flex justify-center items-center relative z-20 mb-8 md:mb-0">
             <img 
               src={interior1} 
               alt="Intérieur de la Ferme du Temple"
-              className="w-full h-[70vh] object-cover shadow-2xl mx-auto"
+              className="w-full h-[70vh] object-cover shadow-2xl"
               loading="eager"
               decoding="async"
               style={{ maxWidth: '1200px', maxHeight: '800px' }}
