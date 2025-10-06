@@ -2,6 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom Fonts */
+@font-face {
+  font-family: 'Poppins Display';
+  src: url('/fonts/BBBPoppinsTN-DisplayBlack.woff2') format('woff2'),
+       url('/fonts/BBBPoppinsTN-DisplayBlack.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins Display';
+  src: url('/fonts/BBBPoppinsTN-DisplayBold.woff2') format('woff2'),
+       url('/fonts/BBBPoppinsTN-DisplayBold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
 All colors MUST be HSL.
 */

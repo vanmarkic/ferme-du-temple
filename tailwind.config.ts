@@ -17,7 +17,7 @@ export default {
         sans: ['Poppins', 'system-ui', 'sans-serif'],
         'poppins': ['Poppins', 'sans-serif'],
         'montserrat': ['Montserrat', 'sans-serif'],
-        'display': ['Montserrat', 'Poppins', 'sans-serif'],
+        'display': ['Poppins Display', 'Montserrat', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
