@@ -10,7 +10,7 @@ export const HeroSection = () => {
       <div className="container mx-auto px-4 py-32">
         {/* Main Title - Positioned Asymmetrically */}
         <div className="relative mb-32 ml-8 md:ml-16">
-          <h1 className="text-6xl md:text-8xl font-bold leading-none text-rich-black">
+          <h1 className="text-6xl md:text-8xl font-display leading-none text-rich-black">
             L'HABITAT
             <span className="block mt-2">PARTAGÉ</span>
           </h1>
