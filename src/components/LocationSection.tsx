@@ -123,8 +123,8 @@ export const LocationSection = () => {
         </div>
 
         {/* Domain Today - Bold Typography */}
-        <div className="grid grid-cols-12 gap-16 mb-32">
-          <div className="col-span-12 md:col-span-8 md:col-start-3">
+        <div className="mb-32 px-4 md:px-0">
+          <div className="max-w-5xl mx-auto">
             <div className="relative overflow-hidden">
               <div className="absolute top-0 left-0 w-16 md:w-32 h-2 bg-magenta"></div>
               <h4 className="text-3xl md:text-6xl font-bold text-foreground mb-16 mt-8 break-words">
