@@ -131,7 +131,7 @@ export const LocationSection = () => {
                 Le domaine<br/>aujourd'hui
               </h4>
               
-              <div className="grid md:grid-cols-2 gap-x-16 gap-y-6 text-lg">
+              <div className="grid md:grid-cols-2 gap-x-4 md:gap-x-16 gap-y-6 text-lg">
                 <div className="space-y-6">
                   <p className="text-muted-foreground leading-relaxed">7 hectares de prairies arborées</p>
                   <p className="text-muted-foreground leading-relaxed">Ruisseau traversant la parcelle</p>
