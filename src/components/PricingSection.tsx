@@ -1,28 +1,26 @@
-import { Check } from "lucide-react";
+import { useEffect, useState } from "react";
+import { loadContent, parseMarkdownSections } from "@/lib/content";
+
 export const PricingSection = () => {
-  const units = [{
-    size: "60 M²",
-    price: "187 500 €",
-    breakdown: [{
-      label: "Achat lot privatif",
-      amount: "67 500 €"
-    }, {
-      label: "Travaux estimés (2000€/M²)",
-      amount: "120 000 €"
-    }],
-    popular: false
-  }, {
-    size: "120 M²",
-    price: "341 000 €",
-    breakdown: [{
-      label: "Achat lot privatif",
-      amount: "101 000 €"
-    }, {
-      label: "Travaux estimés (2000€/M²)",
-      amount: "240 000 €"
-    }],
-    popular: true
-  }];
+  const [content, setContent] = useState<any>({});
+  const [sections, setSections] = useState<Record<string, string[]>>({});
+
+  useEffect(() => {
+    loadContent('pricing.md').then(({ frontmatter, content }) => {
+      setContent(frontmatter);
+      setSections(parseMarkdownSections(content));
+    });
+  }, []);
+
+  const getUnit = (key: string) => {
+    const price = sections[key]?.find(l => !l.startsWith('##') && !l.startsWith('-'))?.trim();
+    const details = sections[key]?.filter(l => l.startsWith('-')).map(l => l.replace(/^- /, '').split(' : '));
+    return { price, details };
+  };
+
+  const unit60 = getUnit("Unité 60 M²");
+  const unit120 = getUnit("Unité 120 M²");
+
   return <section data-testid="pricing-section" className="py-48 bg-background overflow-hidden">
       <div className="container mx-auto px-4">
         {/* Title - Bauhaus Asymmetric */}
@@ -32,7 +30,7 @@ export const PricingSection = () => {
             <div className="relative overflow-hidden">
               <div className="hidden md:block absolute -top-16 right-0 w-48 h-48 bg-butter-yellow/30"></div>
               <h2 className="text-3xl md:text-7xl font-display text-foreground mb-12 relative z-10 break-words">
-                INVESTISSEMENT<br />ET FINANCEMENT
+                {content.title || "INVESTISSEMENT ET FINANCEMENT"}
               </h2>
               <div className="bg-magenta text-white p-8 inline-block">
                 <p className="text-2xl font-bold">
@@ -50,20 +48,20 @@ export const PricingSection = () => {
             <div className="bg-background border-4 border-rich-black p-12">
               <p className="text-lg text-muted-foreground uppercase tracking-wider mb-2">Surface</p>
               <div className="text-6xl font-bold font-display text-foreground mb-8">
-                {units[0].size}
+                60 M²
               </div>
               <div className="mb-8">
                 <div className="text-4xl font-bold text-magenta mb-2">
-                  {units[0].price}
+                  {unit60.price || "280 000 €"}
                 </div>
                 <p className="text-sm uppercase tracking-wider text-muted-foreground">
                   Prix total estimé
                 </p>
               </div>
               <div className="space-y-4 border-t-2 border-rich-black pt-8">
-                {units[0].breakdown.map((item, i) => <div key={i} className="flex justify-between items-start">
-                    <span className="text-sm text-muted-foreground flex-1">{item.label}</span>
-                    <span className="font-bold text-foreground ml-4">{item.amount}</span>
+                {unit60.details?.map((item, i) => <div key={i} className="flex justify-between items-start">
+                    <span className="text-sm text-muted-foreground flex-1">{item[0]}</span>
+                    <span className="font-bold text-foreground ml-4">{item[1]}</span>
                   </div>)}
               </div>
             </div>
@@ -76,23 +74,22 @@ export const PricingSection = () => {
               <div className="bg-butter-yellow p-12 relative z-10">
                 <div className="flex items-center gap-4 mb-4">
                   <p className="text-lg text-rich-black uppercase tracking-wider">Surface</p>
-                  
                 </div>
                 <div className="text-6xl font-bold font-display text-rich-black mb-8">
-                  {units[1].size}
+                  120 M²
                 </div>
                 <div className="mb-8">
                   <div className="text-4xl font-bold text-magenta mb-2">
-                    {units[1].price}
+                    {unit120.price || "480 000 €"}
                   </div>
                   <p className="text-sm uppercase tracking-wider text-rich-black">
                     Prix total estimé
                   </p>
                 </div>
                 <div className="space-y-4 border-t-2 border-rich-black pt-8">
-                  {units[1].breakdown.map((item, i) => <div key={i} className="flex justify-between items-start">
-                      <span className="text-sm text-rich-black flex-1">{item.label}</span>
-                      <span className="font-bold text-rich-black ml-4">{item.amount}</span>
+                  {unit120.details?.map((item, i) => <div key={i} className="flex justify-between items-start">
+                      <span className="text-sm text-rich-black flex-1">{item[0]}</span>
+                      <span className="font-bold text-rich-black ml-4">{item[1]}</span>
                     </div>)}
                 </div>
               </div>
@@ -107,28 +104,16 @@ export const PricingSection = () => {
               <div className="absolute top-0 left-0 w-2 h-full bg-magenta"></div>
               <div className="ml-8 md:ml-12">
                 <h3 className="text-2xl md:text-3xl lg:text-5xl font-display text-foreground mb-8 md:mb-12 uppercase break-words">
-                  Offre acceptée
+                  {content.offerTitle || "Offre acceptée"}
                 </h3>
                 <div className="bg-butter-yellow/30 p-6 md:p-12 border-2 border-butter-yellow">
                   <div className="mb-6 md:mb-8">
                     <div className="text-4xl md:text-6xl lg:text-7xl font-bold text-magenta mb-3 md:mb-4 break-words">
-                      650 000 €
+                      {content.offerPrice || "810 000 €"}
                     </div>
                     <p className="text-lg md:text-2xl font-bold text-foreground uppercase tracking-wider break-words">
-                      La Ferme du Temple
+                      {content.offerDetails || "Acquisition du terrain et de la ferme"}
                     </p>
-                  </div>
-                  <div className="space-y-4 md:space-y-6 text-sm md:text-lg">
-                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 pb-4 border-b-2 border-rich-black/20">
-                      <span className="text-muted-foreground">Prix achat terres et ferme</span>
-                      <span className="font-bold text-foreground">650 000 €</span>
-                    </div>
-                    <div className="pt-4">
-                      <span className="text-muted-foreground block mb-2">Achat en division</span>
-                      <p className="font-bold text-foreground">
-                        Division en lots prévue entre le compromis et l'acte
-                      </p>
-                    </div>
                   </div>
                   <p className="text-xs md:text-sm text-muted-foreground mt-6 md:mt-8 italic">
                     (hors frais de notaire)

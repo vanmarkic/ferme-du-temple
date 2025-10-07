@@ -1,9 +1,17 @@
+import { useEffect, useState } from "react";
 import interior1 from "@/assets/interior-1.jpg";
 import buildingExterior from "@/assets/building-exterior.jpg";
 import communityField from "@/assets/community-field.jpg";
 import greenhouse from "@/assets/greenhouse.jpg";
+import { loadContent } from "@/lib/content";
 
 export const HeroSection = () => {
+  const [content, setContent] = useState<any>({});
+
+  useEffect(() => {
+    loadContent('hero.md').then(({ frontmatter }) => setContent(frontmatter));
+  }, []);
+
   return (
     <section data-testid="hero-section" className="relative min-h-screen bg-background overflow-hidden">
       {/* Bauhaus Grid Layout with Overlapping Elements */}
@@ -11,11 +19,11 @@ export const HeroSection = () => {
         {/* Main Title - Positioned Asymmetrically */}
         <div className="relative mb-16 ml-8 md:ml-16">
           <h1 className="text-6xl md:text-8xl font-display leading-none text-rich-black">
-            L'HABITAT
-            <span className="block mt-2">PARTAGÉ</span>
+            {content.mainTitle || "L'HABITAT"}
+            <span className="block mt-2">{content.mainSubtitle || "PARTAGÉ"}</span>
           </h1>
           <h2 className="text-3xl md:text-5xl font-display mt-8 text-magenta">
-            DE LA FERME DU TEMPLE
+            {content.secondaryTitle || "DE LA FERME DU TEMPLE"}
           </h2>
           <div className="absolute -right-8 top-8 w-32 h-32 bg-magenta/20 -z-10"></div>
         </div>
@@ -26,7 +34,7 @@ export const HeroSection = () => {
           <div className="col-span-12 flex justify-center items-center relative z-20 mb-8 md:mb-0">
             <img 
               src={interior1} 
-              alt="Intérieur de la Ferme du Temple"
+              alt={content.imageAlt1 || "Intérieur de la Ferme du Temple"}
               className="w-full h-[70vh] object-cover shadow-2xl"
               loading="eager"
               decoding="async"
@@ -38,13 +46,13 @@ export const HeroSection = () => {
           <div className="col-span-12 md:col-span-5 md:col-start-7 md:-ml-32 relative z-30 bg-butter-yellow p-12 md:mt-24">
             <div className="space-y-6 text-rich-black">
               <p className="text-lg font-medium uppercase tracking-wider">
-                Un lieu de vie ancré dans le territoire,
+                {content.tagline1 || "Un lieu de vie ancré dans le territoire,"}
               </p>
               <p className="text-lg font-medium uppercase tracking-wider">
-                Dynamique et productif,
+                {content.tagline2 || "Dynamique et productif,"}
               </p>
               <p className="text-lg font-medium uppercase tracking-wider">
-                S'articulant autour de la culture des arts et de la terre
+                {content.tagline3 || "S'articulant autour de la culture des arts et de la terre"}
               </p>
             </div>
           </div>
@@ -57,7 +65,7 @@ export const HeroSection = () => {
             <div className="absolute -top-8 -left-8 w-24 h-24 bg-magenta z-10"></div>
             <img 
               src={buildingExterior} 
-              alt="Bâtiment extérieur de la ferme"
+              alt={content.imageAlt2 || "Bâtiment extérieur de la ferme"}
               className="w-full h-[50vh] object-cover relative z-20"
               loading="lazy"
               decoding="async"
@@ -72,7 +80,7 @@ export const HeroSection = () => {
           <div className="col-span-12 md:col-span-5 md:mt-24">
             <img 
               src={communityField} 
-              alt="Communauté dans les champs"
+              alt={content.imageAlt3 || "Communauté dans les champs"}
               className="w-full h-[40vh] object-cover shadow-xl"
               loading="lazy"
               decoding="async"
@@ -80,7 +88,7 @@ export const HeroSection = () => {
             />
             <div className="mt-8 bg-butter-yellow/30 p-6 -ml-8">
               <p className="text-sm uppercase tracking-widest text-rich-black font-medium">
-                Une communauté vivante
+                {content.communityCaption || "Une communauté vivante"}
               </p>
             </div>
           </div>
@@ -92,7 +100,7 @@ export const HeroSection = () => {
             <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-butter-yellow z-10"></div>
             <img 
               src={greenhouse} 
-              alt="Serres de la ferme"
+              alt={content.imageAlt4 || "Serres de la ferme"}
               className="w-full h-[45vh] object-cover relative z-20"
               loading="lazy"
               decoding="async"

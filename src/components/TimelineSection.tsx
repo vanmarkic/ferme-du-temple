@@ -1,58 +1,39 @@
+import { useEffect, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { CalendarDays, MapPin, Building, Home } from "lucide-react";
+import { loadContent, parseMarkdownSections } from "@/lib/content";
 
 export const TimelineSection = () => {
-  const timeline = [
-    {
-      year: "2023",
-      status: "completed",
-      icon: CalendarDays,
-      events: [
-        "Naissance du Collectif Beaver",
-        "Première visite de la Ferme du Temple"
-      ]
-    },
-    {
-      year: "2024",
-      status: "completed",
-      icon: MapPin,
-      events: [
-        "Offre d'achat de la Ferme acceptée",
-        "Création de la charte"
-      ]
-    },
-    {
-      year: "2025",
-      status: "current",
-      icon: Building,
-      events: [
-        "Nouvelles recrues Beaver",
-        "Signature du compromis et de la vente",
-        "Mesures conservatoires sur le bâtiment",
-        "Faisabilité + programmation avec les architectes Carton 123"
-      ]
-    },
-    {
-      year: "2026-2027",
-      status: "future",
-      icon: Building,
-      events: [
-        "Esquisse + Avant projet",
-        "Mesures conservatoires sur le bâtiment",
-        "Obtention du permis d'urbanisme pour division des parties privées"
-      ]
-    },
-    {
-      year: "2028-2029",
-      status: "future",
-      icon: Home,
-      events: [
-        "Travaux d'infrastructures",
-        "Début des travaux privatifs",
-        "Emménagement à la ferme"
-      ]
-    }
-  ];
+  const [content, setContent] = useState<any>({});
+  const [sections, setSections] = useState<Record<string, string[]>>({});
+
+  useEffect(() => {
+    loadContent('timeline.md').then(({ frontmatter, content }) => {
+      setContent(frontmatter);
+      setSections(parseMarkdownSections(content));
+    });
+  }, []);
+
+  const getIconForYear = (year: string) => {
+    if (year.includes("2022") || year.includes("2023")) return CalendarDays;
+    if (year.includes("2024")) return MapPin;
+    if (year.includes("2025") || year.includes("2026")) return Building;
+    return Home;
+  };
+
+  const timeline = Object.keys(sections)
+    .filter(key => /^\d{4}/.test(key))
+    .map(year => {
+      const lines = sections[year];
+      const status = lines.find(l => l.startsWith("**Status:**"))?.replace("**Status:** ", "").trim() || "future";
+      const events = lines.filter(l => l.startsWith("-")).map(e => e.replace(/^- /, ''));
+      return {
+        year,
+        status,
+        icon: getIconForYear(year),
+        events
+      };
+    });
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -81,11 +62,10 @@ export const TimelineSection = () => {
             <div className="relative">
               <div className="absolute -top-8 left-0 w-64 h-2 bg-magenta"></div>
               <h2 className="text-5xl md:text-7xl font-display text-foreground mb-12 mt-8">
-                PLANNING<br/>PRÉVISIONNEL
+                {content.title || "CHRONOLOGIE"}
               </h2>
               <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl">
-                Nous travaillons depuis plus d'un an au montage de notre futur habitat partagé. 
-                Voici les grandes étapes de notre parcours vers l'emménagement.
+                {content.subtitle || "Le projet Beaver suit un calendrier ambitieux mais réaliste, ponctué d'étapes importantes pour transformer cette vision en réalité concrète."}
               </p>
             </div>
           </div>
@@ -143,13 +123,8 @@ export const TimelineSection = () => {
               <div className="absolute -bottom-16 -left-16 w-64 h-64 bg-butter-yellow/30"></div>
               <div className="bg-magenta text-white p-16 relative z-10">
                 <h3 className="text-3xl md:text-5xl font-display mb-8 leading-tight uppercase">
-                  Nous voulons faire de l'habitat partagé de la Ferme du Temple
+                  {content.conclusion || "Une aventure qui ne fait que commencer"}
                 </h3>
-                <div className="space-y-4 text-2xl md:text-3xl font-bold">
-                  <p>Un lieu joyeux et aimant,</p>
-                  <p>Ouvert et chaleureux,</p>
-                  <p>Où l'abondance de la vie peut être célébrée !</p>
-                </div>
               </div>
             </div>
           </div>
