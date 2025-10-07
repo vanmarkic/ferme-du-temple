@@ -1,23 +1,39 @@
+import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
+import { loadContent, parseMarkdownSections, type ProjectContent } from "@/lib/content";
 
 export const ProjectSection = () => {
-  const poles = [
-    {
-      title: "PÔLE HABITAT",
-      description:
-        "Une dizaine d'habitations autonomes en copropriété avec des espaces communs : cuisine collective, salle polyvalente, ateliers, espaces d'accueil.",
-    },
-    {
-      title: "PÔLE CULTUREL",
-      description:
-        "Un espace pollinisateur pour faire fleurir des idées, cultiver l'art sous différentes formes et tisser des liens sociaux. Un lieu de création et diffusion culturelle.",
-    },
-    {
-      title: "PÔLE TERRE",
-      description:
-        "Plus de 7 hectares pour développer un 'domaine gourmand' : potager, forêt comestible, vergers, vignoble, plantes aromatiques et médicinales.",
-    },
-  ];
+  const [content, setContent] = useState<ProjectContent | null>(null);
+
+  useEffect(() => {
+    const loadProjectContent = async () => {
+      const { frontmatter, content: markdown } = await loadContent('project.md');
+      const sections = parseMarkdownSections(markdown);
+      
+      const poles = [
+        { title: "PÔLE HABITAT", description: sections["PÔLE HABITAT"]?.[0] || "" },
+        { title: "PÔLE CULTUREL", description: sections["PÔLE CULTUREL"]?.[0] || "" },
+        { title: "PÔLE TERRE", description: sections["PÔLE TERRE"]?.[0] || "" },
+      ];
+
+      const beaverDescription = sections["POURQUOI LE COLLECTIF BEAVER?"] || [];
+      const members = sections["Membres"] || [];
+      const professions = sections["Professions"] || [];
+
+      setContent({
+        title: frontmatter.title || "LE PROJET",
+        subtitle: frontmatter.subtitle || "",
+        poles,
+        beaverTitle: "POURQUOI LE COLLECTIF BEAVER?",
+        beaverDescription,
+        members,
+        professions,
+      } as ProjectContent);
+    };
+    loadProjectContent();
+  }, []);
+
+  if (!content) return null;
 
   return (
     <section id="projet" className="py-48 bg-background overflow-hidden">
@@ -25,11 +41,10 @@ export const ProjectSection = () => {
         {/* Title with Bauhaus Geometry */}
         <div className="relative mb-48 ml-0 md:ml-32">
           <div className="hidden md:block absolute -top-16 -left-8 w-64 h-2 bg-magenta"></div>
-          <h2 className="text-5xl md:text-7xl font-display text-foreground mb-12">LE PROJET</h2>
+          <h2 className="text-5xl md:text-7xl font-display text-foreground mb-12">{content.title}</h2>
           <div className="max-w-2xl">
             <p className="text-lg text-muted-foreground leading-relaxed">
-              L'habitat partagé de La Ferme du Temple est une pépinière de projets mixtes et innovants, articulée autour
-              de trois pôles principaux qui s'enrichissent mutuellement.
+              {content.subtitle}
             </p>
           </div>
         </div>
@@ -40,8 +55,8 @@ export const ProjectSection = () => {
           <div className="col-span-12 md:col-span-4 mb-16 md:mb-0">
             <div className="bg-butter-yellow p-12 h-full relative">
               <div className="absolute top-0 right-0 w-16 h-16 bg-magenta"></div>
-              <h3 className="text-2xl font-bold text-rich-black mb-6 uppercase tracking-wider">{poles[0].title}</h3>
-              <p className="text-rich-black leading-relaxed">{poles[0].description}</p>
+              <h3 className="text-2xl font-bold text-rich-black mb-6 uppercase tracking-wider">{content.poles[0].title}</h3>
+              <p className="text-rich-black leading-relaxed">{content.poles[0].description}</p>
             </div>
           </div>
 
@@ -51,8 +66,8 @@ export const ProjectSection = () => {
           {/* Pole 2 - Middle Right, Offset Down */}
           <div className="col-span-12 md:col-span-5 md:mt-24 mb-16 md:mb-0">
             <div className="bg-background border-2 border-rich-black p-12 h-full">
-              <h3 className="text-2xl font-bold text-foreground mb-6 uppercase tracking-wider">{poles[1].title}</h3>
-              <p className="text-muted-foreground leading-relaxed">{poles[1].description}</p>
+              <h3 className="text-2xl font-bold text-foreground mb-6 uppercase tracking-wider">{content.poles[1].title}</h3>
+              <p className="text-muted-foreground leading-relaxed">{content.poles[1].description}</p>
             </div>
           </div>
 
@@ -61,8 +76,8 @@ export const ProjectSection = () => {
             <div className="relative overflow-hidden">
               <div className="hidden md:block absolute -bottom-8 -right-8 w-32 h-32 bg-magenta/20 z-0"></div>
               <div className="bg-butter-yellow/30 p-12 relative z-10">
-                <h3 className="text-2xl font-bold text-rich-black mb-6 uppercase tracking-wider">{poles[2].title}</h3>
-                <p className="text-rich-black leading-relaxed">{poles[2].description}</p>
+                <h3 className="text-2xl font-bold text-rich-black mb-6 uppercase tracking-wider">{content.poles[2].title}</h3>
+                <p className="text-rich-black leading-relaxed">{content.poles[2].description}</p>
               </div>
             </div>
           </div>
@@ -79,46 +94,35 @@ export const ProjectSection = () => {
               <div className="absolute -top-12 left-0 w-2 h-48 bg-magenta"></div>
 
               <h3 className="text-3xl md:text-4xl lg:text-6xl font-display text-foreground mb-12 md:mb-16 ml-8 md:ml-12 break-words">
-                POURQUOI LE
-                <br />
-                COLLECTIF BEAVER?
+                {content.beaverTitle}
               </h3>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
                 <div className="space-y-6 md:space-y-8">
-                  <p className="text-muted-foreground leading-relaxed text-sm md:text-base">
-                    Le nom Beaver signifie Castor en anglais. Ce mammifère fait partie d'une espèce-ingénieure qui,
-                    comme l'être humain, aménage son écosystème et modifie intentionnellement son cadre de vie.
-                  </p>
-                  <p className="text-muted-foreground leading-relaxed text-sm md:text-base">
-                    Espèce facilitatrice d'échanges et "ingénieure de la nature" tout comme le castor, nous souhaitons
-                    fonder un nouveau lieu d'accueil et transformer positivement notre environnement en soutenant une
-                    transition sociale et écologique.
-                  </p>
+                  {content.beaverDescription.map((paragraph, index) => (
+                    <p key={index} className="text-muted-foreground leading-relaxed text-sm md:text-base">
+                      {paragraph}
+                    </p>
+                  ))}
                 </div>
 
                 <div className="bg-butter-yellow p-6 md:p-8 self-start">
                   <p className="text-xl md:text-2xl font-bold text-rich-black mb-4 md:mb-6">
-                    8 adultes
-                    <br />
-                    6 enfants
-                    <br />4 unités de logement
+                    {content.members.map((member, index) => (
+                      <span key={index}>
+                        {member}
+                        {index < content.members.length - 1 && <br />}
+                      </span>
+                    ))}
                   </p>
                   <div className="h-0.5 w-16 bg-magenta mb-4 md:mb-6"></div>
                   <p className="text-xs md:text-sm text-rich-black uppercase tracking-wider leading-loose">
-                    Architectes
-                    <br />
-                    Photographes
-                    <br />
-                    Artistes
-                    <br />
-                    Enseignants
-                    <br />
-                    Musiciens
-                    <br />
-                    Herboristes
-                    <br />
-                    Entrepreneurs
+                    {content.professions.map((profession, index) => (
+                      <span key={index}>
+                        {profession}
+                        {index < content.professions.length - 1 && <br />}
+                      </span>
+                    ))}
                   </p>
                 </div>
               </div>
