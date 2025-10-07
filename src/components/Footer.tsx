@@ -1,17 +1,8 @@
-import { useEffect, useState } from "react";
 import { MapPin } from "lucide-react";
-import { loadContent, parseMarkdownSections } from "@/lib/content";
+import { loadContent } from "@/lib/content";
 
 export const Footer = () => {
-  const [content, setContent] = useState<any>({});
-  const [sections, setSections] = useState<Record<string, string[]>>({});
-
-  useEffect(() => {
-    loadContent('footer.md').then(({ frontmatter, content }) => {
-      setContent(frontmatter);
-      setSections(parseMarkdownSections(content));
-    });
-  }, []);
+  const { frontmatter: content, sections } = loadContent('footer.md');
 
   return (
     <footer data-testid="footer" className="bg-nature-dark text-white py-16">

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -8,7 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Send, Heart, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { z } from "zod";
-import { loadContent, parseMarkdownSections } from "@/lib/content";
+import { loadContent } from "@/lib/content";
 
 const inscriptionSchema = z.object({
   nom: z.string().trim().min(1, "Le nom est requis").max(100, "Le nom est trop long"),
@@ -23,8 +23,7 @@ const inscriptionSchema = z.object({
 export const InscriptionForm = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [content, setContent] = useState<any>({});
-  const [sections, setSections] = useState<Record<string, string[]>>({});
+  const { frontmatter: content, sections } = loadContent('inscription.md');
   const [formData, setFormData] = useState({
     nom: "",
     prenom: "",
@@ -35,13 +34,6 @@ export const InscriptionForm = () => {
     newsletter: false,
     rencontre: false
   });
-
-  useEffect(() => {
-    loadContent('inscription.md').then(({ frontmatter, content }) => {
-      setContent(frontmatter);
-      setSections(parseMarkdownSections(content));
-    });
-  }, []);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 

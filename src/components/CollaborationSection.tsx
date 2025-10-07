@@ -1,22 +1,13 @@
-import { useEffect, useState } from "react";
-import { loadContent, parseMarkdownSections } from "@/lib/content";
+import { loadContent } from "@/lib/content";
 
 export const CollaborationSection = () => {
-  const [content, setContent] = useState<any>({});
-  const [sections, setSections] = useState<Record<string, string[]>>({});
-
-  useEffect(() => {
-    loadContent('collaboration.md').then(({ frontmatter, content }) => {
-      setContent(frontmatter);
-      setSections(parseMarkdownSections(content));
-    });
-  }, []);
+  const { frontmatter, sections } = loadContent('collaboration.md');
 
   return (
     <section data-testid="collaboration-section" id="collaboration" className="py-16 px-4 bg-background">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-4xl md:text-5xl font-display mb-12 text-center">
-          {content.title || "COLLABORATION"}
+          {frontmatter.title || "COLLABORATION"}
         </h2>
 
         <div className="grid md:grid-cols-2 gap-8 items-start">

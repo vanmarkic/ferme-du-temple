@@ -1,18 +1,9 @@
-import { useEffect, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { CalendarDays, MapPin, Building, Home } from "lucide-react";
-import { loadContent, parseMarkdownSections } from "@/lib/content";
+import { loadContent } from "@/lib/content";
 
 export const TimelineSection = () => {
-  const [content, setContent] = useState<any>({});
-  const [sections, setSections] = useState<Record<string, string[]>>({});
-
-  useEffect(() => {
-    loadContent('timeline.md').then(({ frontmatter, content }) => {
-      setContent(frontmatter);
-      setSections(parseMarkdownSections(content));
-    });
-  }, []);
+  const { frontmatter: content, sections } = loadContent('timeline.md');
 
   const getIconForYear = (year: string) => {
     if (year.includes("2022") || year.includes("2023")) return CalendarDays;

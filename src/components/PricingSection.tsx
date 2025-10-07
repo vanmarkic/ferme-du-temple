@@ -1,16 +1,7 @@
-import { useEffect, useState } from "react";
-import { loadContent, parseMarkdownSections } from "@/lib/content";
+import { loadContent } from "@/lib/content";
 
 export const PricingSection = () => {
-  const [content, setContent] = useState<any>({});
-  const [sections, setSections] = useState<Record<string, string[]>>({});
-
-  useEffect(() => {
-    loadContent('pricing.md').then(({ frontmatter, content }) => {
-      setContent(frontmatter);
-      setSections(parseMarkdownSections(content));
-    });
-  }, []);
+  const { frontmatter: content, sections } = loadContent('pricing.md');
 
   const getUnit = (key: string) => {
     const price = sections[key]?.find(l => !l.startsWith('##') && !l.startsWith('-'))?.trim();

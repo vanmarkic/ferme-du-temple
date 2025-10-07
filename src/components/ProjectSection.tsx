@@ -1,16 +1,7 @@
-import { useEffect, useState } from "react";
-import { loadContent, parseMarkdownSections } from "@/lib/content";
+import { loadContent } from "@/lib/content";
 
 export const ProjectSection = () => {
-  const [content, setContent] = useState<any>({});
-  const [sections, setSections] = useState<Record<string, string[]>>({});
-
-  useEffect(() => {
-    loadContent('project.md').then(({ frontmatter, content }) => {
-      setContent(frontmatter);
-      setSections(parseMarkdownSections(content));
-    });
-  }, []);
+  const { frontmatter: content, sections } = loadContent('project.md');
 
   const poles = [
     { title: "PÔLE HABITAT", key: "PÔLE HABITAT" },

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+
 import interior1 from "@/assets/interior-1.jpg";
 import buildingExterior from "@/assets/building-exterior.jpg";
 import communityField from "@/assets/community-field.jpg";
@@ -6,11 +6,7 @@ import greenhouse from "@/assets/greenhouse.jpg";
 import { loadContent } from "@/lib/content";
 
 export const HeroSection = () => {
-  const [content, setContent] = useState<any>({});
-
-  useEffect(() => {
-    loadContent('hero.md').then(({ frontmatter }) => setContent(frontmatter));
-  }, []);
+  const { frontmatter: content } = loadContent('hero.md');
 
   return (
     <section data-testid="hero-section" className="relative min-h-screen bg-background overflow-hidden">
