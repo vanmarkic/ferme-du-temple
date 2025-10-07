@@ -17,8 +17,8 @@ test.describe('Visual Regression Tests', () => {
   test('hero section snapshot', async ({ page }) => {
     await page.goto('/');
     await page.waitForLoadState('networkidle');
-    
-    const heroSection = page.locator('section').first();
+
+    const heroSection = page.getByTestId('hero-section');
     await expect(heroSection).toHaveScreenshot('hero-section.png', {
       maxDiffPixels: 100,
     });
@@ -27,8 +27,8 @@ test.describe('Visual Regression Tests', () => {
   test('project section snapshot', async ({ page }) => {
     await page.goto('/');
     await page.waitForLoadState('networkidle');
-    
-    const projectSection = page.locator('section').nth(1);
+
+    const projectSection = page.getByTestId('project-section');
     await expect(projectSection).toHaveScreenshot('project-section.png', {
       maxDiffPixels: 100,
     });
@@ -37,8 +37,8 @@ test.describe('Visual Regression Tests', () => {
   test('collaboration section snapshot', async ({ page }) => {
     await page.goto('/');
     await page.waitForLoadState('networkidle');
-    
-    const collaborationSection = page.locator('section').nth(2);
+
+    const collaborationSection = page.getByTestId('collaboration-section');
     await expect(collaborationSection).toHaveScreenshot('collaboration-section.png', {
       maxDiffPixels: 100,
     });
@@ -47,8 +47,8 @@ test.describe('Visual Regression Tests', () => {
   test('location section snapshot', async ({ page }) => {
     await page.goto('/');
     await page.waitForLoadState('networkidle');
-    
-    const locationSection = page.locator('section').nth(3);
+
+    const locationSection = page.getByTestId('location-section');
     await expect(locationSection).toHaveScreenshot('location-section.png', {
       maxDiffPixels: 100,
     });
@@ -57,8 +57,8 @@ test.describe('Visual Regression Tests', () => {
   test('pricing section snapshot', async ({ page }) => {
     await page.goto('/');
     await page.waitForLoadState('networkidle');
-    
-    const pricingSection = page.locator('section').nth(4);
+
+    const pricingSection = page.getByTestId('pricing-section');
     await expect(pricingSection).toHaveScreenshot('pricing-section.png', {
       maxDiffPixels: 100,
     });
@@ -67,8 +67,8 @@ test.describe('Visual Regression Tests', () => {
   test('inscription form snapshot', async ({ page }) => {
     await page.goto('/');
     await page.waitForLoadState('networkidle');
-    
-    const inscriptionForm = page.locator('section').nth(5);
+
+    const inscriptionForm = page.getByTestId('inscription-section');
     await expect(inscriptionForm).toHaveScreenshot('inscription-form.png', {
       maxDiffPixels: 100,
     });
@@ -77,8 +77,8 @@ test.describe('Visual Regression Tests', () => {
   test('timeline section snapshot', async ({ page }) => {
     await page.goto('/');
     await page.waitForLoadState('networkidle');
-    
-    const timelineSection = page.locator('section').nth(6);
+
+    const timelineSection = page.getByTestId('timeline-section');
     await expect(timelineSection).toHaveScreenshot('timeline-section.png', {
       maxDiffPixels: 100,
     });
@@ -87,8 +87,8 @@ test.describe('Visual Regression Tests', () => {
   test('footer snapshot', async ({ page }) => {
     await page.goto('/');
     await page.waitForLoadState('networkidle');
-    
-    const footer = page.locator('footer');
+
+    const footer = page.getByTestId('footer');
     await expect(footer).toHaveScreenshot('footer.png', {
       maxDiffPixels: 100,
     });

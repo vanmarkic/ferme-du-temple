@@ -88,7 +88,7 @@ export const InscriptionForm = () => {
       [field]: value
     }));
   };
-  return <section id="inscription" className="py-48 bg-background">
+  return <section data-testid="inscription-section" id="inscription" className="py-48 bg-background">
       <div className="container mx-auto px-4">
         {/* Title - Bauhaus Style */}
         <div className="grid grid-cols-12 gap-0 mb-48">

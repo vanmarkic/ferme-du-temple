@@ -20,7 +20,7 @@ export const ProjectSection = () => {
   ];
 
   return (
-    <section id="projet" className="py-48 bg-background overflow-hidden">
+    <section data-testid="project-section" id="projet" className="py-48 bg-background overflow-hidden">
       <div className="container mx-auto px-4">
         {/* Title with Bauhaus Geometry */}
         <div className="relative mb-48 ml-0 md:ml-32">

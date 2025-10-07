@@ -23,7 +23,7 @@ export const PricingSection = () => {
     }],
     popular: true
   }];
-  return <section className="py-48 bg-background overflow-hidden">
+  return <section data-testid="pricing-section" className="py-48 bg-background overflow-hidden">
       <div className="container mx-auto px-4">
         {/* Title - Bauhaus Asymmetric */}
         <div className="grid grid-cols-12 gap-0 mb-48">
