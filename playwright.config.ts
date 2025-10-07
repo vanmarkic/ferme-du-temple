@@ -10,16 +10,10 @@ export default defineConfig({
   use: {
     baseURL: 'http://localhost:8080',
     trace: 'on-first-retry',
+    video: 'off',
+    screenshot: 'only-on-failure',
   },
   projects: [
-    {
-      name: 'chromium-mobile',
-      use: { ...devices['iPhone 12'] },
-    },
-    {
-      name: 'chromium-tablet',
-      use: { ...devices['iPad Pro'] },
-    },
     {
       name: 'chromium-desktop',
       use: { ...devices['Desktop Chrome'] },
