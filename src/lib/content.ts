@@ -1,5 +1,3 @@
-import matter from 'gray-matter';
-
 // Type definitions
 export interface HeroContent {
   mainTitle: string;
@@ -40,13 +38,74 @@ export interface FooterContent {
   tagline: string;
 }
 
+// Manual frontmatter parser (browser-compatible)
+const parseFrontmatter = (text: string) => {
+  const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/;
+  const match = text.match(frontmatterRegex);
+  
+  if (!match) {
+    return { frontmatter: {}, content: text };
+  }
+  
+  const [, frontmatterText, content] = match;
+  const frontmatter: Record<string, any> = {};
+  
+  // Parse simple YAML frontmatter
+  const lines = frontmatterText.split('\n');
+  let currentKey = '';
+  let currentArray: string[] = [];
+  
+  lines.forEach(line => {
+    const trimmed = line.trim();
+    if (!trimmed) return;
+    
+    // Array item
+    if (trimmed.startsWith('- ')) {
+      currentArray.push(trimmed.substring(2).trim());
+    }
+    // Key-value pair
+    else if (trimmed.includes(':')) {
+      // Save previous array if exists
+      if (currentKey && currentArray.length > 0) {
+        frontmatter[currentKey] = currentArray;
+        currentArray = [];
+      }
+      
+      const colonIndex = trimmed.indexOf(':');
+      currentKey = trimmed.substring(0, colonIndex).trim();
+      let value = trimmed.substring(colonIndex + 1).trim();
+      
+      // Remove quotes if present
+      if ((value.startsWith('"') && value.endsWith('"')) || 
+          (value.startsWith("'") && value.endsWith("'"))) {
+        value = value.substring(1, value.length - 1);
+      }
+      
+      // If value is empty, this might be the start of an array
+      if (!value) {
+        currentArray = [];
+      } else {
+        frontmatter[currentKey] = value;
+        currentKey = '';
+      }
+    }
+  });
+  
+  // Save final array if exists
+  if (currentKey && currentArray.length > 0) {
+    frontmatter[currentKey] = currentArray;
+  }
+  
+  return { frontmatter, content };
+};
+
 // Content loader utility
 export const loadContent = async (path: string) => {
   try {
     const response = await fetch(`/content/${path}`);
     const text = await response.text();
-    const { data, content } = matter(text);
-    return { frontmatter: data, content };
+    const { frontmatter, content } = parseFrontmatter(text);
+    return { frontmatter, content };
   } catch (error) {
     console.error(`Error loading content from ${path}:`, error);
     return { frontmatter: {}, content: '' };
