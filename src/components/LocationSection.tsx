@@ -6,7 +6,7 @@ import floorPlan from "@/assets/floor-plan.png";
 
 export const LocationSection = () => {
   return (
-    <section data-testid="location-section" className="py-48 bg-background overflow-x-hidden">
+    <section className="py-48 bg-background overflow-x-hidden">
       <div className="container mx-auto px-4">
         {/* Section Title - Bauhaus Style */}
         <div className="grid grid-cols-12 gap-0 mb-48">

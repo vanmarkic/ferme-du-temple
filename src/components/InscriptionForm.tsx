@@ -8,7 +8,6 @@ import { useToast } from "@/hooks/use-toast";
 import { Send, Heart, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { z } from "zod";
-import { loadContent } from "@/lib/content";
 
 const inscriptionSchema = z.object({
   nom: z.string().trim().min(1, "Le nom est requis").max(100, "Le nom est trop long"),
@@ -23,7 +22,6 @@ const inscriptionSchema = z.object({
 export const InscriptionForm = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { frontmatter: content, sections } = loadContent('inscription.md');
   const [formData, setFormData] = useState({
     nom: "",
     prenom: "",
@@ -58,11 +56,9 @@ export const InscriptionForm = () => {
 
       if (error) throw error;
 
-      const successMsg = sections["Messages"]?.[0] || sections["Succès"]?.[0];
-      const successDesc = sections["Messages"]?.[1] || sections["Succès"]?.[1];
       toast({
-        title: successMsg?.replace(/^Title: /, '') || "Candidature envoyée ! 🌱",
-        description: successDesc?.replace(/^Description: /, '') || "Nous vous recontacterons très prochainement pour échanger sur votre projet."
+        title: "Candidature envoyée ! 🌱",
+        description: "Nous vous recontacterons très prochainement pour échanger sur votre projet."
       });
 
       // Reset du formulaire
@@ -77,11 +73,9 @@ export const InscriptionForm = () => {
         rencontre: false
       });
     } catch (error: any) {
-      const errorMsg = sections["Erreur"]?.[0];
-      const errorDesc = sections["Erreur"]?.[1];
       toast({
-        title: errorMsg?.replace(/^Title: /, '') || "Erreur",
-        description: errorDesc?.replace(/^Description: /, '') || "Une erreur est survenue. Veuillez réessayer plus tard.",
+        title: "Erreur",
+        description: "Une erreur est survenue. Veuillez réessayer plus tard.",
         variant: "destructive"
       });
     } finally {
@@ -94,7 +88,7 @@ export const InscriptionForm = () => {
       [field]: value
     }));
   };
-  return <section data-testid="inscription-section" id="inscription" className="py-48 bg-background">
+  return <section id="inscription" className="py-48 bg-background">
       <div className="container mx-auto px-4">
         {/* Title - Bauhaus Style */}
         <div className="grid grid-cols-12 gap-0 mb-48">
@@ -102,9 +96,9 @@ export const InscriptionForm = () => {
             <div className="relative">
               <div className="absolute -top-16 -right-8 w-48 h-48 bg-magenta/20"></div>
               <h2 className="text-5xl md:text-7xl font-display text-foreground mb-12 relative z-10 uppercase">
-                {content.title || "Rejoindre l'aventure"}
+                Rejoindre<br />l'aventure
               </h2>
-              <p className="text-xl text-muted-foreground max-w-2xl leading-relaxed">{content.subtitle || "Remplissez ce formulaire pour témoigner votre intérêt envers le projet."}</p>
+              <p className="text-xl text-muted-foreground max-w-2xl leading-relaxed">Remplissez ce formulaire pour témoigner votre intérêt envers le projet. Nous vous recontacterons dans les semaines à venir pour vous communiquer le reste du processus.</p>
             </div>
           </div>
         </div>
@@ -117,7 +111,7 @@ export const InscriptionForm = () => {
               <div className="bg-background border-4 border-rich-black p-12 md:p-16 relative z-10">
                 <div className="flex items-center gap-4 mb-12">
                   <Heart className="w-8 h-8 text-magenta" />
-                  <h3 className="text-2xl font-bold uppercase tracking-wider">{content.formTitle || "Formulaire de candidature"}</h3>
+                  <h3 className="text-2xl font-bold uppercase tracking-wider">Formulaire de candidature</h3>
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-8">
@@ -166,19 +160,21 @@ export const InscriptionForm = () => {
                       {isSubmitting ? (
                         <>
                           <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                          {sections["Bouton"]?.find(l => l.startsWith("Loading:"))?.replace("Loading: ", "") || "Envoi en cours..."}
+                          Envoi en cours...
                         </>
                       ) : (
                         <>
                           <Send className="w-5 h-5 mr-2" />
-                          {sections["Bouton"]?.find(l => l.startsWith("Label:"))?.replace("Label: ", "") || "Envoyer ma candidature"}
+                          Envoyer ma candidature
                         </>
                       )}
                     </Button>
                   </div>
 
                   <p className="text-sm text-muted-foreground text-center leading-relaxed pt-4">
-                    {sections["Notice de confidentialité"]?.[0] || "En envoyant ce formulaire, vous acceptez d'être contacté·e par le collectif Beaver pour échanger sur votre candidature. Vos données ne seront pas partagées avec des tiers et seront conservées durant 3 ans maximum."}
+                    En envoyant ce formulaire, vous acceptez d'être contacté·e par le collectif Beaver 
+                    pour échanger sur votre candidature. Vos données ne seront pas partagées avec des tiers 
+                    et seront conservées durant 3 ans maximum.
                   </p>
                 </form>
               </div>
