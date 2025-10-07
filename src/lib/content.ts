@@ -43,7 +43,7 @@ export interface FooterContent {
 // Content loader utility
 export const loadContent = async (path: string) => {
   try {
-    const response = await fetch(`/src/content/${path}`);
+    const response = await fetch(`/content/${path}`);
     const text = await response.text();
     const { data, content } = matter(text);
     return { frontmatter: data, content };
