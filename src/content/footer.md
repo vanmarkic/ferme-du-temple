@@ -1,0 +1,28 @@
+---
+title: "Contact"
+address: "227 avenue Joseph Wauters"
+city: "7080 Frameries, Belgique"
+membersTitle: "Membres du projet"
+partnersTitle: "Partenaires"
+copyright: "© 2025 Collectif Beaver - Habitat partagé de la Ferme du Temple"
+tagline: "Janvier 2025 - Conçu avec passion pour un avenir durable"
+---
+
+# Membres
+
+- Annabelle Czyz
+- Cathy Weyders
+- Colin Ponthot
+- Jeremy Michel
+- Julie Luyten
+- Manuela Capraro
+- Dragan Markovic
+- Séverin Malaud
+
+# Partenaires
+
+**Architectes:** Carton 123
+
+**Notaire:** Maître Delphine Delhaye
+
+**Conseil en management:** Altera Consulting
