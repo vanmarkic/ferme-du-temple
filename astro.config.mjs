@@ -5,8 +5,8 @@ import tailwind from '@astrojs/tailwind';
 // Replace 'yourusername' with your GitHub username
 // Use base: '/ferme-du-temple' for GitHub Pages deployment
 export default defineConfig({
-  site: 'https://vanmarkic.github.io',
-  base: process.env.NODE_ENV === 'production' ? '/ferme-du-temple' : '/',
+  site: process.env.NETLIFY_DEPLOY ? 'https://ferme-du-temple.netlify.app' : 'https://vanmarkic.github.io',
+  base: process.env.NETLIFY_DEPLOY ? '/' : (process.env.NODE_ENV === 'production' ? '/ferme-du-temple' : '/'),
   integrations: [
     react(),
     tailwind({

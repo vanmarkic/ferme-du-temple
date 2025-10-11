@@ -2,6 +2,9 @@
   command = "npm run build"
   publish = "dist"
 
+[build.environment]
+  NETLIFY_DEPLOY = "true"
+
 # NOTE: Configure form email notifications in Netlify UI after deployment:
 # Site settings → Forms → Form notifications → Add email: habitatbeaver@gmail.com
 
