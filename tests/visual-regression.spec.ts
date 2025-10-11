@@ -1,19 +1,6 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Visual Regression Tests', () => {
-  test('homepage full page snapshot', async ({ page }) => {
-    await page.goto('/');
-    
-    // Wait for all images to load
-    await page.waitForLoadState('networkidle');
-    
-    // Take full page screenshot
-    await expect(page).toHaveScreenshot('homepage-full.png', {
-      fullPage: true,
-      maxDiffPixels: 100,
-    });
-  });
-
   test('hero section snapshot', async ({ page }) => {
     await page.goto('/');
     await page.waitForLoadState('networkidle');

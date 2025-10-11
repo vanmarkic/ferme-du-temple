@@ -5,7 +5,7 @@ import greenhouse from "@/assets/greenhouse.jpg";
 
 export const HeroSection = () => {
   return (
-    <section className="relative min-h-screen bg-background overflow-hidden">
+    <section data-testid="hero-section" className="relative min-h-screen bg-background overflow-hidden">
       {/* Bauhaus Grid Layout with Overlapping Elements */}
       <div className="container mx-auto px-4 py-32">
         {/* Main Title - Positioned Asymmetrically */}

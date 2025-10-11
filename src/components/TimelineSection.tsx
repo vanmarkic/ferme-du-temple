@@ -73,7 +73,7 @@ export const TimelineSection = () => {
   };
 
   return (
-    <section className="py-48 bg-background">
+    <section data-testid="timeline-section" className="py-48 bg-background">
       <div className="container mx-auto px-4">
         {/* Title */}
         <div className="grid grid-cols-12 gap-0 mb-48">
