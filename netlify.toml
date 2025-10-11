@@ -1,0 +1,17 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Netlify Forms configuration
+[forms]
+  # Email notifications for form submissions
+  # Configure this in Netlify UI: Site settings > Forms > Form notifications
+  # Add: habitatbeaver@gmail.com
+
+# SPA redirect rules
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = false
+  conditions = {Accept = "text/html"}

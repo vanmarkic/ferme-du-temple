@@ -1,94 +1,45 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { Send, Heart, Loader2 } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
-import { z } from "zod";
+import { loadContent, parseMarkdownSections } from "@/lib/content";
 
-const inscriptionSchema = z.object({
-  nom: z.string().trim().min(1, "Le nom est requis").max(100, "Le nom est trop long"),
-  prenom: z.string().trim().min(1, "Le prénom est requis").max(100, "Le prénom est trop long"),
-  email: z.string().trim().email("Email invalide").max(255, "L'email est trop long"),
-  telephone: z.string().trim().max(20, "Le téléphone est trop long").optional().or(z.literal("")),
-  motivation: z.string().trim().min(1, "La motivation est requise").max(2000, "La motivation est trop longue"),
-  besoinsSpecifiques: z.string().trim().max(1000, "Les besoins spécifiques sont trop longs").optional().or(z.literal("")),
-  newsletter: z.boolean(),
-  rencontre: z.boolean(),
-});
 export const InscriptionForm = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formData, setFormData] = useState({
-    nom: "",
-    prenom: "",
-    email: "",
-    telephone: "",
-    motivation: "",
-    besoinsSpecifiques: "",
-    newsletter: false,
-    rencontre: false
-  });
+  const [content, setContent] = useState<{ subtitle?: string; formTitle?: string }>({});
+  const [sections, setSections] = useState<Record<string, string[]>>({});
+
+  useEffect(() => {
+    loadContent('inscription.md').then(({ frontmatter, content }) => {
+      setContent(frontmatter);
+      setSections(parseMarkdownSections(content));
+    });
+  }, []);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Validate form data with Zod
-    const validation = inscriptionSchema.safeParse(formData);
-    if (!validation.success) {
-      const firstError = validation.error.errors[0];
-      toast({
-        title: "Validation error",
-        description: firstError.message,
-        variant: "destructive"
-      });
-      return;
-    }
-
     setIsSubmitting(true);
 
-    try {
-      const { data, error } = await supabase.functions.invoke('submit-inscription', {
-        body: validation.data
-      });
-
-      if (error) throw error;
+    // Netlify Forms handles the submission automatically
+    // We just need to show a success message after a brief delay
+    setTimeout(() => {
+      const successMsg = sections["Messages"]?.[0] || sections["Succès"]?.[0];
+      const successDesc = sections["Messages"]?.[1] || sections["Succès"]?.[1];
 
       toast({
         title: "Candidature envoyée ! 🌱",
         description: "Nous vous recontacterons très prochainement pour échanger sur votre projet."
       });
 
-      // Reset du formulaire
-      setFormData({
-        nom: "",
-        prenom: "",
-        email: "",
-        telephone: "",
-        motivation: "",
-        besoinsSpecifiques: "",
-        newsletter: false,
-        rencontre: false
-      });
-    } catch (error: any) {
-      toast({
-        title: "Erreur",
-        description: "Une erreur est survenue. Veuillez réessayer plus tard.",
-        variant: "destructive"
-      });
-    } finally {
+      // Reset form - Netlify will handle this after page reload
       setIsSubmitting(false);
-    }
+    }, 1000);
   };
-  const handleChange = (field: string, value: string | boolean) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: value
-    }));
-  };
-  return <section id="inscription" className="py-48 bg-background">
+  return (
+    <section data-testid="inscription-section" id="inscription" className="py-48 bg-background">
       <div className="container mx-auto px-4">
         {/* Title - Bauhaus Style */}
         <div className="grid grid-cols-12 gap-0 mb-48">
@@ -98,7 +49,9 @@ export const InscriptionForm = () => {
               <h2 className="text-5xl md:text-7xl font-display text-foreground mb-12 relative z-10 uppercase">
                 Rejoindre<br />l'aventure
               </h2>
-              <p className="text-xl text-muted-foreground max-w-2xl leading-relaxed">Remplissez ce formulaire pour témoigner votre intérêt envers le projet. Nous vous recontacterons dans les semaines à venir pour vous communiquer le reste du processus.</p>
+              <p className="text-xl text-muted-foreground max-w-2xl leading-relaxed">
+                {content.subtitle || "Remplissez ce formulaire pour témoigner votre intérêt envers le projet."}
+              </p>
             </div>
           </div>
         </div>
@@ -111,50 +64,116 @@ export const InscriptionForm = () => {
               <div className="bg-background border-4 border-rich-black p-12 md:p-16 relative z-10">
                 <div className="flex items-center gap-4 mb-12">
                   <Heart className="w-8 h-8 text-magenta" />
-                  <h3 className="text-2xl font-bold uppercase tracking-wider">Formulaire de candidature</h3>
+                  <h3 className="text-2xl font-bold uppercase tracking-wider">
+                    {content.formTitle || "Formulaire de candidature"}
+                  </h3>
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-8">
+                <form
+                  name="inscription"
+                  method="POST"
+                  data-netlify="true"
+                  netlify-honeypot="bot-field"
+                  onSubmit={handleSubmit}
+                  className="space-y-8"
+                >
+                  {/* Netlify Forms requirement */}
+                  <input type="hidden" name="form-name" value="inscription" />
+
+                  {/* Honeypot field for spam protection */}
+                  <p className="hidden">
+                    <label>
+                      Don't fill this out if you're human: <input name="bot-field" />
+                    </label>
+                  </p>
+
                   <div className="grid md:grid-cols-2 gap-8">
                     <div className="space-y-3">
-                      <Label htmlFor="nom" className="text-lg font-bold uppercase tracking-wider">Nom *</Label>
-                      <Input id="nom" value={formData.nom} onChange={e => handleChange("nom", e.target.value)} placeholder="Votre nom" className="border-2 border-rich-black" required />
+                      <Label htmlFor="nom" className="text-lg font-bold uppercase tracking-wider">
+                        Nom *
+                      </Label>
+                      <Input
+                        id="nom"
+                        name="nom"
+                        placeholder="Votre nom"
+                        className="border-2 border-rich-black"
+                        required
+                      />
                     </div>
                     <div className="space-y-3">
-                      <Label htmlFor="prenom" className="text-lg font-bold uppercase tracking-wider">Prénom *</Label>
-                      <Input id="prenom" value={formData.prenom} onChange={e => handleChange("prenom", e.target.value)} placeholder="Votre prénom" className="border-2 border-rich-black" required />
+                      <Label htmlFor="prenom" className="text-lg font-bold uppercase tracking-wider">
+                        Prénom *
+                      </Label>
+                      <Input
+                        id="prenom"
+                        name="prenom"
+                        placeholder="Votre prénom"
+                        className="border-2 border-rich-black"
+                        required
+                      />
                     </div>
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-8">
                     <div className="space-y-3">
-                      <Label htmlFor="email" className="text-lg font-bold uppercase tracking-wider">Email *</Label>
-                      <Input id="email" type="email" value={formData.email} onChange={e => handleChange("email", e.target.value)} placeholder="votre@email.com" className="border-2 border-rich-black" required />
+                      <Label htmlFor="email" className="text-lg font-bold uppercase tracking-wider">
+                        Email *
+                      </Label>
+                      <Input
+                        id="email"
+                        name="email"
+                        type="email"
+                        placeholder="votre@email.com"
+                        className="border-2 border-rich-black"
+                        required
+                      />
                     </div>
                     <div className="space-y-3">
-                      <Label htmlFor="telephone" className="text-lg font-bold uppercase tracking-wider">Téléphone</Label>
-                      <Input id="telephone" value={formData.telephone} onChange={e => handleChange("telephone", e.target.value)} placeholder="+32 XXX XX XX XX" className="border-2 border-rich-black" />
+                      <Label htmlFor="telephone" className="text-lg font-bold uppercase tracking-wider">
+                        Téléphone
+                      </Label>
+                      <Input
+                        id="telephone"
+                        name="telephone"
+                        placeholder="+32 XXX XX XX XX"
+                        className="border-2 border-rich-black"
+                      />
                     </div>
                   </div>
 
                   <div className="space-y-3">
-                    <Label htmlFor="motivation" className="text-lg font-bold uppercase tracking-wider">Votre motivation *</Label>
-                    <Textarea id="motivation" value={formData.motivation} onChange={e => handleChange("motivation", e.target.value)} placeholder="Parlez-nous de votre motivation pour rejoindre le projet Beaver, vos valeurs, ce qui vous attire dans l'habitat partagé..." rows={5} className="border-2 border-rich-black" required />
+                    <Label htmlFor="motivation" className="text-lg font-bold uppercase tracking-wider">
+                      Votre motivation *
+                    </Label>
+                    <Textarea
+                      id="motivation"
+                      name="motivation"
+                      placeholder="Parlez-nous de votre motivation pour rejoindre le projet Beaver, vos valeurs, ce qui vous attire dans l'habitat partagé..."
+                      rows={5}
+                      className="border-2 border-rich-black"
+                      required
+                    />
                   </div>
 
                   <div className="space-y-3">
-                    <Label htmlFor="besoinsSpecifiques" className="text-lg font-bold uppercase tracking-wider">Besoins spécifiques</Label>
-                    <Textarea id="besoinsSpecifiques" value={formData.besoinsSpecifiques} onChange={e => handleChange("besoinsSpecifiques", e.target.value)} placeholder="Avez-vous des besoins spécifiques ou des contraintes particulières que nous devrions connaître ? (accessibilité, allergies, etc.)" rows={4} className="border-2 border-rich-black" />
+                    <Label htmlFor="besoinsSpecifiques" className="text-lg font-bold uppercase tracking-wider">
+                      Besoins spécifiques
+                    </Label>
+                    <Textarea
+                      id="besoinsSpecifiques"
+                      name="besoinsSpecifiques"
+                      placeholder="Avez-vous des besoins spécifiques ou des contraintes particulières que nous devrions connaître ? (accessibilité, allergies, etc.)"
+                      rows={4}
+                      className="border-2 border-rich-black"
+                    />
                   </div>
-
-                  
 
                   <div className="relative">
-                    <Button 
-                      type="submit" 
+                    <Button
+                      type="submit"
                       disabled={isSubmitting}
-                      variant="nature" 
-                      size="lg" 
+                      variant="nature"
+                      size="lg"
                       className="w-full relative z-10 bg-magenta hover:bg-magenta/90 text-white uppercase tracking-wider text-lg py-6 disabled:opacity-50"
                     >
                       {isSubmitting ? (
@@ -182,5 +201,6 @@ export const InscriptionForm = () => {
           </div>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
