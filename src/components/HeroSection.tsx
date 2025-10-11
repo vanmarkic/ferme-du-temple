@@ -24,8 +24,8 @@ export const HeroSection = () => {
         <div className="grid grid-cols-12 gap-0 mb-48">
           {/* Large Interior Image - Starting Point */}
           <div className="col-span-12 flex justify-center items-center relative z-20 mb-8 md:mb-0">
-            <img 
-              src={interior1} 
+            <img
+              src={interior1.src}
               alt="Intérieur de la Ferme du Temple"
               className="w-full h-[70vh] object-cover shadow-2xl"
               loading="eager"
@@ -55,8 +55,8 @@ export const HeroSection = () => {
           {/* Building Exterior */}
           <div className="col-span-12 md:col-span-5 relative">
             <div className="absolute -top-8 -left-8 w-24 h-24 bg-magenta z-10"></div>
-            <img 
-              src={buildingExterior} 
+            <img
+              src={buildingExterior.src}
               alt="Bâtiment extérieur de la ferme"
               className="w-full h-[50vh] object-cover relative z-20"
               loading="lazy"
@@ -70,8 +70,8 @@ export const HeroSection = () => {
 
           {/* Community Field */}
           <div className="col-span-12 md:col-span-5 md:mt-24">
-            <img 
-              src={communityField} 
+            <img
+              src={communityField.src}
               alt="Communauté dans les champs"
               className="w-full h-[40vh] object-cover shadow-xl"
               loading="lazy"
@@ -90,8 +90,8 @@ export const HeroSection = () => {
         <div className="grid grid-cols-12 gap-0">
           <div className="col-span-12 md:col-span-6 md:col-start-4 relative">
             <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-butter-yellow z-10"></div>
-            <img 
-              src={greenhouse} 
+            <img
+              src={greenhouse.src}
               alt="Serres de la ferme"
               className="w-full h-[45vh] object-cover relative z-20"
               loading="lazy"

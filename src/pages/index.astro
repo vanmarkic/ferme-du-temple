@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Providers } from '@/components/Providers';
+import { HeroSection } from '@/components/HeroSection';
+import { ProjectSection } from '@/components/ProjectSection';
+import { CollaborationSection } from '@/components/CollaborationSection';
+import { LocationSection } from '@/components/LocationSection';
+import { PricingSection } from '@/components/PricingSection';
+import { InscriptionForm } from '@/components/InscriptionForm';
+import { TimelineSection } from '@/components/TimelineSection';
+import { Footer } from '@/components/Footer';
+---
+
+<BaseLayout>
+  <Providers client:load>
+    <div class="min-h-screen">
+      <HeroSection client:load />
+      <ProjectSection client:load />
+      <CollaborationSection client:load />
+      <LocationSection client:only="react" />
+      <PricingSection client:load />
+      <InscriptionForm client:load />
+      <TimelineSection client:load />
+      <Footer client:load />
+    </div>
+  </Providers>
+</BaseLayout>

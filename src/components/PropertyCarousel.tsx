@@ -15,16 +15,16 @@ import property9 from "@/assets/property-9.webp";
 import property10 from "@/assets/property-10.webp";
 
 const propertyImages = [
-  { src: property5, alt: "Vue aérienne de la Ferme du Temple" },
-  { src: property6, alt: "Vue aérienne du domaine" },
-  { src: property8, alt: "Bâtiment principal de la ferme" },
-  { src: property9, alt: "Écuries et bâtiments annexes" },
-  { src: property10, alt: "Vue panoramique des bâtiments" },
-  { src: property7, alt: "Paysage entourant le domaine" },
-  { src: property2, alt: "Intérieur de l'ancienne chapelle" },
-  { src: property4, alt: "Salle voûtée avec colonnes" },
-  { src: property1, alt: "Couloir avec plafond voûté" },
-  { src: property3, alt: "Charpente en bois des greniers" },
+  { src: property5.src, alt: "Vue aérienne de la Ferme du Temple" },
+  { src: property6.src, alt: "Vue aérienne du domaine" },
+  { src: property8.src, alt: "Bâtiment principal de la ferme" },
+  { src: property9.src, alt: "Écuries et bâtiments annexes" },
+  { src: property10.src, alt: "Vue panoramique des bâtiments" },
+  { src: property7.src, alt: "Paysage entourant le domaine" },
+  { src: property2.src, alt: "Intérieur de l'ancienne chapelle" },
+  { src: property4.src, alt: "Salle voûtée avec colonnes" },
+  { src: property1.src, alt: "Couloir avec plafond voûté" },
+  { src: property3.src, alt: "Charpente en bois des greniers" },
 ];
 
 export const PropertyCarousel = () => {

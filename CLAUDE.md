@@ -12,6 +12,8 @@
 - break down large files into smaller ones
 - break down large functions into smaller ones
 - use meaningful names for variables and functions
+- remove deprecated code after a feature is fully migrated, or after refactoring
+- remove dead code
 
 ## Test Driven Development
 - apply Test Driven Development
@@ -22,6 +24,7 @@
 - use vitest instead of jest
 - use "npm run test" rather than "npm test" to run tests
 - try to run and test whatever you write and automatically continue to solve errors until it works
+- very important: when test breaks after refactoring, investigate and ask before making any changes
 
 ## Documentation
 - avoid to write documentation, instead write code that is self-explanatory

@@ -1,24 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Send, Heart, Loader2 } from "lucide-react";
-import { loadContent, parseMarkdownSections } from "@/lib/content";
 
 export const InscriptionForm = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [content, setContent] = useState<{ subtitle?: string; formTitle?: string }>({});
-  const [sections, setSections] = useState<Record<string, string[]>>({});
-
-  useEffect(() => {
-    loadContent('inscription.md').then(({ frontmatter, content }) => {
-      setContent(frontmatter);
-      setSections(parseMarkdownSections(content));
-    });
-  }, []);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -26,9 +16,6 @@ export const InscriptionForm = () => {
     // Netlify Forms handles the submission automatically
     // We just need to show a success message after a brief delay
     setTimeout(() => {
-      const successMsg = sections["Messages"]?.[0] || sections["Succès"]?.[0];
-      const successDesc = sections["Messages"]?.[1] || sections["Succès"]?.[1];
-
       toast({
         title: "Candidature envoyée ! 🌱",
         description: "Nous vous recontacterons très prochainement pour échanger sur votre projet."
@@ -50,7 +37,7 @@ export const InscriptionForm = () => {
                 Rejoindre<br />l'aventure
               </h2>
               <p className="text-xl text-muted-foreground max-w-2xl leading-relaxed">
-                {content.subtitle || "Remplissez ce formulaire pour témoigner votre intérêt envers le projet."}
+                Remplissez ce formulaire pour témoigner votre intérêt envers le projet.
               </p>
             </div>
           </div>
@@ -65,7 +52,7 @@ export const InscriptionForm = () => {
                 <div className="flex items-center gap-4 mb-12">
                   <Heart className="w-8 h-8 text-magenta" />
                   <h3 className="text-2xl font-bold uppercase tracking-wider">
-                    {content.formTitle || "Formulaire de candidature"}
+                    Formulaire de candidature
                   </h3>
                 </div>
 

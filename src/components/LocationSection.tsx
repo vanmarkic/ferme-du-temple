@@ -111,8 +111,8 @@ export const LocationSection = () => {
           </div>
 
           <div className="col-span-12 md:col-span-5 md:-ml-16 relative z-20">
-            <img 
-              src={floorPlan} 
+            <img
+              src={floorPlan.src}
               alt="Plan de la Ferme du Temple"
               className="w-full h-auto shadow-2xl max-w-2xl"
               loading="lazy"

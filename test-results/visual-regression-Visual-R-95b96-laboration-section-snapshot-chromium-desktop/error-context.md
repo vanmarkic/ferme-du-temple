@@ -1,0 +1,277 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e4]:
+      - generic [ref=e7]:
+        - generic [ref=e8]:
+          - heading "L'HABITAT PARTAGÉ" [level=1] [ref=e9]:
+            - text: L'HABITAT
+            - generic [ref=e10]: PARTAGÉ
+          - heading "DE LA FERME DU TEMPLE" [level=2] [ref=e11]
+        - generic [ref=e13]:
+          - img "Intérieur de la Ferme du Temple" [ref=e15]
+          - generic [ref=e17]:
+            - paragraph [ref=e18]: Un lieu de vie ancré dans le territoire,
+            - paragraph [ref=e19]: Dynamique et productif,
+            - paragraph [ref=e20]: S'articulant autour de la culture des arts et de la terre
+        - generic [ref=e21]:
+          - img "Bâtiment extérieur de la ferme" [ref=e24]
+          - generic [ref=e25]:
+            - img "Communauté dans les champs" [ref=e26]
+            - paragraph [ref=e28]: Une communauté vivante
+        - img "Serres de la ferme" [ref=e32]
+      - generic [ref=e38]:
+        - generic [ref=e39]:
+          - heading "LE PROJET" [level=2] [ref=e41]
+          - paragraph [ref=e43]: L'habitat partagé de La Ferme du Temple est une pépinière de projets mixtes et innovants, articulée autour de trois pôles principaux qui s'enrichissent mutuellement.
+        - generic [ref=e44]:
+          - generic [ref=e46]:
+            - heading "PÔLE HABITAT" [level=3] [ref=e48]
+            - paragraph [ref=e49]: "Une dizaine d'habitations autonomes en copropriété avec des espaces communs : cuisine collective, salle polyvalente, ateliers, espaces d'accueil."
+          - generic [ref=e52]:
+            - heading "PÔLE CULTUREL" [level=3] [ref=e53]
+            - paragraph [ref=e54]: Un espace pollinisateur pour faire fleurir des idées, cultiver l'art sous différentes formes et tisser des liens sociaux. Un lieu de création et diffusion culturelle.
+          - generic [ref=e58]:
+            - heading "PÔLE TERRE" [level=3] [ref=e59]
+            - paragraph [ref=e60]: "Plus de 7 hectares pour développer un 'domaine gourmand' : potager, forêt comestible, vergers, vignoble, plantes aromatiques et médicinales."
+        - generic [ref=e63]:
+          - heading "POURQUOI LE COLLECTIF BEAVER?" [level=3] [ref=e65]:
+            - text: POURQUOI LE
+            - text: COLLECTIF BEAVER?
+          - generic [ref=e66]:
+            - generic [ref=e67]:
+              - paragraph [ref=e68]: Le nom Beaver signifie Castor en anglais. Ce mammifère fait partie d'une espèce-ingénieure qui, comme l'être humain, aménage son écosystème et modifie intentionnellement son cadre de vie.
+              - paragraph [ref=e69]: Espèce facilitatrice d'échanges et "ingénieure de la nature" tout comme le castor, nous souhaitons fonder un nouveau lieu d'accueil et transformer positivement notre environnement en soutenant une transition sociale et écologique.
+            - generic [ref=e70]:
+              - paragraph [ref=e71]:
+                - text: 8 adultes
+                - text: 6 enfants
+                - text: 4 unités de logement
+              - paragraph [ref=e73]:
+                - text: Architectes
+                - text: Photographes
+                - text: Artistes
+                - text: Enseignants
+                - text: Musiciens
+                - text: Herboristes
+                - text: Entrepreneurs
+      - generic [ref=e76]:
+        - heading "COLLABORATION" [level=2] [ref=e77]
+        - generic [ref=e78]:
+          - generic [ref=e79]:
+            - paragraph [ref=e80]: La gouvernance partagée est au centre de notre fonctionnement. Nous adoptons une approche horizontale dans laquelle nous nous donnons du pouvoir à tous·tes, de la responsabilité et de l'engagement dans la prise de décisions et dans la gestion de notre collectif.
+            - paragraph [ref=e81]: "Notre fonctionnement concernant les prises de décisions s'articule autour de 5 grandes thématiques : les réunions de gouvernance, stratégiques, opérationnelles, de régulation et d'apprentissages. Nous privilégions le consensus et le consentement afin de tenir compte des diversités des points de vue et des points de vue minoritaires."
+            - paragraph [ref=e82]: Les mandats sont clairement définis, cela nous permet de nous emparer des rôles avec autonomie et de développer la confiance dans le collectif pour la réalisation des missions portées par les autres.
+            - paragraph [ref=e83]: Les rôles et les mandats sont tournants afin que l'on puisse tous·tes prendre part aux responsabilités.
+            - paragraph [ref=e84]: Le cadre des réunions se veut précis et sécurisant. Il se préoccupe du «être ensemble» et pas uniquement du «faire ensemble».
+          - generic [ref=e86]:
+            - paragraph [ref=e87]: → Actuellement, l'implication attendue est la participation à une réunion en ligne par mois et une journée de travail en présentiel.
+            - paragraph [ref=e88]: Ainsi que s'investir dans les différents rôles déterminés dans notre gouvernance et participer au minimum à un groupe de travail actif.
+      - generic [ref=e91]:
+        - generic [ref=e95]:
+          - heading "INVESTISSEMENT ET FINANCEMENT" [level=2] [ref=e97]:
+            - text: INVESTISSEMENT
+            - text: ET FINANCEMENT
+          - paragraph [ref=e99]:
+            - text: 6 sur 12 unités
+            - text: disponibles
+        - generic [ref=e100]:
+          - generic [ref=e102]:
+            - paragraph [ref=e103]: Surface
+            - generic [ref=e104]: 60 M²
+            - generic [ref=e105]:
+              - generic [ref=e106]: 187 500 €
+              - paragraph [ref=e107]: Prix total estimé
+            - generic [ref=e108]:
+              - generic [ref=e109]:
+                - generic [ref=e110]: Achat lot privatif
+                - generic [ref=e111]: 67 500 €
+              - generic [ref=e112]:
+                - generic [ref=e113]: Travaux estimés (2000€/M²)
+                - generic [ref=e114]: 120 000 €
+          - generic [ref=e118]:
+            - paragraph [ref=e120]: Surface
+            - generic [ref=e121]: 120 M²
+            - generic [ref=e122]:
+              - generic [ref=e123]: 341 000 €
+              - paragraph [ref=e124]: Prix total estimé
+            - generic [ref=e125]:
+              - generic [ref=e126]:
+                - generic [ref=e127]: Achat lot privatif
+                - generic [ref=e128]: 101 000 €
+              - generic [ref=e129]:
+                - generic [ref=e130]: Travaux estimés (2000€/M²)
+                - generic [ref=e131]: 240 000 €
+        - generic [ref=e136]:
+          - heading "Offre acceptée" [level=3] [ref=e137]
+          - generic [ref=e138]:
+            - generic [ref=e139]:
+              - generic [ref=e140]: 650 000 €
+              - paragraph [ref=e141]: La Ferme du Temple
+            - generic [ref=e142]:
+              - generic [ref=e143]:
+                - generic [ref=e144]: Prix achat terres et ferme
+                - generic [ref=e145]: 650 000 €
+              - generic [ref=e146]:
+                - generic [ref=e147]: Achat en division
+                - paragraph [ref=e148]: Division en lots prévue entre le compromis et l'acte
+            - paragraph [ref=e149]: (hors frais de notaire)
+      - generic [ref=e152]:
+        - generic [ref=e155]:
+          - heading "Rejoindre l'aventure" [level=2] [ref=e157]:
+            - text: Rejoindre
+            - text: l'aventure
+          - paragraph [ref=e158]: Remplissez ce formulaire pour témoigner votre intérêt envers le projet.
+        - generic [ref=e163]:
+          - generic [ref=e164]:
+            - img [ref=e165]
+            - heading "Formulaire de candidature" [level=3] [ref=e167]
+          - generic [ref=e168]:
+            - generic [ref=e169]:
+              - generic [ref=e170]:
+                - text: Nom *
+                - textbox "Nom *" [ref=e171]:
+                  - /placeholder: Votre nom
+              - generic [ref=e172]:
+                - text: Prénom *
+                - textbox "Prénom *" [ref=e173]:
+                  - /placeholder: Votre prénom
+            - generic [ref=e174]:
+              - generic [ref=e175]:
+                - text: Email *
+                - textbox "Email *" [ref=e176]:
+                  - /placeholder: votre@email.com
+              - generic [ref=e177]:
+                - text: Téléphone
+                - textbox "Téléphone" [ref=e178]:
+                  - /placeholder: +32 XXX XX XX XX
+            - generic [ref=e179]:
+              - text: Votre motivation *
+              - textbox "Votre motivation *" [ref=e180]:
+                - /placeholder: Parlez-nous de votre motivation pour rejoindre le projet Beaver, vos valeurs, ce qui vous attire dans l'habitat partagé...
+            - generic [ref=e181]:
+              - text: Besoins spécifiques
+              - textbox "Besoins spécifiques" [ref=e182]:
+                - /placeholder: Avez-vous des besoins spécifiques ou des contraintes particulières que nous devrions connaître ? (accessibilité, allergies, etc.)
+            - button "Envoyer ma candidature" [ref=e184] [cursor=pointer]:
+              - img
+              - text: Envoyer ma candidature
+            - paragraph [ref=e185]: En envoyant ce formulaire, vous acceptez d'être contacté·e par le collectif Beaver pour échanger sur votre candidature. Vos données ne seront pas partagées avec des tiers et seront conservées durant 3 ans maximum.
+      - generic [ref=e188]:
+        - generic [ref=e191]:
+          - heading "PLANNING PRÉVISIONNEL" [level=2] [ref=e193]:
+            - text: PLANNING
+            - text: PRÉVISIONNEL
+          - paragraph [ref=e194]: Nous travaillons depuis plus d'un an au montage de notre futur habitat partagé. Voici les grandes étapes de notre parcours vers l'emménagement.
+        - generic [ref=e195]:
+          - generic [ref=e196]:
+            - generic [ref=e198]:
+              - img [ref=e200]
+              - generic [ref=e202]: "2023"
+            - generic [ref=e205]:
+              - generic [ref=e206]: Réalisé
+              - list [ref=e207]:
+                - listitem [ref=e208]: Naissance du Collectif Beaver
+                - listitem [ref=e209]: Première visite de la Ferme du Temple
+          - generic [ref=e210]:
+            - generic [ref=e212]:
+              - img [ref=e214]
+              - generic [ref=e217]: "2024"
+            - generic [ref=e220]:
+              - generic [ref=e221]: Réalisé
+              - list [ref=e222]:
+                - listitem [ref=e223]: Offre d'achat de la Ferme acceptée
+                - listitem [ref=e224]: Création de la charte
+          - generic [ref=e225]:
+            - generic [ref=e227]:
+              - img [ref=e229]
+              - generic [ref=e232]: "2025"
+            - generic [ref=e236]:
+              - generic [ref=e237]: En cours
+              - list [ref=e238]:
+                - listitem [ref=e239]: Nouvelles recrues Beaver
+                - listitem [ref=e240]: Signature du compromis et de la vente
+                - listitem [ref=e241]: Mesures conservatoires sur le bâtiment
+                - listitem [ref=e242]: Faisabilité + programmation avec les architectes Carton 123
+          - generic [ref=e243]:
+            - generic [ref=e245]:
+              - img [ref=e247]
+              - generic [ref=e250]: 2026-2027
+            - generic [ref=e253]:
+              - generic [ref=e254]: À venir
+              - list [ref=e255]:
+                - listitem [ref=e256]: Esquisse + Avant projet
+                - listitem [ref=e257]: Mesures conservatoires sur le bâtiment
+                - listitem [ref=e258]: Obtention du permis d'urbanisme pour division des parties privées
+          - generic [ref=e259]:
+            - generic [ref=e261]:
+              - img [ref=e263]
+              - generic [ref=e266]: 2028-2029
+            - generic [ref=e269]:
+              - generic [ref=e270]: À venir
+              - list [ref=e271]:
+                - listitem [ref=e272]: Travaux d'infrastructures
+                - listitem [ref=e273]: Début des travaux privatifs
+                - listitem [ref=e274]: Emménagement à la ferme
+        - generic [ref=e279]:
+          - heading "Nous voulons faire de l'habitat partagé de la Ferme du Temple" [level=3] [ref=e280]
+          - generic [ref=e281]:
+            - paragraph [ref=e282]: Un lieu joyeux et aimant,
+            - paragraph [ref=e283]: Ouvert et chaleureux,
+            - paragraph [ref=e284]: Où l'abondance de la vie peut être célébrée !
+      - contentinfo [ref=e286]:
+        - generic [ref=e287]:
+          - generic [ref=e289]:
+            - heading "Contact" [level=3] [ref=e290]
+            - generic [ref=e292]:
+              - img [ref=e293]
+              - generic [ref=e296]:
+                - paragraph [ref=e297]: 227 avenue Joseph Wauters
+                - paragraph [ref=e298]: 7080 Frameries, Belgique
+            - generic [ref=e299]:
+              - heading "Membres du projet" [level=4] [ref=e300]
+              - generic [ref=e301]:
+                - generic [ref=e302]: Annabelle Czyz
+                - generic [ref=e303]: Cathy Weyders
+                - generic [ref=e304]: Colin Ponthot
+                - generic [ref=e305]: Jeremy Michel
+                - generic [ref=e306]: Julie Luyten
+                - generic [ref=e307]: Manuela Capraro
+                - generic [ref=e308]: Dragan Markovic
+                - generic [ref=e309]: Séverin Malaud
+            - generic [ref=e310]:
+              - heading "Partenaires" [level=4] [ref=e311]
+              - generic [ref=e312]:
+                - paragraph [ref=e313]:
+                  - strong [ref=e314]: "Architectes :"
+                  - text: Carton 123
+                - paragraph [ref=e315]:
+                  - strong [ref=e316]: "Notaire :"
+                  - text: Maître Delphine Delhaye
+                - paragraph [ref=e317]:
+                  - strong [ref=e318]: "Conseil en management :"
+                  - text: Altera Consulting
+          - generic [ref=e319]:
+            - paragraph [ref=e320]: © 2025 Collectif Beaver - Habitat partagé de la Ferme du Temple
+            - paragraph [ref=e321]: Janvier 2025 - Conçu avec passion pour un avenir durable
+    - region "Notifications (F8)":
+      - list
+    - region "Notifications alt+T"
+  - generic [ref=e324]:
+    - button "Menu" [ref=e325]:
+      - img [ref=e327]
+      - generic: Menu
+    - button "Inspect" [ref=e331]:
+      - img [ref=e333]
+      - generic: Inspect
+    - button "Audit" [ref=e335]:
+      - generic [ref=e336]:
+        - img [ref=e337]
+        - img [ref=e340]
+      - generic: Audit
+    - button "Settings" [ref=e343]:
+      - img [ref=e345]
+      - generic: Settings
+```
