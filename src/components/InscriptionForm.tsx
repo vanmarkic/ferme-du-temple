@@ -63,6 +63,7 @@ export const InscriptionForm = () => {
                   netlify-honeypot="bot-field"
                   onSubmit={handleSubmit}
                   className="space-y-8"
+                  netlify
                 >
                   {/* Netlify Forms requirement */}
                   <input type="hidden" name="form-name" value="inscription" />
