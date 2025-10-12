@@ -1,5 +1,6 @@
 import { Check } from "lucide-react";
 import { NumberBadge } from "./NumberBadge";
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 interface PricingContent {
   title?: string;
@@ -79,6 +80,11 @@ export const PricingSection = ({ content, body }: PricingSectionProps = {}) => {
   };
 
   const units = parseUnits(body);
+
+  // Scroll reveal hooks for pricing cards
+  const { elementRef: unit1Ref, isVisible: unit1Visible } = useScrollReveal({ threshold: 0.15 });
+  const { elementRef: unit2Ref, isVisible: unit2Visible } = useScrollReveal({ threshold: 0.15 });
+
   return <section data-testid="pricing-section" className="py-48 bg-background overflow-hidden">
       <div className="container mx-auto px-4">
         {/* Title - Bauhaus Asymmetric */}
@@ -105,8 +111,11 @@ export const PricingSection = ({ content, body }: PricingSectionProps = {}) => {
         {units.length >= 2 && (
           <div className="grid grid-cols-12 gap-0 mb-64">
             {/* First unit */}
-            <div className="col-span-12 md:col-span-5 mb-16 md:mb-0 relative z-20">
-              <div className="bg-background border-4 border-rich-black p-12">
+            <div
+              ref={unit1Ref}
+              className={`col-span-12 md:col-span-5 mb-16 md:mb-0 relative z-20 fade-in ${unit1Visible ? 'visible' : ''}`}
+            >
+              <div className="bg-background border-4 border-rich-black p-12 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
                 <NumberBadge number={1} variant="default" className="mb-4" />
                 <p className="text-lg text-muted-foreground uppercase tracking-wider mb-2">Surface</p>
                 <div className="text-6xl font-bold font-display text-foreground mb-8">
@@ -130,10 +139,13 @@ export const PricingSection = ({ content, body }: PricingSectionProps = {}) => {
             </div>
 
             {/* Second unit - Reduced Overlap */}
-            <div className="col-span-12 md:col-span-6 md:col-start-6 md:-mt-12 relative z-30">
+            <div
+              ref={unit2Ref}
+              className={`col-span-12 md:col-span-6 md:col-start-6 md:-mt-12 relative z-30 fade-in fade-in-stagger-1 ${unit2Visible ? 'visible' : ''}`}
+            >
               <div className="relative overflow-hidden">
                 <div className="hidden md:block absolute -bottom-12 -right-12 w-32 h-32 bg-magenta z-0"></div>
-                <div className="bg-butter-yellow p-12 relative z-10 shadow-xl">
+                <div className="bg-butter-yellow p-12 relative z-10 shadow-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
                   <div className="flex items-center gap-4 mb-4">
                     <NumberBadge number={2} variant="light" />
                     <p className="text-lg text-rich-black uppercase tracking-wider">Surface</p>

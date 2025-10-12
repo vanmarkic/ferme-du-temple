@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 interface SectionTitleProps {
   children: ReactNode;
@@ -15,8 +16,13 @@ export const SectionTitle = ({
   alignment = "left",
   className = "",
 }: SectionTitleProps) => {
+  const { elementRef, isVisible } = useScrollReveal({ threshold: 0.2 });
+
   return (
-    <div className={`relative mb-16 ${className}`}>
+    <div
+      ref={elementRef}
+      className={`relative mb-16 fade-in ${isVisible ? 'visible' : ''} ${className}`}
+    >
       {/* Pink accent line */}
       {accentLine === "horizontal" && (
         <div className="absolute -top-8 left-0 w-64 h-2 bg-magenta"></div>

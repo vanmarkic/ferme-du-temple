@@ -13,6 +13,30 @@ export default {
       },
     },
     extend: {
+      /* Grid Layout System (12-column grid)
+       *
+       * Standard column patterns:
+       * - Full width: col-span-12
+       *   Use for: Hero images, full-width sections
+       *
+       * - Standard content: col-span-10 col-start-2
+       *   Use for: Most sections, forms, footer, general content
+       *
+       * - Reading-optimized: col-span-8 col-start-3
+       *   Use for: Text-heavy content, articles, timeline titles
+       *
+       * - Half width: col-span-6 or col-span-5
+       *   Use for: Two-column layouts, pricing cards, location blocks
+       *
+       * - Asymmetric small: col-span-4
+       *   Use for: Bauhaus-style offset content, project poles
+       *
+       * Column start positions (for intentional asymmetry):
+       * - col-start-2: Slight indent (standard content)
+       * - col-start-3: Medium indent (reading-optimized content)
+       * - col-start-4+: Strong asymmetric offset (Bauhaus style)
+       * - col-start-5+: Maximum asymmetric offset (timeline content)
+       */
       fontFamily: {
         sans: ['Poppins', 'system-ui', 'sans-serif'],
         'poppins': ['Poppins', 'sans-serif'],

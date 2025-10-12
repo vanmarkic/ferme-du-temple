@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { SectionTitle } from "./SectionTitle";
 import { NumberBadge } from "./NumberBadge";
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 interface ProjectContent {
   title?: string;
@@ -86,6 +87,11 @@ export const ProjectSection = ({ content, body }: ProjectSectionProps = {}) => {
   const members = parseMembers(body);
   const professions = parseProfessions(body);
 
+  // Scroll reveal hooks for staggered pole animations
+  const { elementRef: pole1Ref, isVisible: pole1Visible } = useScrollReveal({ threshold: 0.15 });
+  const { elementRef: pole2Ref, isVisible: pole2Visible } = useScrollReveal({ threshold: 0.15 });
+  const { elementRef: pole3Ref, isVisible: pole3Visible } = useScrollReveal({ threshold: 0.15 });
+
   return (
     <section data-testid="project-section" id="projet" className="py-48 bg-background overflow-hidden">
       <div className="container mx-auto px-4">
@@ -100,7 +106,10 @@ export const ProjectSection = ({ content, body }: ProjectSectionProps = {}) => {
         {poles.length >= 3 && (
           <div className="grid grid-cols-12 gap-0 mb-64">
             {/* Pole 1 - Top Left */}
-            <div className="col-span-12 md:col-span-4 mb-16 md:mb-0">
+            <div
+              ref={pole1Ref}
+              className={`col-span-12 md:col-span-4 mb-16 md:mb-0 fade-in ${pole1Visible ? 'visible' : ''}`}
+            >
               <div className="bg-butter-yellow p-12 h-full relative">
                 <div className="absolute top-0 right-0 w-16 h-16 bg-magenta"></div>
                 <NumberBadge number={1} variant="light" className="mb-4" />
@@ -113,7 +122,10 @@ export const ProjectSection = ({ content, body }: ProjectSectionProps = {}) => {
             <div className="hidden md:block col-span-1"></div>
 
             {/* Pole 2 - Middle Right, Reduced Offset */}
-            <div className="col-span-12 md:col-span-5 md:mt-12 mb-16 md:mb-0">
+            <div
+              ref={pole2Ref}
+              className={`col-span-12 md:col-span-5 md:mt-12 mb-16 md:mb-0 fade-in fade-in-stagger-1 ${pole2Visible ? 'visible' : ''}`}
+            >
               <div className="bg-background border-2 border-rich-black p-12 h-full">
                 <NumberBadge number={2} variant="default" className="mb-4" />
                 <h3 className="text-2xl font-bold text-foreground mb-6 uppercase tracking-wider">{poles[1].title}</h3>
@@ -122,7 +134,10 @@ export const ProjectSection = ({ content, body }: ProjectSectionProps = {}) => {
             </div>
 
             {/* Pole 3 - Bottom Left, Reduced Offset */}
-            <div className="col-span-12 md:col-span-6 md:col-start-2 md:mt-16">
+            <div
+              ref={pole3Ref}
+              className={`col-span-12 md:col-span-6 md:col-start-2 md:mt-16 fade-in fade-in-stagger-2 ${pole3Visible ? 'visible' : ''}`}
+            >
               <div className="relative overflow-hidden">
                 <div className="hidden md:block absolute -bottom-8 -right-8 w-32 h-32 bg-magenta/20 z-0"></div>
                 <div className="bg-butter-yellow/30 p-12 relative z-10">

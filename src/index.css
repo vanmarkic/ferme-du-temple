@@ -218,7 +218,33 @@ All colors MUST be HSL.
  * No border + no background: Decorative geometric accents
  */
 
-/* Scroll-reveal Animation System */
+/* Geometric Shape Opacity System
+ *
+ * Solid (100%): Primary visual elements and active accents
+ *   - Direct visual hierarchy and emphasis
+ *   - Use for: Magenta accent bars, NumberBadge backgrounds, footer geometric accent
+ *   - Examples: bg-magenta, bg-butter-yellow, bg-rich-black
+ *
+ * 30% opacity: Mid-ground decorative elements
+ *   - Creates visible depth while maintaining readability
+ *   - Use for: Card backgrounds, overlapping content regions, subtle emphasis
+ *   - Examples: bg-butter-yellow/30 (project pole 3), bg-warm-beige/20 (collaboration)
+ *
+ * 20% opacity: Background decorative elements
+ *   - Subtle depth without distraction from main content
+ *   - Use for: Geometric overlays behind content, ambient shapes, connecting lines
+ *   - Examples: bg-magenta/20 (hero decorative squares, timeline center line)
+ *
+ * 10% opacity: Minimal decorative accents
+ *   - Nearly invisible, pure ambient atmosphere
+ *   - Use sparingly for very subtle background patterns
+ *
+ * Performance note: Opacity uses GPU acceleration, efficient for animations
+ */
+
+/* Scroll-reveal Animation System
+ * Respects prefers-reduced-motion for accessibility
+ */
 @layer components {
   .fade-in {
     opacity: 0;
@@ -242,6 +268,21 @@ All colors MUST be HSL.
 
   .fade-in-stagger-3 {
     transition-delay: 300ms;
+  }
+
+  /* Respect user's motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .fade-in {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+
+    .fade-in-stagger-1,
+    .fade-in-stagger-2,
+    .fade-in-stagger-3 {
+      transition-delay: 0ms;
+    }
   }
 
   /* Prose styles for markdown/rich text content */
