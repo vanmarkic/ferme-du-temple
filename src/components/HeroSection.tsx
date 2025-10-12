@@ -36,15 +36,9 @@ export const HeroSection = () => {
 
           {/* Overlapping Text Block */}
           <div className="col-span-12 md:col-span-5 md:col-start-7 md:-ml-32 relative z-30 bg-butter-yellow p-12 md:mt-24">
-            <div className="space-y-6 text-rich-black">
-              <p className="text-lg font-medium uppercase tracking-wider">
-                Un lieu de vie ancré dans le territoire,
-              </p>
-              <p className="text-lg font-medium uppercase tracking-wider">
-                Dynamique et productif,
-              </p>
-              <p className="text-lg font-medium uppercase tracking-wider">
-                S'articulant autour de la culture des arts et de la terre
+            <div className="text-rich-black">
+              <p className="text-lg font-medium leading-relaxed">
+                L'habitat partagé de la Ferme du Temple sera un lieu de vie ancré dans le territoire, dynamique et productif, s'articulant autour de la culture des Arts et de la terre
               </p>
             </div>
           </div>
@@ -78,11 +72,6 @@ export const HeroSection = () => {
               decoding="async"
               style={{ maxWidth: '800px', maxHeight: '500px' }}
             />
-            <div className="mt-8 bg-butter-yellow/30 p-6 -ml-8">
-              <p className="text-sm uppercase tracking-widest text-rich-black font-medium">
-                Une communauté vivante
-              </p>
-            </div>
           </div>
         </div>
 

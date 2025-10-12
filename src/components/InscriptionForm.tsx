@@ -26,7 +26,7 @@ export const InscriptionForm = () => {
                 Rejoindre<br />l'aventure
               </h2>
               <p className="text-xl text-muted-foreground max-w-2xl leading-relaxed">
-                Remplissez ce formulaire pour témoigner votre intérêt envers le projet.
+                Vous pouvez remplir ce formulaire pour témoigner de votre intérêt envers le projet. Nous vous recontacterons dans les semaines à venir pour vous communiquer une date de visite de la ferme et le reste du processus d'adhésion.
               </p>
             </div>
           </div>
@@ -125,7 +125,7 @@ export const InscriptionForm = () => {
                     <Textarea
                       id="motivation"
                       name="motivation"
-                      placeholder="Parlez-nous de votre motivation pour rejoindre le projet Beaver, vos valeurs, ce qui vous attire dans l'habitat partagé..."
+                      placeholder="Parlez-nous de votre motivation pour rejoindre le projet d'Habitat Beaver? Qu'est-ce qui vous tient à cœur dans la réalisation d'un habitat partagé? Vos valeurs, vos attentes?..."
                       rows={5}
                       className="border-2 border-rich-black"
                       required
@@ -139,7 +139,7 @@ export const InscriptionForm = () => {
                     <Textarea
                       id="besoinsSpecifiques"
                       name="besoinsSpecifiques"
-                      placeholder="Avez-vous des besoins spécifiques ou des contraintes particulières que nous devrions connaître ? (accessibilité, allergies, etc.)"
+                      placeholder="Avez-vous des besoins spécifiques ou des contraintes particulières que nous devrions connaître ? (accessibilité, etc.)"
                       rows={4}
                       className="border-2 border-rich-black"
                     />

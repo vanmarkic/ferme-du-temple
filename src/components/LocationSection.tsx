@@ -1,6 +1,7 @@
 import { MapPin, Train, Car, Plane } from "lucide-react";
 import { MapView } from "./MapView";
 import { PropertyCarousel } from "./PropertyCarousel";
+import { SectionTitle } from "./SectionTitle";
 import floorPlan from "@/assets/floor-plan.png";
 
 
@@ -8,15 +9,12 @@ export const LocationSection = () => {
   return (
     <section data-testid="location-section" className="py-48 bg-background overflow-x-hidden">
       <div className="container mx-auto px-4">
-        {/* Section Title - Bauhaus Style */}
+        {/* Section Title */}
         <div className="grid grid-cols-12 gap-0 mb-48">
           <div className="col-span-12 md:col-span-7">
-            <div className="relative">
-              <div className="absolute -left-8 top-0 w-2 h-64 bg-butter-yellow"></div>
-              <h2 className="text-5xl md:text-7xl font-display text-foreground mb-12 ml-8">
-                LA FERME<br/>DU TEMPLE
-              </h2>
-            </div>
+            <SectionTitle accentLine="vertical">
+              LA FERME<br/>DU TEMPLE
+            </SectionTitle>
           </div>
           <div className="col-span-12 md:col-span-5 md:mt-24">
             <div className="flex items-start gap-4 bg-butter-yellow p-8">
@@ -87,7 +85,7 @@ export const LocationSection = () => {
             <div className="relative">
               <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-magenta z-0"></div>
               <div className="bg-background p-12 relative z-10">
-                <h3 className="text-3xl md:text-5xl font-display text-foreground mb-8 uppercase">
+                <h3 className="text-5xl md:text-7xl font-display text-foreground mb-8 uppercase">
                   Un patrimoine<br/>historique<br/>exceptionnel
                 </h3>
                 <div className="space-y-6 text-muted-foreground leading-relaxed">
@@ -122,53 +120,30 @@ export const LocationSection = () => {
           </div>
         </div>
 
-        {/* Domain Today - Bold Typography */}
-        <div className="mb-32 px-4 md:px-0">
-          <div className="max-w-5xl mx-auto">
-            <div className="relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-16 md:w-32 h-2 bg-magenta"></div>
-              <h4 className="text-3xl md:text-6xl font-display text-foreground mb-16 mt-8 break-words">
-                Le domaine<br/>aujourd'hui
-              </h4>
-              
-              <div className="grid md:grid-cols-2 gap-x-4 md:gap-x-16 gap-y-6 text-lg">
-                <div className="space-y-6">
-                  <p className="text-muted-foreground leading-relaxed">7 hectares de prairies arborées</p>
-                  <p className="text-muted-foreground leading-relaxed">Ruisseau traversant la parcelle</p>
-                  <p className="text-muted-foreground leading-relaxed">Imposant corps de logis historique</p>
-                  <p className="text-muted-foreground leading-relaxed">Ancienne chapelle du XIIe siècle</p>
-                </div>
-                <div className="space-y-6">
-                  <p className="text-muted-foreground leading-relaxed">Ancienne forge et ateliers</p>
-                  <p className="text-muted-foreground leading-relaxed">Écuries surmontées de fenils</p>
-                  <p className="text-muted-foreground leading-relaxed">Serre de 80 mètres</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
         {/* Property Carousel */}
         <div className="mb-48">
           <div className="mb-12 ml-0 md:ml-16">
-            <h5 className="text-3xl md:text-5xl font-display text-foreground uppercase">
+            <h5 className="text-5xl md:text-7xl font-display text-foreground uppercase">
               Découvrez le domaine<br/>en images
             </h5>
           </div>
           <PropertyCarousel />
         </div>
 
-        {/* Map */}
-        <div className="grid grid-cols-12 gap-0">
-          <div className="col-span-12 md:col-span-10 md:col-start-2">
-            <div className="relative">
-              <div className="absolute -top-8 -right-8 w-64 h-64 bg-butter-yellow/30 z-0"></div>
-              <div className="relative z-10">
-                <h3 className="text-3xl font-bold text-foreground mb-8 uppercase tracking-wider">
-                  Localisation sur la carte
-                </h3>
-                <div className="shadow-2xl border-4 border-rich-black">
-                  <MapView />
+        {/* Localisation Section */}
+        <div className="mb-16">
+          <h3 className="text-5xl md:text-7xl font-display text-foreground mb-16 uppercase ml-8">
+            LOCALISATION
+          </h3>
+
+          <div className="grid grid-cols-12 gap-0">
+            <div className="col-span-12 md:col-span-10 md:col-start-2">
+              <div className="relative">
+                <div className="absolute -top-8 -right-8 w-64 h-64 bg-butter-yellow/30 z-0"></div>
+                <div className="relative z-10">
+                  <div className="shadow-2xl border-4 border-rich-black">
+                    <MapView />
+                  </div>
                 </div>
               </div>
             </div>

@@ -1,5 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { CalendarDays, MapPin, Building, Home } from "lucide-react";
+import { SectionTitle } from "./SectionTitle";
 
 export const TimelineSection = () => {
   const timeline = [
@@ -78,16 +79,11 @@ export const TimelineSection = () => {
         {/* Title */}
         <div className="grid grid-cols-12 gap-0 mb-48">
           <div className="col-span-12 md:col-span-8 md:col-start-3">
-            <div className="relative">
-              <div className="absolute -top-8 left-0 w-64 h-2 bg-magenta"></div>
-              <h2 className="text-5xl md:text-7xl font-display text-foreground mb-12 mt-8">
-                PLANNING<br/>PRÉVISIONNEL
-              </h2>
-              <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl">
-                Nous travaillons depuis plus d'un an au montage de notre futur habitat partagé. 
-                Voici les grandes étapes de notre parcours vers l'emménagement.
-              </p>
-            </div>
+            <SectionTitle
+              subtitle="Nous travaillons depuis plus d'un an au montage de notre futur habitat partagé. Voici les grandes étapes de notre parcours vers l'emménagement."
+            >
+              PLANNING<br/>PRÉVISIONNEL
+            </SectionTitle>
           </div>
         </div>
 
@@ -142,7 +138,7 @@ export const TimelineSection = () => {
             <div className="relative">
               <div className="absolute -bottom-16 -left-16 w-64 h-64 bg-butter-yellow/30"></div>
               <div className="bg-magenta text-white p-16 relative z-10">
-                <h3 className="text-3xl md:text-5xl font-display mb-8 leading-tight uppercase">
+                <h3 className="text-5xl md:text-7xl font-display mb-8 leading-tight uppercase">
                   Nous voulons faire de l'habitat partagé de la Ferme du Temple
                 </h3>
                 <div className="space-y-4 text-2xl md:text-3xl font-bold">

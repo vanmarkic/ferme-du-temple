@@ -1,10 +1,12 @@
+import { SectionTitle } from "./SectionTitle";
+
 export const CollaborationSection = () => {
   return (
-    <section data-testid="collaboration-section" id="collaboration" className="py-16 px-4 bg-background">
+    <section data-testid="collaboration-section" id="collaboration" className="py-48 px-4 bg-background">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-4xl md:text-5xl font-display mb-12 text-center">
+        <SectionTitle alignment="center" accentLine="none">
           COLLABORATION
-        </h2>
+        </SectionTitle>
 
         <div className="grid md:grid-cols-2 gap-8 items-start">
           <div className="space-y-6 text-foreground/90 leading-relaxed">

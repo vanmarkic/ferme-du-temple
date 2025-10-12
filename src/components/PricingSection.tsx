@@ -31,8 +31,8 @@ export const PricingSection = () => {
           <div className="col-span-12 md:col-span-8">
             <div className="relative overflow-hidden">
               <div className="hidden md:block absolute -top-16 right-0 w-48 h-48 bg-butter-yellow/30"></div>
-              <h2 className="text-3xl md:text-7xl font-display text-foreground mb-12 relative z-10 break-words">
-                INVESTISSEMENT<br />ET FINANCEMENT
+              <h2 className="text-5xl md:text-7xl font-display text-foreground mb-12 relative z-10 break-words">
+                POINT FINANCE
               </h2>
               <div className="bg-magenta text-white p-8 inline-block">
                 <p className="text-2xl font-bold">
@@ -106,23 +106,16 @@ export const PricingSection = () => {
             <div className="relative overflow-hidden">
               <div className="absolute top-0 left-0 w-2 h-full bg-magenta"></div>
               <div className="ml-8 md:ml-12">
-                <h3 className="text-2xl md:text-3xl lg:text-5xl font-display text-foreground mb-8 md:mb-12 uppercase break-words">
+                <h3 className="text-5xl md:text-7xl font-display text-foreground mb-8 md:mb-12 uppercase break-words">
                   Offre acceptée
                 </h3>
                 <div className="bg-butter-yellow/30 p-6 md:p-12 border-2 border-butter-yellow">
                   <div className="mb-6 md:mb-8">
-                    <div className="text-4xl md:text-6xl lg:text-7xl font-bold text-magenta mb-3 md:mb-4 break-words">
-                      650 000 €
-                    </div>
                     <p className="text-lg md:text-2xl font-bold text-foreground uppercase tracking-wider break-words">
                       La Ferme du Temple
                     </p>
                   </div>
                   <div className="space-y-4 md:space-y-6 text-sm md:text-lg">
-                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 pb-4 border-b-2 border-rich-black/20">
-                      <span className="text-muted-foreground">Prix achat terres et ferme</span>
-                      <span className="font-bold text-foreground">650 000 €</span>
-                    </div>
                     <div className="pt-4">
                       <span className="text-muted-foreground block mb-2">Achat en division</span>
                       <p className="font-bold text-foreground">
@@ -130,9 +123,6 @@ export const PricingSection = () => {
                       </p>
                     </div>
                   </div>
-                  <p className="text-xs md:text-sm text-muted-foreground mt-6 md:mt-8 italic">
-                    (hors frais de notaire)
-                  </p>
                 </div>
               </div>
             </div>
