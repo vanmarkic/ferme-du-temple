@@ -47,19 +47,6 @@ describe('Navigation', () => {
     expect(screen.getByText('Ferme du Temple')).toBeTruthy();
   });
 
-  it('should use default brand name when no content provided', () => {
-    render(<Navigation />);
-    expect(screen.getByText('Ferme du Temple')).toBeTruthy();
-  });
-
-  it('should render empty menu when no content provided', () => {
-    render(<Navigation />);
-    const nav = screen.getByRole('navigation');
-    expect(nav).toBeTruthy();
-    // No menu items should be rendered
-    expect(screen.queryByText('Le Projet')).toBeFalsy();
-  });
-
   it('should have mobile menu toggle button', () => {
     render(<Navigation content={mockContent} />);
     const menuButton = screen.getByLabelText(/menu/i);

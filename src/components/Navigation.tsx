@@ -2,25 +2,25 @@ import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-interface MenuItem {
+export interface MenuItem {
   label: string;
   href: string;
 }
 
-interface NavigationContent {
-  brandName?: string;
-  menuItems?: MenuItem[];
+export interface NavigationContent {
+  brandName: string;
+  menuItems: MenuItem[];
 }
 
 interface NavigationProps {
-  content?: NavigationContent;
+  content: NavigationContent;
 }
 
-export const Navigation = ({ content }: NavigationProps = {}) => {
+export const Navigation = ({ content }: NavigationProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const brandName = content?.brandName || 'Ferme du Temple';
-  const menuItems = content?.menuItems || [];
+  const brandName = content.brandName;
+  const menuItems = content.menuItems;
 
   const toggleMenu = () => setIsOpen(!isOpen);
 

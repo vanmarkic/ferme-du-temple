@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { Providers } from '@/components/Providers';
 import { Navigation } from '@/components/Navigation';
+import type { NavigationContent } from '@/components/Navigation';
 import { HeroSection } from '@/components/HeroSection';
 import { ProjectSection } from '@/components/ProjectSection';
 import { CollaborationSection } from '@/components/CollaborationSection';
@@ -49,7 +50,7 @@ const { Content: FooterContent } = await render(footerEntry);
 
 <BaseLayout>
   <Providers client:load>
-    <Navigation client:load content={navigationEntry.data} />
+    <Navigation client:load content={navigationEntry.data as NavigationContent} />
     <div class="min-h-screen pt-20">
       <HeroSection client:load content={heroEntry.data} />
       <div id="projet">
