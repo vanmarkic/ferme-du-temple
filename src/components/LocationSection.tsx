@@ -160,7 +160,7 @@ export const LocationSection = ({ content, body }: LocationSectionProps = {}) =>
           <div className="col-span-12 md:col-span-6 md:col-start-2 mb-16 md:mb-0">
             <div className="relative">
               <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-magenta z-0"></div>
-              <div className="bg-background p-12 relative z-10">
+              <div className="bg-background p-12 relative z-30">
                 {heritage.title && (
                   <h3 className="text-5xl md:text-7xl font-display text-foreground mb-8 uppercase">
                     {heritage.title.split(' ').slice(0, 2).join(' ')}<br/>{heritage.title.split(' ').slice(2, 4).join(' ')}<br/>{heritage.title.split(' ').slice(4).join(' ')}
@@ -175,7 +175,7 @@ export const LocationSection = ({ content, body }: LocationSectionProps = {}) =>
             </div>
           </div>
 
-          <div className="col-span-12 md:col-span-5 md:-ml-8 relative z-20">
+          <div className="col-span-12 md:col-span-5 md:-ml-8 relative z-10">
             <img
               src={floorPlan.src}
               alt="Plan de la Ferme du Temple"
