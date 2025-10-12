@@ -7,9 +7,9 @@ import { useToast } from "@/hooks/use-toast";
 import { Send, Heart, Loader2 } from "lucide-react";
 
 interface InscriptionContent {
-  title: string;
-  subtitle: string;
-  formTitle: string;
+  title?: string;
+  subtitle?: string;
+  formTitle?: string;
 }
 
 interface InscriptionFormProps {
@@ -18,9 +18,9 @@ interface InscriptionFormProps {
 
 export const InscriptionForm = ({ content }: InscriptionFormProps = {}) => {
   const {
-    title = "Rejoindre l'aventure",
-    subtitle = "Vous pouvez remplir ce formulaire pour témoigner de votre intérêt envers le projet. Nous vous recontacterons dans les semaines à venir pour vous communiquer une date de visite de la ferme et le reste du processus d'adhésion.",
-    formTitle = "Formulaire de candidature",
+    title,
+    subtitle,
+    formTitle,
   } = content || {};
 
   const { toast } = useToast();

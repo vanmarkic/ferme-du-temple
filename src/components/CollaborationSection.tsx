@@ -1,7 +1,7 @@
 import { SectionTitle } from "./SectionTitle";
 
 interface CollaborationContent {
-  title: string;
+  title?: string;
   alignment?: string;
 }
 
@@ -12,7 +12,7 @@ interface CollaborationSectionProps {
 
 export const CollaborationSection = ({ content, body }: CollaborationSectionProps = {}) => {
   const {
-    title = "COLLABORATION",
+    title,
     alignment = "center",
   } = content || {};
 

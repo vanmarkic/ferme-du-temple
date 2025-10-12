@@ -2,8 +2,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { SectionTitle } from "./SectionTitle";
 
 interface ProjectContent {
-  title: string;
-  subtitle: string;
+  title?: string;
+  subtitle?: string;
 }
 
 interface ProjectSectionProps {
@@ -13,8 +13,8 @@ interface ProjectSectionProps {
 
 export const ProjectSection = ({ content, body }: ProjectSectionProps = {}) => {
   const {
-    title = "LE PROJET",
-    subtitle = "L'habitat partagé de La Ferme du Temple est une pépinière de projets mixtes et innovants, articulée autour de trois pôles principaux qui s'enrichissent mutuellement.",
+    title,
+    subtitle,
   } = content || {};
 
   // Parse poles from markdown body

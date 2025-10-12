@@ -4,17 +4,17 @@ import communityField from "@/assets/community-field.jpg";
 import greenhouse from "@/assets/greenhouse.jpg";
 
 interface HeroContent {
-  mainTitle: string;
-  mainSubtitle: string;
-  secondaryTitle: string;
-  tagline1: string;
-  tagline2: string;
-  tagline3: string;
-  imageAlt1: string;
-  imageAlt2: string;
-  imageAlt3: string;
-  imageAlt4: string;
-  communityCaption: string;
+  mainTitle?: string;
+  mainSubtitle?: string;
+  secondaryTitle?: string;
+  tagline1?: string;
+  tagline2?: string;
+  tagline3?: string;
+  imageAlt1?: string;
+  imageAlt2?: string;
+  imageAlt3?: string;
+  imageAlt4?: string;
+  communityCaption?: string;
 }
 
 interface HeroSectionProps {
@@ -22,16 +22,15 @@ interface HeroSectionProps {
 }
 
 export const HeroSection = ({ content }: HeroSectionProps = {}) => {
-  // Fallback to hardcoded values if content is not provided
   const {
-    mainTitle = "L'HABITAT",
-    mainSubtitle = "PARTAGÉ",
-    secondaryTitle = "DE LA FERME DU TEMPLE",
-    tagline1 = "L'habitat partagé de la Ferme du Temple sera un lieu de vie ancré dans le territoire, dynamique et productif, s'articulant autour de la culture des Arts et de la terre",
-    imageAlt1 = "Intérieur de la Ferme du Temple",
-    imageAlt2 = "Bâtiment extérieur de la ferme",
-    imageAlt3 = "Communauté dans les champs",
-    imageAlt4 = "Serres de la ferme",
+    mainTitle,
+    mainSubtitle,
+    secondaryTitle,
+    tagline1,
+    imageAlt1,
+    imageAlt2,
+    imageAlt3,
+    imageAlt4,
   } = content || {};
 
   return (

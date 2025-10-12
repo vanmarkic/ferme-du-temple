@@ -3,8 +3,8 @@ import { CalendarDays, MapPin, Building, Home } from "lucide-react";
 import { SectionTitle } from "./SectionTitle";
 
 interface TimelineContent {
-  title: string;
-  subtitle: string;
+  title?: string;
+  subtitle?: string;
 }
 
 interface TimelineSectionProps {
@@ -14,8 +14,8 @@ interface TimelineSectionProps {
 
 export const TimelineSection = ({ content, body }: TimelineSectionProps = {}) => {
   const {
-    title = "PLANNING PRÉVISIONNEL",
-    subtitle = "Nous travaillons depuis plus d'un an au montage de notre futur habitat partagé. Voici les grandes étapes de notre parcours vers l'emménagement.",
+    title,
+    subtitle,
   } = content || {};
 
   // Icon mapping

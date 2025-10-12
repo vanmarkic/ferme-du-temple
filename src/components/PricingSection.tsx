@@ -1,11 +1,11 @@
 import { Check } from "lucide-react";
 
 interface PricingContent {
-  title: string;
-  availability: string;
-  offerTitle: string;
-  offerSubtitle: string;
-  offerDetails: string;
+  title?: string;
+  availability?: string;
+  offerTitle?: string;
+  offerSubtitle?: string;
+  offerDetails?: string;
 }
 
 interface PricingSectionProps {
@@ -15,11 +15,11 @@ interface PricingSectionProps {
 
 export const PricingSection = ({ content, body }: PricingSectionProps = {}) => {
   const {
-    title = "POINT FINANCE",
-    availability = "6 sur 12 unités disponibles",
-    offerTitle = "Offre acceptée",
-    offerSubtitle = "La Ferme du Temple",
-    offerDetails = "Division en lots prévue entre le compromis et l'acte",
+    title,
+    availability,
+    offerTitle,
+    offerSubtitle,
+    offerDetails,
   } = content || {};
 
   // Parse units from markdown body

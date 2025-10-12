@@ -5,14 +5,14 @@ import { SectionTitle } from "./SectionTitle";
 import floorPlan from "@/assets/floor-plan.png";
 
 interface LocationContent {
-  title: string;
-  address: string;
-  city: string;
-  region: string;
-  tagline: string;
-  photosTitle: string;
-  imagesTitle: string;
-  mapTitle: string;
+  title?: string;
+  address?: string;
+  city?: string;
+  region?: string;
+  tagline?: string;
+  photosTitle?: string;
+  imagesTitle?: string;
+  mapTitle?: string;
 }
 
 interface LocationSectionProps {
@@ -22,14 +22,14 @@ interface LocationSectionProps {
 
 export const LocationSection = ({ content, body }: LocationSectionProps = {}) => {
   const {
-    title = "LA FERME DU TEMPLE",
-    address = "227 avenue Joseph Wauters",
-    city = "7080 Frameries",
-    region = "Province du Hainaut, Belgique",
-    tagline = "L'habitat partagé de la Ferme du Temple sera un lieu de vie ancré dans le territoire, dynamique et productif, s'articulant autour de la culture des Arts et de la terre",
-    photosTitle = "PHOTOS",
-    imagesTitle = "Découvrez le domaine en images",
-    mapTitle = "LOCALISATION",
+    title,
+    address,
+    city,
+    region,
+    tagline,
+    photosTitle,
+    imagesTitle,
+    mapTitle,
   } = content || {};
 
   // Parse transport sections from markdown body
@@ -62,7 +62,7 @@ export const LocationSection = ({ content, body }: LocationSectionProps = {}) =>
       return { title, paragraphs };
     }
 
-    return { title: "Un patrimoine historique exceptionnel", paragraphs: [] };
+    return { title: "", paragraphs: [] };
   };
 
   const trainTransport = body ? parseTransportSection(body, "Transport ferroviaire") : [];
@@ -102,19 +102,9 @@ export const LocationSection = ({ content, body }: LocationSectionProps = {}) =>
                 <h4 className="font-bold text-xl uppercase tracking-wider">Transport ferroviaire</h4>
               </div>
               <ul className="space-y-3 text-muted-foreground">
-                {trainTransport.length > 0 ? (
-                  trainTransport.map((item, index) => (
-                    <li key={index}>{item}</li>
-                  ))
-                ) : (
-                  <>
-                    <li>Gare SNCB Frameries : 5min à pied</li>
-                    <li>Mons : 5min en train</li>
-                    <li>Bruxelles : 1H05</li>
-                    <li>Tournai : 45min</li>
-                    <li>Lille : 1H20</li>
-                  </>
-                )}
+                {trainTransport.map((item, index) => (
+                  <li key={index}>{item}</li>
+                ))}
               </ul>
             </div>
           </div>
@@ -130,18 +120,9 @@ export const LocationSection = ({ content, body }: LocationSectionProps = {}) =>
                 <h4 className="font-bold text-xl uppercase tracking-wider text-rich-black">Transport routier</h4>
               </div>
               <ul className="space-y-3 text-rich-black">
-                {roadTransport.length > 0 ? (
-                  roadTransport.map((item, index) => (
-                    <li key={index}>{item}</li>
-                  ))
-                ) : (
-                  <>
-                    <li>Mons : 15min</li>
-                    <li>Bruxelles : 1h</li>
-                    <li>Tournai : 1h</li>
-                    <li>Vélo via Ravel : 25min vers Mons</li>
-                  </>
-                )}
+                {roadTransport.map((item, index) => (
+                  <li key={index}>{item}</li>
+                ))}
               </ul>
             </div>
           </div>
@@ -153,7 +134,7 @@ export const LocationSection = ({ content, body }: LocationSectionProps = {}) =>
                 <Plane className="w-6 h-6 text-rich-black" />
                 <h4 className="font-bold text-xl uppercase tracking-wider">Aéroport</h4>
               </div>
-              <p className="text-muted-foreground">{airportInfo || "Aéroport de Charleroi : 40min en voiture"}</p>
+              <p className="text-muted-foreground">{airportInfo}</p>
             </div>
           </div>
         </div>
@@ -170,28 +151,9 @@ export const LocationSection = ({ content, body }: LocationSectionProps = {}) =>
                   </h3>
                 )}
                 <div className="space-y-6 text-muted-foreground leading-relaxed">
-                  {heritage.paragraphs.length > 0 ? (
-                    heritage.paragraphs.map((paragraph, index) => (
-                      <p key={index}>{paragraph}</p>
-                    ))
-                  ) : (
-                    <>
-                      <p>
-                        La Ferme du Temple garde en elle les souvenirs d'un passé chargé d'histoire.
-                        Son histoire commence avec les chevaliers de l'Ordre des Templiers qui firent bâtir
-                        une chapelle datant du XIIe siècle.
-                      </p>
-                      <p>
-                        Le Temple était une commanderie, le siège d'une exploitation agricole servant de
-                        pied à terre, d'auberge et de relais pour les membres de l'Ordre.
-                      </p>
-                      <p>
-                        En 1858, Victor Mirland, industriel français, acheta la « Ferme du Temple »
-                        pour y développer une fabrique de pâtes de fruits et confitures « Mirland & Cie »
-                        jusqu'en 1979.
-                      </p>
-                    </>
-                  )}
+                  {heritage.paragraphs.map((paragraph, index) => (
+                    <p key={index}>{paragraph}</p>
+                  ))}
                 </div>
               </div>
             </div>

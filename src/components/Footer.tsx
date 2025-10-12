@@ -1,13 +1,13 @@
 import { MapPin } from "lucide-react";
 
 interface FooterContent {
-  title: string;
-  address: string;
-  city: string;
-  membersTitle: string;
-  partnersTitle: string;
-  copyright: string;
-  tagline: string;
+  title?: string;
+  address?: string;
+  city?: string;
+  membersTitle?: string;
+  partnersTitle?: string;
+  copyright?: string;
+  tagline?: string;
 }
 
 interface FooterProps {
@@ -17,13 +17,13 @@ interface FooterProps {
 
 export const Footer = ({ content, body }: FooterProps = {}) => {
   const {
-    title = "Contact",
-    address = "227 avenue Joseph Wauters",
-    city = "7080 Frameries, Belgique",
-    membersTitle = "Membres du projet",
-    partnersTitle = "Partenaires",
-    copyright = "© 2025 Collectif Beaver - Habitat partagé de la Ferme du Temple",
-    tagline = "Janvier 2025 - Conçu avec passion pour un avenir durable",
+    title,
+    address,
+    city,
+    membersTitle,
+    partnersTitle,
+    copyright,
+    tagline,
   } = content || {};
 
   // Parse members from markdown body

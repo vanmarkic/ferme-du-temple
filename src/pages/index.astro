@@ -21,6 +21,20 @@ const timelineEntry = await getEntry('timeline', 'timeline');
 const inscriptionEntry = await getEntry('inscription', 'inscription');
 const footerEntry = await getEntry('footer', 'footer');
 
+// Error handling for missing entries
+if (!heroEntry) throw new Error('Hero content not found');
+if (!projectEntry) throw new Error('Project content not found');
+if (!collaborationEntry) throw new Error('Collaboration content not found');
+if (!locationEntry) throw new Error('Location content not found');
+if (!pricingEntry) throw new Error('Pricing content not found');
+if (!timelineEntry) throw new Error('Timeline content not found');
+if (!inscriptionEntry) throw new Error('Inscription content not found');
+if (!footerEntry) throw new Error('Footer content not found');
+
+// Validate required properties
+if (!projectEntry.data.title) throw new Error('Project title is required');
+if (!projectEntry.data.subtitle) throw new Error('Project subtitle is required');
+
 // Render markdown content to get body HTML
 const { Content: ProjectContent } = await render(projectEntry);
 const { Content: CollaborationContent } = await render(collaborationEntry);
