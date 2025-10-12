@@ -83,6 +83,18 @@ const inscription = defineCollection({
   }),
 });
 
+// Navigation Collection
+const navigation = defineCollection({
+  loader: glob({ pattern: 'navigation.md', base: './src/content' }),
+  schema: z.object({
+    brandName: z.string(),
+    menuItems: z.array(z.object({
+      label: z.string(),
+      href: z.string(),
+    })),
+  }),
+});
+
 // Footer Collection
 const footer = defineCollection({
   loader: glob({ pattern: 'footer.md', base: './src/content' }),
@@ -105,5 +117,6 @@ export const collections = {
   pricing,
   timeline,
   inscription,
+  navigation,
   footer,
 };

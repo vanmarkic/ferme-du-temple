@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { Providers } from '@/components/Providers';
+import { Navigation } from '@/components/Navigation';
 import { HeroSection } from '@/components/HeroSection';
 import { ProjectSection } from '@/components/ProjectSection';
 import { CollaborationSection } from '@/components/CollaborationSection';
@@ -12,6 +13,7 @@ import { Footer } from '@/components/Footer';
 import { getEntry, render } from 'astro:content';
 
 // Load content from Content Collections
+const navigationEntry = await getEntry('navigation', 'navigation');
 const heroEntry = await getEntry('hero', 'hero');
 const projectEntry = await getEntry('project', 'project');
 const collaborationEntry = await getEntry('collaboration', 'collaboration');
@@ -22,6 +24,7 @@ const inscriptionEntry = await getEntry('inscription', 'inscription');
 const footerEntry = await getEntry('footer', 'footer');
 
 // Error handling for missing entries
+if (!navigationEntry) throw new Error('Navigation content not found');
 if (!heroEntry) throw new Error('Hero content not found');
 if (!projectEntry) throw new Error('Project content not found');
 if (!collaborationEntry) throw new Error('Collaboration content not found');
@@ -46,14 +49,27 @@ const { Content: FooterContent } = await render(footerEntry);
 
 <BaseLayout>
   <Providers client:load>
-    <div class="min-h-screen">
+    <Navigation client:load content={navigationEntry.data} />
+    <div class="min-h-screen pt-20">
       <HeroSection client:load content={heroEntry.data} />
-      <ProjectSection client:load content={projectEntry.data} body={projectEntry.body} />
-      <CollaborationSection client:load content={collaborationEntry.data} body={collaborationEntry.body} />
-      <LocationSection client:only="react" content={locationEntry.data} body={locationEntry.body} />
-      <PricingSection client:load content={pricingEntry.data} body={pricingEntry.body} />
-      <InscriptionForm client:load content={inscriptionEntry.data} />
-      <TimelineSection client:load content={timelineEntry.data} body={timelineEntry.body} />
+      <div id="projet">
+        <ProjectSection client:load content={projectEntry.data} body={projectEntry.body} />
+      </div>
+      <div id="collaboration">
+        <CollaborationSection client:load content={collaborationEntry.data} body={collaborationEntry.body} />
+      </div>
+      <div id="localisation">
+        <LocationSection client:only="react" content={locationEntry.data} body={locationEntry.body} />
+      </div>
+      <div id="prix">
+        <PricingSection client:load content={pricingEntry.data} body={pricingEntry.body} />
+      </div>
+      <div id="timeline">
+        <TimelineSection client:load content={timelineEntry.data} body={timelineEntry.body} />
+      </div>
+      <div id="inscription">
+        <InscriptionForm client:load content={inscriptionEntry.data} />
+      </div>
       <Footer client:load content={footerEntry.data} body={footerEntry.body} />
     </div>
   </Providers>

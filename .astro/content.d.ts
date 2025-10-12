@@ -202,6 +202,14 @@ declare module 'astro:content' {
   rendered?: RenderedContent;
   filePath?: string;
 }>;
+"navigation": Record<string, {
+  id: string;
+  body?: string;
+  collection: "navigation";
+  data: InferEntrySchema<"navigation">;
+  rendered?: RenderedContent;
+  filePath?: string;
+}>;
 "pricing": Record<string, {
   id: string;
   body?: string;

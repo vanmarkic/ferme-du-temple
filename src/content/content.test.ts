@@ -110,6 +110,13 @@ describe('Content Collections - Required Fields', () => {
     it('should have location body content', () => {
       expect(body.trim()).not.toBe('');
     });
+
+    it('should have "Le domaine aujourd\'hui" section in body', () => {
+      expect(body).toContain('Le domaine aujourd\'hui');
+      expect(body).toContain('7 hectares de prairies arborées');
+      expect(body).toContain('Ruisseau traversant la parcelle');
+      expect(body).toContain('Serre de 80 mètres');
+    });
   });
 
   describe('Pricing Content', () => {

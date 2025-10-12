@@ -38,8 +38,6 @@ En 1858, Victor Mirland, industriel français, acheta la « Ferme du Temple » p
 
 # Le domaine aujourd'hui
 
-## Caractéristiques
-
 - 7 hectares de prairies arborées
 - Ruisseau traversant la parcelle
 - Imposant corps de logis historique

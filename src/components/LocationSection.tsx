@@ -65,10 +65,26 @@ export const LocationSection = ({ content, body }: LocationSectionProps = {}) =>
     return { title: "", paragraphs: [] };
   };
 
+  // Parse "Le domaine aujourd'hui" section
+  const parseDomaine = (bodyContent?: string): string[] => {
+    if (!bodyContent) return [];
+
+    const domaineMatch = bodyContent.match(/# Le domaine aujourd'hui\s+((?:##.*\n)?(?:- .+\n?)+)/i);
+    if (domaineMatch) {
+      return domaineMatch[1]
+        .split('\n')
+        .filter(line => line.trim().startsWith('-'))
+        .map(line => line.replace(/^- /, '').trim());
+    }
+
+    return [];
+  };
+
   const trainTransport = body ? parseTransportSection(body, "Transport ferroviaire") : [];
   const roadTransport = body ? parseTransportSection(body, "Transport routier") : [];
   const airportInfo = body ? parseTransportSection(body, "Aéroport").join(' ') : "";
   const heritage = parseHeritage(body);
+  const domaineItems = parseDomaine(body);
   return (
     <section data-testid="location-section" className="py-48 bg-background overflow-x-hidden">
       <div className="container mx-auto px-4">
@@ -170,6 +186,27 @@ export const LocationSection = ({ content, body }: LocationSectionProps = {}) =>
             />
           </div>
         </div>
+
+        {/* Le domaine aujourd'hui */}
+        {domaineItems.length > 0 && (
+          <div className="grid grid-cols-12 gap-0 mb-64">
+            <div className="col-span-12 md:col-span-8 md:col-start-3">
+              <div className="bg-butter-yellow p-12">
+                <h3 className="text-4xl md:text-6xl font-display text-rich-black mb-8 uppercase">
+                  Le domaine aujourd'hui
+                </h3>
+                <ul className="space-y-4 text-rich-black text-lg">
+                  {domaineItems.map((item, index) => (
+                    <li key={index} className="flex items-start gap-3">
+                      <span className="text-magenta mt-1">•</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Property Carousel */}
         <div className="mb-48">
