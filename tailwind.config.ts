@@ -19,6 +19,55 @@ export default {
         'montserrat': ['Montserrat', 'sans-serif'],
         'display': ['Poppins Display', 'Montserrat', 'sans-serif'],
       },
+      // Type Scale System using Major Third (1.25) ratio
+      // Base font size: 18px (1.125rem) for desktop, 16px (1rem) for mobile
+      fontSize: {
+        // Mobile scale (16px base)
+        'xs': ['0.8rem', { lineHeight: '1.5', letterSpacing: '0.025em' }],      // ~13px - Small text
+        'sm': ['0.875rem', { lineHeight: '1.5', letterSpacing: '0.015em' }],    // 14px - Small text
+        'base': ['1rem', { lineHeight: '1.6' }],                                 // 16px - Body text (mobile)
+        'lg': ['1.25rem', { lineHeight: '1.5' }],                                // 20px - Large body
+        'xl': ['1.563rem', { lineHeight: '1.4' }],                               // 25px - h5
+        '2xl': ['1.953rem', { lineHeight: '1.3' }],                              // 31px - h4
+        '3xl': ['2.441rem', { lineHeight: '1.25', letterSpacing: '-0.015em' }], // 39px - h3
+        '4xl': ['3.052rem', { lineHeight: '1.2', letterSpacing: '-0.02em' }],   // 49px - h2
+        '5xl': ['3.815rem', { lineHeight: '1.1', letterSpacing: '-0.025em' }],  // 61px - h1
+        '6xl': ['4.768rem', { lineHeight: '1.05', letterSpacing: '-0.03em' }],  // 76px - Display
+        '7xl': ['5.960rem', { lineHeight: '1', letterSpacing: '-0.035em' }],    // 95px - Large Display
+        '8xl': ['7.451rem', { lineHeight: '1', letterSpacing: '-0.04em' }],     // 119px - Hero
+      },
+      // Line heights for different text types
+      lineHeight: {
+        'body': '1.6',        // Body text
+        'relaxed': '1.7',     // Comfortable reading
+        'loose': '1.8',       // Very comfortable
+        'heading': '1.2',     // Headings
+        'tight': '1.1',       // Large headings
+        'none': '1',          // Display text
+      },
+      // Letter spacing adjustments
+      letterSpacing: {
+        'tighter': '-0.04em',
+        'tight': '-0.025em',
+        'heading': '-0.015em',
+        'normal': '0',
+        'wide': '0.015em',
+        'wider': '0.025em',
+      },
+      // Max widths for optimal reading (45-75 characters)
+      maxWidth: {
+        'reading': '65ch',    // Ideal: 66 characters
+        'reading-narrow': '45ch',
+        'reading-wide': '75ch',
+      },
+      // Spacing scale for vertical rhythm (8px base unit)
+      spacing: {
+        '18': '4.5rem',   // 72px
+        '22': '5.5rem',   // 88px
+        '26': '6.5rem',   // 104px
+        '30': '7.5rem',   // 120px
+        '34': '8.5rem',   // 136px
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

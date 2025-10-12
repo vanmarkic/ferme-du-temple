@@ -39,11 +39,11 @@ export const HeroSection = ({ content }: HeroSectionProps = {}) => {
       <div className="container mx-auto px-4 py-32">
         {/* Main Title - Positioned Asymmetrically */}
         <div className="relative mb-16 ml-8 md:ml-16">
-          <h1 className="text-6xl md:text-8xl font-display leading-none text-rich-black">
+          <h1 className="text-6xl md:text-8xl font-display text-display text-rich-black">
             {mainTitle}
             <span className="block mt-2">{mainSubtitle}</span>
           </h1>
-          <h2 className="text-3xl md:text-5xl font-display mt-8 text-magenta">
+          <h2 className="text-3xl md:text-5xl font-display mt-8 text-magenta leading-tight tracking-tight">
             {secondaryTitle}
           </h2>
           <div className="absolute -right-8 top-8 w-32 h-32 bg-magenta/20 -z-10"></div>
@@ -66,7 +66,7 @@ export const HeroSection = ({ content }: HeroSectionProps = {}) => {
           {/* Overlapping Text Block */}
           <div className="col-span-12 md:col-span-5 md:col-start-7 md:-ml-32 relative z-30 bg-butter-yellow p-12 md:mt-24">
             <div className="text-rich-black">
-              <p className="text-lg font-medium leading-relaxed">
+              <p className="text-lg font-medium leading-relaxed max-w-reading-narrow">
                 {tagline1}
               </p>
             </div>

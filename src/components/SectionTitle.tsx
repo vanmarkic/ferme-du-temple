@@ -26,7 +26,7 @@ export const SectionTitle = ({
       )}
 
       <h2
-        className={`text-5xl md:text-7xl font-display text-foreground mb-8 ${
+        className={`text-5xl md:text-7xl font-display text-foreground mb-8 leading-tight tracking-tight ${
           alignment === "center" ? "text-center" : ""
         } ${accentLine === "vertical" ? "ml-8" : ""}`}
       >
@@ -34,7 +34,7 @@ export const SectionTitle = ({
       </h2>
 
       {subtitle && (
-        <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl">
+        <p className="text-xl text-muted-foreground leading-relaxed max-w-reading">
           {subtitle}
         </p>
       )}

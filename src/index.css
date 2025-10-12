@@ -145,15 +145,121 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
+  /* Double-Stranded Type Scale: Different base sizes for mobile vs desktop */
   body {
     @apply bg-background text-foreground;
+    font-size: 1rem; /* 16px for mobile */
+    line-height: 1.6;
   }
 
+  /* Desktop: Increase base font size to 17px (1.0625rem) */
+  @media (min-width: 768px) {
+    body {
+      font-size: 1.0625rem; /* 17px for desktop - slightly smaller than 18px */
+    }
+  }
+
+  /* Heading styles with proper spacing and typography */
   h1, h2, h3, h4, h5, h6 {
     @apply font-display;
+    /* More space above headings than below to anchor them to their section */
+    margin-top: 2em;
+    margin-bottom: 0.75em;
   }
 
+  /* First heading doesn't need top margin */
+  h1:first-child, h2:first-child, h3:first-child,
+  h4:first-child, h5:first-child, h6:first-child {
+    margin-top: 0;
+  }
+
+  /* Paragraph spacing - taller fonts need larger spacing */
+  p {
+    margin-bottom: 1.25em;
+    max-width: 65ch; /* Optimal reading width: ~66 characters */
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Strong/bold text uses display font for emphasis */
   p strong, p b {
     @apply font-display;
+  }
+
+  /* Lists inherit proper spacing */
+  ul, ol {
+    margin-bottom: 1.25em;
+    padding-left: 1.5em;
+  }
+
+  li {
+    margin-bottom: 0.5em;
+  }
+
+  /* Code and preformatted text */
+  code {
+    font-size: 0.9em;
+    letter-spacing: 0;
+  }
+
+  /* Links */
+  a {
+    text-decoration-thickness: 0.0625em;
+    text-underline-offset: 0.125em;
+  }
+}
+
+/* Typography Utility Classes */
+@layer components {
+  /* Prose styles for markdown/rich text content */
+  .prose-reading {
+    @apply max-w-reading;
+  }
+
+  /* Heading with proper spacing (more space above than below) */
+  .heading-spaced {
+    margin-top: 2em;
+    margin-bottom: 0.75em;
+  }
+
+  .heading-spaced:first-child {
+    margin-top: 0;
+  }
+
+  /* Body text optimized for reading */
+  .text-body {
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 65ch;
+  }
+
+  @media (min-width: 768px) {
+    .text-body {
+      font-size: 1.0625rem; /* 17px for desktop */
+    }
+  }
+
+  /* Display text (large, tight spacing) */
+  .text-display {
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+  }
+
+  /* Eyebrow text (small, uppercase, wide spacing) */
+  .text-eyebrow {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  /* Caption text */
+  .text-caption {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    letter-spacing: 0.015em;
   }
 }
