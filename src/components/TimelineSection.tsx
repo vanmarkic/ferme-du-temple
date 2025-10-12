@@ -132,8 +132,11 @@ export const TimelineSection = ({ content, body }: TimelineSectionProps = {}) =>
           </div>
         </div>
 
-        {/* Timeline - Asymmetric Grid */}
-        <div className="space-y-32">
+        {/* Timeline - Asymmetric Grid with Center Line */}
+        <div className="relative space-y-32">
+          {/* Center connecting line */}
+          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-1 bg-magenta/20 -translate-x-1/2"></div>
+
           {timeline.map((period, index) => {
             const Icon = period.icon;
             const isLeft = index % 2 === 0;

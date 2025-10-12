@@ -37,8 +37,8 @@ export const HeroSection = ({ content }: HeroSectionProps = {}) => {
     <section data-testid="hero-section" className="relative min-h-screen bg-background overflow-hidden">
       {/* Bauhaus Grid Layout with Overlapping Elements */}
       <div className="container mx-auto px-4 py-32">
-        {/* Main Title - Positioned Asymmetrically */}
-        <div className="relative mb-16 ml-8 md:ml-16">
+        {/* Main Title - Reduced Asymmetry */}
+        <div className="relative mb-16 ml-0 md:ml-8">
           <h1 className="text-6xl md:text-8xl font-display text-display text-rich-black">
             {mainTitle}
             <span className="block mt-2">{mainSubtitle}</span>
@@ -63,8 +63,8 @@ export const HeroSection = ({ content }: HeroSectionProps = {}) => {
             />
           </div>
 
-          {/* Overlapping Text Block */}
-          <div className="col-span-12 md:col-span-5 md:col-start-7 md:-ml-32 relative z-30 bg-butter-yellow p-12 md:mt-24">
+          {/* Overlapping Text Block - Reduced Asymmetry */}
+          <div className="col-span-12 md:col-span-5 md:col-start-6 md:-ml-16 relative z-30 bg-butter-yellow p-12 md:mt-12">
             <div className="text-rich-black">
               <p className="text-lg font-medium leading-relaxed max-w-reading-narrow">
                 {tagline1}
@@ -91,8 +91,8 @@ export const HeroSection = ({ content }: HeroSectionProps = {}) => {
           {/* White Space Column */}
           <div className="col-span-12 md:col-span-2"></div>
 
-          {/* Community Field */}
-          <div className="col-span-12 md:col-span-5 md:mt-24">
+          {/* Community Field - Reduced Asymmetry */}
+          <div className="col-span-12 md:col-span-5 md:mt-12">
             <img
               src={communityField.src}
               alt={imageAlt3}
@@ -104,9 +104,9 @@ export const HeroSection = ({ content }: HeroSectionProps = {}) => {
           </div>
         </div>
 
-        {/* Final Image with Geometric Overlap */}
+        {/* Final Image with Geometric Overlap - More Centered */}
         <div className="grid grid-cols-12 gap-0">
-          <div className="col-span-12 md:col-span-6 md:col-start-4 relative">
+          <div className="col-span-12 md:col-span-6 md:col-start-3 relative">
             <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-butter-yellow z-10"></div>
             <img
               src={greenhouse.src}

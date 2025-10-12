@@ -61,12 +61,24 @@ export default {
         'reading-wide': '75ch',
       },
       // Spacing scale for vertical rhythm (8px base unit)
+      // Semantic spacing tokens for consistent layout rhythm
       spacing: {
         '18': '4.5rem',   // 72px
         '22': '5.5rem',   // 88px
         '26': '6.5rem',   // 104px
         '30': '7.5rem',   // 120px
         '34': '8.5rem',   // 136px
+
+        // Semantic vertical spacing (margin-bottom)
+        'section-subsection': '4rem',      // 64px - mb-16 - Space between sub-sections
+        'section-related': '8rem',         // 128px - mb-32 - Related section spacing
+        'section-major': '12rem',          // 192px - mb-48 - Major section category spacing
+        'section-break': '16rem',          // 256px - mb-64 - Critical section breaks
+
+        // Semantic horizontal spacing (margin-left for asymmetric indents)
+        'indent-small': '2rem',            // 32px - ml-8 - Small content indent
+        'indent-medium': '4rem',           // 64px - ml-16 - Medium content indent
+        'indent-large': '8rem',            // 128px - ml-32 - Large asymmetric indent
       },
       colors: {
         border: "hsl(var(--border))",

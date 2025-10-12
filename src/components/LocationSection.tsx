@@ -128,9 +128,9 @@ export const LocationSection = ({ content, body }: LocationSectionProps = {}) =>
           {/* White Space */}
           <div className="hidden md:block col-span-1"></div>
 
-          {/* Car - Offset */}
-          <div className="col-span-12 md:col-span-5 md:mt-24">
-            <div className="bg-butter-yellow p-8">
+          {/* Car - Reduced Offset */}
+          <div className="col-span-12 md:col-span-5 md:mt-12">
+            <div className="bg-butter-yellow p-8 border-2 border-butter-yellow">
               <div className="flex items-center gap-3 mb-6">
                 <Car className="w-6 h-6 text-rich-black" />
                 <h4 className="font-bold text-xl uppercase tracking-wider text-rich-black">Transport routier</h4>
@@ -175,7 +175,7 @@ export const LocationSection = ({ content, body }: LocationSectionProps = {}) =>
             </div>
           </div>
 
-          <div className="col-span-12 md:col-span-5 md:-ml-16 relative z-20">
+          <div className="col-span-12 md:col-span-5 md:-ml-8 relative z-20">
             <img
               src={floorPlan.src}
               alt="Plan de la Ferme du Temple"

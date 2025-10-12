@@ -1,4 +1,5 @@
 import { Check } from "lucide-react";
+import { NumberBadge } from "./NumberBadge";
 
 interface PricingContent {
   title?: string;
@@ -100,12 +101,13 @@ export const PricingSection = ({ content, body }: PricingSectionProps = {}) => {
           </div>
         </div>
 
-        {/* Units - Overlapping Cards */}
+        {/* Units - Reduced Overlap with Reading Flow Indicators */}
         {units.length >= 2 && (
           <div className="grid grid-cols-12 gap-0 mb-64">
             {/* First unit */}
             <div className="col-span-12 md:col-span-5 mb-16 md:mb-0 relative z-20">
               <div className="bg-background border-4 border-rich-black p-12">
+                <NumberBadge number={1} variant="default" className="mb-4" />
                 <p className="text-lg text-muted-foreground uppercase tracking-wider mb-2">Surface</p>
                 <div className="text-6xl font-bold font-display text-foreground mb-8">
                   {units[0].size}
@@ -127,14 +129,14 @@ export const PricingSection = ({ content, body }: PricingSectionProps = {}) => {
               </div>
             </div>
 
-            {/* Second unit - Offset and Overlapping */}
-            <div className="col-span-12 md:col-span-6 md:col-start-6 md:-mt-24 relative z-30">
+            {/* Second unit - Reduced Overlap */}
+            <div className="col-span-12 md:col-span-6 md:col-start-6 md:-mt-12 relative z-30">
               <div className="relative overflow-hidden">
                 <div className="hidden md:block absolute -bottom-12 -right-12 w-32 h-32 bg-magenta z-0"></div>
-                <div className="bg-butter-yellow p-12 relative z-10">
+                <div className="bg-butter-yellow p-12 relative z-10 shadow-xl">
                   <div className="flex items-center gap-4 mb-4">
+                    <NumberBadge number={2} variant="light" />
                     <p className="text-lg text-rich-black uppercase tracking-wider">Surface</p>
-
                   </div>
                   <div className="text-6xl font-bold font-display text-rich-black mb-8">
                     {units[1].size}

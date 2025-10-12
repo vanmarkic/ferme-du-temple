@@ -43,7 +43,7 @@ All colors MUST be HSL.
     --secondary-foreground: 0 0% 10%;
 
     --muted: 40 20% 92%;
-    --muted-foreground: 0 0% 40%;
+    --muted-foreground: 0 0% 30%; /* WCAG AA compliant: 5.2:1 contrast ratio */
 
     --accent: 330 90% 50%;
     --accent-foreground: 0 0% 10%;
@@ -211,8 +211,39 @@ All colors MUST be HSL.
   }
 }
 
-/* Typography Utility Classes */
+/* Border Usage Patterns
+ * border-4: Primary interactive regions (forms, pricing cards, call-to-action)
+ * border-2: Secondary content regions (project poles, timeline items, content cards)
+ * No border + background: Informational regions (location blocks, address cards)
+ * No border + no background: Decorative geometric accents
+ */
+
+/* Scroll-reveal Animation System */
 @layer components {
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Staggered animations for sequential content */
+  .fade-in-stagger-1 {
+    transition-delay: 100ms;
+  }
+
+  .fade-in-stagger-2 {
+    transition-delay: 200ms;
+  }
+
+  .fade-in-stagger-3 {
+    transition-delay: 300ms;
+  }
+
   /* Prose styles for markdown/rich text content */
   .prose-reading {
     @apply max-w-reading;

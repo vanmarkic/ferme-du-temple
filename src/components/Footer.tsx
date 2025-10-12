@@ -67,12 +67,16 @@ export const Footer = ({ content, body }: FooterProps = {}) => {
   const partners = parsePartners(body);
 
   return (
-    <footer data-testid="footer" className="bg-nature-dark text-white py-16">
+    <footer data-testid="footer" className="relative bg-nature-dark text-white py-16 overflow-hidden">
+      {/* Geometric accent */}
+      <div className="absolute top-0 left-8 w-2 h-32 bg-magenta"></div>
+
       <div className="max-w-6xl mx-auto px-6">
-        <div className="max-w-4xl mx-auto">
-          {/* Contact */}
-          <div>
-            <h3 className="text-2xl font-bold mb-6">{title}</h3>
+        <div className="grid grid-cols-12 gap-8">
+          <div className="col-span-12 md:col-span-10 md:col-start-2">
+            {/* Contact */}
+            <div>
+              <h3 className="text-3xl font-display font-bold mb-6">{title}</h3>
             <div className="space-y-4">
               <div className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-accent flex-shrink-0 mt-1" />
@@ -105,12 +109,13 @@ export const Footer = ({ content, body }: FooterProps = {}) => {
                 </div>
               </div>
             )}
-          </div>
-        </div>
+            </div>
 
-        <div className="border-t border-gray-700 mt-12 pt-8 text-center text-sm text-gray-400">
-          <p>{copyright}</p>
-          <p className="mt-2">{tagline}</p>
+            <div className="border-t border-gray-700 mt-12 pt-8 text-sm text-gray-400">
+              <p>{copyright}</p>
+              <p className="mt-2">{tagline}</p>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
