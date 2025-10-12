@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Candidature Envoyée | Ferme du Temple">
+  <div class="min-h-screen flex items-center justify-center bg-background">
+    <div class="max-w-2xl mx-auto px-4 text-center">
+      <div class="mb-8">
+        <div class="w-24 h-24 bg-magenta rounded-full flex items-center justify-center mx-auto mb-6">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <h1 class="text-5xl md:text-6xl font-display font-bold text-rich-black mb-6">
+          Candidature envoyée !
+        </h1>
+        <div class="inline-block w-32 h-2 bg-butter-yellow mb-8"></div>
+      </div>
+
+      <div class="space-y-6 text-lg text-muted-foreground mb-12">
+        <p class="leading-relaxed">
+          Merci pour votre intérêt envers le projet d'habitat partagé de la Ferme du Temple.
+        </p>
+        <p class="leading-relaxed">
+          Nous avons bien reçu votre candidature et nous vous recontacterons très prochainement
+          pour échanger sur votre projet et vos motivations.
+        </p>
+        <div class="bg-butter-yellow/20 border-2 border-butter-yellow p-6 inline-block">
+          <p class="text-rich-black font-medium">
+            Le collectif Beaver
+          </p>
+        </div>
+      </div>
+
+      <a
+        href="/"
+        class="inline-block px-8 py-4 bg-magenta text-white font-bold uppercase tracking-wider hover:bg-magenta/90 transition-colors"
+      >
+        Retour à l'accueil
+      </a>
+    </div>
+  </div>
+</BaseLayout>

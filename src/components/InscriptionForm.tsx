@@ -9,21 +9,10 @@ import { Send, Heart, Loader2 } from "lucide-react";
 export const InscriptionForm = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     setIsSubmitting(true);
-
-    // Netlify Forms handles the submission automatically
-    // We just need to show a success message after a brief delay
-    setTimeout(() => {
-      toast({
-        title: "Candidature envoyée ! 🌱",
-        description: "Nous vous recontacterons très prochainement pour échanger sur votre projet."
-      });
-
-      // Reset form - Netlify will handle this after page reload
-      setIsSubmitting(false);
-    }, 1000);
+    // Let the native form submission happen - Netlify will handle it
+    // The form will POST to the same URL and Netlify will capture it
   };
   return (
     <section data-testid="inscription-section" id="inscription" className="py-48 bg-background">
@@ -59,11 +48,11 @@ export const InscriptionForm = () => {
                 <form
                   name="inscription"
                   method="POST"
+                  action="/inscription-merci"
                   data-netlify="true"
                   netlify-honeypot="bot-field"
                   onSubmit={handleSubmit}
                   className="space-y-8"
-                  netlify
                 >
                   {/* Netlify Forms requirement */}
                   <input type="hidden" name="form-name" value="inscription" />

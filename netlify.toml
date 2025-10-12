@@ -9,9 +9,13 @@
 # Site settings → Forms → Form notifications → Add email: habitatbeaver@gmail.com
 
 # SPA redirect rules for client-side routing
+# Note: Netlify Forms are automatically excluded from this redirect
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
   force = false
   conditions = {Accept = "text/html"}
+
+# Netlify automatically handles form submissions at the same URL
+# No additional redirect configuration needed for forms
