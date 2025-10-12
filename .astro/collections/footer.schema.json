@@ -1,0 +1,45 @@
+{
+  "$ref": "#/definitions/footer",
+  "definitions": {
+    "footer": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "membersTitle": {
+          "type": "string"
+        },
+        "partnersTitle": {
+          "type": "string"
+        },
+        "copyright": {
+          "type": "string"
+        },
+        "tagline": {
+          "type": "string"
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "address",
+        "city",
+        "membersTitle",
+        "partnersTitle",
+        "copyright",
+        "tagline"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

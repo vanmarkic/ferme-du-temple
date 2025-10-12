@@ -1,52 +1,58 @@
 ---
-title: "CHRONOLOGIE"
-subtitle: "Le projet Beaver suit un calendrier ambitieux mais réaliste, ponctué d'étapes importantes pour transformer cette vision en réalité concrète."
-conclusion: "Une aventure qui ne fait que commencer"
+title: "PLANNING PRÉVISIONNEL"
+subtitle: "Nous travaillons depuis plus d'un an au montage de notre futur habitat partagé. Voici les grandes étapes de notre parcours vers l'emménagement."
 ---
-
-# 2022
-
-**Status:** completed
-
-- Création du collectif Beaver
-- Premiers ateliers de définition du projet
-- Début de la recherche de lieu
 
 # 2023
 
 **Status:** completed
+**Icon:** CalendarDays
 
-- Visite de plusieurs fermes et domaines
-- Rencontre avec les propriétaires de La Ferme du Temple
-- Premières études de faisabilité
-- Acquisition d'un terrain voisin par le collectif
+- Naissance du Collectif Beaver
+- Première visite de la Ferme du Temple
 
 # 2024
 
 **Status:** completed
+**Icon:** MapPin
 
-- Signature de la promesse de vente
-- Lancement des études architecturales détaillées
-- Constitution de l'association de fait
-- Démarchage bancaire et financier
-- Ateliers de co-conception avec les membres
+- Offre d'achat de la Ferme acceptée
+- Création de la charte
 
 # 2025
 
 **Status:** current
+**Icon:** Building
 
-- Signature définitive chez le notaire
-- Lancement des premiers travaux de sécurisation
-- Début des travaux d'aménagement des espaces communs
-- Premières plantations et jardinage
-- Installation progressive des premiers habitants
+- Nouvelles recrues Beaver
+- Signature du compromis et de la vente
+- Mesures conservatoires sur le bâtiment
+- Faisabilité + programmation avec les architectes Carton 123
 
 # 2026-2027
 
-**Status:** upcoming
+**Status:** future
+**Icon:** Building
 
-- Finalisation des travaux de rénovation
-- Mise en place des infrastructures collectives
-- Développement du pôle culturel
-- Agrandissement du domaine agricole
-- Organisation des premiers événements publics
+- Esquisse + Avant projet
+- Mesures conservatoires sur le bâtiment
+- Obtention du permis d'urbanisme pour division des parties privées
+
+# 2028-2029
+
+**Status:** future
+**Icon:** Home
+
+- Travaux d'infrastructures
+- Début des travaux privatifs
+- Emménagement à la ferme
+
+# Vision finale
+
+Nous voulons faire de l'habitat partagé de la Ferme du Temple
+
+Un lieu joyeux et aimant,
+
+Ouvert et chaleureux,
+
+Où l'abondance de la vie peut être célébrée !

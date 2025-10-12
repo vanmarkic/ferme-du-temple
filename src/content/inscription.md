@@ -1,6 +1,6 @@
 ---
 title: "Rejoindre l'aventure"
-subtitle: "Remplissez ce formulaire pour témoigner votre intérêt envers le projet. Nous vous recontacterons dans les semaines à venir pour vous communiquer le reste du processus."
+subtitle: "Vous pouvez remplir ce formulaire pour témoigner de votre intérêt envers le projet. Nous vous recontacterons dans les semaines à venir pour vous communiquer une date de visite de la ferme et le reste du processus d'adhésion."
 formTitle: "Formulaire de candidature"
 ---
 

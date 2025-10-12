@@ -2,58 +2,103 @@ import { Badge } from "@/components/ui/badge";
 import { CalendarDays, MapPin, Building, Home } from "lucide-react";
 import { SectionTitle } from "./SectionTitle";
 
-export const TimelineSection = () => {
-  const timeline = [
-    {
-      year: "2023",
-      status: "completed",
-      icon: CalendarDays,
-      events: [
-        "Naissance du Collectif Beaver",
-        "Première visite de la Ferme du Temple"
-      ]
-    },
-    {
-      year: "2024",
-      status: "completed",
-      icon: MapPin,
-      events: [
-        "Offre d'achat de la Ferme acceptée",
-        "Création de la charte"
-      ]
-    },
-    {
-      year: "2025",
-      status: "current",
-      icon: Building,
-      events: [
-        "Nouvelles recrues Beaver",
-        "Signature du compromis et de la vente",
-        "Mesures conservatoires sur le bâtiment",
-        "Faisabilité + programmation avec les architectes Carton 123"
-      ]
-    },
-    {
-      year: "2026-2027",
-      status: "future",
-      icon: Building,
-      events: [
-        "Esquisse + Avant projet",
-        "Mesures conservatoires sur le bâtiment",
-        "Obtention du permis d'urbanisme pour division des parties privées"
-      ]
-    },
-    {
-      year: "2028-2029",
-      status: "future",
-      icon: Home,
-      events: [
-        "Travaux d'infrastructures",
-        "Début des travaux privatifs",
-        "Emménagement à la ferme"
-      ]
+interface TimelineContent {
+  title: string;
+  subtitle: string;
+}
+
+interface TimelineSectionProps {
+  content?: TimelineContent;
+  body?: string;
+}
+
+export const TimelineSection = ({ content, body }: TimelineSectionProps = {}) => {
+  const {
+    title = "PLANNING PRÉVISIONNEL",
+    subtitle = "Nous travaillons depuis plus d'un an au montage de notre futur habitat partagé. Voici les grandes étapes de notre parcours vers l'emménagement.",
+  } = content || {};
+
+  // Icon mapping
+  const iconMap: Record<string, any> = {
+    CalendarDays,
+    MapPin,
+    Building,
+    Home
+  };
+
+  // Parse timeline from markdown body
+  const parseTimeline = (bodyContent?: string): Array<{
+    year: string;
+    status: string;
+    icon: any;
+    events: string[];
+  }> => {
+    if (!bodyContent) return [];
+
+    const timeline: Array<{
+      year: string;
+      status: string;
+      icon: any;
+      events: string[];
+    }> = [];
+
+    // Match year sections (exclude "Vision finale")
+    const yearRegex = /# ([\d-]+)\s+([\s\S]*?)(?=\n#|$)/g;
+    let match;
+
+    while ((match = yearRegex.exec(bodyContent)) !== null) {
+      const year = match[1].trim();
+      const section = match[2].trim();
+
+      // Skip if it's the final vision section
+      if (year === "Vision finale") continue;
+
+      // Extract status
+      const statusMatch = section.match(/\*\*Status:\*\*\s*(\w+)/);
+      const status = statusMatch ? statusMatch[1] : "future";
+
+      // Extract icon
+      const iconMatch = section.match(/\*\*Icon:\*\*\s*(\w+)/);
+      const iconName = iconMatch ? iconMatch[1] : "CalendarDays";
+      const icon = iconMap[iconName] || CalendarDays;
+
+      // Extract events (list items)
+      const eventsMatch = section.match(/(?:^|\n)((?:- .+\n?)+)/);
+      const events = eventsMatch
+        ? eventsMatch[1]
+            .split('\n')
+            .filter(line => line.trim().startsWith('-'))
+            .map(line => line.replace(/^- /, '').trim())
+        : [];
+
+      timeline.push({ year, status, icon, events });
     }
-  ];
+
+    return timeline;
+  };
+
+  // Parse final vision statement
+  const parseVisionStatement = (bodyContent?: string): { title: string; statements: string[] } | null => {
+    if (!bodyContent) return null;
+
+    const visionMatch = bodyContent.match(/# Vision finale\s+([\s\S]+?)$/);
+    if (visionMatch) {
+      const content = visionMatch[1].trim();
+      const lines = content.split(/\n\n+/).map(l => l.trim()).filter(l => l);
+
+      if (lines.length > 0) {
+        return {
+          title: lines[0],
+          statements: lines.slice(1)
+        };
+      }
+    }
+
+    return null;
+  };
+
+  const timeline = parseTimeline(body);
+  const visionStatement = parseVisionStatement(body);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -79,10 +124,10 @@ export const TimelineSection = () => {
         {/* Title */}
         <div className="grid grid-cols-12 gap-0 mb-48">
           <div className="col-span-12 md:col-span-8 md:col-start-3">
-            <SectionTitle
-              subtitle="Nous travaillons depuis plus d'un an au montage de notre futur habitat partagé. Voici les grandes étapes de notre parcours vers l'emménagement."
-            >
-              PLANNING<br/>PRÉVISIONNEL
+            <SectionTitle subtitle={subtitle}>
+              {title.split(' ').map((word, i, arr) =>
+                i === arr.length - 1 ? word : <>{word}<br /></>
+              )}
             </SectionTitle>
           </div>
         </div>
@@ -133,23 +178,25 @@ export const TimelineSection = () => {
         </div>
 
         {/* Final Statement - Bold Typography */}
-        <div className="grid grid-cols-12 gap-0 mt-48">
-          <div className="col-span-12 md:col-span-10 md:col-start-2">
-            <div className="relative">
-              <div className="absolute -bottom-16 -left-16 w-64 h-64 bg-butter-yellow/30"></div>
-              <div className="bg-magenta text-white p-16 relative z-10">
-                <h3 className="text-5xl md:text-7xl font-display mb-8 leading-tight uppercase">
-                  Nous voulons faire de l'habitat partagé de la Ferme du Temple
-                </h3>
-                <div className="space-y-4 text-2xl md:text-3xl font-bold">
-                  <p>Un lieu joyeux et aimant,</p>
-                  <p>Ouvert et chaleureux,</p>
-                  <p>Où l'abondance de la vie peut être célébrée !</p>
+        {visionStatement && (
+          <div className="grid grid-cols-12 gap-0 mt-48">
+            <div className="col-span-12 md:col-span-10 md:col-start-2">
+              <div className="relative">
+                <div className="absolute -bottom-16 -left-16 w-64 h-64 bg-butter-yellow/30"></div>
+                <div className="bg-magenta text-white p-16 relative z-10">
+                  <h3 className="text-5xl md:text-7xl font-display mb-8 leading-tight uppercase">
+                    {visionStatement.title}
+                  </h3>
+                  <div className="space-y-4 text-2xl md:text-3xl font-bold">
+                    {visionStatement.statements.map((statement, index) => (
+                      <p key={index}>{statement}</p>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );

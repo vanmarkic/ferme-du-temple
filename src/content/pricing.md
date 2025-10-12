@@ -1,30 +1,33 @@
 ---
-title: "INVESTISSEMENT ET FINANCEMENT"
+title: "POINT FINANCE"
+availability: "6 sur 12 unités disponibles"
 offerTitle: "Offre acceptée"
-offerPrice: "810 000 €"
-offerDetails: "Acquisition du terrain et de la ferme"
+offerSubtitle: "La Ferme du Temple"
+offerDetails: "Division en lots prévue entre le compromis et l'acte"
 ---
 
 # Unité 60 M²
 
-## Prix
+## Prix total estimé
 
-280 000 €
+187 500 €
 
-## Détails
+## Breakdown
 
-- Acquisition copropriété : 100 000 €
-- Quote-part travaux : 150 000 €
-- Quote-part fonds de roulement : 30 000 €
+- Achat lot privatif: 67 500 €
+- Travaux estimés (2000€/M²): 120 000 €
 
 # Unité 120 M²
 
-## Prix
+## Prix total estimé
 
-480 000 €
+341 000 €
 
-## Détails
+## Breakdown
 
-- Acquisition copropriété : 180 000 €
-- Quote-part travaux : 260 000 €
-- Quote-part fonds de roulement : 40 000 €
+- Achat lot privatif: 101 000 €
+- Travaux estimés (2000€/M²): 240 000 €
+
+## Popular
+
+true

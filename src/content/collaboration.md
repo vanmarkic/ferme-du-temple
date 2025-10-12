@@ -1,23 +1,20 @@
 ---
 title: "COLLABORATION"
+alignment: "center"
 ---
 
-# Gouvernance partagée
+La gouvernance partagée est au centre de notre fonctionnement. Nous adoptons une approche horizontale dans laquelle nous nous donnons du pouvoir à tous·tes, de la responsabilité et de l'engagement dans la prise de décisions et dans la gestion de notre collectif.
 
-Le collectif Beaver fonctionne selon un principe de gouvernance partagée horizontale. Les décisions importantes se prennent en assemblée générale, où chaque membre dispose d'une voix égale. Pour les décisions courantes, nous fonctionnons par cercles de travail thématiques (habitat, culture, terre, communication, finances, etc.).
+Notre fonctionnement concernant les prises de décisions s'articule autour de 5 grandes thématiques : les réunions de gouvernance, stratégiques, opérationnelles, de régulation et d'apprentissages. Nous privilégions le consensus et le consentement afin de tenir compte des diversités des points de vue et des points de vue minoritaires.
 
-Ces cercles sont autonomes dans leurs domaines de compétence tout en restant redevables au collectif. Les rôles et mandats sont tournants pour permettre à chacun·e de s'investir dans différents aspects du projet et éviter la cristallisation des pouvoirs.
+Les mandats sont clairement définis, cela nous permet de nous emparer des rôles avec autonomie et de développer la confiance dans le collectif pour la réalisation des missions portées par les autres.
 
-# Engagement attendu
+Les rôles et les mandats sont tournants afin que l'on puisse tous·tes prendre part aux responsabilités.
 
-## Réunions mensuelles en ligne
+Le cadre des réunions se veut précis et sécurisant. Il se préoccupe du «être ensemble» et pas uniquement du «faire ensemble».
 
-Pour maintenir la cohésion du groupe et suivre l'avancement des différents chantiers, nous nous retrouvons une fois par mois en visioconférence.
+# Engagement actuel
 
-## Journées de travail sur site
+→ Actuellement, l'implication attendue est la participation à une réunion en ligne par mois et une journée de travail en présentiel.
 
-Plusieurs fois par an, nous organisons des journées de travail collectif sur le lieu : entretien des espaces, avancement des travaux, jardinage, moments conviviaux.
-
-## Participation aux groupes de travail
-
-Chaque membre est encouragé à rejoindre au moins un cercle de travail selon ses compétences et centres d'intérêt.
+Ainsi que s'investir dans les différents rôles déterminés dans notre gouvernance et participer au minimum à un groupe de travail actif.

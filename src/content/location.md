@@ -3,6 +3,10 @@ title: "LA FERME DU TEMPLE"
 address: "227 avenue Joseph Wauters"
 city: "7080 Frameries"
 region: "Province du Hainaut, Belgique"
+tagline: "L'habitat partagé de la Ferme du Temple sera un lieu de vie ancré dans le territoire, dynamique et productif, s'articulant autour de la culture des Arts et de la terre"
+photosTitle: "PHOTOS"
+imagesTitle: "Découvrez le domaine en images"
+mapTitle: "LOCALISATION"
 ---
 
 # Transport ferroviaire

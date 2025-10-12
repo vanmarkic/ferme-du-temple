@@ -6,7 +6,23 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Send, Heart, Loader2 } from "lucide-react";
 
-export const InscriptionForm = () => {
+interface InscriptionContent {
+  title: string;
+  subtitle: string;
+  formTitle: string;
+}
+
+interface InscriptionFormProps {
+  content?: InscriptionContent;
+}
+
+export const InscriptionForm = ({ content }: InscriptionFormProps = {}) => {
+  const {
+    title = "Rejoindre l'aventure",
+    subtitle = "Vous pouvez remplir ce formulaire pour témoigner de votre intérêt envers le projet. Nous vous recontacterons dans les semaines à venir pour vous communiquer une date de visite de la ferme et le reste du processus d'adhésion.",
+    formTitle = "Formulaire de candidature",
+  } = content || {};
+
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -23,10 +39,12 @@ export const InscriptionForm = () => {
             <div className="relative">
               <div className="absolute -top-16 -right-8 w-48 h-48 bg-magenta/20"></div>
               <h2 className="text-5xl md:text-7xl font-display text-foreground mb-12 relative z-10 uppercase">
-                Rejoindre<br />l'aventure
+                {title.split(' ').map((word, i, arr) =>
+                  i === arr.length - 1 ? word : <>{word}<br /></>
+                )}
               </h2>
               <p className="text-xl text-muted-foreground max-w-2xl leading-relaxed">
-                Vous pouvez remplir ce formulaire pour témoigner de votre intérêt envers le projet. Nous vous recontacterons dans les semaines à venir pour vous communiquer une date de visite de la ferme et le reste du processus d'adhésion.
+                {subtitle}
               </p>
             </div>
           </div>
@@ -41,7 +59,7 @@ export const InscriptionForm = () => {
                 <div className="flex items-center gap-4 mb-12">
                   <Heart className="w-8 h-8 text-magenta" />
                   <h3 className="text-2xl font-bold uppercase tracking-wider">
-                    Formulaire de candidature
+                    {formTitle}
                   </h3>
                 </div>
 

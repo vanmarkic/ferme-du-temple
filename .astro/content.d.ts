@@ -162,7 +162,71 @@ declare module 'astro:content' {
 	};
 
 	type DataEntryMap = {
-		
+		"collaboration": Record<string, {
+  id: string;
+  body?: string;
+  collection: "collaboration";
+  data: InferEntrySchema<"collaboration">;
+  rendered?: RenderedContent;
+  filePath?: string;
+}>;
+"footer": Record<string, {
+  id: string;
+  body?: string;
+  collection: "footer";
+  data: InferEntrySchema<"footer">;
+  rendered?: RenderedContent;
+  filePath?: string;
+}>;
+"hero": Record<string, {
+  id: string;
+  body?: string;
+  collection: "hero";
+  data: InferEntrySchema<"hero">;
+  rendered?: RenderedContent;
+  filePath?: string;
+}>;
+"inscription": Record<string, {
+  id: string;
+  body?: string;
+  collection: "inscription";
+  data: InferEntrySchema<"inscription">;
+  rendered?: RenderedContent;
+  filePath?: string;
+}>;
+"location": Record<string, {
+  id: string;
+  body?: string;
+  collection: "location";
+  data: InferEntrySchema<"location">;
+  rendered?: RenderedContent;
+  filePath?: string;
+}>;
+"pricing": Record<string, {
+  id: string;
+  body?: string;
+  collection: "pricing";
+  data: InferEntrySchema<"pricing">;
+  rendered?: RenderedContent;
+  filePath?: string;
+}>;
+"project": Record<string, {
+  id: string;
+  body?: string;
+  collection: "project";
+  data: InferEntrySchema<"project">;
+  rendered?: RenderedContent;
+  filePath?: string;
+}>;
+"timeline": Record<string, {
+  id: string;
+  body?: string;
+  collection: "timeline";
+  data: InferEntrySchema<"timeline">;
+  rendered?: RenderedContent;
+  filePath?: string;
+}>;
+
 	};
 
 	type AnyEntryMap = ContentEntryMap & DataEntryMap;
@@ -194,6 +258,6 @@ declare module 'astro:content' {
 		LiveContentConfig['collections'][C]['loader']
 	>;
 
-	export type ContentConfig = typeof import("../src/content.config.mjs");
+	export type ContentConfig = typeof import("../src/content.config.js");
 	export type LiveContentConfig = never;
 }

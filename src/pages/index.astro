@@ -9,19 +9,38 @@ import { PricingSection } from '@/components/PricingSection';
 import { InscriptionForm } from '@/components/InscriptionForm';
 import { TimelineSection } from '@/components/TimelineSection';
 import { Footer } from '@/components/Footer';
+import { getEntry, render } from 'astro:content';
+
+// Load content from Content Collections
+const heroEntry = await getEntry('hero', 'hero');
+const projectEntry = await getEntry('project', 'project');
+const collaborationEntry = await getEntry('collaboration', 'collaboration');
+const locationEntry = await getEntry('location', 'location');
+const pricingEntry = await getEntry('pricing', 'pricing');
+const timelineEntry = await getEntry('timeline', 'timeline');
+const inscriptionEntry = await getEntry('inscription', 'inscription');
+const footerEntry = await getEntry('footer', 'footer');
+
+// Render markdown content to get body HTML
+const { Content: ProjectContent } = await render(projectEntry);
+const { Content: CollaborationContent } = await render(collaborationEntry);
+const { Content: LocationContent } = await render(locationEntry);
+const { Content: PricingContent } = await render(pricingEntry);
+const { Content: TimelineContent } = await render(timelineEntry);
+const { Content: FooterContent } = await render(footerEntry);
 ---
 
 <BaseLayout>
   <Providers client:load>
     <div class="min-h-screen">
-      <HeroSection client:load />
-      <ProjectSection client:load />
-      <CollaborationSection client:load />
-      <LocationSection client:only="react" />
-      <PricingSection client:load />
-      <InscriptionForm client:load />
-      <TimelineSection client:load />
-      <Footer client:load />
+      <HeroSection client:load content={heroEntry.data} />
+      <ProjectSection client:load content={projectEntry.data} body={projectEntry.body} />
+      <CollaborationSection client:load content={collaborationEntry.data} body={collaborationEntry.body} />
+      <LocationSection client:only="react" content={locationEntry.data} body={locationEntry.body} />
+      <PricingSection client:load content={pricingEntry.data} body={pricingEntry.body} />
+      <InscriptionForm client:load content={inscriptionEntry.data} />
+      <TimelineSection client:load content={timelineEntry.data} body={timelineEntry.body} />
+      <Footer client:load content={footerEntry.data} body={footerEntry.body} />
     </div>
   </Providers>
 </BaseLayout>

@@ -1,0 +1,61 @@
+{
+  "$ref": "#/definitions/hero",
+  "definitions": {
+    "hero": {
+      "type": "object",
+      "properties": {
+        "mainTitle": {
+          "type": "string"
+        },
+        "mainSubtitle": {
+          "type": "string"
+        },
+        "secondaryTitle": {
+          "type": "string"
+        },
+        "tagline1": {
+          "type": "string"
+        },
+        "tagline2": {
+          "type": "string"
+        },
+        "tagline3": {
+          "type": "string"
+        },
+        "imageAlt1": {
+          "type": "string"
+        },
+        "imageAlt2": {
+          "type": "string"
+        },
+        "imageAlt3": {
+          "type": "string"
+        },
+        "imageAlt4": {
+          "type": "string"
+        },
+        "communityCaption": {
+          "type": "string"
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "mainTitle",
+        "mainSubtitle",
+        "secondaryTitle",
+        "tagline1",
+        "tagline2",
+        "tagline3",
+        "imageAlt1",
+        "imageAlt2",
+        "imageAlt3",
+        "imageAlt4",
+        "communityCaption"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

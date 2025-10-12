@@ -3,7 +3,37 @@ import buildingExterior from "@/assets/building-exterior.jpg";
 import communityField from "@/assets/community-field.jpg";
 import greenhouse from "@/assets/greenhouse.jpg";
 
-export const HeroSection = () => {
+interface HeroContent {
+  mainTitle: string;
+  mainSubtitle: string;
+  secondaryTitle: string;
+  tagline1: string;
+  tagline2: string;
+  tagline3: string;
+  imageAlt1: string;
+  imageAlt2: string;
+  imageAlt3: string;
+  imageAlt4: string;
+  communityCaption: string;
+}
+
+interface HeroSectionProps {
+  content?: HeroContent;
+}
+
+export const HeroSection = ({ content }: HeroSectionProps = {}) => {
+  // Fallback to hardcoded values if content is not provided
+  const {
+    mainTitle = "L'HABITAT",
+    mainSubtitle = "PARTAGÉ",
+    secondaryTitle = "DE LA FERME DU TEMPLE",
+    tagline1 = "L'habitat partagé de la Ferme du Temple sera un lieu de vie ancré dans le territoire, dynamique et productif, s'articulant autour de la culture des Arts et de la terre",
+    imageAlt1 = "Intérieur de la Ferme du Temple",
+    imageAlt2 = "Bâtiment extérieur de la ferme",
+    imageAlt3 = "Communauté dans les champs",
+    imageAlt4 = "Serres de la ferme",
+  } = content || {};
+
   return (
     <section data-testid="hero-section" className="relative min-h-screen bg-background overflow-hidden">
       {/* Bauhaus Grid Layout with Overlapping Elements */}
@@ -11,11 +41,11 @@ export const HeroSection = () => {
         {/* Main Title - Positioned Asymmetrically */}
         <div className="relative mb-16 ml-8 md:ml-16">
           <h1 className="text-6xl md:text-8xl font-display leading-none text-rich-black">
-            L'HABITAT
-            <span className="block mt-2">PARTAGÉ</span>
+            {mainTitle}
+            <span className="block mt-2">{mainSubtitle}</span>
           </h1>
           <h2 className="text-3xl md:text-5xl font-display mt-8 text-magenta">
-            DE LA FERME DU TEMPLE
+            {secondaryTitle}
           </h2>
           <div className="absolute -right-8 top-8 w-32 h-32 bg-magenta/20 -z-10"></div>
         </div>
@@ -26,7 +56,7 @@ export const HeroSection = () => {
           <div className="col-span-12 flex justify-center items-center relative z-20 mb-8 md:mb-0">
             <img
               src={interior1.src}
-              alt="Intérieur de la Ferme du Temple"
+              alt={imageAlt1}
               className="w-full h-[70vh] object-cover shadow-2xl"
               loading="eager"
               decoding="async"
@@ -38,7 +68,7 @@ export const HeroSection = () => {
           <div className="col-span-12 md:col-span-5 md:col-start-7 md:-ml-32 relative z-30 bg-butter-yellow p-12 md:mt-24">
             <div className="text-rich-black">
               <p className="text-lg font-medium leading-relaxed">
-                L'habitat partagé de la Ferme du Temple sera un lieu de vie ancré dans le territoire, dynamique et productif, s'articulant autour de la culture des Arts et de la terre
+                {tagline1}
               </p>
             </div>
           </div>
@@ -51,7 +81,7 @@ export const HeroSection = () => {
             <div className="absolute -top-8 -left-8 w-24 h-24 bg-magenta z-10"></div>
             <img
               src={buildingExterior.src}
-              alt="Bâtiment extérieur de la ferme"
+              alt={imageAlt2}
               className="w-full h-[50vh] object-cover relative z-20"
               loading="lazy"
               decoding="async"
@@ -66,7 +96,7 @@ export const HeroSection = () => {
           <div className="col-span-12 md:col-span-5 md:mt-24">
             <img
               src={communityField.src}
-              alt="Communauté dans les champs"
+              alt={imageAlt3}
               className="w-full h-[40vh] object-cover shadow-xl"
               loading="lazy"
               decoding="async"
@@ -81,7 +111,7 @@ export const HeroSection = () => {
             <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-butter-yellow z-10"></div>
             <img
               src={greenhouse.src}
-              alt="Serres de la ferme"
+              alt={imageAlt4}
               className="w-full h-[45vh] object-cover relative z-20"
               loading="lazy"
               decoding="async"
