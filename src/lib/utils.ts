@@ -10,6 +10,7 @@ export interface GuideSection {
   title: string;
   content: string;
   level: number;
+  children?: GuideSection[];
 }
 
 export function parseMarkdownGuide(markdown: string): GuideSection[] {
@@ -57,12 +58,12 @@ export function parseMarkdownGuide(markdown: string): GuideSection[] {
   return sections;
 }
 
-export function buildSectionTree(sections: GuideSection[]) {
-  const tree: Array<GuideSection & { children?: GuideSection[] }> = [];
-  const stack: Array<GuideSection & { children?: GuideSection[] }> = [];
+export function buildSectionTree(sections: GuideSection[]): GuideSection[] {
+  const tree: GuideSection[] = [];
+  const stack: GuideSection[] = [];
 
   for (const section of sections) {
-    const item = { ...section, children: [] };
+    const item: GuideSection = { ...section, children: [] };
 
     while (stack.length > 0 && stack[stack.length - 1].level >= section.level) {
       stack.pop();

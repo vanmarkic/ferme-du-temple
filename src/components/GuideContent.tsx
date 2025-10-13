@@ -48,21 +48,34 @@ export function GuideContent({ sections, onActiveSection }: GuideContentProps) {
           key={section.id}
           id={section.id}
           className={cn(
-            'mb-12 scroll-mt-32',
-            section.level === 2 && 'border-l-4 border-primary/20 pl-6'
+            'scroll-mt-32',
+            section.level === 1 && 'mb-16',
+            section.level === 2 && 'mb-12 border-l-4 border-primary/20 pl-6',
+            section.level === 3 && 'mb-10 ml-4',
+            section.level === 4 && 'mb-8 ml-8',
+            section.level === 5 && 'mb-6 ml-12'
           )}
         >
           <h2
             className={cn(
               'font-bold mb-6',
               section.level === 1 && 'text-4xl text-primary',
-              section.level === 2 && 'text-3xl text-gray-900'
+              section.level === 2 && 'text-3xl text-gray-900',
+              section.level === 3 && 'text-2xl text-gray-800',
+              section.level === 4 && 'text-xl text-gray-700',
+              section.level === 5 && 'text-lg text-gray-600'
             )}
           >
             {section.title}
           </h2>
           <div
-            className="prose prose-lg max-w-none prose-headings:font-bold prose-h3:text-2xl prose-h4:text-xl prose-h5:text-lg prose-a:text-primary prose-strong:text-gray-900 prose-table:border-collapse prose-td:border prose-td:border-gray-300 prose-td:px-4 prose-td:py-2 prose-th:border prose-th:border-gray-300 prose-th:px-4 prose-th:py-2 prose-th:bg-gray-100"
+            className={cn(
+              'prose max-w-none prose-headings:font-bold prose-a:text-primary prose-strong:text-gray-900 prose-table:border-collapse prose-td:border prose-td:border-gray-300 prose-td:px-4 prose-td:py-2 prose-th:border prose-th:border-gray-300 prose-th:px-4 prose-th:py-2 prose-th:bg-gray-100',
+              section.level <= 2 && 'prose-lg',
+              section.level === 3 && 'prose-base',
+              section.level >= 4 && 'prose-sm',
+              section.level >= 3 && 'ml-4'
+            )}
             dangerouslySetInnerHTML={{ __html: renderMarkdown(section.content) }}
           />
         </section>

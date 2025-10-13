@@ -27,60 +27,6 @@ Nous cherchons des personnes partageant ces valeurs et prêtes à s'investir dan
 
 ---
 
-## ⏰ Temps à investir dans le projet
-
-### Contribution minimale
-- **4 heures par mois** par foyer pour les tâches communes
-- Participation aux AG mensuelles (2h)
-- Participation à au moins une réunion présentielle et une visio par mois
-
-### Répartition possible
-- Entretien des espaces communs
-- Participation aux chantiers participatifs
-- Travail dans les groupes de travail
-- Organisation d'événements collectifs
-
----
-
-## 📜 Règlement d'Ordre Intérieur (ROI)
-
-### Activités autorisées
-✅ Agriculture (permaculture, maraîchage)
-✅ Activités culturelles et artistiques
-✅ Ateliers et formations
-✅ Accueil ponctuel du public
-✅ Coworking
-✅ Résidences d'artistes
-
-### Activités interdites
-❌ Activités commerciales non validées par l'AG
-❌ Nuisances sonores après 22h sans accord préalable
-
-### Règles de vie commune
-- **Silence nocturne** : 22h-7h
-- **Entretien** : rotation des tâches selon planning
-- **Réservation des espaces** : via agenda partagé
-- **Visites/nuitées** : max 7 nuits consécutives sans accord
-
----
-
-## 🎨 Activités individuelles dans les espaces communs
-
-### Procédure
-1. **Proposition** à l'AG ou au Cercle de coordination
-2. **Validation** selon l'ampleur (petit projet = CC, grand projet = AG)
-3. **Réservation** via l'agenda partagé
-4. **Respect** des plages horaires et du voisinage
-5. **Rangement** et nettoyage après usage
-
-### Exemples d'activités possibles
-- Cours ou ateliers (yoga, musique, artisanat)
-- Événements culturels (concerts, expositions)
-- Activités professionnelles ponctuelles
-- Célébrations privées
-
----
-
 ## 📋 Processus de prise de décision
 
 ### Types de décisions et modes
@@ -144,6 +90,181 @@ Nous cherchons des personnes partageant ces valeurs et prêtes à s'investir dan
 
 ---
 
+## 📜 Règlement d'Ordre Intérieur (ROI)
+
+### Activités autorisées
+✅ Agriculture (permaculture, maraîchage)
+✅ Activités culturelles et artistiques
+✅ Ateliers et formations
+✅ Accueil ponctuel du public
+✅ Coworking
+✅ Résidences d'artistes
+
+### Activités interdites
+❌ Activités commerciales non validées par l'AG
+❌ Nuisances sonores après 22h sans accord préalable
+
+### Règles de vie commune
+- **Silence nocturne** : 22h-7h
+- **Entretien** : rotation des tâches selon planning
+- **Réservation des espaces** : via agenda partagé
+- **Visites/nuitées** : max 7 nuits consécutives sans accord
+
+---
+
+## 🏠 Programmation architecturale
+
+### Espaces privés
+- Une dizaine d'habitations autonomes
+- Typologies variées (T2 à T5)
+- Logements évolutifs et adaptables
+- Entre 60 et 150m² selon les besoins
+
+### Espaces communs intérieurs
+- **Foyer commun** (salon + salle à manger collectifs)
+- **Cuisines communes** pour préparation et transformation
+- **Espace de coworking**
+- **Ateliers** (bois, métal, textile, céramique)
+- **Espaces enfants** intérieurs
+- **Chambres d'accueil** collectives
+- **Espaces culturels** (salle polyvalente, studio son)
+
+### Espaces extérieurs
+- **Potager collectif**
+- **Verger et forêt-jardin**
+- **Poulailler**
+- **Serres**
+- **Espaces de jeux pour enfants**
+- **Terrasses et cours communes**
+- **Terrain de pétanque/jeux**
+
+---
+
+## 👶 Espace inclusif et protection des enfants
+
+### Principes d'inclusivité
+- Habitat **intergénérationnel** pensé pour tous les âges
+- Accessibilité PMR dans les espaces communs
+- **Langage inclusif** dans nos communications
+- Politique "**Safe Space**" avec tolérance zéro pour les discriminations
+
+### Protection des enfants
+- **Espaces dédiés** intérieurs et extérieurs sécurisés
+- **Procédure de signalement** en cas de problème (Annexe L du ROI)
+- Vigilance collective sur la sécurité
+- Respect de l'intimité et des besoins de chaque enfant
+
+### Place décisionnelle des enfants
+- Consultation sur les aménagements qui les concernent
+- Participation progressive aux décisions collectives selon l'âge
+- Conseil des enfants possible pour certains sujets
+- Écoute active de leurs besoins et envies
+
+---
+
+## 🎨 Activités individuelles dans les espaces communs
+
+### Procédure
+1. **Proposition** à l'AG ou au Cercle de coordination
+2. **Validation** selon l'ampleur (petit projet = CC, grand projet = AG)
+3. **Réservation** via l'agenda partagé
+4. **Respect** des plages horaires et du voisinage
+5. **Rangement** et nettoyage après usage
+
+### Exemples d'activités possibles
+- Cours ou ateliers (yoga, musique, artisanat)
+- Événements culturels (concerts, expositions)
+- Activités professionnelles ponctuelles
+- Célébrations privées
+
+---
+
+## 🏕️ Période de transition (achat → fin des travaux)
+
+### Options envisagées
+
+#### Colocation dans le corps de logis
+- Installation progressive des familles
+- Partage temporaire des espaces existants
+- Organisation collective de la vie quotidienne
+- Participation aux travaux de rénovation
+
+#### Habitat léger sur le terrain
+- Installation de yourtes, tiny houses ou caravanes
+- Aménagement d'espaces sanitaires communs temporaires
+- Respect des règles d'urbanisme
+- Solution transitoire pendant les gros travaux
+
+### Organisation pratique
+- Planning d'installation défini collectivement
+- Répartition des charges adaptée à la situation
+- Chantiers participatifs réguliers
+- Solidarité renforcée pendant cette phase
+
+---
+
+## 💰 Aspects financiers
+
+### Coût d'acquisition d'un lot
+- **Base estimée** : environ 3 300€/m² (travaux de parachèvement compris)
+- Prix d'achat global du site : 600 000-715 000€ (en négociation)
+- Division en lots selon la surface et les besoins
+
+### Système de quotités et charges
+
+#### Calcul des quotités (millièmes)
+Le calcul des quotités détermine la part de chaque lot dans la copropriété. Notre système prend en compte :
+- **Surface** : Critère principal basé sur les m² habitables
+- **Affectation** : Ajustement selon l'usage (habitation, atelier, bureau)
+- **Localisation** : Pondération selon l'étage, l'orientation, les nuisances
+
+**Lissage des quotités** : Le rapport de quotités établi par le notaire vise un équilibre équitable entre tous les lots, évitant les disparités excessives.
+
+#### Répartition des charges communes
+Les charges sont réparties selon un **système mixte** défini dans le ROI :
+- **Charges générales** : Selon les quotités (assurances, gros entretien)
+- **Charges d'utilité** : Selon l'usage réel (chauffage, eau, électricité)
+- **Charges spécifiques** : Selon le bénéfice retiré (ascenseur, jardins privatifs)
+
+**Principe du "mix"** : Combinaison de critères pour une répartition juste, évitant qu'un grand lot peu occupé paie autant qu'un petit lot très utilisé.
+
+### Investissements nécessaires (achat en division)
+
+#### À l'acte de vente
+- **Apport personnel nécessaire** : Variable selon chaque acquéreur (généralement 10-20% du prix du lot)
+- **Droits d'enregistrement** : 
+  * 3% pour les primo-acquéreurs (habitation propre et unique)
+  * 12,5% pour les autres acquéreurs
+- **Frais de notaire** : 
+  * Base partagée : 5 000€ ÷ nombre d'acquéreurs
+  * + 1 000€ par lot acquis
+- **Crédit hypothécaire individuel** : Chaque acquéreur contracte son propre crédit selon ses besoins
+
+#### Phase de rénovation
+- **Budget travaux individuels** : À définir selon l'état du lot et les ambitions de chacun
+- **Travaux communs** : Répartis selon les quotités ET l'utilité
+  * Toiture/structure : selon quotités
+  * Espaces communs : selon usage prévu
+  * Aménagements spécifiques : selon bénéficiaires
+- **Possibilité de crédit rénovation** : À négocier avec votre banque
+
+### Frais communs mensuels
+- Charges communes (à définir selon usage réel)
+- Assurances collectives
+- Entretien des espaces partagés
+- Cagnotte commune pour petits achats
+- Budget par groupe de travail
+
+### Estimation par lot (exemple indicatif)
+Pour un lot de 100m² :
+- Prix d'achat : ~143 000€
+- Droits d'enregistrement : 4 290€ (3%) ou 17 875€ (12,5%)
+- Frais de notaire : ~2 250€
+- Travaux privatifs estimés : 50 000-100 000€
+- **Budget total : 200 000-260 000€** selon profil et ambitions
+
+---
+
 ## 🚪 Processus de sortie du projet
 
 ### Revente
@@ -164,77 +285,78 @@ Nous cherchons des personnes partageant ces valeurs et prêtes à s'investir dan
 
 ---
 
-## 🔄 Système de portage de lots d'habitation
+## 🏗️ Montage juridique
 
-### Principe général
-Le portage de lots permet de faciliter l'accès à la propriété et de maintenir une mixité sociale. Ce mécanisme solidaire garantit que les logements restent accessibles aux ménages à revenus modérés.
+### Structure envisagée
+- **Copropriété** pour les logements privés
+- **Fondation ou ASBL** possible pour le terrain (en discussion)
+- Mécanisme anti-spéculation intégré
+- Facilitation de l'accès au crédit hypothécaire
 
-### Fonctionnement du portage
+### Droits et devoirs
+- Pleine propriété du logement
+- Quote-part des communs
+- Participation obligatoire à la vie collective
+- Respect de la charte et du ROI
 
-#### Phase d'achat initial
-- **Portage collectif** : Le groupe peut porter temporairement un lot pour un futur habitant
-- **Portage par tiers** : Une structure externe (ASBL, coopérative) ou un membre du groupe peut acquérir le lot
-- **Durée du portage** : Maximum 3-5 ans, avec possibilité de prolongation sur décision de l'AG
+---
 
-#### Mécanismes de protection
+## 🔄 Système de portage de lots par un particulier
 
-##### Droit de préemption croisé
-- Les co-propriétaires ont **priorité pour racheter** tout lot mis en vente
-- L'ASBL ou la structure collective peut exercer ce droit
-- Délai de 3 mois pour se positionner
-- Prix encadré selon la formule de plafonnement
+### Mécanismes de portage disponibles
 
-##### Option de rachat à prix plafonné
-- **Formule de calcul** : Prix d'achat initial + travaux + indexation - amortissement
-- **Plafond de plus-value** : Maximum 2% par an au-dessus de l'inflation
-- Le surplus éventuel est reversé à la cagnotte commune
-- Permet d'éviter la spéculation tout en protégeant l'investissement
+Le projet Habitat Beaver utilise deux mécanismes de portage complémentaires pour faciliter l'accès progressif de nouveaux membres :
 
-#### Processus de revente
+#### 1. Portage collectif via les parties communes
+- **Principe** : Certains espaces restent en parties communes non divisées lors de l'achat initial
+- **"Révélation" progressive** : Ces espaces sont convertis en lots privatifs quand de nouveaux acquéreurs se présentent
+- **Avantages** :
+  * Pas de droits d'enregistrement supplémentaires à l'achat initial
+  * Flexibilité maximale pour l'arrivée de nouveaux membres
+  * Coûts partagés entre tous les copropriétaires initiaux
+- **Inconvénients** :
+  * Nécessite un acte modificatif de division lors de la "révélation"
+  * Frais de notaire pour la modification (environ 2 000-3 000€)
+  * Complexité juridique de la transformation
 
-1. **Notification** : Le vendeur informe l'AG 6 mois avant la mise en vente
-2. **Activation du droit de préemption** : Le groupe a 3 mois pour trouver un repreneur
-3. **Validation du candidat** : L'AG valide le nouveau membre selon les critères :
-   - Adhésion à la charte et aux valeurs du projet
-   - Capacité financière adaptée
-   - Engagement à occuper personnellement le logement
-4. **Fixation du prix** : Application de la formule de plafonnement
-5. **Accompagnement** : Le groupe facilite la transmission (visites, informations)
+#### 2. Portage par achat de lots supplémentaires
+- **Principe** : Un ou plusieurs acquéreurs achètent 2-3 lots dès le départ
+- **Convention de portage** : Accord écrit entre les parties pour définir les modalités
+- **⚠️ Important** : Le notaire déconseille les prêts internes entre membres - privilégier l'achat direct de lots supplémentaires
+- **Avantages** :
+  * Propriété claire dès le départ
+  * Possibilité de récupérer 60% des droits d'enregistrement si revente dans les 2 ans
+  * Rétribution possible du capital immobilisé
+- **Inconvénients** :
+  * Droits d'enregistrement à 12,5% pour le porteur
+  * Capital important immobilisé
+  * Risque porté individuellement
 
-#### Rachat par le collectif
+### Convention de portage recommandée
 
-##### Situations de rachat
-- Départ non planifié d'un habitant
-- Protection d'un lot stratégique
-- Maintien de l'accessibilité financière
-- Accueil temporaire de nouveaux membres
-
-##### Financement du rachat
-- **Cagnotte de portage** : Alimentée par les surplus de revente
-- **Emprunt collectif** : Via l'ASBL ou la copropriété
-- **Participation des membres** : Contribution volontaire temporaire
-- **Subventions** : Recherche d'aides publiques pour le logement solidaire
-
-### Conditions d'occupation pendant le portage
-
-#### Pour le bénéficiaire du portage
-- **Loyer modéré** : Couvre les charges et le remboursement progressif
-- **Option d'achat** : Garantie d'acquisition à terme défini
-- **Participation pleine** : Droits et devoirs identiques aux propriétaires
-
-#### Obligations
-- Occupation personnelle obligatoire
-- Interdiction de sous-location (sauf accord AG)
-- Entretien normal du logement
-- Participation à la vie collective
-
-### Avantages du système
-
-✅ **Accessibilité** : Permet l'entrée de ménages à revenus modestes
-✅ **Flexibilité** : Facilite les transitions et les départs
-✅ **Solidarité** : Mutualise les risques et les opportunités
-✅ **Anti-spéculation** : Maintient les prix dans des limites raisonnables
-✅ **Pérennité** : Assure la continuité du projet sur le long terme
+#### Éléments essentiels à inclure
+1. **Durée du portage** : Maximum 3-5 ans
+2. **Répartition des risques** :
+   - Charges communes partagées entre tous les acquéreurs
+   - Intérêts d'emprunt supportés par le porteur
+   - Perte sur droits d'enregistrement compensée à la revente
+   - **Moins-value éventuelle** : Partage contractuel selon des quotités à définir
+     * Ex: 50% porteur / 50% collectif
+     * Ou selon la capacité contributive de chacun
+3. **Rétribution du capital** (selon décision du collectif) :
+   - **Non systématique** - dépend de l'esprit de solidarité du groupe
+   - Si rétribution décidée :
+     * Indexation de 2%/an au-dessus de l'inflation
+     * Compensation des frais réels (intérêts, taxes, assurances)
+   - Si solidarité pure :
+     * Seul remboursement du capital et des frais réels
+     * Pas de rémunération supplémentaire
+4. **Processus de sélection** du futur acquéreur par l'AG
+5. **Clause de sortie** si pas d'acquéreur trouvé
+6. **Gestion d'une moins-value** :
+   - Définition des quotités de partage (ex: 60/40, 50/50)
+   - Plafonnement éventuel de la perte pour le porteur
+   - Mécanisme de compensation par la cagnotte commune
 
 ### Portage par un particulier (achat d'un deuxième lot)
 
@@ -433,111 +555,6 @@ Pour le collectif :
 - **Flexibilité** : Deux options selon l'esprit du groupe
 - **Équité** : La perte sur les droits d'enregistrement est reconnue comme un vrai coût
 - **Durabilité** : Mécanisme attractif malgré la fiscalité défavorable
-
-**Variantes possibles :**
-- Si cagnotte commune préférée : les 13 392€ financent les espaces communs
-- Si portage plus court (2 ans) : ajuster les calculs proportionnellement
-- Si plusieurs porteurs : répartir selon les quotes-parts portées
-
----
-
-## 💰 Aspects financiers
-
-### Coût d'acquisition d'un lot
-- **Base estimée** : environ 3 300€/m² (travaux de parachèvement compris)
-- Prix d'achat global du site : 600 000-715 000€ (en négociation)
-- Division en lots selon la surface et les besoins
-
-### Système de quotités et charges
-
-#### Calcul des quotités (millièmes)
-Le calcul des quotités détermine la part de chaque lot dans la copropriété. Notre système prend en compte :
-- **Surface** : Critère principal basé sur les m² habitables
-- **Affectation** : Ajustement selon l'usage (habitation, atelier, bureau)
-- **Localisation** : Pondération selon l'étage, l'orientation, les nuisances
-
-**Lissage des quotités** : Le rapport de quotités établi par le notaire vise un équilibre équitable entre tous les lots, évitant les disparités excessives.
-
-#### Répartition des charges communes
-Les charges sont réparties selon un **système mixte** défini dans le ROI :
-- **Charges générales** : Selon les quotités (assurances, gros entretien)
-- **Charges d'utilité** : Selon l'usage réel (chauffage, eau, électricité)
-- **Charges spécifiques** : Selon le bénéfice retiré (ascenseur, jardins privatifs)
-
-**Principe du "mix"** : Combinaison de critères pour une répartition juste, évitant qu'un grand lot peu occupé paie autant qu'un petit lot très utilisé.
-
-### Investissements nécessaires (achat en division)
-
-#### À l'acte de vente
-- **Apport personnel nécessaire** : Variable selon chaque acquéreur (généralement 10-20% du prix du lot)
-- **Droits d'enregistrement** : 
-  * 3% pour les primo-acquéreurs (habitation propre et unique)
-  * 12,5% pour les autres acquéreurs
-- **Frais de notaire** : 
-  * Base partagée : 5 000€ ÷ nombre d'acquéreurs
-  * + 1 000€ par lot acquis
-- **Crédit hypothécaire individuel** : Chaque acquéreur contracte son propre crédit selon ses besoins
-
-#### Phase de rénovation
-- **Budget travaux individuels** : À définir selon l'état du lot et les ambitions de chacun
-- **Travaux communs** : Répartis selon les quotités ET l'utilité
-  * Toiture/structure : selon quotités
-  * Espaces communs : selon usage prévu
-  * Aménagements spécifiques : selon bénéficiaires
-- **Possibilité de crédit rénovation** : À négocier avec votre banque
-
-### Frais communs mensuels
-- Charges communes (à définir selon usage réel)
-- Assurances collectives
-- Entretien des espaces partagés
-- Cagnotte commune pour petits achats
-- Budget par groupe de travail
-
-### Estimation par lot (exemple indicatif)
-Pour un lot de 100m² :
-- Prix d'achat : ~143 000€
-- Droits d'enregistrement : 4 290€ (3%) ou 17 875€ (12,5%)
-- Frais de notaire : ~2 250€
-- Travaux privatifs estimés : 50 000-100 000€
-- **Budget total : 200 000-260 000€** selon profil et ambitions
-
----
-
-## 📜 Règlement d'Ordre Intérieur (ROI)
-
-### Activités autorisées
-✅ Agriculture (permaculture, maraîchage)
-✅ Activités culturelles et artistiques
-✅ Ateliers et formations
-✅ Accueil ponctuel du public
-✅ Coworking
-✅ Résidences d'artistes
-
-### Activités interdites
-❌ Activités commerciales non validées par l'AG
-❌ Nuisances sonores après 22h sans accord préalable
-
-### Règles de vie commune
-- **Silence nocturne** : 22h-7h
-- **Entretien** : rotation des tâches selon planning
-- **Réservation des espaces** : via agenda partagé
-- **Visites/nuitées** : max 7 nuits consécutives sans accord
-
----
-
-## 🏗️ Montage juridique
-
-### Structure envisagée
-- **Copropriété** pour les logements privés
-- **Fondation ou ASBL** possible pour le terrain (en discussion)
-- Mécanisme anti-spéculation intégré
-- Facilitation de l'accès au crédit hypothécaire
-
-### Droits et devoirs
-- Pleine propriété du logement
-- Quote-part des communs
-- Participation obligatoire à la vie collective
-- Respect de la charte et du ROI
 
 ---
 
@@ -785,97 +802,6 @@ Le transfert du seul tréfonds (1-2% de la valeur) vers la Fondation est une sol
 
 ---
 
-## 🏠 Programmation architecturale
-
-### Espaces privés
-- Une dizaine d'habitations autonomes
-- Typologies variées (T2 à T5)
-- Logements évolutifs et adaptables
-- Entre 60 et 150m² selon les besoins
-
-### Espaces communs intérieurs
-- **Foyer commun** (salon + salle à manger collectifs)
-- **Cuisines communes** pour préparation et transformation
-- **Espace de coworking**
-- **Ateliers** (bois, métal, textile, céramique)
-- **Espaces enfants** intérieurs
-- **Chambres d'accueil** collectives
-- **Espaces culturels** (salle polyvalente, studio son)
-
-### Espaces extérieurs
-- **Potager collectif**
-- **Verger et forêt-jardin**
-- **Poulailler**
-- **Serres**
-- **Espaces de jeux pour enfants**
-- **Terrasses et cours communes**
-- **Terrain de pétanque/jeux**
-
----
-
-## 👶 Espace inclusif et protection des enfants
-
-### Principes d'inclusivité
-- Habitat **intergénérationnel** pensé pour tous les âges
-- Accessibilité PMR dans les espaces communs
-- **Langage inclusif** dans nos communications
-- Politique "**Safe Space**" avec tolérance zéro pour les discriminations
-
-### Protection des enfants
-- **Espaces dédiés** intérieurs et extérieurs sécurisés
-- **Procédure de signalement** en cas de problème (Annexe L du ROI)
-- Vigilance collective sur la sécurité
-- Respect de l'intimité et des besoins de chaque enfant
-
-### Place décisionnelle des enfants
-- Consultation sur les aménagements qui les concernent
-- Participation progressive aux décisions collectives selon l'âge
-- Conseil des enfants possible pour certains sujets
-- Écoute active de leurs besoins et envies
-
----
-
-## 🎨 Activités individuelles dans les espaces communs
-
-### Procédure
-1. **Proposition** à l'AG ou au Cercle de coordination
-2. **Validation** selon l'ampleur (petit projet = CC, grand projet = AG)
-3. **Réservation** via l'agenda partagé
-4. **Respect** des plages horaires et du voisinage
-5. **Rangement** et nettoyage après usage
-
-### Exemples d'activités possibles
-- Cours ou ateliers (yoga, musique, artisanat)
-- Événements culturels (concerts, expositions)
-- Activités professionnelles ponctuelles
-- Célébrations privées
-
----
-
-## 🏕️ Période de transition (achat → fin des travaux)
-
-### Options envisagées
-
-#### Colocation dans le corps de logis
-- Installation progressive des familles
-- Partage temporaire des espaces existants
-- Organisation collective de la vie quotidienne
-- Participation aux travaux de rénovation
-
-#### Habitat léger sur le terrain
-- Installation de yourtes, tiny houses ou caravanes
-- Aménagement d'espaces sanitaires communs temporaires
-- Respect des règles d'urbanisme
-- Solution transitoire pendant les gros travaux
-
-### Organisation pratique
-- Planning d'installation défini collectivement
-- Répartition des charges adaptée à la situation
-- Chantiers participatifs réguliers
-- Solidarité renforcée pendant cette phase
-
----
-
 ## 📞 Contacts et prochaines étapes
 
 ### Pour nous rejoindre
@@ -894,19 +820,6 @@ Le transfert du seul tréfonds (1-2% de la valeur) vers la Fondation est une sol
 
 ### Contact
 **Email** : habitatbeaver@gmail.com
-
----
-
-## 🌱 Valeurs fondamentales
-
-Notre projet repose sur les valeurs **C.R.I.E.S.** :
-- **C**onvivialité
-- **R**ègles de vie partagées
-- **I**ntrospection et soin de soi
-- **E**nvironnement et sobriété
-- **S**olidarité territoriale
-
-Nous cherchons des personnes partageant ces valeurs et prêtes à s'investir dans la construction d'un mode de vie alternatif, respectueux de l'humain et de la nature.
 
 ---
 
