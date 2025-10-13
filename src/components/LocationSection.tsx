@@ -87,7 +87,7 @@ export const LocationSection = ({ content, body }: LocationSectionProps = {}) =>
   const domaineItems = parseDomaine(body);
   return (
     <section data-testid="location-section" className="py-48 bg-background overflow-x-hidden">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-3 md:px-4">
         {/* Section Title */}
         <div className="grid grid-cols-12 gap-0 mb-48">
           <div className="col-span-12 md:col-span-7">
@@ -108,10 +108,10 @@ export const LocationSection = ({ content, body }: LocationSectionProps = {}) =>
         </div>
 
         {/* Transport Grid - Asymmetric Layout */}
-        <div className="grid grid-cols-12 gap-8 mb-64">
+        <div className="grid grid-cols-12 gap-0 md:gap-8 mb-64">
           {/* Train */}
           <div className="col-span-12 md:col-span-5 relative">
-            <div className="absolute -top-8 -left-8 w-24 h-24 bg-magenta/20"></div>
+            <div className="hidden md:block absolute -top-8 -left-8 w-24 h-24 bg-magenta/20"></div>
             <div className="bg-background border-2 border-rich-black p-8 relative z-10">
               <div className="flex items-center gap-3 mb-6">
                 <Train className="w-6 h-6 text-magenta" />
@@ -159,10 +159,10 @@ export const LocationSection = ({ content, body }: LocationSectionProps = {}) =>
         <div className="grid grid-cols-12 gap-0 mb-64">
           <div className="col-span-12 md:col-span-6 md:col-start-2 mb-16 md:mb-0">
             <div className="relative">
-              <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-magenta z-0"></div>
+              <div className="hidden md:block absolute -bottom-12 -right-12 w-48 h-48 bg-magenta z-0"></div>
               <div className="bg-background p-12 relative z-30">
                 {heritage.title && (
-                  <h3 className="text-5xl md:text-7xl font-display text-foreground mb-8 uppercase">
+                  <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-display text-foreground mb-8 uppercase break-words hyphens-auto leading-[1.15]">
                     {heritage.title.split(' ').slice(0, 2).join(' ')}<br/>{heritage.title.split(' ').slice(2, 4).join(' ')}<br/>{heritage.title.split(' ').slice(4).join(' ')}
                   </h3>
                 )}
@@ -191,8 +191,8 @@ export const LocationSection = ({ content, body }: LocationSectionProps = {}) =>
         {domaineItems.length > 0 && (
           <div className="grid grid-cols-12 gap-0 mb-64">
             <div className="col-span-12 md:col-span-8 md:col-start-3">
-              <div className="bg-butter-yellow p-12">
-                <h3 className="text-4xl md:text-6xl font-display text-rich-black mb-8 uppercase">
+              <div className="bg-butter-yellow p-8 md:p-12">
+                <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-display text-rich-black mb-8 uppercase break-words hyphens-auto leading-[1.15]">
                   Le domaine aujourd'hui
                 </h3>
                 <ul className="space-y-4 text-rich-black text-lg">
@@ -211,7 +211,7 @@ export const LocationSection = ({ content, body }: LocationSectionProps = {}) =>
         {/* Property Carousel */}
         <div className="mb-48">
           <div className="mb-12 ml-0 md:ml-16">
-            <h5 className="text-5xl md:text-7xl font-display text-foreground uppercase">
+            <h5 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-display text-foreground uppercase break-words hyphens-auto leading-[1.15]">
               {imagesTitle.split(' ').slice(0, 3).join(' ')}<br/>{imagesTitle.split(' ').slice(3).join(' ')}
             </h5>
           </div>
@@ -220,14 +220,14 @@ export const LocationSection = ({ content, body }: LocationSectionProps = {}) =>
 
         {/* Localisation Section */}
         <div className="mb-16">
-          <h3 className="text-5xl md:text-7xl font-display text-foreground mb-16 uppercase ml-8">
+          <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-display text-foreground mb-16 uppercase ml-4 md:ml-8 break-words hyphens-auto leading-[1.15]">
             {mapTitle}
           </h3>
 
           <div className="grid grid-cols-12 gap-0">
             <div className="col-span-12 md:col-span-10 md:col-start-2">
               <div className="relative">
-                <div className="absolute -top-8 -right-8 w-64 h-64 bg-butter-yellow/30 z-0"></div>
+                <div className="hidden md:block absolute -top-8 -right-8 w-64 h-64 bg-butter-yellow/30 z-0"></div>
                 <div className="relative z-10">
                   <div className="shadow-2xl border-4 border-rich-black">
                     <MapView />

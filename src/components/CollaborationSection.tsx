@@ -51,13 +51,13 @@ export const CollaborationSection = ({ content, body }: CollaborationSectionProp
   const engagementContent = parseEngagement(body);
 
   return (
-    <section data-testid="collaboration-section" id="collaboration" className="py-48 px-4 bg-background">
-      <div className="max-w-6xl mx-auto">
+    <section data-testid="collaboration-section" id="collaboration" className="py-48 bg-background">
+      <div className="max-w-6xl mx-auto px-4 md:px-8">
         <SectionTitle alignment="left" accentLine="horizontal">
           {title}
         </SectionTitle>
 
-        <div className="grid md:grid-cols-2 gap-8 items-start">
+        <div className="grid md:grid-cols-2 gap-0 md:gap-8 items-start">
           <div className="space-y-6 text-foreground/90 leading-relaxed bg-warm-beige/20 p-8 border-2 border-warm-beige">
             {mainContent.map((paragraph, index) => (
               <p key={index}>{paragraph}</p>

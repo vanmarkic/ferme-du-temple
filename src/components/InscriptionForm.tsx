@@ -32,13 +32,13 @@ export const InscriptionForm = ({ content }: InscriptionFormProps = {}) => {
   };
   return (
     <section data-testid="inscription-section" id="inscription" className="py-48 bg-background overflow-x-hidden">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-3 md:px-4">
         {/* Title - Bauhaus Style */}
-        <div className="grid grid-cols-12 gap-0 mb-48">
+        <div className="grid grid-cols-12 gap-0 mb-32 md:mb-48">
           <div className="col-span-12 md:col-span-8 md:col-start-3">
-            <div className="relative">
-              <div className="absolute -top-16 -right-8 w-48 h-48 bg-magenta/20"></div>
-              <h2 className="text-5xl md:text-7xl font-display text-foreground mb-12 relative z-10 uppercase">
+            <div className="relative overflow-hidden">
+              <div className="hidden md:block absolute -top-16 -right-8 w-48 h-48 bg-magenta/20"></div>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-display text-foreground mb-8 md:mb-12 relative z-10 uppercase break-words hyphens-auto leading-[1.15] max-w-full">
                 {title.split(' ').map((word, i, arr) =>
                   i === arr.length - 1 ? word : <>{word}<br /></>
                 )}

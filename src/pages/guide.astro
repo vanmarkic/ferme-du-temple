@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Providers } from '@/components/Providers';
+import { GuidePage } from '@/components/GuidePage';
+import { parseMarkdownGuide } from '@/lib/utils';
+import fs from 'fs';
+import path from 'path';
+
+const guideFilePath = path.join(process.cwd(), 'src/content/habitat-beaver-guide.md');
+const guideContent = fs.readFileSync(guideFilePath, 'utf-8');
+const sections = parseMarkdownGuide(guideContent);
+
+const GUIDE_PASSWORD = import.meta.env.PUBLIC_GUIDE_PASSWORD || 'beaver2025';
+---
+
+<BaseLayout
+  title="Guide d'accueil - Habitat Beaver | Ferme du Temple"
+  description="Guide d'accueil pour les nouveaux venus du projet Habitat Beaver à la Ferme du Temple"
+>
+  <Providers client:load>
+    <GuidePage client:load sections={sections} password={GUIDE_PASSWORD} />
+  </Providers>
+</BaseLayout>

@@ -75,8 +75,9 @@ test.describe('Responsive Font Sizes', () => {
     expect(desktopFontSize).toBeGreaterThanOrEqual(tabletFontSize);
 
     // Verify reasonable bounds
-    // Hero uses text-6xl (52-84px) on mobile and text-8xl (72-120px) on larger screens
-    expect(mobileFontSize).toBeGreaterThanOrEqual(52);
+    // Hero uses text-4xl (28px min) on mobile, scaling up to text-8xl (120px max) on larger screens
+    expect(mobileFontSize).toBeGreaterThanOrEqual(28);
+    expect(mobileFontSize).toBeLessThanOrEqual(56); // text-4xl max: 56px
     expect(desktopFontSize).toBeLessThanOrEqual(120);
   });
 

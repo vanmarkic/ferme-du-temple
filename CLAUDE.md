@@ -1,5 +1,6 @@
 # 
 ## Code Quality & Best Practices
+- check if existing code can be extended first before creating a new function or class
 - do not hardcode user-facing text-content in the code
 - apply the boy scout rule - leave the codebase cleaner than you found it
 - if something isn't found in the terminal, check PWD and make sure you are in the right directory

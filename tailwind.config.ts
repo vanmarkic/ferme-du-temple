@@ -7,7 +7,11 @@ export default {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      padding: {
+        DEFAULT: "1rem",
+        sm: "1.5rem",
+        lg: "2rem",
+      },
       screens: {
         "2xl": "1400px",
       },
@@ -62,26 +66,26 @@ export default {
         // h5 - scales from 20px to 28px
         'xl': ['clamp(1.25rem, 1rem + 1.25vw, 1.75rem)', { lineHeight: '1.4' }],
 
-        // h4 - scales from 24px to 36px
-        '2xl': ['clamp(1.5rem, 1.125rem + 1.875vw, 2.25rem)', { lineHeight: '1.3' }],
+        // h4 - scales from 20px to 36px
+        '2xl': ['clamp(1.25rem, 0.875rem + 1.875vw, 2.25rem)', { lineHeight: '1.3' }],
 
-        // h3 - scales from 28px to 44px
-        '3xl': ['clamp(1.75rem, 1.25rem + 2.5vw, 2.75rem)', { lineHeight: '1.25', letterSpacing: '-0.015em' }],
+        // h3 - scales from 22px to 44px
+        '3xl': ['clamp(1.375rem, 0.875rem + 2.5vw, 2.75rem)', { lineHeight: '1.25', letterSpacing: '-0.015em' }],
 
-        // h2 - scales from 36px to 56px
-        '4xl': ['clamp(2.25rem, 1.625rem + 3.125vw, 3.5rem)', { lineHeight: '1.2', letterSpacing: '-0.02em' }],
+        // h2 - scales from 28px to 56px
+        '4xl': ['clamp(1.75rem, 1.125rem + 3.125vw, 3.5rem)', { lineHeight: '1.2', letterSpacing: '-0.02em' }],
 
-        // h1 - scales from 44px to 68px
-        '5xl': ['clamp(2.75rem, 2rem + 3.75vw, 4.25rem)', { lineHeight: '1.1', letterSpacing: '-0.025em' }],
+        // h1 - scales from 32px to 68px
+        '5xl': ['clamp(2rem, 1.375rem + 3.125vw, 4.25rem)', { lineHeight: '1.1', letterSpacing: '-0.025em' }],
 
-        // Display - scales from 52px to 84px
-        '6xl': ['clamp(3.25rem, 2.375rem + 4.375vw, 5.25rem)', { lineHeight: '1.05', letterSpacing: '-0.03em' }],
+        // Display - scales from 36px to 84px
+        '6xl': ['clamp(2.25rem, 1.5rem + 3.75vw, 5.25rem)', { lineHeight: '1.05', letterSpacing: '-0.03em' }],
 
-        // Large Display - scales from 60px to 100px
-        '7xl': ['clamp(3.75rem, 2.75rem + 5vw, 6.25rem)', { lineHeight: '1', letterSpacing: '-0.035em' }],
+        // Large Display - scales from 40px to 100px
+        '7xl': ['clamp(2.5rem, 1.625rem + 4.375vw, 6.25rem)', { lineHeight: '1', letterSpacing: '-0.035em' }],
 
-        // Hero - scales from 72px to 120px
-        '8xl': ['clamp(4.5rem, 3.25rem + 6.25vw, 7.5rem)', { lineHeight: '1', letterSpacing: '-0.04em' }],
+        // Hero - scales from 44px to 120px
+        '8xl': ['clamp(2.75rem, 1.75rem + 5vw, 7.5rem)', { lineHeight: '1', letterSpacing: '-0.04em' }],
       },
       // Line heights for different text types
       lineHeight: {

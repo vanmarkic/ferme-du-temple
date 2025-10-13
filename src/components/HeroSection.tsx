@@ -34,19 +34,19 @@ export const HeroSection = ({ content }: HeroSectionProps = {}) => {
   } = content || {};
 
   return (
-    <section data-testid="hero-section" className="relative min-h-screen bg-background overflow-hidden overflow-x-hidden">
+    <section data-testid="hero-section" className="relative min-h-screen bg-background overflow-hidden overflow-x-hidden pt-5">
       {/* Bauhaus Grid Layout with Overlapping Elements */}
-      <div className="container mx-auto px-4 py-32">
+      <div className="container mx-auto pt-8 pb-16 md:py-32 px-3 md:px-4">
         {/* Main Title - Reduced Asymmetry */}
         <div className="relative mb-16 ml-0 md:ml-8">
-          <h1 className="text-6xl md:text-8xl font-display text-display text-rich-black">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-display text-display text-rich-black break-words hyphens-auto leading-tight">
             {mainTitle}
             <span className="block mt-2">{mainSubtitle}</span>
           </h1>
-          <h2 className="text-3xl md:text-5xl font-display mt-8 text-magenta leading-tight tracking-tight">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-5xl font-display mt-6 md:mt-8 text-magenta leading-tight tracking-tight break-words hyphens-auto">
             {secondaryTitle}
           </h2>
-          <div className="absolute -right-8 top-8 w-32 h-32 bg-magenta/20 -z-10"></div>
+          <div className="hidden md:block absolute -right-8 top-8 w-32 h-32 bg-magenta/20 -z-10"></div>
         </div>
 
         {/* Asymmetric Grid with Overlapping Images */}
@@ -74,10 +74,10 @@ export const HeroSection = ({ content }: HeroSectionProps = {}) => {
         </div>
 
         {/* Secondary Images Grid - Bauhaus Style */}
-        <div className="grid grid-cols-12 gap-8 items-start mb-32">
+        <div className="grid grid-cols-12 gap-0 md:gap-8 items-start mb-32">
           {/* Building Exterior */}
           <div className="col-span-12 md:col-span-5 relative">
-            <div className="absolute -top-8 -left-8 w-24 h-24 bg-magenta z-10"></div>
+            <div className="hidden md:block absolute -top-8 -left-8 w-24 h-24 bg-magenta z-10"></div>
             <img
               src={buildingExterior.src}
               alt={imageAlt2}
@@ -107,7 +107,7 @@ export const HeroSection = ({ content }: HeroSectionProps = {}) => {
         {/* Final Image with Geometric Overlap - More Centered */}
         <div className="grid grid-cols-12 gap-0">
           <div className="col-span-12 md:col-span-6 md:col-start-3 relative">
-            <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-butter-yellow z-10"></div>
+            <div className="hidden md:block absolute -bottom-12 -right-12 w-48 h-48 bg-butter-yellow z-10"></div>
             <img
               src={greenhouse.src}
               alt={imageAlt4}

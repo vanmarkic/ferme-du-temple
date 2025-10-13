@@ -94,9 +94,9 @@ export const ProjectSection = ({ content, body }: ProjectSectionProps = {}) => {
 
   return (
     <section data-testid="project-section" id="projet" className="py-48 bg-background overflow-hidden overflow-x-hidden">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-3 md:px-4">
         {/* Title with Bauhaus Geometry - Reduced Asymmetry */}
-        <div className="ml-0 md:ml-16 mb-48">
+        <div className="ml-0 md:ml-16 mb-32 md:mb-48">
           <SectionTitle subtitle={subtitle}>
             {title}
           </SectionTitle>
@@ -151,12 +151,12 @@ export const ProjectSection = ({ content, body }: ProjectSectionProps = {}) => {
         )}
 
         {/* Collective Beaver - Asymmetric Grid */}
-        <div className="grid grid-cols-12 gap-4 md:gap-16 items-start">
+        <div className="grid grid-cols-12 gap-0 md:gap-16 items-start">
           {/* White Space Left */}
           <div className="hidden md:block col-span-2"></div>
 
           {/* Content */}
-          <div className="col-span-12 md:col-span-8 px-4 md:px-0">
+          <div className="col-span-12 md:col-span-8">
             <div className="relative overflow-hidden">
               <div className="absolute -top-12 left-0 w-2 h-48 bg-magenta"></div>
 

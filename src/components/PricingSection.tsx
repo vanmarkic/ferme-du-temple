@@ -86,14 +86,14 @@ export const PricingSection = ({ content, body }: PricingSectionProps = {}) => {
   const { elementRef: unit2Ref, isVisible: unit2Visible } = useScrollReveal({ threshold: 0.15 });
 
   return <section data-testid="pricing-section" className="py-48 bg-background overflow-hidden overflow-x-hidden">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-3 md:px-4">
         {/* Title - Bauhaus Asymmetric */}
-        <div className="grid grid-cols-12 gap-0 mb-48">
+        <div className="grid grid-cols-12 gap-0 mb-32 md:mb-48">
           <div className="col-span-12 md:col-span-2"></div>
           <div className="col-span-12 md:col-span-8">
             <div className="relative overflow-hidden">
               <div className="hidden md:block absolute -top-16 right-0 w-48 h-48 bg-butter-yellow/30"></div>
-              <h2 className="text-5xl md:text-7xl font-display text-foreground mb-12 relative z-10 break-words">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-display text-foreground mb-8 md:mb-12 relative z-10 break-words hyphens-auto leading-[1.15]">
                 {title}
               </h2>
               <div className="bg-magenta text-white p-8 block md:inline-block">
@@ -174,8 +174,8 @@ export const PricingSection = ({ content, body }: PricingSectionProps = {}) => {
         )}
 
         {/* Total Offer - Bold Statement */}
-        <div className="grid grid-cols-12 gap-4 md:gap-16">
-          <div className="col-span-12 md:col-span-8 md:col-start-3 px-4 md:px-0">
+        <div className="grid grid-cols-12 gap-0 md:gap-16">
+          <div className="col-span-12 md:col-span-8 md:col-start-3">
             <div className="relative overflow-hidden">
               <div className="absolute top-0 left-0 w-2 h-full bg-magenta"></div>
               <div className="ml-8 md:ml-12">

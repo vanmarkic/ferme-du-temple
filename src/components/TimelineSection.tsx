@@ -120,9 +120,9 @@ export const TimelineSection = ({ content, body }: TimelineSectionProps = {}) =>
 
   return (
     <section data-testid="timeline-section" className="py-48 bg-background overflow-x-hidden">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-3 md:px-4">
         {/* Title */}
-        <div className="grid grid-cols-12 gap-0 mb-48">
+        <div className="grid grid-cols-12 gap-0 mb-32 md:mb-48">
           <div className="col-span-12 md:col-span-8 md:col-start-3">
             <SectionTitle subtitle={subtitle}>
               {title.split(' ').map((word, i, arr) =>
@@ -142,14 +142,14 @@ export const TimelineSection = ({ content, body }: TimelineSectionProps = {}) =>
             const isLeft = index % 2 === 0;
             
             return (
-              <div key={period.year} className={`grid grid-cols-12 gap-8 ${!isLeft ? 'md:flex-row-reverse' : ''}`}>
+              <div key={period.year} className={`grid grid-cols-12 gap-0 md:gap-8 ${!isLeft ? 'md:flex-row-reverse' : ''}`}>
                 {/* Year & Icon */}
                 <div className={`col-span-12 md:col-span-3 ${!isLeft ? 'md:col-start-10 md:text-right' : ''}`}>
-                  <div className={`inline-flex items-center gap-4 ${!isLeft ? 'md:flex-row-reverse' : ''}`}>
-                    <div className="w-16 h-16 bg-magenta flex items-center justify-center">
-                      <Icon className="w-8 h-8 text-white" />
+                  <div className={`inline-flex items-center gap-3 md:gap-4 ${!isLeft ? 'md:flex-row-reverse' : ''}`}>
+                    <div className="w-12 h-12 md:w-16 md:h-16 bg-magenta flex items-center justify-center flex-shrink-0">
+                      <Icon className="w-6 h-6 md:w-8 md:h-8 text-white" />
                     </div>
-                    <div className="text-5xl font-bold text-foreground">
+                    <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground break-words leading-none">
                       {period.year}
                     </div>
                   </div>
@@ -157,9 +157,9 @@ export const TimelineSection = ({ content, body }: TimelineSectionProps = {}) =>
 
                 {/* Content */}
                 <div className={`col-span-12 md:col-span-7 ${!isLeft ? 'md:col-start-2' : 'md:col-start-5'}`}>
-                  <div className={`relative ${period.status === 'current' ? 'bg-butter-yellow' : 'bg-background border-2 border-rich-black'} p-10`}>
+                  <div className={`relative ${period.status === 'current' ? 'bg-butter-yellow' : 'bg-background border-2 border-rich-black'} p-6 md:p-10`}>
                     {period.status === 'current' && (
-                      <div className="absolute -top-8 -right-8 w-32 h-32 bg-magenta/20"></div>
+                      <div className="hidden md:block absolute -top-8 -right-8 w-32 h-32 bg-magenta/20"></div>
                     )}
                     <div className="relative z-10">
                       <Badge className={`${getStatusColor(period.status)} mb-6 uppercase tracking-wider`}>
@@ -186,11 +186,11 @@ export const TimelineSection = ({ content, body }: TimelineSectionProps = {}) =>
             <div className="col-span-12 md:col-span-10 md:col-start-2">
               <div className="relative">
                 <div className="absolute -bottom-16 -left-16 w-64 h-64 bg-butter-yellow/30"></div>
-                <div className="bg-magenta text-white p-16 relative z-10">
-                  <h3 className="text-5xl md:text-7xl font-display mb-8 leading-tight uppercase">
+                <div className="bg-magenta text-white p-8 md:p-16 relative z-10">
+                  <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-display mb-6 md:mb-8 leading-[1.15] uppercase break-words hyphens-auto">
                     {visionStatement.title}
                   </h3>
-                  <div className="space-y-4 text-2xl md:text-3xl font-bold">
+                  <div className="space-y-3 md:space-y-4 text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold break-words leading-snug">
                     {visionStatement.statements.map((statement, index) => (
                       <p key={index}>{statement}</p>
                     ))}

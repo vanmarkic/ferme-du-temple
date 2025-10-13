@@ -72,7 +72,7 @@ export const Footer = ({ content, body }: FooterProps = {}) => {
       <div className="absolute top-0 left-8 w-2 h-32 bg-magenta z-0"></div>
 
       <div className="max-w-6xl mx-auto px-6">
-        <div className="grid grid-cols-12 gap-8">
+        <div className="grid grid-cols-12 gap-0 md:gap-8">
           <div className="col-span-12 md:col-span-10 md:col-start-2">
             {/* Contact */}
             <div className="relative z-10">
