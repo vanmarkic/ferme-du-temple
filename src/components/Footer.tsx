@@ -69,13 +69,13 @@ export const Footer = ({ content, body }: FooterProps = {}) => {
   return (
     <footer data-testid="footer" className="relative bg-nature-dark text-white py-16 overflow-hidden">
       {/* Geometric accent */}
-      <div className="absolute top-0 left-8 w-2 h-32 bg-magenta"></div>
+      <div className="absolute top-0 left-8 w-2 h-32 bg-magenta z-0"></div>
 
       <div className="max-w-6xl mx-auto px-6">
         <div className="grid grid-cols-12 gap-8">
           <div className="col-span-12 md:col-span-10 md:col-start-2">
             {/* Contact */}
-            <div>
+            <div className="relative z-10">
               <h3 className="text-3xl font-display font-bold mb-6">{title}</h3>
             <div className="space-y-4">
               <div className="flex items-start gap-3">
