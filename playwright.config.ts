@@ -12,6 +12,9 @@ export default defineConfig({
     trace: 'on-first-retry',
     video: 'off',
     screenshot: 'only-on-failure',
+    // Set maximum viewport to prevent screenshots exceeding browser limits
+    // Chromium has a 16,384px limit, but we use 8,000px as a conservative safe limit
+    viewport: { width: 1280, height: 720 },
   },
   projects: [
     {

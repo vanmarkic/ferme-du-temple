@@ -38,6 +38,7 @@
 - save generated \*.md files only after manual review and necessary edits
 
 ## Testing Tools
+- make sure tests don't generate images over 8000 pixels in any dimension
 - run playwright tests headless locally, I don't want to see the browser UI
 - run playwright in UI mode, e.g. "npx playwright test --ui" when debugging tests
 - if handy, run playwright test with vscode extension
