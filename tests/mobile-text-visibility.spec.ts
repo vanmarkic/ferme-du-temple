@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { safeScreenshot, safeElementScreenshot, checkScreenshotSafety } from './utils/screenshot-helper';
+import { adaptiveScreenshot, safeElementScreenshot, checkScreenshotSafety } from './utils/screenshot-helper';
 
 /**
  * Mobile Text Visibility Test Suite
@@ -98,11 +98,12 @@ test.describe('Mobile Text Visibility Tests', () => {
         const safety = await checkScreenshotSafety(page);
         console.log(safety.message);
 
-        // Use safe screenshot helper that enforces dimension limits
-        await safeScreenshot(page, {
+        // Use adaptive screenshot helper that automatically switches to viewport if page is too large
+        const result = await adaptiveScreenshot(page, {
           path: `tests/screenshots/mobile-${viewport.width}px-full.png`,
           fullPage: true
         });
+        console.log(`Screenshot taken using ${result.method} method (${result.dimensions.width}x${result.dimensions.height})`);
       });
 
       test('Hero Section - text visibility', async ({ page }) => {

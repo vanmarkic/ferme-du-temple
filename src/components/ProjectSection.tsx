@@ -93,7 +93,7 @@ export const ProjectSection = ({ content, body }: ProjectSectionProps = {}) => {
   const { elementRef: pole3Ref, isVisible: pole3Visible } = useScrollReveal({ threshold: 0.15 });
 
   return (
-    <section data-testid="project-section" id="projet" className="py-48 bg-background overflow-hidden">
+    <section data-testid="project-section" id="projet" className="py-48 bg-background overflow-hidden overflow-x-hidden">
       <div className="container mx-auto px-4">
         {/* Title with Bauhaus Geometry - Reduced Asymmetry */}
         <div className="ml-0 md:ml-16 mb-48">
@@ -160,7 +160,7 @@ export const ProjectSection = ({ content, body }: ProjectSectionProps = {}) => {
             <div className="relative overflow-hidden">
               <div className="absolute -top-12 left-0 w-2 h-48 bg-magenta"></div>
 
-              <h3 className="text-5xl md:text-7xl font-display text-foreground mb-12 md:mb-16 ml-8 md:ml-12 break-words">
+              <h3 className="text-5xl md:text-7xl font-display text-foreground mb-12 md:mb-16 ml-8 md:ml-12 break-words overflow-wrap-break-word">
                 POURQUOI LE
                 <br />
                 COLLECTIF BEAVER?

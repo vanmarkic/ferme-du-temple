@@ -34,7 +34,7 @@ export const HeroSection = ({ content }: HeroSectionProps = {}) => {
   } = content || {};
 
   return (
-    <section data-testid="hero-section" className="relative min-h-screen bg-background overflow-hidden">
+    <section data-testid="hero-section" className="relative min-h-screen bg-background overflow-hidden overflow-x-hidden">
       {/* Bauhaus Grid Layout with Overlapping Elements */}
       <div className="container mx-auto px-4 py-32">
         {/* Main Title - Reduced Asymmetry */}

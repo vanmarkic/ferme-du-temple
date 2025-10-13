@@ -145,18 +145,17 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
-  /* Double-Stranded Type Scale: Different base sizes for mobile vs desktop */
-  body {
-    @apply bg-background text-foreground;
-    font-size: 1rem; /* 16px for mobile */
-    line-height: 1.6;
+  /* Fluid responsive typography: smooth scaling across all viewports */
+  html {
+    /* Set root font size to 16px for rem calculations */
+    font-size: 16px;
   }
 
-  /* Desktop: Increase base font size to 17px (1.0625rem) */
-  @media (min-width: 768px) {
-    body {
-      font-size: 1.0625rem; /* 17px for desktop - slightly smaller than 18px */
-    }
+  body {
+    @apply bg-background text-foreground;
+    /* Fluid font size: scales from 16px (mobile) to 17px (desktop) */
+    font-size: clamp(1rem, 0.9375rem + 0.3125vw, 1.0625rem);
+    line-height: 1.6;
   }
 
   /* Heading styles with proper spacing and typography */
@@ -302,15 +301,9 @@ All colors MUST be HSL.
 
   /* Body text optimized for reading */
   .text-body {
-    font-size: 1rem;
+    font-size: clamp(1rem, 0.9375rem + 0.3125vw, 1.0625rem);
     line-height: 1.6;
     max-width: 65ch;
-  }
-
-  @media (min-width: 768px) {
-    .text-body {
-      font-size: 1.0625rem; /* 17px for desktop */
-    }
   }
 
   /* Display text (large, tight spacing) */

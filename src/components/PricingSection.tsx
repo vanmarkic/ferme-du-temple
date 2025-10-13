@@ -85,7 +85,7 @@ export const PricingSection = ({ content, body }: PricingSectionProps = {}) => {
   const { elementRef: unit1Ref, isVisible: unit1Visible } = useScrollReveal({ threshold: 0.15 });
   const { elementRef: unit2Ref, isVisible: unit2Visible } = useScrollReveal({ threshold: 0.15 });
 
-  return <section data-testid="pricing-section" className="py-48 bg-background overflow-hidden">
+  return <section data-testid="pricing-section" className="py-48 bg-background overflow-hidden overflow-x-hidden">
       <div className="container mx-auto px-4">
         {/* Title - Bauhaus Asymmetric */}
         <div className="grid grid-cols-12 gap-0 mb-48">
@@ -96,10 +96,10 @@ export const PricingSection = ({ content, body }: PricingSectionProps = {}) => {
               <h2 className="text-5xl md:text-7xl font-display text-foreground mb-12 relative z-10 break-words">
                 {title}
               </h2>
-              <div className="bg-magenta text-white p-8 inline-block">
+              <div className="bg-magenta text-white p-8 block md:inline-block">
                 <p className="text-2xl font-bold">
                   {availability.split(' ').map((word, i, arr) =>
-                    i === 2 ? <><br />{word} </> : word + ' '
+                    i === 2 ? <span key={`${i}-${word}`}><br />{word} </span> : <span key={`${i}-${word}`}>{word} </span>
                   )}
                 </p>
               </div>

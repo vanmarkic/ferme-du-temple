@@ -119,14 +119,14 @@ export const TimelineSection = ({ content, body }: TimelineSectionProps = {}) =>
   };
 
   return (
-    <section data-testid="timeline-section" className="py-48 bg-background">
+    <section data-testid="timeline-section" className="py-48 bg-background overflow-x-hidden">
       <div className="container mx-auto px-4">
         {/* Title */}
         <div className="grid grid-cols-12 gap-0 mb-48">
           <div className="col-span-12 md:col-span-8 md:col-start-3">
             <SectionTitle subtitle={subtitle}>
               {title.split(' ').map((word, i, arr) =>
-                i === arr.length - 1 ? word : <>{word}<br /></>
+                i === arr.length - 1 ? <span key={`${i}-${word}`}>{word}</span> : <span key={`${i}-${word}`}>{word}<br /></span>
               )}
             </SectionTitle>
           </div>

@@ -31,7 +31,7 @@ export const InscriptionForm = ({ content }: InscriptionFormProps = {}) => {
     // The form will POST to the same URL and Netlify will capture it
   };
   return (
-    <section data-testid="inscription-section" id="inscription" className="py-48 bg-background">
+    <section data-testid="inscription-section" id="inscription" className="py-48 bg-background overflow-x-hidden">
       <div className="container mx-auto px-4">
         {/* Title - Bauhaus Style */}
         <div className="grid grid-cols-12 gap-0 mb-48">
