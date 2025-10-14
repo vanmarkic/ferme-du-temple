@@ -23,6 +23,6 @@ tagline: "Janvier 2025 - Conçu avec passion pour un avenir durable"
 
 **Architectes:** Carton 123
 
-**Notaire:** Maître Delphine Delhaye
+**Notaire:** Maître Erneux
 
 **Conseil en management:** Altera Consulting
