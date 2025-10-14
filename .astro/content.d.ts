@@ -178,6 +178,22 @@ declare module 'astro:content' {
   rendered?: RenderedContent;
   filePath?: string;
 }>;
+"guideAccess": Record<string, {
+  id: string;
+  body?: string;
+  collection: "guideAccess";
+  data: InferEntrySchema<"guideAccess">;
+  rendered?: RenderedContent;
+  filePath?: string;
+}>;
+"guideNavigation": Record<string, {
+  id: string;
+  body?: string;
+  collection: "guideNavigation";
+  data: InferEntrySchema<"guideNavigation">;
+  rendered?: RenderedContent;
+  filePath?: string;
+}>;
 "hero": Record<string, {
   id: string;
   body?: string;
@@ -207,6 +223,14 @@ declare module 'astro:content' {
   body?: string;
   collection: "navigation";
   data: InferEntrySchema<"navigation">;
+  rendered?: RenderedContent;
+  filePath?: string;
+}>;
+"notFound": Record<string, {
+  id: string;
+  body?: string;
+  collection: "notFound";
+  data: InferEntrySchema<"notFound">;
   rendered?: RenderedContent;
   filePath?: string;
 }>;

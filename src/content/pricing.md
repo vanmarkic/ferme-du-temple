@@ -1,9 +1,9 @@
 ---
 title: "POINT FINANCE"
-availability: "6 sur 12 unités disponibles"
+availability: "8 sur 12 unités disponibles"
 offerTitle: "Offre acceptée"
 offerSubtitle: "La Ferme du Temple"
-offerDetails: "Division en lots prévue entre le compromis et l'acte"
+offerDetails: "Division en lots prévue entre le compromis et l'acte, prix indicatifs."
 ---
 
 # Unité 60 M²

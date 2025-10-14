@@ -1,15 +1,35 @@
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/hooks/use-toast";
-import { Send, Heart, Loader2 } from "lucide-react";
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { useToast } from '@/hooks/use-toast';
+import { Send, Heart, Loader2 } from 'lucide-react';
+
+interface FieldConfig {
+  label?: string;
+  placeholder?: string;
+  required?: boolean;
+}
 
 interface InscriptionContent {
   title?: string;
   subtitle?: string;
   formTitle?: string;
+  fields?: {
+    nom?: FieldConfig;
+    prenom?: FieldConfig;
+    email?: FieldConfig;
+    telephone?: FieldConfig;
+    motivation?: FieldConfig;
+    besoinsSpecifiques?: FieldConfig;
+    infosPrioritaires?: FieldConfig;
+  };
+  button?: {
+    label?: string;
+    loading?: string;
+  };
+  privacyNotice?: string;
 }
 
 interface InscriptionFormProps {
@@ -17,11 +37,7 @@ interface InscriptionFormProps {
 }
 
 export const InscriptionForm = ({ content }: InscriptionFormProps = {}) => {
-  const {
-    title,
-    subtitle,
-    formTitle,
-  } = content || {};
+  const { title, subtitle, formTitle, fields, button, privacyNotice } = content || {};
 
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -31,16 +47,27 @@ export const InscriptionForm = ({ content }: InscriptionFormProps = {}) => {
     // The form will POST to the same URL and Netlify will capture it
   };
   return (
-    <section data-testid="inscription-section" id="inscription" className="py-48 bg-background overflow-x-hidden">
+    <section
+      data-testid="inscription-section"
+      id="inscription"
+      className="py-48 bg-background overflow-x-hidden"
+    >
       <div className="container mx-auto px-3 md:px-4">
         {/* Title - Bauhaus Style */}
         <div className="grid grid-cols-12 gap-0 mb-32 md:mb-48">
           <div className="col-span-12 md:col-span-8 md:col-start-3">
             <div className="relative overflow-hidden">
               <div className="hidden md:block absolute -top-16 -right-8 w-48 h-48 bg-magenta/20"></div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-display text-foreground mb-8 md:mb-12 relative z-10 uppercase break-words hyphens-auto leading-[1.15] max-w-full">
-                {title.split(' ').map((word, i, arr) =>
-                  i === arr.length - 1 ? word : <>{word}<br /></>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-display text-foreground mb-8 md:mb-12 relative z-10 uppercase break-words hyphens-auto leading-[1.15] max-w-full">
+                {title?.split(' ').map((word, i, arr) =>
+                  i === arr.length - 1 ? (
+                    word
+                  ) : (
+                    <>
+                      {word}
+                      <br />
+                    </>
+                  )
                 )}
               </h2>
               <p className="text-xl text-muted-foreground max-w-2xl leading-relaxed">
@@ -84,82 +111,125 @@ export const InscriptionForm = ({ content }: InscriptionFormProps = {}) => {
 
                   <div className="grid md:grid-cols-2 gap-8">
                     <div className="space-y-3">
-                      <Label htmlFor="nom" className="text-lg font-bold uppercase tracking-wider">
-                        Nom *
+                      <Label
+                        htmlFor="nom"
+                        className="text-lg font-bold uppercase tracking-wider"
+                      >
+                        {fields?.nom?.label}
+                        {fields?.nom?.required && ' *'}
                       </Label>
                       <Input
                         id="nom"
                         name="nom"
-                        placeholder="Votre nom"
+                        placeholder={fields?.nom?.placeholder}
                         className="border-2 border-rich-black"
-                        required
+                        required={fields?.nom?.required}
                       />
                     </div>
                     <div className="space-y-3">
-                      <Label htmlFor="prenom" className="text-lg font-bold uppercase tracking-wider">
-                        Prénom *
+                      <Label
+                        htmlFor="prenom"
+                        className="text-lg font-bold uppercase tracking-wider"
+                      >
+                        {fields?.prenom?.label}
+                        {fields?.prenom?.required && ' *'}
                       </Label>
                       <Input
                         id="prenom"
                         name="prenom"
-                        placeholder="Votre prénom"
+                        placeholder={fields?.prenom?.placeholder}
                         className="border-2 border-rich-black"
-                        required
+                        required={fields?.prenom?.required}
                       />
                     </div>
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-8">
                     <div className="space-y-3">
-                      <Label htmlFor="email" className="text-lg font-bold uppercase tracking-wider">
-                        Email *
+                      <Label
+                        htmlFor="email"
+                        className="text-lg font-bold uppercase tracking-wider"
+                      >
+                        {fields?.email?.label}
+                        {fields?.email?.required && ' *'}
                       </Label>
                       <Input
                         id="email"
                         name="email"
                         type="email"
-                        placeholder="votre@email.com"
+                        placeholder={fields?.email?.placeholder}
                         className="border-2 border-rich-black"
-                        required
+                        required={fields?.email?.required}
                       />
                     </div>
                     <div className="space-y-3">
-                      <Label htmlFor="telephone" className="text-lg font-bold uppercase tracking-wider">
-                        Téléphone
+                      <Label
+                        htmlFor="telephone"
+                        className="text-lg font-bold uppercase tracking-wider"
+                      >
+                        {fields?.telephone?.label}
+                        {fields?.telephone?.required && ' *'}
                       </Label>
                       <Input
                         id="telephone"
                         name="telephone"
-                        placeholder="+32 XXX XX XX XX"
+                        placeholder={fields?.telephone?.placeholder}
                         className="border-2 border-rich-black"
+                        required={fields?.telephone?.required}
                       />
                     </div>
                   </div>
 
                   <div className="space-y-3">
-                    <Label htmlFor="motivation" className="text-lg font-bold uppercase tracking-wider">
-                      Votre motivation *
+                    <Label
+                      htmlFor="motivation"
+                      className="text-lg font-bold uppercase tracking-wider"
+                    >
+                      {fields?.motivation?.label}
+                      {fields?.motivation?.required && ' *'}
                     </Label>
                     <Textarea
                       id="motivation"
                       name="motivation"
-                      placeholder="Parlez-nous de votre motivation pour rejoindre le projet d'Habitat Beaver? Qu'est-ce qui vous tient à cœur dans la réalisation d'un habitat partagé? Vos valeurs, vos attentes?..."
+                      placeholder={fields?.motivation?.placeholder}
                       rows={5}
                       className="border-2 border-rich-black"
-                      required
+                      required={fields?.motivation?.required}
                     />
                   </div>
 
                   <div className="space-y-3">
-                    <Label htmlFor="besoinsSpecifiques" className="text-lg font-bold uppercase tracking-wider">
-                      Besoins spécifiques
+                    <Label
+                      htmlFor="infosPrioritaires"
+                      className="text-lg font-bold uppercase tracking-wider"
+                    >
+                      {fields?.infosPrioritaires?.label}
+                      {fields?.infosPrioritaires?.required && ' *'}
+                    </Label>
+                    <Textarea
+                      id="infosPrioritaires"
+                      name="infosPrioritaires"
+                      placeholder={fields?.infosPrioritaires?.placeholder}
+                      rows={4}
+                      className="border-2 border-rich-black"
+                      required={fields?.infosPrioritaires?.required}
+                    />
+                  </div>
+                  <div className="space-y-3">
+                    <Label
+                      htmlFor="besoinsSpecifiques"
+                      className="text-lg font-bold uppercase tracking-wider"
+                    >
+                      {fields?.besoinsSpecifiques?.label}
+                      {fields?.besoinsSpecifiques?.required && ' *'}
                     </Label>
                     <Textarea
                       id="besoinsSpecifiques"
                       name="besoinsSpecifiques"
-                      placeholder="Avez-vous des besoins spécifiques ou des contraintes particulières que nous devrions connaître ? (accessibilité, etc.)"
+                      placeholder={fields?.besoinsSpecifiques?.placeholder}
                       rows={4}
                       className="border-2 border-rich-black"
+                      required={fields?.besoinsSpecifiques?.required}
                     />
                   </div>
 
@@ -174,21 +244,19 @@ export const InscriptionForm = ({ content }: InscriptionFormProps = {}) => {
                       {isSubmitting ? (
                         <>
                           <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                          Envoi en cours...
+                          {button?.loading}
                         </>
                       ) : (
                         <>
                           <Send className="w-5 h-5 mr-2" />
-                          Envoyer ma candidature
+                          {button?.label}
                         </>
                       )}
                     </Button>
                   </div>
 
                   <p className="text-sm text-muted-foreground text-center leading-relaxed pt-4">
-                    En envoyant ce formulaire, vous acceptez d'être contacté·e par le collectif Beaver 
-                    pour échanger sur votre candidature. Vos données ne seront pas partagées avec des tiers 
-                    et seront conservées durant 3 ans maximum.
+                    {privacyNotice}
                   </p>
                 </form>
               </div>

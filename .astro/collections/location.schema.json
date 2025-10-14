@@ -28,6 +28,21 @@
         "mapTitle": {
           "type": "string"
         },
+        "transportRailTitle": {
+          "type": "string"
+        },
+        "transportRoadTitle": {
+          "type": "string"
+        },
+        "transportAirTitle": {
+          "type": "string"
+        },
+        "heritageTitle": {
+          "type": "string"
+        },
+        "domaineTitle": {
+          "type": "string"
+        },
         "$schema": {
           "type": "string"
         }
@@ -40,7 +55,12 @@
         "tagline",
         "photosTitle",
         "imagesTitle",
-        "mapTitle"
+        "mapTitle",
+        "transportRailTitle",
+        "transportRoadTitle",
+        "transportAirTitle",
+        "heritageTitle",
+        "domaineTitle"
       ],
       "additionalProperties": false
     }

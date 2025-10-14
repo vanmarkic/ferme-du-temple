@@ -7,6 +7,11 @@ tagline: "L'habitat partagé de la Ferme du Temple sera un lieu de vie ancré da
 photosTitle: "PHOTOS"
 imagesTitle: "Découvrez le domaine en images"
 mapTitle: "LOCALISATION"
+transportRailTitle: "Transport ferroviaire"
+transportRoadTitle: "Transport routier"
+transportAirTitle: "Aéroport"
+heritageTitle: "Un patrimoine historique exceptionnel"
+domaineTitle: "Le domaine aujourd'hui"
 ---
 
 # Transport ferroviaire

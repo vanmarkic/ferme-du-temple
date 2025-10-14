@@ -24,7 +24,7 @@ subtitle: "Nous travaillons depuis plus d'un an au montage de notre futur habita
 **Status:** current
 **Icon:** Building
 
-- Nouvelles recrues Beaver
+- Recherche de nouveaux/lles habitants-es pour collectif
 - Signature du compromis et de la vente
 - Mesures conservatoires sur le bâtiment
 - Faisabilité + programmation avec les architectes Carton 123

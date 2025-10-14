@@ -13,6 +13,11 @@ interface LocationContent {
   photosTitle?: string;
   imagesTitle?: string;
   mapTitle?: string;
+  transportRailTitle?: string;
+  transportRoadTitle?: string;
+  transportAirTitle?: string;
+  heritageTitle?: string;
+  domaineTitle?: string;
 }
 
 interface LocationSectionProps {
@@ -30,6 +35,11 @@ export const LocationSection = ({ content, body }: LocationSectionProps = {}) =>
     photosTitle,
     imagesTitle,
     mapTitle,
+    transportRailTitle,
+    transportRoadTitle,
+    transportAirTitle,
+    heritageTitle,
+    domaineTitle,
   } = content || {};
 
   // Parse transport sections from markdown body
@@ -45,6 +55,24 @@ export const LocationSection = ({ content, body }: LocationSectionProps = {}) =>
     }
 
     return [];
+  };
+
+  // Parse airport section (which may not have dashes)
+  const parseAirportSection = (bodyContent?: string): string => {
+    if (!bodyContent) return "";
+    
+    const regex = new RegExp(`# Aéroport\\s+([^#]+)`, 'i');
+    const match = bodyContent.match(regex);
+    
+    if (match) {
+      return match[1]
+        .split('\n')
+        .filter(line => line.trim() && !line.trim().startsWith('#'))
+        .map(line => line.replace(/^- /, '').trim())
+        .join(' ');
+    }
+    
+    return "";
   };
 
   // Parse heritage paragraphs
@@ -82,7 +110,7 @@ export const LocationSection = ({ content, body }: LocationSectionProps = {}) =>
 
   const trainTransport = body ? parseTransportSection(body, "Transport ferroviaire") : [];
   const roadTransport = body ? parseTransportSection(body, "Transport routier") : [];
-  const airportInfo = body ? parseTransportSection(body, "Aéroport").join(' ') : "";
+  const airportInfo = parseAirportSection(body);
   const heritage = parseHeritage(body);
   const domaineItems = parseDomaine(body);
   return (
@@ -115,7 +143,7 @@ export const LocationSection = ({ content, body }: LocationSectionProps = {}) =>
             <div className="bg-background border-2 border-rich-black p-8 relative z-10">
               <div className="flex items-center gap-3 mb-6">
                 <Train className="w-6 h-6 text-magenta" />
-                <h4 className="font-bold text-xl uppercase tracking-wider">Transport ferroviaire</h4>
+                <h4 className="font-bold text-xl uppercase tracking-wider">{transportRailTitle}</h4>
               </div>
               <ul className="space-y-3 text-muted-foreground">
                 {trainTransport.map((item, index) => (
@@ -133,7 +161,7 @@ export const LocationSection = ({ content, body }: LocationSectionProps = {}) =>
             <div className="bg-butter-yellow p-8 border-2 border-butter-yellow">
               <div className="flex items-center gap-3 mb-6">
                 <Car className="w-6 h-6 text-rich-black" />
-                <h4 className="font-bold text-xl uppercase tracking-wider text-rich-black">Transport routier</h4>
+                <h4 className="font-bold text-xl uppercase tracking-wider text-rich-black">{transportRoadTitle}</h4>
               </div>
               <ul className="space-y-3 text-rich-black">
                 {roadTransport.map((item, index) => (
@@ -148,7 +176,7 @@ export const LocationSection = ({ content, body }: LocationSectionProps = {}) =>
             <div className="bg-butter-yellow/30 border-2 border-butter-yellow p-8">
               <div className="flex items-center gap-3 mb-4">
                 <Plane className="w-6 h-6 text-rich-black" />
-                <h4 className="font-bold text-xl uppercase tracking-wider">Aéroport</h4>
+                <h4 className="font-bold text-xl uppercase tracking-wider">{transportAirTitle}</h4>
               </div>
               <p className="text-muted-foreground">{airportInfo}</p>
             </div>
@@ -161,9 +189,9 @@ export const LocationSection = ({ content, body }: LocationSectionProps = {}) =>
             <div className="relative">
               <div className="hidden md:block absolute -bottom-12 -right-12 w-48 h-48 bg-magenta z-0"></div>
               <div className="bg-background p-12 relative z-30">
-                {heritage.title && (
-                  <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-display text-foreground mb-8 uppercase break-words hyphens-auto leading-[1.15]">
-                    {heritage.title.split(' ').slice(0, 2).join(' ')}<br/>{heritage.title.split(' ').slice(2, 4).join(' ')}<br/>{heritage.title.split(' ').slice(4).join(' ')}
+                {heritageTitle && (
+                  <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-display text-foreground mb-8 uppercase break-words hyphens-auto leading-[1.15]">
+                    {heritageTitle.split(' ').slice(0, 2).join(' ')}<br/>{heritageTitle.split(' ').slice(2, 4).join(' ')}<br/>{heritageTitle.split(' ').slice(4).join(' ')}
                   </h3>
                 )}
                 <div className="space-y-6 text-muted-foreground leading-relaxed">
@@ -192,8 +220,8 @@ export const LocationSection = ({ content, body }: LocationSectionProps = {}) =>
           <div className="grid grid-cols-12 gap-0 mb-64">
             <div className="col-span-12 md:col-span-8 md:col-start-3">
               <div className="bg-butter-yellow p-8 md:p-12">
-                <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-display text-rich-black mb-8 uppercase break-words hyphens-auto leading-[1.15]">
-                  Le domaine aujourd'hui
+                <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display text-rich-black mb-8 uppercase break-words hyphens-auto leading-[1.15]">
+                  {domaineTitle}
                 </h3>
                 <ul className="space-y-4 text-rich-black text-lg">
                   {domaineItems.map((item, index) => (
@@ -211,7 +239,7 @@ export const LocationSection = ({ content, body }: LocationSectionProps = {}) =>
         {/* Property Carousel */}
         <div className="mb-48">
           <div className="mb-12 ml-0 md:ml-16">
-            <h5 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-display text-foreground uppercase break-words hyphens-auto leading-[1.15]">
+            <h5 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-display text-foreground uppercase break-words hyphens-auto leading-[1.15]">
               {imagesTitle.split(' ').slice(0, 3).join(' ')}<br/>{imagesTitle.split(' ').slice(3).join(' ')}
             </h5>
           </div>
@@ -220,7 +248,7 @@ export const LocationSection = ({ content, body }: LocationSectionProps = {}) =>
 
         {/* Localisation Section */}
         <div className="mb-16">
-          <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-display text-foreground mb-16 uppercase ml-4 md:ml-8 break-words hyphens-auto leading-[1.15]">
+          <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-display text-foreground mb-16 uppercase ml-4 md:ml-8 break-words hyphens-auto leading-[1.15]">
             {mapTitle}
           </h3>
 

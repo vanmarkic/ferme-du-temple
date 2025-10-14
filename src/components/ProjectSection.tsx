@@ -160,7 +160,7 @@ export const ProjectSection = ({ content, body }: ProjectSectionProps = {}) => {
             <div className="relative overflow-hidden">
               <div className="absolute -top-12 left-0 w-2 h-48 bg-magenta"></div>
 
-              <h3 className="text-5xl md:text-7xl font-display text-foreground mb-12 md:mb-16 ml-8 md:ml-12 break-words overflow-wrap-break-word">
+              <h3 className="text-5xl md:text-5xl font-display text-foreground mb-12 md:mb-16 ml-8 md:ml-12 break-words overflow-wrap-break-word">
                 POURQUOI LE
                 <br />
                 COLLECTIF BEAVER?

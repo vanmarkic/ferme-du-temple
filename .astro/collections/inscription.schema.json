@@ -13,6 +13,192 @@
         "formTitle": {
           "type": "string"
         },
+        "fields": {
+          "type": "object",
+          "properties": {
+            "nom": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "placeholder": {
+                  "type": "string"
+                },
+                "required": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "label",
+                "placeholder",
+                "required"
+              ],
+              "additionalProperties": false
+            },
+            "prenom": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "placeholder": {
+                  "type": "string"
+                },
+                "required": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "label",
+                "placeholder",
+                "required"
+              ],
+              "additionalProperties": false
+            },
+            "email": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "placeholder": {
+                  "type": "string"
+                },
+                "required": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "label",
+                "placeholder",
+                "required"
+              ],
+              "additionalProperties": false
+            },
+            "telephone": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "placeholder": {
+                  "type": "string"
+                },
+                "required": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "label",
+                "placeholder",
+                "required"
+              ],
+              "additionalProperties": false
+            },
+            "motivation": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "placeholder": {
+                  "type": "string"
+                },
+                "required": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "label",
+                "placeholder",
+                "required"
+              ],
+              "additionalProperties": false
+            },
+            "besoinsSpecifiques": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "placeholder": {
+                  "type": "string"
+                },
+                "required": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "label",
+                "placeholder",
+                "required"
+              ],
+              "additionalProperties": false
+            },
+            "infosPrioritaires": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "placeholder": {
+                  "type": "string"
+                },
+                "required": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "label",
+                "placeholder",
+                "required"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "nom",
+            "prenom",
+            "email",
+            "telephone",
+            "motivation",
+            "besoinsSpecifiques",
+            "infosPrioritaires"
+          ],
+          "additionalProperties": false
+        },
+        "button": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "type": "string"
+            },
+            "loading": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "label",
+            "loading"
+          ],
+          "additionalProperties": false
+        },
+        "privacyNotice": {
+          "type": "string"
+        },
+        "successTitle": {
+          "type": "string"
+        },
+        "successMessage": {
+          "type": "string"
+        },
+        "signature": {
+          "type": "string"
+        },
+        "backButtonLabel": {
+          "type": "string"
+        },
         "$schema": {
           "type": "string"
         }
@@ -20,7 +206,14 @@
       "required": [
         "title",
         "subtitle",
-        "formTitle"
+        "formTitle",
+        "fields",
+        "button",
+        "privacyNotice",
+        "successTitle",
+        "successMessage",
+        "signature",
+        "backButtonLabel"
       ],
       "additionalProperties": false
     }

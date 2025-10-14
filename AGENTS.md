@@ -23,8 +23,33 @@
 - **Error Handling**: Meaningful error messages, avoid silent failures
 - **No Comments**: Code should be self-explanatory unless complexity requires context (see CLAUDE.md)
 
-## Development Principles (from CLAUDE.md)
-- **TDD**: Write tests BEFORE implementing features (red-green-refactor), use Vitest not Jest
-- **Code Quality**: Extend existing code first, remove > add > modify code priority, apply boy scout rule
-- **Root Cause**: Detect code smell and solve underlying causes rather than symptoms
-- **Documentation**: Avoid documentation, prefer self-explanatory code; place generated docs in `./docs`
+## Development Principles
+
+### Test Driven Development (TDD)
+- Write tests BEFORE implementing features (red-green-refactor)
+- Write failing test first to reproduce bugs, then fix them
+- Use Vitest (not Jest) for unit tests: `npm run test`
+- When tests break after refactoring, investigate and ask before making changes
+- Run and test code automatically, continue fixing errors until it works
+
+### Code Quality
+- **Priority**: Remove > Add > Modify code (removing code is very good)
+- **Boy Scout Rule**: Leave codebase cleaner than found
+- **Extend First**: Check if existing code can be extended before creating new functions/classes
+- **Root Cause**: Solve underlying causes rather than symptoms, detect code smell
+- **Refactoring**: Break down large files/functions into smaller ones
+- **Cleanup**: Remove deprecated and dead code after migrations
+- **Meaningful Names**: Use descriptive names for variables and functions
+- **LOC Ratio**: Aim for good ratio of lines of code over features/bugs solved
+- **No Hardcoding**: Do not hardcode user-facing text content in code
+
+### Documentation
+- Prefer self-explanatory code over written documentation
+- Place all AI-generated `.md` files in `./docs` (development/, analysis/, history/)
+- Check if existing `.md` files can be modified instead of creating new ones
+- Save generated docs only after manual review and edits
+
+### Testing Tools
+- Playwright: Run headless locally (`npm run test:e2e`), use UI mode for debugging (`npm run test:e2e:ui`)
+- Prefer self-terminating commands (avoid `--watch` flags)
+- Tests must not generate images over 8000px in any dimension

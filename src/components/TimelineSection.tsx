@@ -187,7 +187,7 @@ export const TimelineSection = ({ content, body }: TimelineSectionProps = {}) =>
               <div className="relative">
                 <div className="absolute -bottom-16 -left-16 w-64 h-64 bg-butter-yellow/30"></div>
                 <div className="bg-magenta text-white p-8 md:p-16 relative z-10">
-                  <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-display mb-6 md:mb-8 leading-[1.15] uppercase break-words hyphens-auto">
+                  <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-display mb-6 md:mb-8 leading-[1.15] uppercase break-words hyphens-auto">
                     {visionStatement.title}
                   </h3>
                   <div className="space-y-3 md:space-y-4 text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold break-words leading-snug">

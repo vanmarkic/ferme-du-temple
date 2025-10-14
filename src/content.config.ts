@@ -49,6 +49,11 @@ const location = defineCollection({
     photosTitle: z.string(),
     imagesTitle: z.string(),
     mapTitle: z.string(),
+    transportRailTitle: z.string(),
+    transportRoadTitle: z.string(),
+    transportAirTitle: z.string(),
+    heritageTitle: z.string(),
+    domaineTitle: z.string(),
   }),
 });
 
@@ -80,6 +85,52 @@ const inscription = defineCollection({
     title: z.string(),
     subtitle: z.string(),
     formTitle: z.string(),
+    fields: z.object({
+      nom: z.object({
+        label: z.string(),
+        placeholder: z.string(),
+        required: z.boolean(),
+      }),
+      prenom: z.object({
+        label: z.string(),
+        placeholder: z.string(),
+        required: z.boolean(),
+      }),
+      email: z.object({
+        label: z.string(),
+        placeholder: z.string(),
+        required: z.boolean(),
+      }),
+      telephone: z.object({
+        label: z.string(),
+        placeholder: z.string(),
+        required: z.boolean(),
+      }),
+      motivation: z.object({
+        label: z.string(),
+        placeholder: z.string(),
+        required: z.boolean(),
+      }),
+      besoinsSpecifiques: z.object({
+        label: z.string(),
+        placeholder: z.string(),
+        required: z.boolean(),
+      }),
+      infosPrioritaires: z.object({
+        label: z.string(),
+        placeholder: z.string(),
+        required: z.boolean(),
+      }),
+    }),
+    button: z.object({
+      label: z.string(),
+      loading: z.string(),
+    }),
+    privacyNotice: z.string(),
+    successTitle: z.string(),
+    successMessage: z.string(),
+    signature: z.string(),
+    backButtonLabel: z.string(),
   }),
 });
 
@@ -109,6 +160,37 @@ const footer = defineCollection({
   }),
 });
 
+// Not Found Collection
+const notFound = defineCollection({
+  loader: glob({ pattern: 'not-found.md', base: './src/content' }),
+  schema: z.object({
+    title: z.string(),
+    message: z.string(),
+    backButtonLabel: z.string(),
+  }),
+});
+
+// Guide Access Collection
+const guideAccess = defineCollection({
+  loader: glob({ pattern: 'guide-access.md', base: './src/content' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    passwordPlaceholder: z.string(),
+    submitButton: z.string(),
+    errorMessage: z.string(),
+  }),
+});
+
+// Guide Navigation Collection
+const guideNavigation = defineCollection({
+  loader: glob({ pattern: 'guide-navigation.md', base: './src/content' }),
+  schema: z.object({
+    title: z.string(),
+    toggleMenuLabel: z.string(),
+  }),
+});
+
 export const collections = {
   hero,
   project,
@@ -119,4 +201,7 @@ export const collections = {
   inscription,
   navigation,
   footer,
+  notFound,
+  guideAccess,
+  guideNavigation,
 };

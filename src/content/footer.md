@@ -4,8 +4,8 @@ address: "227 avenue Joseph Wauters"
 city: "7080 Frameries, Belgique"
 membersTitle: "Membres du projet"
 partnersTitle: "Partenaires"
-copyright: "© 2025 Collectif Beaver - Habitat partagé de la Ferme du Temple"
-tagline: "Janvier 2025 - Conçu avec passion pour un avenir durable"
+copyright: ""
+tagline: "2025 - Habitat partagé de la Ferme du Temple - Tous droits réservés"
 ---
 
 # Membres

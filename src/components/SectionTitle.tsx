@@ -32,7 +32,7 @@ export const SectionTitle = ({
       )}
 
       <h2
-        className={`text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-display text-foreground mb-8 leading-[1.15] tracking-tight break-words hyphens-auto ${
+        className={`text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-display text-foreground mb-8 leading-[1.15] tracking-tight break-words hyphens-auto ${
           alignment === "center" ? "text-center" : ""
         } ${accentLine === "vertical" ? "ml-8" : ""}`}
       >

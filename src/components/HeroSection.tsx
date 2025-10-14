@@ -1,7 +1,7 @@
-import interior1 from "@/assets/interior-1.jpg";
-import buildingExterior from "@/assets/building-exterior.jpg";
-import communityField from "@/assets/community-field.jpg";
-import greenhouse from "@/assets/greenhouse.jpg";
+import interior1 from '@/assets/interior-1.jpg';
+import buildingExterior from '@/assets/building-exterior.jpg';
+import communityField from '@/assets/community-field.jpg';
+import greenhouse from '@/assets/greenhouse.jpg';
 
 interface HeroContent {
   mainTitle?: string;
@@ -27,6 +27,8 @@ export const HeroSection = ({ content }: HeroSectionProps = {}) => {
     mainSubtitle,
     secondaryTitle,
     tagline1,
+    tagline2,
+    tagline3,
     imageAlt1,
     imageAlt2,
     imageAlt3,
@@ -34,16 +36,19 @@ export const HeroSection = ({ content }: HeroSectionProps = {}) => {
   } = content || {};
 
   return (
-    <section data-testid="hero-section" className="relative min-h-screen bg-background overflow-hidden overflow-x-hidden pt-5">
+    <section
+      data-testid="hero-section"
+      className="relative min-h-screen bg-background overflow-hidden overflow-x-hidden pt-5"
+    >
       {/* Bauhaus Grid Layout with Overlapping Elements */}
       <div className="container mx-auto pt-8 pb-16 md:py-32 px-3 md:px-4">
         {/* Main Title - Reduced Asymmetry */}
         <div className="relative mb-16 ml-0 md:ml-8">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-display text-display text-rich-black break-words hyphens-auto leading-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl font-display text-display text-rich-black break-words hyphens-auto leading-tight">
             {mainTitle}
             <span className="block mt-2">{mainSubtitle}</span>
           </h1>
-          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-5xl font-display mt-6 md:mt-8 text-magenta leading-tight tracking-tight break-words hyphens-auto">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-display mt-6 md:mt-8 text-magenta leading-tight tracking-tight break-words hyphens-auto">
             {secondaryTitle}
           </h2>
           <div className="hidden md:block absolute -right-8 top-8 w-32 h-32 bg-magenta/20 -z-10"></div>
@@ -68,6 +73,12 @@ export const HeroSection = ({ content }: HeroSectionProps = {}) => {
             <div className="text-rich-black">
               <p className="text-lg font-medium leading-relaxed max-w-reading-narrow">
                 {tagline1}
+              </p>
+              <p className="text-lg font-medium leading-relaxed max-w-reading-narrow">
+                {tagline2}
+              </p>
+              <p className="text-lg font-medium leading-relaxed max-w-reading-narrow">
+                {tagline3}
               </p>
             </div>
           </div>

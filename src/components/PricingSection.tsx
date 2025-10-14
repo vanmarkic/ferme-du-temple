@@ -93,7 +93,7 @@ export const PricingSection = ({ content, body }: PricingSectionProps = {}) => {
           <div className="col-span-12 md:col-span-8">
             <div className="relative overflow-hidden">
               <div className="hidden md:block absolute -top-16 right-0 w-48 h-48 bg-butter-yellow/30"></div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-display text-foreground mb-8 md:mb-12 relative z-10 break-words hyphens-auto leading-[1.15]">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-display text-foreground mb-8 md:mb-12 relative z-10 break-words hyphens-auto leading-[1.15]">
                 {title}
               </h2>
               <div className="bg-magenta text-white p-8 block md:inline-block">
@@ -179,7 +179,7 @@ export const PricingSection = ({ content, body }: PricingSectionProps = {}) => {
             <div className="relative overflow-hidden">
               <div className="absolute top-0 left-0 w-2 h-full bg-magenta"></div>
               <div className="ml-8 md:ml-12">
-                <h3 className="text-5xl md:text-7xl font-display text-foreground mb-8 md:mb-12 uppercase break-words">
+                <h3 className="text-5xl md:text-5xl font-display text-foreground mb-8 md:mb-12 uppercase break-words">
                   {offerTitle}
                 </h3>
                 <div className="bg-butter-yellow/30 p-6 md:p-12 border-2 border-butter-yellow">
