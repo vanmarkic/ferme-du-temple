@@ -3,12 +3,21 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
+interface GuideAccessContent {
+  title: string;
+  description: string;
+  passwordPlaceholder: string;
+  submitButton: string;
+  errorMessage: string;
+}
+
 interface GuidePasswordGateProps {
   children: ReactNode;
   correctPassword: string;
+  content: GuideAccessContent;
 }
 
-export function GuidePasswordGate({ children, correctPassword }: GuidePasswordGateProps) {
+export function GuidePasswordGate({ children, correctPassword, content }: GuidePasswordGateProps) {
   const [password, setPassword] = useState('');
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [error, setError] = useState('');
@@ -19,7 +28,7 @@ export function GuidePasswordGate({ children, correctPassword }: GuidePasswordGa
       setIsUnlocked(true);
       setError('');
     } else {
-      setError('Mot de passe incorrect');
+      setError(content.errorMessage);
       setPassword('');
     }
   };
@@ -32,9 +41,9 @@ export function GuidePasswordGate({ children, correctPassword }: GuidePasswordGa
     <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-primary/5 via-background to-accent/5">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle>Guide Habitat Beaver</CardTitle>
+          <CardTitle>{content.title}</CardTitle>
           <CardDescription>
-            Ce guide est réservé aux membres du collectif. Veuillez entrer le mot de passe pour accéder au contenu.
+            {content.description}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -42,7 +51,7 @@ export function GuidePasswordGate({ children, correctPassword }: GuidePasswordGa
             <div className="space-y-2">
               <Input
                 type="password"
-                placeholder="Mot de passe"
+                placeholder={content.passwordPlaceholder}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className={error ? 'border-red-500' : ''}
@@ -52,7 +61,7 @@ export function GuidePasswordGate({ children, correctPassword }: GuidePasswordGa
               )}
             </div>
             <Button type="submit" className="w-full">
-              Accéder au guide
+              {content.submitButton}
             </Button>
           </form>
         </CardContent>

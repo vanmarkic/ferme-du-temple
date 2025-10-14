@@ -3,12 +3,36 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { Providers } from '@/components/Providers';
 import { GuidePage } from '@/components/GuidePage';
 import { parseMarkdownGuide } from '@/lib/utils';
+import { getEntry } from 'astro:content';
 import fs from 'fs';
 import path from 'path';
 
 const guideFilePath = path.join(process.cwd(), 'src/content/habitat-beaver-guide.md');
 const guideContent = fs.readFileSync(guideFilePath, 'utf-8');
 const sections = parseMarkdownGuide(guideContent);
+
+const guideAccessEntry = await getEntry('guideAccess', 'guide-access');
+const guideAccessContent: {
+  title: string;
+  description: string;
+  passwordPlaceholder: string;
+  submitButton: string;
+  errorMessage: string;
+} = {
+  title: guideAccessEntry?.data?.title || 'Guide Habitat Beaver',
+  description:
+    guideAccessEntry?.data?.description ||
+    'Ce guide est réservé aux membres du collectif. Veuillez entrer le mot de passe pour accéder au contenu.',
+  passwordPlaceholder: guideAccessEntry?.data?.passwordPlaceholder || 'Mot de passe',
+  submitButton: guideAccessEntry?.data?.submitButton || 'Accéder au guide',
+  errorMessage: guideAccessEntry?.data?.errorMessage || 'Mot de passe incorrect',
+};
+
+const guideNavigationEntry = await getEntry('guideNavigation', 'guide-navigation');
+const guideNavigationContent = {
+  title: guideNavigationEntry?.data?.title || 'Guide Habitat Beaver',
+  toggleMenuLabel: guideNavigationEntry?.data?.toggleMenuLabel || 'Toggle menu',
+};
 
 const GUIDE_PASSWORD = import.meta.env.PUBLIC_GUIDE_PASSWORD || 'beaver2025';
 ---
@@ -18,6 +42,12 @@ const GUIDE_PASSWORD = import.meta.env.PUBLIC_GUIDE_PASSWORD || 'beaver2025';
   description="Guide d'accueil pour les nouveaux venus du projet Habitat Beaver à la Ferme du Temple"
 >
   <Providers client:load>
-    <GuidePage client:load sections={sections} password={GUIDE_PASSWORD} />
+    <GuidePage
+      client:load
+      sections={sections}
+      password={GUIDE_PASSWORD}
+      guideAccessContent={guideAccessContent}
+      guideNavigationContent={guideNavigationContent}
+    />
   </Providers>
 </BaseLayout>

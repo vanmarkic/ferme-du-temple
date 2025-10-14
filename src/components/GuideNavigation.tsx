@@ -3,9 +3,15 @@ import { cn } from '@/lib/utils';
 import type { GuideSection } from '@/lib/utils';
 import { Menu, X, ChevronRight, ChevronDown } from 'lucide-react';
 
+export interface GuideNavigationContent {
+  title: string;
+  toggleMenuLabel: string;
+}
+
 interface GuideNavigationProps {
   sections: GuideSection[];
   activeSection: string;
+  content: GuideNavigationContent;
 }
 
 interface NavItemProps {
@@ -17,7 +23,14 @@ interface NavItemProps {
   depth?: number;
 }
 
-function NavItem({ section, activeSection, expandedSections, onToggle, onNavigate, depth = 0 }: NavItemProps) {
+function NavItem({
+  section,
+  activeSection,
+  expandedSections,
+  onToggle,
+  onNavigate,
+  depth = 0,
+}: NavItemProps) {
   const hasChildren = section.children && section.children.length > 0;
   const isExpanded = expandedSections.has(section.id);
   const isActive = activeSection === section.id;
@@ -56,9 +69,7 @@ function NavItem({ section, activeSection, expandedSections, onToggle, onNavigat
             )}
           </span>
         )}
-        <span className={cn('truncate', !hasChildren && 'ml-6')}>
-          {section.title}
-        </span>
+        <span className={cn('truncate', !hasChildren && 'ml-6')}>{section.title}</span>
       </button>
 
       {hasChildren && isExpanded && (
@@ -80,18 +91,23 @@ function NavItem({ section, activeSection, expandedSections, onToggle, onNavigat
   );
 }
 
-export function GuideNavigation({ sections, activeSection }: GuideNavigationProps) {
+export function GuideNavigation({
+  sections,
+  activeSection,
+  content,
+}: GuideNavigationProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set());
 
   // The sections is a tree structure. Level 1 (main title) contains level 2 sections as children.
   // We want to display the level 2 sections and their children in the navigation.
-  const topLevelSections = sections.length > 0 && sections[0].level === 1 && sections[0].children
-    ? sections[0].children  // If first item is level 1, use its children (level 2 sections)
-    : sections.filter(s => s.level === 2);  // Otherwise filter for level 2
+  const topLevelSections =
+    sections.length > 0 && sections[0].level === 1 && sections[0].children
+      ? sections[0].children // If first item is level 1, use its children (level 2 sections)
+      : sections.filter((s) => s.level === 2); // Otherwise filter for level 2
 
   const toggleSection = (id: string) => {
-    setExpandedSections(prev => {
+    setExpandedSections((prev) => {
       const next = new Set(prev);
       if (next.has(id)) {
         next.delete(id);
@@ -111,7 +127,7 @@ export function GuideNavigation({ sections, activeSection }: GuideNavigationProp
 
       window.scrollTo({
         top: offsetPosition,
-        behavior: 'smooth'
+        behavior: 'smooth',
       });
       setIsMobileMenuOpen(false);
     }
@@ -122,17 +138,13 @@ export function GuideNavigation({ sections, activeSection }: GuideNavigationProp
       {/* Mobile Header with Hamburger */}
       <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200 shadow-sm">
         <div className="flex items-center justify-between px-4 py-3">
-          <h1 className="text-lg font-bold text-primary">Guide Habitat Beaver</h1>
+          <h1 className="text-lg font-bold text-primary">{content.title}</h1>
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="p-2 rounded-md hover:bg-gray-100"
-            aria-label="Toggle menu"
+            aria-label={content.toggleMenuLabel}
           >
-            {isMobileMenuOpen ? (
-              <X className="w-6 h-6" />
-            ) : (
-              <Menu className="w-6 h-6" />
-            )}
+            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
       </div>
@@ -163,7 +175,7 @@ export function GuideNavigation({ sections, activeSection }: GuideNavigationProp
       {/* Desktop/Tablet Sidebar */}
       <aside className="hidden md:block fixed left-0 top-0 h-screen w-80 lg:w-96 xl:w-[32rem] bg-white border-r border-gray-200 shadow-sm overflow-y-auto z-30">
         <div className="p-6">
-          <h1 className="text-xl font-bold text-primary mb-6">Guide Habitat Beaver</h1>
+          <h1 className="text-xl font-bold text-primary mb-6">{content.title}</h1>
           <nav className="space-y-1">
             {topLevelSections.map((section) => (
               <NavItem
