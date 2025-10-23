@@ -160,7 +160,8 @@ export const POST: APIRoute = async ({ request }) => {
     // Send emails (don't block the response if emails fail)
     const resendApiKey = import.meta.env.RESEND_API_KEY;
     const adminEmail = import.meta.env.ADMIN_EMAIL;
-    const fromEmail = import.meta.env.FROM_EMAIL || 'onboarding@resend.dev';
+    const baseFromEmail = import.meta.env.FROM_EMAIL || 'onboarding@resend.dev';
+    const fromEmail = `"La Ferme du Temple" <${baseFromEmail}>`;
 
     if (resendApiKey) {
       const resend = new Resend(resendApiKey);
