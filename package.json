@@ -12,7 +12,8 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
-    "resize-screenshots": "node scripts/resize-screenshots.js"
+    "resize-screenshots": "node scripts/resize-screenshots.js",
+    "migrate": "node scripts/migrate.js"
   },
   "dependencies": {
     "@astrojs/react": "^4.4.0",
@@ -35,6 +36,7 @@
     "lucide-react": "^0.462.0",
     "marked": "^16.4.0",
     "next-themes": "^0.3.0",
+    "pg": "^8.16.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.61.1",
