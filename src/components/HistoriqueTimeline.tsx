@@ -279,7 +279,7 @@ export function HistoriqueTimeline() {
                     <div className="date">15 OCTOBRE 2025 - 12h33</div>
                     <div className="event-title">🚨 Email alarmant de la Fondation</div>
                     <div className="event-description">
-                        Auriane Van Hecke liste 3 blocages : <strong>1) Malentendu Durez</strong> - il croyait occuper TOUTES les parcelles (sauf 30m), pas seulement 206L. Refus catégorique clause amendée. <strong>2) Condition permis</strong> fragilise vente. <strong>3) Pas d'accord bancaire.</strong> "Les évolutions successives nous amènent à nous interroger sur l'équilibre de cette vente"
+                        Auriane Van Hecke liste 3 blocages : <strong>1) Malentendu Durez</strong> - il croyait occuper TOUTES les parcelles (sauf 30m), pas seulement 206L. Refus catégorique clause amendée. <strong>2) Condition permis</strong> fragilise vente. <strong>3) Pas d&apos;accord bancaire.</strong> &quot;Les évolutions successives nous amènent à nous interroger sur l&apos;équilibre de cette vente&quot;
                         <span className="tag durée">18 mois écoulés</span>
                     </div>
                 </div>
@@ -420,6 +420,5 @@ export function HistoriqueTimeline() {
           ></div>
         </div>
       </div>
-    </div>
   );
 }
