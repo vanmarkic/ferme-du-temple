@@ -7,8 +7,6 @@ menuItems:
     href: "#collaboration"
   - label: "Localisation"
     href: "#localisation"
-  - label: "Finances"
-    href: "#prix"
   - label: "Planning"
     href: "#timeline"
   - label: "Inscription"

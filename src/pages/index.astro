@@ -7,7 +7,6 @@ import { HeroSection } from '@/components/HeroSection';
 import { ProjectSection } from '@/components/ProjectSection';
 import { CollaborationSection } from '@/components/CollaborationSection';
 import { LocationSection } from '@/components/LocationSection';
-import { PricingSection } from '@/components/PricingSection';
 import { InscriptionForm } from '@/components/InscriptionForm';
 import { TimelineSection } from '@/components/TimelineSection';
 import { Footer } from '@/components/Footer';
@@ -19,7 +18,6 @@ const heroEntry = await getEntry('hero', 'hero');
 const projectEntry = await getEntry('project', 'project');
 const collaborationEntry = await getEntry('collaboration', 'collaboration');
 const locationEntry = await getEntry('location', 'location');
-const pricingEntry = await getEntry('pricing', 'pricing');
 const timelineEntry = await getEntry('timeline', 'timeline');
 const inscriptionEntry = await getEntry('inscription', 'inscription');
 const footerEntry = await getEntry('footer', 'footer');
@@ -30,7 +28,6 @@ if (!heroEntry) throw new Error('Hero content not found');
 if (!projectEntry) throw new Error('Project content not found');
 if (!collaborationEntry) throw new Error('Collaboration content not found');
 if (!locationEntry) throw new Error('Location content not found');
-if (!pricingEntry) throw new Error('Pricing content not found');
 if (!timelineEntry) throw new Error('Timeline content not found');
 if (!inscriptionEntry) throw new Error('Inscription content not found');
 if (!footerEntry) throw new Error('Footer content not found');
@@ -43,7 +40,6 @@ if (!projectEntry.data.subtitle) throw new Error('Project subtitle is required')
 const { Content: ProjectContent } = await render(projectEntry);
 const { Content: CollaborationContent } = await render(collaborationEntry);
 const { Content: LocationContent } = await render(locationEntry);
-const { Content: PricingContent } = await render(pricingEntry);
 const { Content: TimelineContent } = await render(timelineEntry);
 const { Content: FooterContent } = await render(footerEntry);
 ---
@@ -62,9 +58,7 @@ const { Content: FooterContent } = await render(footerEntry);
       <div id="localisation">
         <LocationSection client:only="react" content={locationEntry.data} body={locationEntry.body} />
       </div>
-      <div id="prix">
-        <PricingSection client:load content={pricingEntry.data} body={pricingEntry.body} />
-      </div>
+      
       <div id="timeline">
         <TimelineSection client:load content={timelineEntry.data} body={timelineEntry.body} />
       </div>

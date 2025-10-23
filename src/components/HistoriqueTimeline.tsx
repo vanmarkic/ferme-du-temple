@@ -51,8 +51,8 @@ export function HistoriqueTimeline() {
                     <div className="date">AVRIL 2024</div>
                     <div className="event-title">✅ Offre acceptée</div>
                     <div className="event-description">
-                        Le collectif Habitat Beaver (7 personnes) fait une offre de 715 000€ pour 6,34 hectares. La Fondation Roi Baudouin accepte.
-                        <span className="tag prix">715 000€</span>
+                        Le collectif Habitat Beaver (7 personnes) fait une offre pour 6,34 hectares. La Fondation Roi Baudouin accepte.
+                        <span className="tag prix">Prix confidentiel</span>
                     </div>
                 </div>
             </div>
@@ -85,8 +85,8 @@ export function HistoriqueTimeline() {
                     <div className="date">AOÛT 2024</div>
                     <div className="event-title">💰 Première négociation prix</div>
                     <div className="event-description">
-                        M. Lange (FRB) propose de baisser le prix de 715 000€ à 700 000€ contre abandon des clauses sur la fuite d'eau et la mérule. Le collectif accepte.
-                        <span className="tag prix">-15 000€</span>
+                        M. Lange (FRB) propose d'ajuster le prix contre abandon des clauses sur la fuite d'eau et la mérule. Le collectif accepte.
+                        <span className="tag prix">Ajustement négocié</span>
                     </div>
                 </div>
             </div>
@@ -98,7 +98,7 @@ export function HistoriqueTimeline() {
                     <div className="event-title">🤝 Premier accord avec M. Durez</div>
                     <div className="event-description">
                         Accord trouvé : M. Durez conserve l'occupation de la parcelle 206L (libération d'une bande de 30m), renonce à son droit de préemption.
-                        <span className="tag prix">+30 000€</span>
+                        <span className="tag prix">Compensation négociée</span>
                     </div>
                 </div>
             </div>
@@ -154,8 +154,8 @@ export function HistoriqueTimeline() {
                     <div className="date">MAI 2025</div>
                     <div className="event-title">📉 Nouvelle offre ajustée</div>
                     <div className="event-description">
-                        Offre réduite à 630 000€ compte tenu des problèmes. La Fondation contre-propose 650 000€ avec signature avant le 1er juillet. Le collectif accepte.
-                        <span className="tag prix">650 000€</span>
+                        Offre ajustée compte tenu des problèmes. La Fondation contre-propose avec signature avant le 1er juillet. Le collectif accepte.
+                        <span className="tag prix">Prix final négocié</span>
                         <span className="tag durée">Délai : 1er juillet</span>
                     </div>
                 </div>

@@ -1,6 +1,5 @@
 import { MapPin, Train, Car, Plane } from "lucide-react";
 import { MapView } from "./MapView";
-import { PropertyCarousel } from "./PropertyCarousel";
 import { SectionTitle } from "./SectionTitle";
 import floorPlan from "@/assets/floor-plan.png";
 
@@ -236,15 +235,7 @@ export const LocationSection = ({ content, body }: LocationSectionProps = {}) =>
           </div>
         )}
 
-        {/* Property Carousel */}
-        <div className="mb-48">
-          <div className="mb-12 ml-0 md:ml-16">
-            <h5 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-display text-foreground uppercase break-words hyphens-auto leading-[1.15]">
-              {imagesTitle?.split(' ').slice(0, 3).join(' ')}<br/>{imagesTitle?.split(' ').slice(3).join(' ')}
-            </h5>
-          </div>
-          <PropertyCarousel />
-        </div>
+
 
         {/* Localisation Section */}
         <div className="mb-16">

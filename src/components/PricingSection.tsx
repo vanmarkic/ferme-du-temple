@@ -121,18 +121,18 @@ export const PricingSection = ({ content, body }: PricingSectionProps = {}) => {
                   {units[0].size}
                 </div>
                 <div className="mb-6">
-                  <div className="text-3xl font-bold text-magenta mb-2">
-                    {units[0].price}
-                  </div>
-                  <p className="text-sm uppercase tracking-wider text-muted-foreground">
-                    Prix total estimé
-                  </p>
+                <div className="text-3xl font-bold text-magenta mb-2">
+                Prix à définir
+                </div>
+                <p className="text-sm uppercase tracking-wider text-muted-foreground">
+                Prix total estimé
+                </p>
                 </div>
                 <div className="space-y-3 border-t-2 border-rich-black pt-6">
-                  {units[0].breakdown.map((item, i) => <div key={i} className="flex justify-between items-start">
-                      <span className="text-sm text-muted-foreground flex-1">{item.label}</span>
-                      <span className="font-bold text-foreground ml-4">{item.amount}</span>
-                    </div>)}
+                {units[0].breakdown.map((item, i) => <div key={i} className="flex justify-between items-start">
+                <span className="text-sm text-muted-foreground flex-1">{item.label}</span>
+                <span className="font-bold text-foreground ml-4">À définir</span>
+                </div>)}
                 </div>
               </div>
             </div>
@@ -153,18 +153,18 @@ export const PricingSection = ({ content, body }: PricingSectionProps = {}) => {
                     {units[1].size}
                   </div>
                   <div className="mb-6">
-                    <div className="text-3xl font-bold text-magenta mb-2">
-                      {units[1].price}
-                    </div>
-                    <p className="text-sm uppercase tracking-wider text-rich-black">
-                      Prix total estimé
-                    </p>
+                  <div className="text-3xl font-bold text-magenta mb-2">
+                  Prix à définir
+                  </div>
+                  <p className="text-sm uppercase tracking-wider text-rich-black">
+                  Prix total estimé
+                  </p>
                   </div>
                   <div className="space-y-3 border-t-2 border-rich-black pt-6">
-                    {units[1].breakdown.map((item, i) => <div key={i} className="flex justify-between items-start">
-                        <span className="text-sm text-rich-black flex-1">{item.label}</span>
-                        <span className="font-bold text-rich-black ml-4">{item.amount}</span>
-                      </div>)}
+                  {units[1].breakdown.map((item, i) => <div key={i} className="flex justify-between items-start">
+                  <span className="text-sm text-rich-black flex-1">{item.label}</span>
+                  <span className="font-bold text-rich-black ml-4">À définir</span>
+                  </div>)}
                   </div>
                 </div>
               </div>
