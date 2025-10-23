@@ -45,27 +45,28 @@ const { Content: FooterContent } = await render(footerEntry);
 ---
 
 <BaseLayout>
-  <Providers client:load>
-    <Navigation client:load content={navigationEntry.data as NavigationContent} />
-    <div class="min-h-screen pt-20">
-      <HeroSection client:load content={heroEntry.data} />
-      <div id="projet">
-        <ProjectSection client:load content={projectEntry.data} body={projectEntry.body} />
-      </div>
-      <div id="collaboration">
-        <CollaborationSection client:load content={collaborationEntry.data} body={collaborationEntry.body} />
-      </div>
-      <div id="localisation">
-        <LocationSection client:only="react" content={locationEntry.data} body={locationEntry.body} />
-      </div>
-      
-      <div id="timeline">
-        <TimelineSection client:load content={timelineEntry.data} body={timelineEntry.body} />
-      </div>
-      <div id="inscription">
-        <InscriptionForm client:load content={inscriptionEntry.data} />
-      </div>
-      <Footer client:load content={footerEntry.data} body={footerEntry.body} />
-    </div>
-  </Providers>
+<Providers client:load>
+<Navigation client:load content={navigationEntry.data as NavigationContent} />
+<div class="min-h-screen pt-20">
+<HeroSection client:load content={heroEntry.data} />
+<div id="projet">
+<ProjectSection client:load content={projectEntry.data} body={projectEntry.body} />
+</div>
+<div id="collaboration">
+<CollaborationSection client:load content={collaborationEntry.data} body={collaborationEntry.body} />
+</div>
+<div id="localisation">
+<LocationSection client:only="react" content={locationEntry.data} body={locationEntry.body} />
+</div>
+
+<div id="timeline">
+<TimelineSection client:load content={timelineEntry.data} body={timelineEntry.body} />
+</div>
+<div id="inscription">
+<InscriptionForm client:load content={inscriptionEntry.data} />
+</div>
+</div>
+</Providers>
+
+  <Footer slot="footer" client:load content={footerEntry.data} body={footerEntry.body} />
 </BaseLayout>

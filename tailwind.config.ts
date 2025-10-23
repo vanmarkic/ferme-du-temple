@@ -50,43 +50,43 @@ export default {
       // Type Scale System using Major Third (1.25) ratio
       // Fluid responsive font sizes using clamp() for smooth scaling across viewports
       // Formula: clamp(min, preferred, max) where preferred uses viewport units
-      // Desktop sizes reduced by 20% for more compact UI
+      // Desktop sizes reduced by 36% (20% + 20%) for more compact UI
       fontSize: {
-        // Small text - scales from 13px to 11.2px (desktop reduced 20%)
-        'xs': ['clamp(0.8125rem, 0.75rem + 0.3125vw, 0.7rem)', { lineHeight: '1.5', letterSpacing: '0.025em' }],
+        // Small text - scales from 13px to 9px (desktop reduced 36%)
+        'xs': ['clamp(0.8125rem, 0.75rem + 0.3125vw, 0.56rem)', { lineHeight: '1.5', letterSpacing: '0.025em' }],
 
-        // Small text - scales from 14px to 12px (desktop reduced 20%)
-        'sm': ['clamp(0.875rem, 0.8125rem + 0.3125vw, 0.75rem)', { lineHeight: '1.5', letterSpacing: '0.015em' }],
+        // Small text - scales from 14px to 9.6px (desktop reduced 36%)
+        'sm': ['clamp(0.875rem, 0.8125rem + 0.3125vw, 0.6rem)', { lineHeight: '1.5', letterSpacing: '0.015em' }],
 
-        // Body text - scales from 16px (mobile) to 13.6px (desktop reduced 20%)
-        'base': ['clamp(1rem, 0.9375rem + 0.3125vw, 0.85rem)', { lineHeight: '1.6' }],
+        // Body text - scales from 16px (mobile) to 10.88px (desktop reduced 36%)
+        'base': ['clamp(1rem, 0.9375rem + 0.3125vw, 0.68rem)', { lineHeight: '1.6' }],
 
-        // Large body - scales from 18px to 17.6px (desktop reduced 20%)
-        'lg': ['clamp(1.125rem, 1rem + 0.625vw, 1.1rem)', { lineHeight: '1.5' }],
+        // Large body - scales from 18px to 14.08px (desktop reduced 36%)
+        'lg': ['clamp(1.125rem, 1rem + 0.625vw, 0.88rem)', { lineHeight: '1.5' }],
 
-        // h5 - scales from 20px to 22.4px (desktop reduced 20%)
-        'xl': ['clamp(1.25rem, 1rem + 1.25vw, 1.4rem)', { lineHeight: '1.4' }],
+        // h5 - scales from 20px to 17.92px (desktop reduced 36%)
+        'xl': ['clamp(1.25rem, 1rem + 1.25vw, 1.12rem)', { lineHeight: '1.4' }],
 
-        // h4 - scales from 20px to 28.8px (desktop reduced 20%)
-        '2xl': ['clamp(1.25rem, 0.875rem + 1.875vw, 1.8rem)', { lineHeight: '1.3' }],
+        // h4 - scales from 20px to 23.04px (desktop reduced 36%)
+        '2xl': ['clamp(1.25rem, 0.875rem + 1.875vw, 1.44rem)', { lineHeight: '1.3' }],
 
-        // h3 - scales from 22px to 35.2px (desktop reduced 20%)
-        '3xl': ['clamp(1.375rem, 0.875rem + 2.5vw, 2.2rem)', { lineHeight: '1.25', letterSpacing: '-0.015em' }],
+        // h3 - scales from 22px to 28.16px (desktop reduced 36%)
+        '3xl': ['clamp(1.375rem, 0.875rem + 2.5vw, 1.76rem)', { lineHeight: '1.25', letterSpacing: '-0.015em' }],
 
-        // h2 - scales from 28px to 44.8px (desktop reduced 20%)
-        '4xl': ['clamp(1.75rem, 1.125rem + 3.125vw, 2.8rem)', { lineHeight: '1.2', letterSpacing: '-0.02em' }],
+        // h2 - scales from 28px to 35.84px (desktop reduced 36%)
+        '4xl': ['clamp(1.75rem, 1.125rem + 3.125vw, 2.24rem)', { lineHeight: '1.2', letterSpacing: '-0.02em' }],
 
-        // h1 - scales from 32px to 54.4px (desktop reduced 20%)
-        '5xl': ['clamp(2rem, 1.375rem + 3.125vw, 3.4rem)', { lineHeight: '1.1', letterSpacing: '-0.025em' }],
+        // h1 - scales from 32px to 43.52px (desktop reduced 36%)
+        '5xl': ['clamp(2rem, 1.375rem + 3.125vw, 2.72rem)', { lineHeight: '1.1', letterSpacing: '-0.025em' }],
 
-        // Display - scales from 36px to 67.2px (desktop reduced 20%)
-        '6xl': ['clamp(2.25rem, 1.5rem + 3.75vw, 4.2rem)', { lineHeight: '1.05', letterSpacing: '-0.03em' }],
+        // Display - scales from 36px to 53.76px (desktop reduced 36%)
+        '6xl': ['clamp(2.25rem, 1.5rem + 3.75vw, 3.36rem)', { lineHeight: '1.05', letterSpacing: '-0.03em' }],
 
-        // Large Display - scales from 40px to 80px (desktop reduced 20%)
-        '7xl': ['clamp(2.5rem, 1.625rem + 4.375vw, 5rem)', { lineHeight: '1', letterSpacing: '-0.035em' }],
+        // Large Display - scales from 40px to 64px (desktop reduced 36%)
+        '7xl': ['clamp(2.5rem, 1.625rem + 4.375vw, 4rem)', { lineHeight: '1', letterSpacing: '-0.035em' }],
 
-        // Hero - scales from 44px to 96px (desktop reduced 20%)
-        '8xl': ['clamp(2.75rem, 1.75rem + 5vw, 6rem)', { lineHeight: '1', letterSpacing: '-0.04em' }],
+        // Hero - scales from 44px to 76.8px (desktop reduced 36%)
+        '8xl': ['clamp(2.75rem, 1.75rem + 5vw, 4.8rem)', { lineHeight: '1', letterSpacing: '-0.04em' }],
       },
       // Line heights for different text types
       lineHeight: {
@@ -114,24 +114,24 @@ export default {
       },
       // Spacing scale for vertical rhythm (8px base unit)
       // Semantic spacing tokens for consistent layout rhythm
-      // Desktop spacing reduced by 20%
+      // Desktop spacing reduced by 36% (20% + 20%)
       spacing: {
-        '18': '3.6rem',   // 57.6px (reduced 20%)
-        '22': '4.4rem',   // 70.4px (reduced 20%)
-        '26': '5.2rem',   // 83.2px (reduced 20%)
-        '30': '6rem',     // 96px (reduced 20%)
-        '34': '6.8rem',   // 108.8px (reduced 20%)
+        '18': '2.88rem',   // 46.08px (reduced 36%)
+        '22': '3.52rem',   // 56.32px (reduced 36%)
+        '26': '4.16rem',   // 66.56px (reduced 36%)
+        '30': '4.8rem',    // 76.8px (reduced 36%)
+        '34': '5.44rem',   // 87.04px (reduced 36%)
 
-        // Semantic vertical spacing (margin-bottom) - reduced 20%
-        'section-subsection': '3.2rem',    // 51.2px - Space between sub-sections
-        'section-related': '6.4rem',       // 102.4px - Related section spacing
-        'section-major': '9.6rem',         // 153.6px - Major section category spacing
-        'section-break': '12.8rem',        // 204.8px - Critical section breaks
+        // Semantic vertical spacing (margin-bottom) - reduced 36%
+        'section-subsection': '2.56rem',   // 40.96px - Space between sub-sections
+        'section-related': '5.12rem',      // 81.92px - Related section spacing
+        'section-major': '7.68rem',        // 122.88px - Major section category spacing
+        'section-break': '10.24rem',       // 163.84px - Critical section breaks
 
-        // Semantic horizontal spacing (margin-left for asymmetric indents) - reduced 20%
-        'indent-small': '1.6rem',          // 25.6px - Small content indent
-        'indent-medium': '3.2rem',         // 51.2px - Medium content indent
-        'indent-large': '6.4rem',          // 102.4px - Large asymmetric indent
+        // Semantic horizontal spacing (margin-left for asymmetric indents) - reduced 36%
+        'indent-small': '1.28rem',         // 20.48px - Small content indent
+        'indent-medium': '2.56rem',        // 40.96px - Medium content indent
+        'indent-large': '5.12rem',         // 81.92px - Large asymmetric indent
       },
       colors: {
         border: "hsl(var(--border))",
