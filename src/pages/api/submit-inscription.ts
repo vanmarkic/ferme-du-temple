@@ -1,5 +1,7 @@
 import type { APIRoute } from 'astro';
 import { createClient } from '@supabase/supabase-js';
+import { Resend } from 'resend';
+import { getUserConfirmationEmail, getAdminNotificationEmail } from '@/lib/email-templates';
 
 // In-memory rate limiting
 const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
@@ -120,15 +122,26 @@ export const POST: APIRoute = async ({ request }) => {
 
     const supabase = createClient(supabaseUrl, supabaseKey);
 
-    // Insert into Supabase
-    const { error: insertError } = await supabase.from('inscriptions').insert({
+    // Prepare data for insert and emails
+    const inscriptionData = {
       nom: data.nom.trim(),
       prenom: data.prenom.trim(),
       email: data.email.trim().toLowerCase(),
       telephone: data.telephone.trim(),
       motivation: data.motivation.trim(),
-      besoins_specifiques: data.besoinsSpecifiques?.trim() || null,
-      infos_prioritaires: data.infosPrioritaires?.trim() || null,
+      besoinsSpecifiques: data.besoinsSpecifiques?.trim() || null,
+      infosPrioritaires: data.infosPrioritaires?.trim() || null,
+    };
+
+    // Insert into Supabase
+    const { error: insertError } = await supabase.from('inscriptions').insert({
+      nom: inscriptionData.nom,
+      prenom: inscriptionData.prenom,
+      email: inscriptionData.email,
+      telephone: inscriptionData.telephone,
+      motivation: inscriptionData.motivation,
+      besoins_specifiques: inscriptionData.besoinsSpecifiques,
+      infos_prioritaires: inscriptionData.infosPrioritaires,
     });
 
     if (insertError) {
@@ -142,6 +155,42 @@ export const POST: APIRoute = async ({ request }) => {
           headers: { 'Content-Type': 'application/json' },
         }
       );
+    }
+
+    // Send emails (don't block the response if emails fail)
+    const resendApiKey = import.meta.env.RESEND_API_KEY;
+    const adminEmail = import.meta.env.ADMIN_EMAIL;
+    const fromEmail = import.meta.env.FROM_EMAIL || 'onboarding@resend.dev';
+
+    if (resendApiKey) {
+      const resend = new Resend(resendApiKey);
+
+      try {
+        // Send confirmation email to user
+        const userEmail = getUserConfirmationEmail(inscriptionData);
+        await resend.emails.send({
+          from: fromEmail,
+          to: inscriptionData.email,
+          subject: userEmail.subject,
+          html: userEmail.html,
+        });
+
+        // Send notification to admin
+        if (adminEmail) {
+          const adminEmailContent = getAdminNotificationEmail(inscriptionData);
+          await resend.emails.send({
+            from: fromEmail,
+            to: adminEmail,
+            subject: adminEmailContent.subject,
+            html: adminEmailContent.html,
+          });
+        }
+      } catch (emailError) {
+        // Log email error but don't fail the request
+        console.error('Email sending error:', emailError);
+      }
+    } else {
+      console.warn('RESEND_API_KEY not configured, emails not sent');
     }
 
     // Success response

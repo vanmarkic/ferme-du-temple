@@ -43,9 +43,19 @@ Create `.env` file in project root:
 ```bash
 SUPABASE_URL=https://your-project.supabase.co
 SUPABASE_ANON_KEY=your-anon-key
+RESEND_API_KEY=re_xxxxxxxxxxxxx
+ADMIN_EMAIL=habitatbeaver@gmail.com
+FROM_EMAIL=noreply@ferme-du-temple.com
 ```
 
 ⚠️ **Important**: This file is gitignored. Never commit secrets.
+
+#### Resend Setup
+
+1. Create free account at [resend.com](https://resend.com) (3,000 emails/month free)
+2. Get API key from Dashboard → API Keys
+3. Verify your domain or use `onboarding@resend.dev` for testing
+4. For production, add your domain in Resend dashboard
 
 ### 3. Vercel Deployment
 
@@ -60,11 +70,14 @@ vercel link
 ```bash
 vercel env add SUPABASE_URL production
 vercel env add SUPABASE_ANON_KEY production
+vercel env add RESEND_API_KEY production
+vercel env add ADMIN_EMAIL production
+vercel env add FROM_EMAIL production
 ```
 
 Or set them in Vercel dashboard:
 - Project Settings → Environment Variables
-- Add both `SUPABASE_URL` and `SUPABASE_ANON_KEY`
+- Add: `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `RESEND_API_KEY`, `ADMIN_EMAIL`, `FROM_EMAIL`
 
 #### Deploy
 ```bash
@@ -77,6 +90,12 @@ Once deployed, update in:
 - Supabase Project Settings → API Settings → Site URL
 
 ## Features
+
+### Email Notifications
+- **User confirmation email**: Sent automatically after successful submission
+- **Admin notification email**: Sent to `ADMIN_EMAIL` with all submission details
+- **Beautiful HTML templates**: Professional, responsive design
+- **Graceful degradation**: Form submission succeeds even if emails fail
 
 ### Rate Limiting
 - **3 submissions per hour** per IP address
@@ -158,14 +177,24 @@ Can be built with Supabase Auth:
 npm install
 
 # Add .env file with credentials
-echo "SUPABASE_URL=..." > .env
-echo "SUPABASE_ANON_KEY=..." >> .env
+cat > .env << EOF
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_ANON_KEY=your-anon-key
+RESEND_API_KEY=re_xxxxxxxxxxxxx
+ADMIN_EMAIL=habitatbeaver@gmail.com
+FROM_EMAIL=noreply@ferme-du-temple.com
+EOF
 
 # Run dev server
 npm run dev
 
 # Test form at http://localhost:4321
 ```
+
+**Testing emails:**
+- Use `onboarding@resend.dev` as `FROM_EMAIL` for testing
+- Check Resend dashboard for sent emails
+- For production, verify your domain first
 
 ## Troubleshooting
 
@@ -188,13 +217,30 @@ npm run dev
 - View API logs in Vercel dashboard
 - Check browser network tab for errors
 
+## Email Templates
+
+Emails are defined in `src/lib/email-templates.ts`:
+- `getUserConfirmationEmail()`: Sends confirmation to user with summary
+- `getAdminNotificationEmail()`: Sends detailed notification to admin
+
+Both templates are:
+- Fully responsive (mobile-friendly)
+- Beautiful HTML design with gradients and icons
+- Include all submission data
+
+To customize:
+1. Edit templates in `src/lib/email-templates.ts`
+2. Test locally with real Resend API key
+3. Deploy changes
+
 ## Next Steps
 
-- [ ] Set up email notifications via Supabase Edge Functions
+- [x] Email notifications via Resend
 - [ ] Build admin dashboard for viewing submissions
 - [ ] Add Upstash Redis for persistent rate limiting
 - [ ] Implement spam detection with ML/AI
 - [ ] Add submission analytics
+- [ ] Custom domain for email sender
 
 ## Files Changed
 - `astro.config.mjs` - Added Vercel adapter, hybrid output
