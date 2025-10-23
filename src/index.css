@@ -153,8 +153,8 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
-    /* Fluid font size: scales from 16px (mobile) to 17px (desktop) */
-    font-size: clamp(1rem, 0.9375rem + 0.3125vw, 1.0625rem);
+    /* Fluid font size: scales from 16px (mobile) to 13.6px (desktop, reduced 20%) */
+    font-size: clamp(1rem, 0.9375rem + 0.3125vw, 0.85rem);
     line-height: 1.6;
   }
 
@@ -301,7 +301,7 @@ All colors MUST be HSL.
 
   /* Body text optimized for reading */
   .text-body {
-    font-size: clamp(1rem, 0.9375rem + 0.3125vw, 1.0625rem);
+    font-size: clamp(1rem, 0.9375rem + 0.3125vw, 0.85rem);
     line-height: 1.6;
     max-width: 65ch;
   }
