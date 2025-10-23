@@ -1,4 +1,3 @@
-import { Check } from "lucide-react";
 import { NumberBadge } from "./NumberBadge";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
