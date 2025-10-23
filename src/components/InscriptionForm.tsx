@@ -15,6 +15,7 @@ interface FieldConfig {
 interface InscriptionContent {
   title?: string;
   subtitle?: string;
+  formNotice?: string;
   formTitle?: string;
   fields?: {
     nom?: FieldConfig;
@@ -37,14 +38,59 @@ interface InscriptionFormProps {
 }
 
 export const InscriptionForm = ({ content }: InscriptionFormProps = {}) => {
-  const { title, subtitle, formTitle, fields, button, privacyNotice } = content || {};
+  const { title, subtitle, formNotice, formTitle, fields, button, privacyNotice } = content || {};
 
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     setIsSubmitting(true);
-    // Let the native form submission happen - Netlify will handle it
-    // The form will POST to the same URL and Netlify will capture it
+
+    try {
+      const formData = new FormData(e.currentTarget);
+      const data = {
+        nom: formData.get('nom'),
+        prenom: formData.get('prenom'),
+        email: formData.get('email'),
+        telephone: formData.get('telephone'),
+        motivation: formData.get('motivation'),
+        besoinsSpecifiques: formData.get('besoinsSpecifiques'),
+        infosPrioritaires: formData.get('infosPrioritaires'),
+        'bot-field': formData.get('bot-field'),
+      };
+
+      const response = await fetch('/api/submit-inscription', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        toast({
+          title: 'Erreur',
+          description: result.error || 'Une erreur est survenue. Veuillez réessayer.',
+          variant: 'destructive',
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Success - redirect to thank you page
+      window.location.href = '/inscription-merci';
+    } catch (error) {
+      console.error('Form submission error:', error);
+      toast({
+        title: 'Erreur',
+        description: 'Une erreur est survenue. Veuillez réessayer.',
+        variant: 'destructive',
+      });
+      setIsSubmitting(false);
+    }
   };
   return (
     <section
@@ -77,6 +123,22 @@ export const InscriptionForm = ({ content }: InscriptionFormProps = {}) => {
           </div>
         </div>
 
+        {/* Form Notice - Right above the form */}
+        {formNotice && (
+          <div className="grid grid-cols-12 gap-0 mb-32 md:mb-48">
+            <div className="col-span-12 md:col-span-8 md:col-start-3">
+              <div className="relative">
+                <div className="absolute top-0 left-0 w-2 h-full bg-butter-yellow"></div>
+                <div className="ml-8 md:ml-12">
+                  <p className="text-lg md:text-xl text-muted-foreground leading-relaxed italic">
+                    {formNotice}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Form - Geometric Layout */}
         <div className="grid grid-cols-12 gap-0">
           <div className="col-span-12 md:col-span-10 md:col-start-2">
@@ -91,17 +153,9 @@ export const InscriptionForm = ({ content }: InscriptionFormProps = {}) => {
                 </div>
 
                 <form
-                  name="inscription"
-                  method="POST"
-                  action="/inscription-merci"
-                  data-netlify="true"
-                  netlify-honeypot="bot-field"
                   onSubmit={handleSubmit}
                   className="space-y-8"
                 >
-                  {/* Netlify Forms requirement */}
-                  <input type="hidden" name="form-name" value="inscription" />
-
                   {/* Honeypot field for spam protection */}
                   <p className="hidden">
                     <label>

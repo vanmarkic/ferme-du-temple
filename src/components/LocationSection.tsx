@@ -120,7 +120,7 @@ export const LocationSection = ({ content, body }: LocationSectionProps = {}) =>
         <div className="grid grid-cols-12 gap-0 mb-48">
           <div className="col-span-12 md:col-span-7">
             <SectionTitle accentLine="vertical">
-              {title.split(' ').slice(0, 2).join(' ')}<br/>{title.split(' ').slice(2).join(' ')}
+              {title?.split(' ').slice(0, 2).join(' ')}<br/>{title?.split(' ').slice(2).join(' ')}
             </SectionTitle>
           </div>
           <div className="col-span-12 md:col-span-5 md:mt-24">
@@ -191,7 +191,7 @@ export const LocationSection = ({ content, body }: LocationSectionProps = {}) =>
               <div className="bg-background p-12 relative z-30">
                 {heritageTitle && (
                   <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-display text-foreground mb-8 uppercase break-words hyphens-auto leading-[1.15]">
-                    {heritageTitle.split(' ').slice(0, 2).join(' ')}<br/>{heritageTitle.split(' ').slice(2, 4).join(' ')}<br/>{heritageTitle.split(' ').slice(4).join(' ')}
+                    {heritageTitle?.split(' ').slice(0, 2).join(' ')}<br/>{heritageTitle?.split(' ').slice(2, 4).join(' ')}<br/>{heritageTitle?.split(' ').slice(4).join(' ')}
                   </h3>
                 )}
                 <div className="space-y-6 text-muted-foreground leading-relaxed">
@@ -240,7 +240,7 @@ export const LocationSection = ({ content, body }: LocationSectionProps = {}) =>
         <div className="mb-48">
           <div className="mb-12 ml-0 md:ml-16">
             <h5 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-display text-foreground uppercase break-words hyphens-auto leading-[1.15]">
-              {imagesTitle.split(' ').slice(0, 3).join(' ')}<br/>{imagesTitle.split(' ').slice(3).join(' ')}
+              {imagesTitle?.split(' ').slice(0, 3).join(' ')}<br/>{imagesTitle?.split(' ').slice(3).join(' ')}
             </h5>
           </div>
           <PropertyCarousel />

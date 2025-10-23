@@ -37,6 +37,9 @@
         "communityCaption": {
           "type": "string"
         },
+        "imagesTitle": {
+          "type": "string"
+        },
         "$schema": {
           "type": "string"
         }
@@ -52,7 +55,8 @@
         "imageAlt2",
         "imageAlt3",
         "imageAlt4",
-        "communityCaption"
+        "communityCaption",
+        "imagesTitle"
       ],
       "additionalProperties": false
     }

@@ -125,7 +125,7 @@ export const TimelineSection = ({ content, body }: TimelineSectionProps = {}) =>
         <div className="grid grid-cols-12 gap-0 mb-32 md:mb-48">
           <div className="col-span-12 md:col-span-8 md:col-start-3">
             <SectionTitle subtitle={subtitle}>
-              {title.split(' ').map((word, i, arr) =>
+              {title?.split(' ').map((word, i, arr) =>
                 i === arr.length - 1 ? <span key={`${i}-${word}`}>{word}</span> : <span key={`${i}-${word}`}>{word}<br /></span>
               )}
             </SectionTitle>

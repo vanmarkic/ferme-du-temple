@@ -38,7 +38,7 @@ subtitle: "Nous travaillons depuis plus d'un an au montage de notre futur habita
 - Mesures conservatoires sur le bâtiment
 - Obtention du permis d'urbanisme pour division des parties privées
 
-# 2028-2029
+# 2027-2028
 
 **Status:** future
 **Icon:** Home

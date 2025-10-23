@@ -1,6 +1,7 @@
 ---
 title: "Rejoindre l'aventure"
 subtitle: "Vous pouvez remplir ce formulaire pour témoigner de votre intérêt envers le projet. Nous vous recontacterons dans les semaines à venir pour vous communiquer une date de visite de la ferme et le reste du processus d'adhésion."
+formNotice: "Nous construisons un lieu fondé sur le respect, la confiance et la sécurité de chacun·e. En remplissant ce formulaire, vous rejoignez cette attention partagée aux autres et vous engagez à un comportement bienveillant."
 formTitle: "Formulaire de candidature"
 fields:
   nom:

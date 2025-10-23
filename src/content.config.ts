@@ -16,6 +16,7 @@ const hero = defineCollection({
     imageAlt3: z.string(),
     imageAlt4: z.string(),
     communityCaption: z.string(),
+    imagesTitle: z.string(),
   }),
 });
 
@@ -84,6 +85,7 @@ const inscription = defineCollection({
   schema: z.object({
     title: z.string(),
     subtitle: z.string(),
+    formNotice: z.string().optional(),
     formTitle: z.string(),
     fields: z.object({
       nom: z.object({
@@ -191,6 +193,18 @@ const guideNavigation = defineCollection({
   }),
 });
 
+// Historique Access Collection
+const historiqueAccess = defineCollection({
+  loader: glob({ pattern: 'historique-access.md', base: './src/content' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    passwordPlaceholder: z.string(),
+    submitButton: z.string(),
+    errorMessage: z.string(),
+  }),
+});
+
 export const collections = {
   hero,
   project,
@@ -204,4 +218,5 @@ export const collections = {
   notFound,
   guideAccess,
   guideNavigation,
+  historiqueAccess,
 };

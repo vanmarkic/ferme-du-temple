@@ -1,0 +1,206 @@
+# Vercel + Supabase Migration Guide
+
+## Overview
+This project has been migrated from Netlify to Vercel with Supabase for form data storage.
+
+## Architecture
+
+### Before
+- **Hosting**: Netlify
+- **Form Handling**: Netlify Forms (email notifications only)
+- **Rendering**: Full SSG
+
+### After
+- **Hosting**: Vercel
+- **Form Handling**: Custom API endpoint → Supabase
+- **Rendering**: Hybrid (SSG + SSR for API routes)
+- **Database**: Supabase PostgreSQL
+
+## Setup Instructions
+
+### 1. Supabase Configuration
+
+#### Run the migration SQL
+Execute the SQL script in your Supabase project:
+```bash
+# In Supabase SQL Editor, run:
+supabase/migrations/001_create_inscriptions_table.sql
+```
+
+This creates:
+- `inscriptions` table with all form fields
+- RLS policies (public inserts, authenticated reads)
+- Indexes for performance
+- Auto-updating `updated_at` trigger
+
+#### Get credentials
+1. Go to Supabase Project Settings → API
+2. Copy `Project URL` and `anon/public key`
+
+### 2. Environment Variables
+
+Create `.env` file in project root:
+```bash
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_ANON_KEY=your-anon-key
+```
+
+⚠️ **Important**: This file is gitignored. Never commit secrets.
+
+### 3. Vercel Deployment
+
+#### Connect repository
+```bash
+npm install -g vercel
+vercel login
+vercel link
+```
+
+#### Set environment variables
+```bash
+vercel env add SUPABASE_URL production
+vercel env add SUPABASE_ANON_KEY production
+```
+
+Or set them in Vercel dashboard:
+- Project Settings → Environment Variables
+- Add both `SUPABASE_URL` and `SUPABASE_ANON_KEY`
+
+#### Deploy
+```bash
+vercel --prod
+```
+
+### 4. Update Site URL
+Once deployed, update in:
+- `astro.config.mjs` (line 7): Change to your Vercel domain
+- Supabase Project Settings → API Settings → Site URL
+
+## Features
+
+### Rate Limiting
+- **3 submissions per hour** per IP address
+- In-memory storage (resets on cold start)
+- Can be upgraded to Upstash Redis for persistence
+
+### Security
+- ✅ Honeypot spam protection
+- ✅ Server-side validation (required fields, email format)
+- ✅ Supabase RLS policies
+- ✅ Environment variables for credentials
+- ✅ Rate limiting per IP
+
+### Data Storage
+All form submissions stored in Supabase with:
+- `id` (UUID, auto-generated)
+- `nom`, `prenom`, `email`, `telephone` (required)
+- `motivation` (required)
+- `besoins_specifiques`, `infos_prioritaires` (optional)
+- `created_at`, `updated_at` (auto-managed)
+
+## API Endpoint
+
+### POST /api/submit-inscription
+
+**Request:**
+```json
+{
+  "nom": "Dupont",
+  "prenom": "Marie",
+  "email": "marie@example.com",
+  "telephone": "0612345678",
+  "motivation": "Participer à la vie de la ferme",
+  "besoinsSpecifiques": "Régime végétarien",
+  "infosPrioritaires": "Horaires flexibles",
+  "bot-field": ""
+}
+```
+
+**Response (Success):**
+```json
+{
+  "success": true,
+  "message": "Inscription enregistrée avec succès."
+}
+```
+
+**Response (Error):**
+```json
+{
+  "error": "Trop de demandes. Veuillez réessayer plus tard."
+}
+```
+
+**Status Codes:**
+- `200`: Success
+- `400`: Validation error / spam detected
+- `429`: Rate limit exceeded
+- `500`: Server error
+
+## Viewing Submissions
+
+### Supabase Dashboard
+1. Go to Table Editor → `inscriptions`
+2. View all submissions with filters/search
+3. Export to CSV if needed
+
+### Future: Admin Dashboard
+Can be built with Supabase Auth:
+- Protected route with login
+- View/filter submissions
+- Send notifications
+- Export data
+
+## Testing Locally
+
+```bash
+# Install dependencies
+npm install
+
+# Add .env file with credentials
+echo "SUPABASE_URL=..." > .env
+echo "SUPABASE_ANON_KEY=..." >> .env
+
+# Run dev server
+npm run dev
+
+# Test form at http://localhost:4321
+```
+
+## Troubleshooting
+
+### "Configuration du serveur incorrecte"
+- Check `.env` file exists
+- Verify `SUPABASE_URL` and `SUPABASE_ANON_KEY` are set
+- Restart dev server
+
+### "Erreur lors de l'enregistrement"
+- Check Supabase RLS policies are enabled
+- Verify table schema matches form fields
+- Check Supabase logs in dashboard
+
+### Rate limit not working
+- In-memory storage resets on function cold start
+- Consider Upstash Redis for production
+
+### Form submissions not appearing
+- Check Supabase Table Editor → `inscriptions`
+- View API logs in Vercel dashboard
+- Check browser network tab for errors
+
+## Next Steps
+
+- [ ] Set up email notifications via Supabase Edge Functions
+- [ ] Build admin dashboard for viewing submissions
+- [ ] Add Upstash Redis for persistent rate limiting
+- [ ] Implement spam detection with ML/AI
+- [ ] Add submission analytics
+
+## Files Changed
+- `astro.config.mjs` - Added Vercel adapter, hybrid output
+- `src/components/InscriptionForm.tsx` - API integration, error handling
+- `src/pages/api/submit-inscription.ts` - New API endpoint
+- `supabase/migrations/001_create_inscriptions_table.sql` - Database schema
+- `vercel.json` - Vercel configuration
+- `.gitignore` - Added Vercel folders
+- Removed: `netlify.toml`

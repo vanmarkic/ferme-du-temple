@@ -10,4 +10,5 @@ imageAlt2: "Bâtiment extérieur de la ferme"
 imageAlt3: "Communauté dans les champs"
 imageAlt4: "Serres de la ferme"
 communityCaption: "Une communauté vivante"
+imagesTitle: "Découvrez le domaine en images"
 ---

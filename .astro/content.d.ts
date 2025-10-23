@@ -202,6 +202,14 @@ declare module 'astro:content' {
   rendered?: RenderedContent;
   filePath?: string;
 }>;
+"historiqueAccess": Record<string, {
+  id: string;
+  body?: string;
+  collection: "historiqueAccess";
+  data: InferEntrySchema<"historiqueAccess">;
+  rendered?: RenderedContent;
+  filePath?: string;
+}>;
 "inscription": Record<string, {
   id: string;
   body?: string;

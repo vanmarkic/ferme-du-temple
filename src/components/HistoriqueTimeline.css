@@ -1,0 +1,242 @@
+.historique-wrapper {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 40px 20px;
+  min-height: 100vh;
+}
+
+.historique-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.historique-wrapper h1 {
+  text-align: center;
+  color: #2d3748;
+  margin-bottom: 10px;
+  font-size: 2.5em;
+}
+
+.historique-subtitle {
+  text-align: center;
+  color: #718096;
+  margin-bottom: 50px;
+  font-size: 1.1em;
+}
+
+.historique-timeline {
+  position: relative;
+  padding: 20px 0;
+}
+
+.historique-timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(to bottom, #667eea, #764ba2);
+}
+
+.historique-timeline-item {
+  position: relative;
+  margin-bottom: 50px;
+  width: 45%;
+}
+
+.historique-timeline-item:nth-child(odd) {
+  margin-left: 0;
+  text-align: right;
+  padding-right: 40px;
+}
+
+.historique-timeline-item:nth-child(even) {
+  margin-left: 55%;
+  text-align: left;
+  padding-left: 40px;
+}
+
+.historique-timeline-dot {
+  position: absolute;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: white;
+  border: 4px solid #667eea;
+  z-index: 2;
+}
+
+.historique-timeline-item:nth-child(odd) .historique-timeline-dot {
+  right: -10px;
+}
+
+.historique-timeline-item:nth-child(even) .historique-timeline-dot {
+  left: -10px;
+}
+
+.historique-timeline-dot.critical {
+  border-color: #e53e3e;
+  box-shadow: 0 0 0 4px rgba(229, 62, 62, 0.2);
+}
+
+.historique-timeline-dot.positive {
+  border-color: #38a169;
+  box-shadow: 0 0 0 4px rgba(56, 161, 105, 0.2);
+}
+
+.historique-timeline-dot.warning {
+  border-color: #ed8936;
+  box-shadow: 0 0 0 4px rgba(237, 137, 54, 0.2);
+}
+
+.historique-timeline-content {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #667eea;
+  transition: all 0.3s ease;
+}
+
+.historique-timeline-content:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.historique-timeline-content.critical {
+  border-left-color: #e53e3e;
+  background: #fff5f5;
+}
+
+.historique-timeline-content.positive {
+  border-left-color: #38a169;
+  background: #f0fff4;
+}
+
+.historique-timeline-content.warning {
+  border-left-color: #ed8936;
+  background: #fffaf0;
+}
+
+.historique-date {
+  font-weight: 700;
+  color: #667eea;
+  margin-bottom: 8px;
+  font-size: 0.95em;
+}
+
+.critical .historique-date {
+  color: #e53e3e;
+}
+
+.positive .historique-date {
+  color: #38a169;
+}
+
+.warning .historique-date {
+  color: #ed8936;
+}
+
+.historique-event-title {
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 10px;
+  font-size: 1.1em;
+}
+
+.historique-event-description {
+  color: #4a5568;
+  line-height: 1.6;
+  font-size: 0.95em;
+}
+
+.historique-tag {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.8em;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.historique-tag.durée {
+  background: #edf2f7;
+  color: #4a5568;
+}
+
+.historique-tag.prix {
+  background: #bee3f8;
+  color: #2c5282;
+}
+
+.historique-legend {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 50px;
+  padding: 20px;
+  background: #f7fafc;
+  border-radius: 12px;
+}
+
+.historique-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.historique-legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.historique-legend-dot.positive {
+  background: #38a169;
+}
+
+.historique-legend-dot.warning {
+  background: #ed8936;
+}
+
+.historique-legend-dot.critical {
+  background: #e53e3e;
+}
+
+.historique-legend-dot.neutral {
+  background: #667eea;
+}
+
+@media (max-width: 768px) {
+  .historique-timeline::before {
+    left: 30px;
+  }
+
+  .historique-timeline-item,
+  .historique-timeline-item:nth-child(odd),
+  .historique-timeline-item:nth-child(even) {
+    width: 100%;
+    margin-left: 0;
+    text-align: left;
+    padding-left: 60px;
+    padding-right: 0;
+  }
+
+  .historique-timeline-dot,
+  .historique-timeline-item:nth-child(odd) .historique-timeline-dot,
+  .historique-timeline-item:nth-child(even) .historique-timeline-dot {
+    left: 21px;
+    right: auto;
+  }
+
+  .historique-legend {
+    flex-direction: column;
+    gap: 10px;
+  }
+}

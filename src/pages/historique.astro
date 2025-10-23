@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Providers } from '@/components/Providers';
+import { GuidePasswordGate } from '@/components/GuidePasswordGate';
+import { HistoriqueTimeline } from '@/components/HistoriqueTimeline';
+import { getEntry } from 'astro:content';
+
+// Load content from Content Collections
+const historiqueAccessEntry = await getEntry('historiqueAccess', 'historique-access');
+
+// Error handling for missing entries
+if (!historiqueAccessEntry) throw new Error('Historique access content not found');
+
+const historiqueAccessContent = {
+  title: historiqueAccessEntry.data.title || 'Historique de la Ferme du Temple',
+  description: historiqueAccessEntry.data.description || 'Cette page est protégée.',
+  passwordPlaceholder: historiqueAccessEntry.data.passwordPlaceholder || 'Mot de passe',
+  submitButton: historiqueAccessEntry.data.submitButton || 'Accéder',
+  errorMessage: historiqueAccessEntry.data.errorMessage || 'Mot de passe incorrect',
+};
+
+const HISTORIQUE_PASSWORD = import.meta.env.PUBLIC_HISTORIQUE_PASSWORD || 'beaver2025';
+---
+
+<BaseLayout
+  title="Historique - Ferme du Temple"
+  description="L'histoire de la Ferme du Temple"
+>
+  <Providers client:load>
+    <GuidePasswordGate client:load correctPassword={HISTORIQUE_PASSWORD} content={historiqueAccessContent}>
+      <HistoriqueTimeline client:load />
+    </GuidePasswordGate>
+  </Providers>
+</BaseLayout>

@@ -41,7 +41,7 @@ export const PricingSection = ({ content, body }: PricingSectionProps = {}) => {
     }> = [];
 
     // Match unit sections
-    const unitRegex = /# Unité (\d+ M²)\s+([\s\S]*?)(?=\n# Unité|$)/g;
+    const unitRegex = /# (?:Exemple : )?Unité (\d+ M²)\s+([\s\S]*?)(?=\n# (?:Exemple : )?Unité|$)/g;
     let match;
 
     while ((match = unitRegex.exec(bodyContent)) !== null) {
@@ -98,7 +98,7 @@ export const PricingSection = ({ content, body }: PricingSectionProps = {}) => {
               </h2>
               <div className="bg-magenta text-white p-8 block md:inline-block">
                 <p className="text-2xl font-bold">
-                  {availability.split(' ').map((word, i, arr) =>
+                  {availability?.split(' ').map((word, i, arr) =>
                     i === 2 ? <span key={`${i}-${word}`}><br />{word} </span> : <span key={`${i}-${word}`}>{word} </span>
                   )}
                 </p>
@@ -115,21 +115,21 @@ export const PricingSection = ({ content, body }: PricingSectionProps = {}) => {
               ref={unit1Ref}
               className={`col-span-12 md:col-span-5 mb-16 md:mb-0 relative z-20 fade-in ${unit1Visible ? 'visible' : ''}`}
             >
-              <div className="bg-background border-4 border-rich-black p-12 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+              <div className="bg-background border-4 border-rich-black p-6 md:p-8 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
                 <NumberBadge number={1} variant="default" className="mb-4" />
                 <p className="text-lg text-muted-foreground uppercase tracking-wider mb-2">Surface</p>
-                <div className="text-6xl font-bold font-display text-foreground mb-8">
+                <div className="text-4xl md:text-5xl font-bold font-display text-foreground mb-6">
                   {units[0].size}
                 </div>
-                <div className="mb-8">
-                  <div className="text-4xl font-bold text-magenta mb-2">
+                <div className="mb-6">
+                  <div className="text-3xl font-bold text-magenta mb-2">
                     {units[0].price}
                   </div>
                   <p className="text-sm uppercase tracking-wider text-muted-foreground">
                     Prix total estimé
                   </p>
                 </div>
-                <div className="space-y-4 border-t-2 border-rich-black pt-8">
+                <div className="space-y-3 border-t-2 border-rich-black pt-6">
                   {units[0].breakdown.map((item, i) => <div key={i} className="flex justify-between items-start">
                       <span className="text-sm text-muted-foreground flex-1">{item.label}</span>
                       <span className="font-bold text-foreground ml-4">{item.amount}</span>
@@ -145,23 +145,23 @@ export const PricingSection = ({ content, body }: PricingSectionProps = {}) => {
             >
               <div className="relative overflow-hidden">
                 <div className="hidden md:block absolute -bottom-12 -right-12 w-32 h-32 bg-magenta z-0"></div>
-                <div className="bg-butter-yellow p-12 relative z-10 shadow-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+                <div className="bg-butter-yellow p-6 md:p-8 relative z-10 shadow-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
                   <div className="flex items-center gap-4 mb-4">
                     <NumberBadge number={2} variant="light" />
                     <p className="text-lg text-rich-black uppercase tracking-wider">Surface</p>
                   </div>
-                  <div className="text-6xl font-bold font-display text-rich-black mb-8">
+                  <div className="text-4xl md:text-5xl font-bold font-display text-rich-black mb-6">
                     {units[1].size}
                   </div>
-                  <div className="mb-8">
-                    <div className="text-4xl font-bold text-magenta mb-2">
+                  <div className="mb-6">
+                    <div className="text-3xl font-bold text-magenta mb-2">
                       {units[1].price}
                     </div>
                     <p className="text-sm uppercase tracking-wider text-rich-black">
                       Prix total estimé
                     </p>
                   </div>
-                  <div className="space-y-4 border-t-2 border-rich-black pt-8">
+                  <div className="space-y-3 border-t-2 border-rich-black pt-6">
                     {units[1].breakdown.map((item, i) => <div key={i} className="flex justify-between items-start">
                         <span className="text-sm text-rich-black flex-1">{item.label}</span>
                         <span className="font-bold text-rich-black ml-4">{item.amount}</span>

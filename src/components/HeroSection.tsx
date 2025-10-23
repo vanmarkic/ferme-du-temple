@@ -2,6 +2,7 @@ import interior1 from '@/assets/interior-1.jpg';
 import buildingExterior from '@/assets/building-exterior.jpg';
 import communityField from '@/assets/community-field.jpg';
 import greenhouse from '@/assets/greenhouse.jpg';
+import { PropertyCarousel } from './PropertyCarousel';
 
 interface HeroContent {
   mainTitle?: string;
@@ -15,6 +16,7 @@ interface HeroContent {
   imageAlt3?: string;
   imageAlt4?: string;
   communityCaption?: string;
+  imagesTitle?: string;
 }
 
 interface HeroSectionProps {
@@ -33,6 +35,7 @@ export const HeroSection = ({ content }: HeroSectionProps = {}) => {
     imageAlt2,
     imageAlt3,
     imageAlt4,
+    imagesTitle,
   } = content || {};
 
   return (
@@ -53,11 +56,15 @@ export const HeroSection = ({ content }: HeroSectionProps = {}) => {
           </h2>
           <div className="hidden md:block absolute -right-8 top-8 w-32 h-32 bg-magenta/20 -z-10"></div>
         </div>
-
+        <div className="mb-48">
+          <PropertyCarousel />
+        </div>
         {/* Asymmetric Grid with Overlapping Images */}
         <div className="grid grid-cols-12 gap-0 mb-48">
+          {/* Property Carousel */}
+
           {/* Large Interior Image - Starting Point */}
-          <div className="col-span-12 flex justify-center items-center relative z-20 mb-8 md:mb-0">
+          {/* <div className="col-span-12 flex justify-center items-center relative z-20 mb-8 md:mb-0">
             <img
               src={interior1.src}
               alt={imageAlt1}
@@ -66,7 +73,7 @@ export const HeroSection = ({ content }: HeroSectionProps = {}) => {
               decoding="async"
               style={{ maxWidth: '1200px', maxHeight: '800px' }}
             />
-          </div>
+          </div> */}
 
           {/* Overlapping Text Block - Reduced Asymmetry */}
           <div className="col-span-12 md:col-span-5 md:col-start-6 md:-ml-16 relative z-30 bg-butter-yellow p-12 md:mt-12">
@@ -105,12 +112,12 @@ export const HeroSection = ({ content }: HeroSectionProps = {}) => {
           {/* Community Field - Reduced Asymmetry */}
           <div className="col-span-12 md:col-span-5 md:mt-12">
             <img
-              src={communityField.src}
-              alt={imageAlt3}
-              className="w-full h-[40vh] object-cover shadow-xl"
-              loading="lazy"
+              src={interior1.src}
+              alt={imageAlt1}
+              className="w-full h-[70vh] object-cover shadow-2xl"
+              loading="eager"
               decoding="async"
-              style={{ maxWidth: '800px', maxHeight: '500px' }}
+              style={{ maxWidth: '1200px', maxHeight: '800px' }}
             />
           </div>
         </div>

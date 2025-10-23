@@ -28,11 +28,3 @@ Espèce facilitatrice d'échanges et "ingénieure de la nature" tout comme le ca
 - 4 unités de logement
 
 ## Professions
-
-- Architectes
-- Photographes
-- Artistes
-- Enseignants
-- Musiciens
-- Herboristes
-- Entrepreneurs
