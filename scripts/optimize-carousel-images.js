@@ -29,7 +29,7 @@ const SIZES = {
     height: 450,
     quality: {
       webp: 82,
-      avif: 68,  // Slightly more aggressive compression
+      avif: 55,  // More aggressive compression for better file size (Lighthouse recommendation)
       jpg: 82
     }
   }

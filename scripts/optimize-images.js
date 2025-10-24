@@ -9,7 +9,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const ASSETS_DIR = path.join(__dirname, '..', 'src', 'assets');
-const WEBP_DIR = path.join(ASSETS_DIR, 'optimized');
+const OUTPUT_DIR = path.join(__dirname, '..', 'public', 'images');
 
 // Image size variants for responsive images
 const SIZES = {
@@ -22,7 +22,7 @@ const SIZES = {
 // Image quality settings - more aggressive compression
 const QUALITY = {
   webp: 82,
-  avif: 55,  // More aggressive AVIF compression for mobile (targeting 30% reduction)
+  avif: 45,  // More aggressive AVIF compression for desktop (Lighthouse recommendation)
   jpg: 82
 };
 
@@ -47,7 +47,7 @@ async function optimizeImage(inputPath, filename) {
 
   // Process each size variant
   for (const [sizeName, width] of Object.entries(SIZES)) {
-    const sizeDir = path.join(WEBP_DIR, sizeName);
+    const sizeDir = path.join(OUTPUT_DIR, sizeName);
     await ensureDirectory(sizeDir);
 
     // Create WebP version
@@ -130,7 +130,7 @@ async function main() {
   console.log('🖼️  Starting image optimization...\n');
 
   // Ensure output directory exists
-  await ensureDirectory(WEBP_DIR);
+  await ensureDirectory(OUTPUT_DIR);
 
   // Get all files in assets directory
   const files = await fs.readdir(ASSETS_DIR);
@@ -153,7 +153,7 @@ async function main() {
   }
 
   console.log('\n✨ Image optimization complete!');
-  console.log('📁 Optimized images saved to:', WEBP_DIR);
+  console.log('📁 Optimized images saved to:', OUTPUT_DIR);
 }
 
 main().catch(console.error);
