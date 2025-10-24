@@ -1,5 +1,6 @@
 ---
 import '../index.css';
+import SpeedInsights from '@vercel/speed-insights/astro';
 
 interface Props {
   title?: string;
@@ -62,5 +63,6 @@ const {
     <slot />
   </div>
   <slot name="footer" />
+  <SpeedInsights />
 </body>
 </html>

@@ -1,7 +1,3 @@
-import interior1 from '@/assets/interior-1.jpg';
-import buildingExterior from '@/assets/building-exterior.jpg';
-import communityField from '@/assets/community-field.jpg';
-import greenhouse from '@/assets/greenhouse.jpg';
 import { PropertyCarousel } from './PropertyCarousel';
 
 interface HeroContent {
@@ -96,14 +92,44 @@ export const HeroSection = ({ content }: HeroSectionProps = {}) => {
           {/* Building Exterior */}
           <div className="col-span-12 md:col-span-5 relative">
             <div className="hidden md:block absolute -top-8 -left-8 w-24 h-24 bg-magenta z-10"></div>
-            <img
-              src={buildingExterior.src}
-              alt={imageAlt2}
-              className="w-full h-[50vh] object-cover relative z-20"
-              loading="lazy"
-              decoding="async"
-              style={{ maxWidth: '800px', maxHeight: '600px' }}
-            />
+            <picture>
+              <source
+                type="image/avif"
+                media="(max-width: 640px)"
+                srcSet="/images/mobile/building-exterior.avif"
+              />
+              <source
+                type="image/avif"
+                media="(max-width: 1024px)"
+                srcSet="/images/tablet/building-exterior.avif"
+              />
+              <source
+                type="image/avif"
+                srcSet="/images/desktop/building-exterior.avif"
+              />
+              <source
+                type="image/webp"
+                media="(max-width: 640px)"
+                srcSet="/images/mobile/building-exterior.webp"
+              />
+              <source
+                type="image/webp"
+                media="(max-width: 1024px)"
+                srcSet="/images/tablet/building-exterior.webp"
+              />
+              <source
+                type="image/webp"
+                srcSet="/images/desktop/building-exterior.webp"
+              />
+              <img
+                src="/images/desktop/building-exterior.jpg"
+                alt={imageAlt2}
+                className="w-full h-[50vh] object-cover relative z-20"
+                loading="lazy"
+                decoding="async"
+                style={{ maxWidth: '800px', maxHeight: '600px' }}
+              />
+            </picture>
           </div>
 
           {/* White Space Column */}
