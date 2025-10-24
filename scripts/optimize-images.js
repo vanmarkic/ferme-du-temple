@@ -19,11 +19,11 @@ const SIZES = {
   full: null // Original size
 };
 
-// Image quality settings
+// Image quality settings - more aggressive compression
 const QUALITY = {
-  webp: 85,
-  avif: 80,
-  jpg: 85
+  webp: 82,
+  avif: 72,  // More aggressive AVIF compression
+  jpg: 82
 };
 
 async function ensureDirectory(dir) {
