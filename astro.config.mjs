@@ -31,11 +31,12 @@ export default defineConfig({
             if (id.includes('clsx') || id.includes('tailwind-merge')) {
               return 'react-vendor';
             }
-            // Carousel - defer loading
+            // CRITICAL: Bundle carousel with react-vendor to eliminate waterfall
+            // This increases the initial bundle slightly but removes the 1.3s delay
             if (id.includes('embla-carousel')) {
-              return 'carousel';
+              return 'react-vendor';
             }
-            // Dialog components - defer loading
+            // Dialog components - lazy loaded on click, keep separate
             if (id.includes('@radix-ui/react-dialog')) {
               return 'dialog';
             }

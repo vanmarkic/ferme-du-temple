@@ -48,7 +48,7 @@ const { Content: FooterContent } = await render(footerEntry);
 <Providers client:only="react">
 <Navigation client:visible content={navigationEntry.data as NavigationContent} />
 <div class="min-h-screen pt-20">
-<HeroSection client:visible content={heroEntry.data} />
+<HeroSection client:load content={heroEntry.data} />
 <div id="projet">
 <ProjectSection client:visible content={projectEntry.data} body={projectEntry.body} />
 </div>
