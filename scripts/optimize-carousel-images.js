@@ -20,7 +20,7 @@ const SIZES = {
     height: 422,
     quality: {
       webp: 78,
-      avif: 65,  // More aggressive compression for mobile
+      avif: 50,  // More aggressive compression for mobile (targeting 30-40% reduction)
       jpg: 78
     }
   },

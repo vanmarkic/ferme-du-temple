@@ -22,7 +22,7 @@ const SIZES = {
 // Image quality settings - more aggressive compression
 const QUALITY = {
   webp: 82,
-  avif: 72,  // More aggressive AVIF compression
+  avif: 55,  // More aggressive AVIF compression for mobile (targeting 30% reduction)
   jpg: 82
 };
 
