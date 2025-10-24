@@ -36,9 +36,19 @@ const {
 <link rel="preload" as="font" type="font/woff2" href="/fonts/BBBPoppinsTN-DisplayBlack.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/fonts/BBBPoppinsTN-DisplayBold.woff2" crossorigin>
 
-<!-- Preload LCP image (first carousel image - property-5) -->
-<link rel="preload" as="image" href="/images/carousel/property-5.avif" type="image/avif" fetchpriority="high">
-<link rel="preload" as="image" href="/images/carousel/property-5.webp" type="image/webp" fetchpriority="high">
+<!-- Preload LCP image (first carousel image - property-5) with responsive variants -->
+<link rel="preload" as="image"
+  href="/images/carousel/property-5-mobile.avif"
+  imagesrcset="/images/carousel/property-5-mobile.avif 750w, /images/carousel/property-5.avif 800w"
+  imagesizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+  type="image/avif"
+  fetchpriority="high">
+<link rel="preload" as="image"
+  href="/images/carousel/property-5-mobile.webp"
+  imagesrcset="/images/carousel/property-5-mobile.webp 750w, /images/carousel/property-5.webp 800w"
+  imagesizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+  type="image/webp"
+  fetchpriority="high">
 
 <!-- Async load Google Fonts with font-display optimization -->
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Montserrat:wght@700;800;900&display=swap">

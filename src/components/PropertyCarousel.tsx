@@ -7,71 +7,101 @@ import { X, ChevronLeft, ChevronRight } from "lucide-react";
 const propertyImages = [
   {
     src: "/images/carousel/property-5.jpg",
+    srcMobile: "/images/carousel/property-5-mobile.jpg",
     webp: "/images/carousel/property-5.webp",
+    webpMobile: "/images/carousel/property-5-mobile.webp",
     avif: "/images/carousel/property-5.avif",
+    avifMobile: "/images/carousel/property-5-mobile.avif",
     alt: "Vue aérienne de la Ferme du Temple",
     name: "property-5"
   },
   {
     src: "/images/carousel/property-6.jpg",
+    srcMobile: "/images/carousel/property-6-mobile.jpg",
     webp: "/images/carousel/property-6.webp",
+    webpMobile: "/images/carousel/property-6-mobile.webp",
     avif: "/images/carousel/property-6.avif",
+    avifMobile: "/images/carousel/property-6-mobile.avif",
     alt: "Vue aérienne du domaine",
     name: "property-6"
   },
   {
     src: "/images/carousel/property-8.jpg",
+    srcMobile: "/images/carousel/property-8-mobile.jpg",
     webp: "/images/carousel/property-8.webp",
+    webpMobile: "/images/carousel/property-8-mobile.webp",
     avif: "/images/carousel/property-8.avif",
+    avifMobile: "/images/carousel/property-8-mobile.avif",
     alt: "Bâtiment principal de la ferme",
     name: "property-8"
   },
   {
     src: "/images/carousel/property-9.jpg",
+    srcMobile: "/images/carousel/property-9-mobile.jpg",
     webp: "/images/carousel/property-9.webp",
+    webpMobile: "/images/carousel/property-9-mobile.webp",
     avif: "/images/carousel/property-9.avif",
+    avifMobile: "/images/carousel/property-9-mobile.avif",
     alt: "Écuries et bâtiments annexes",
     name: "property-9"
   },
   {
     src: "/images/carousel/property-10.jpg",
+    srcMobile: "/images/carousel/property-10-mobile.jpg",
     webp: "/images/carousel/property-10.webp",
+    webpMobile: "/images/carousel/property-10-mobile.webp",
     avif: "/images/carousel/property-10.avif",
+    avifMobile: "/images/carousel/property-10-mobile.avif",
     alt: "Vue panoramique des bâtiments",
     name: "property-10"
   },
   {
     src: "/images/carousel/property-7.jpg",
+    srcMobile: "/images/carousel/property-7-mobile.jpg",
     webp: "/images/carousel/property-7.webp",
+    webpMobile: "/images/carousel/property-7-mobile.webp",
     avif: "/images/carousel/property-7.avif",
+    avifMobile: "/images/carousel/property-7-mobile.avif",
     alt: "Paysage entourant le domaine",
     name: "property-7"
   },
   {
     src: "/images/carousel/property-2.jpg",
+    srcMobile: "/images/carousel/property-2-mobile.jpg",
     webp: "/images/carousel/property-2.webp",
+    webpMobile: "/images/carousel/property-2-mobile.webp",
     avif: "/images/carousel/property-2.avif",
+    avifMobile: "/images/carousel/property-2-mobile.avif",
     alt: "Intérieur de l'ancienne chapelle",
     name: "property-2"
   },
   {
     src: "/images/carousel/property-4.jpg",
+    srcMobile: "/images/carousel/property-4-mobile.jpg",
     webp: "/images/carousel/property-4.webp",
+    webpMobile: "/images/carousel/property-4-mobile.webp",
     avif: "/images/carousel/property-4.avif",
+    avifMobile: "/images/carousel/property-4-mobile.avif",
     alt: "Salle voûtée avec colonnes",
     name: "property-4"
   },
   {
     src: "/images/carousel/property-1.jpg",
+    srcMobile: "/images/carousel/property-1-mobile.jpg",
     webp: "/images/carousel/property-1.webp",
+    webpMobile: "/images/carousel/property-1-mobile.webp",
     avif: "/images/carousel/property-1.avif",
+    avifMobile: "/images/carousel/property-1-mobile.avif",
     alt: "Couloir avec plafond voûté",
     name: "property-1"
   },
   {
     src: "/images/carousel/property-3.jpg",
+    srcMobile: "/images/carousel/property-3-mobile.jpg",
     webp: "/images/carousel/property-3.webp",
+    webpMobile: "/images/carousel/property-3-mobile.webp",
     avif: "/images/carousel/property-3.avif",
+    avifMobile: "/images/carousel/property-3-mobile.avif",
     alt: "Charpente en bois des greniers",
     name: "property-3"
   },
@@ -129,14 +159,18 @@ export const PropertyCarousel = () => {
                     <picture>
                       <source
                         type="image/avif"
-                        srcSet={image.avif}
+                        srcSet={`${image.avifMobile} 750w, ${image.avif} 800w`}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       />
                       <source
                         type="image/webp"
-                        srcSet={image.webp}
+                        srcSet={`${image.webpMobile} 750w, ${image.webp} 800w`}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       />
                       <img
                         src={image.src}
+                        srcSet={`${image.srcMobile} 750w, ${image.src} 800w`}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         alt={image.alt}
                         className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                         loading={index === 0 ? "eager" : "lazy"}
@@ -217,6 +251,8 @@ export const PropertyCarousel = () => {
                     className="max-w-full max-h-full object-contain"
                     loading="eager"
                     decoding="async"
+                    width="800"
+                    height="450"
                   />
                 </picture>
               </div>

@@ -11,16 +11,28 @@ const __dirname = path.dirname(__filename);
 const ASSETS_DIR = path.join(__dirname, '..', 'src', 'assets');
 const OUTPUT_DIR = path.join(__dirname, '..', 'public', 'images', 'carousel');
 
-// Optimal size for carousel (displayed at 744x419)
-// We'll make it slightly larger for retina displays
-const CAROUSEL_WIDTH = 800;
-const CAROUSEL_HEIGHT = 450;
-
-// Higher compression for smaller files
-const QUALITY = {
-  webp: 82,
-  avif: 75,
-  jpg: 82
+// Responsive sizes for carousel
+// Mobile: displayed at 744x419 on most devices, create 750x422 for sharp quality
+// Desktop: displayed at ~500-600px wide in 3-column layout, 800x450 is good for retina
+const SIZES = {
+  mobile: {
+    width: 750,
+    height: 422,
+    quality: {
+      webp: 78,
+      avif: 65,  // More aggressive compression for mobile
+      jpg: 78
+    }
+  },
+  desktop: {
+    width: 800,
+    height: 450,
+    quality: {
+      webp: 82,
+      avif: 68,  // Slightly more aggressive compression
+      jpg: 82
+    }
+  }
 };
 
 async function ensureDirectory(dir) {
@@ -32,80 +44,63 @@ async function ensureDirectory(dir) {
   }
 }
 
-async function optimizeCarouselImage(inputPath, filename) {
+async function optimizeCarouselImage(inputPath, filename, size, suffix = '') {
   const basename = path.basename(filename, path.extname(filename));
-
-  console.log(`Optimizing ${filename} for carousel...`);
+  const outputName = suffix ? `${basename}${suffix}` : basename;
 
   try {
     const image = sharp(inputPath);
-    const metadata = await image.metadata();
-
-    // Calculate aspect ratio preserving dimensions
-    let resizeWidth = CAROUSEL_WIDTH;
-    let resizeHeight = null;
-
-    if (metadata.width && metadata.height) {
-      const aspectRatio = metadata.width / metadata.height;
-      const targetAspectRatio = CAROUSEL_WIDTH / CAROUSEL_HEIGHT;
-
-      if (aspectRatio > targetAspectRatio) {
-        // Image is wider than target, fit by width
-        resizeWidth = CAROUSEL_WIDTH;
-        resizeHeight = Math.round(CAROUSEL_WIDTH / aspectRatio);
-      } else {
-        // Image is taller than target, fit by height
-        resizeHeight = CAROUSEL_HEIGHT;
-        resizeWidth = Math.round(CAROUSEL_HEIGHT * aspectRatio);
-      }
-    }
 
     // Create WebP version
     await image
-      .resize(resizeWidth, resizeHeight, {
+      .clone()
+      .resize(size.width, size.height, {
         fit: 'cover',
         position: 'centre'
       })
-      .webp({ quality: QUALITY.webp, effort: 6 })
-      .toFile(path.join(OUTPUT_DIR, `${basename}.webp`));
+      .webp({ quality: size.quality.webp, effort: 6 })
+      .toFile(path.join(OUTPUT_DIR, `${outputName}.webp`));
 
     // Create AVIF version with higher compression
     await image
-      .resize(resizeWidth, resizeHeight, {
+      .clone()
+      .resize(size.width, size.height, {
         fit: 'cover',
         position: 'centre'
       })
-      .avif({ quality: QUALITY.avif, effort: 9 })
-      .toFile(path.join(OUTPUT_DIR, `${basename}.avif`));
+      .avif({ quality: size.quality.avif, effort: 9 })
+      .toFile(path.join(OUTPUT_DIR, `${outputName}.avif`));
 
     // Create optimized JPG fallback
     await image
-      .resize(resizeWidth, resizeHeight, {
+      .clone()
+      .resize(size.width, size.height, {
         fit: 'cover',
         position: 'centre'
       })
-      .jpeg({ quality: QUALITY.jpg, progressive: true })
-      .toFile(path.join(OUTPUT_DIR, `${basename}.jpg`));
+      .jpeg({ quality: size.quality.jpg, progressive: true })
+      .toFile(path.join(OUTPUT_DIR, `${outputName}.jpg`));
 
-    const webpStats = await fs.stat(path.join(OUTPUT_DIR, `${basename}.webp`));
-    const avifStats = await fs.stat(path.join(OUTPUT_DIR, `${basename}.avif`));
-    const jpgStats = await fs.stat(path.join(OUTPUT_DIR, `${basename}.jpg`));
-    const originalStats = await fs.stat(inputPath);
+    const webpStats = await fs.stat(path.join(OUTPUT_DIR, `${outputName}.webp`));
+    const avifStats = await fs.stat(path.join(OUTPUT_DIR, `${outputName}.avif`));
+    const jpgStats = await fs.stat(path.join(OUTPUT_DIR, `${outputName}.jpg`));
 
-    console.log(`  ✓ ${basename} optimized:`);
-    console.log(`    Original: ${(originalStats.size / 1024).toFixed(1)}KB`);
-    console.log(`    WebP: ${(webpStats.size / 1024).toFixed(1)}KB (${Math.round((1 - webpStats.size / originalStats.size) * 100)}% smaller)`);
-    console.log(`    AVIF: ${(avifStats.size / 1024).toFixed(1)}KB (${Math.round((1 - avifStats.size / originalStats.size) * 100)}% smaller)`);
-    console.log(`    JPG: ${(jpgStats.size / 1024).toFixed(1)}KB (${Math.round((1 - jpgStats.size / originalStats.size) * 100)}% smaller)`);
+    return {
+      webp: webpStats.size,
+      avif: avifStats.size,
+      jpg: jpgStats.size
+    };
 
   } catch (err) {
-    console.error(`Error optimizing ${filename}:`, err);
+    console.error(`Error optimizing ${filename} (${suffix || 'default'}):`, err);
+    return null;
   }
 }
 
 async function processCarouselImages() {
   console.log('Starting carousel image optimization...');
-  console.log(`Target dimensions: ${CAROUSEL_WIDTH}x${CAROUSEL_HEIGHT}`);
+  console.log(`Mobile: ${SIZES.mobile.width}x${SIZES.mobile.height} (AVIF q${SIZES.mobile.quality.avif})`);
+  console.log(`Desktop: ${SIZES.desktop.width}x${SIZES.desktop.height} (AVIF q${SIZES.desktop.quality.avif})\n`);
 
   // Ensure output directory exists
   await ensureDirectory(OUTPUT_DIR);
@@ -116,13 +111,37 @@ async function processCarouselImages() {
 
   console.log(`Found ${propertyImages.length} property images to optimize\n`);
 
-  // Process each image
+  // Process each image for both mobile and desktop
   for (const file of propertyImages) {
     const inputPath = path.join(ASSETS_DIR, file);
-    await optimizeCarouselImage(inputPath, file);
+    const basename = path.basename(file, path.extname(file));
+    const originalStats = await fs.stat(inputPath);
+
+    console.log(`Optimizing ${basename}...`);
+    console.log(`  Original: ${(originalStats.size / 1024).toFixed(1)}KB`);
+
+    // Create mobile version with -mobile suffix
+    const mobileStats = await optimizeCarouselImage(inputPath, file, SIZES.mobile, '-mobile');
+    if (mobileStats) {
+      console.log(`  Mobile (${SIZES.mobile.width}x${SIZES.mobile.height}):`);
+      console.log(`    WebP: ${(mobileStats.webp / 1024).toFixed(1)}KB`);
+      console.log(`    AVIF: ${(mobileStats.avif / 1024).toFixed(1)}KB (${Math.round((1 - mobileStats.avif / originalStats.size) * 100)}% smaller)`);
+      console.log(`    JPG: ${(mobileStats.jpg / 1024).toFixed(1)}KB`);
+    }
+
+    // Create desktop version (no suffix)
+    const desktopStats = await optimizeCarouselImage(inputPath, file, SIZES.desktop, '');
+    if (desktopStats) {
+      console.log(`  Desktop (${SIZES.desktop.width}x${SIZES.desktop.height}):`);
+      console.log(`    WebP: ${(desktopStats.webp / 1024).toFixed(1)}KB`);
+      console.log(`    AVIF: ${(desktopStats.avif / 1024).toFixed(1)}KB (${Math.round((1 - desktopStats.avif / originalStats.size) * 100)}% smaller)`);
+      console.log(`    JPG: ${(desktopStats.jpg / 1024).toFixed(1)}KB`);
+    }
+
+    console.log('');
   }
 
-  console.log('\n✨ Carousel image optimization complete!');
+  console.log('✨ Carousel image optimization complete!');
   console.log(`Optimized images saved to: ${OUTPUT_DIR}`);
 }
 
