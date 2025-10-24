@@ -137,14 +137,45 @@ export const HeroSection = ({ content }: HeroSectionProps = {}) => {
 
           {/* Community Field - Reduced Asymmetry */}
           <div className="col-span-12 md:col-span-5 md:mt-12">
-            <img
-              src={interior1.src}
-              alt={imageAlt1}
-              className="w-full h-[70vh] object-cover shadow-2xl"
-              loading="eager"
-              decoding="async"
-              style={{ maxWidth: '1200px', maxHeight: '800px' }}
-            />
+            <picture>
+              <source
+                type="image/avif"
+                media="(max-width: 640px)"
+                srcSet="/images/mobile/interior-1.avif"
+              />
+              <source
+                type="image/avif"
+                media="(max-width: 1024px)"
+                srcSet="/images/tablet/interior-1.avif"
+              />
+              <source
+                type="image/avif"
+                srcSet="/images/desktop/interior-1.avif"
+              />
+              <source
+                type="image/webp"
+                media="(max-width: 640px)"
+                srcSet="/images/mobile/interior-1.webp"
+              />
+              <source
+                type="image/webp"
+                media="(max-width: 1024px)"
+                srcSet="/images/tablet/interior-1.webp"
+              />
+              <source
+                type="image/webp"
+                srcSet="/images/desktop/interior-1.webp"
+              />
+              <img
+                src="/images/desktop/interior-1.jpg"
+                alt={imageAlt1}
+                className="w-full h-[70vh] object-cover shadow-2xl"
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
+                style={{ maxWidth: '1200px', maxHeight: '800px' }}
+              />
+            </picture>
           </div>
         </div>
 
@@ -152,14 +183,44 @@ export const HeroSection = ({ content }: HeroSectionProps = {}) => {
         <div className="grid grid-cols-12 gap-0">
           <div className="col-span-12 md:col-span-6 md:col-start-3 relative">
             <div className="hidden md:block absolute -bottom-12 -right-12 w-48 h-48 bg-butter-yellow z-10"></div>
-            <img
-              src={greenhouse.src}
-              alt={imageAlt4}
-              className="w-full h-[45vh] object-cover relative z-20"
-              loading="lazy"
-              decoding="async"
-              style={{ maxWidth: '900px', maxHeight: '550px' }}
-            />
+            <picture>
+              <source
+                type="image/avif"
+                media="(max-width: 640px)"
+                srcSet="/images/mobile/greenhouse.avif"
+              />
+              <source
+                type="image/avif"
+                media="(max-width: 1024px)"
+                srcSet="/images/tablet/greenhouse.avif"
+              />
+              <source
+                type="image/avif"
+                srcSet="/images/desktop/greenhouse.avif"
+              />
+              <source
+                type="image/webp"
+                media="(max-width: 640px)"
+                srcSet="/images/mobile/greenhouse.webp"
+              />
+              <source
+                type="image/webp"
+                media="(max-width: 1024px)"
+                srcSet="/images/tablet/greenhouse.webp"
+              />
+              <source
+                type="image/webp"
+                srcSet="/images/desktop/greenhouse.webp"
+              />
+              <img
+                src="/images/desktop/greenhouse.jpg"
+                alt={imageAlt4}
+                className="w-full h-[45vh] object-cover relative z-20"
+                loading="lazy"
+                decoding="async"
+                style={{ maxWidth: '900px', maxHeight: '550px' }}
+              />
+            </picture>
           </div>
         </div>
 
