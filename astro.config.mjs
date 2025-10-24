@@ -19,5 +19,16 @@ export default defineConfig({
         '@': '/src',
       },
     },
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'react-vendor': ['react', 'react-dom'],
+            'ui-components': ['@radix-ui/react-dialog', '@radix-ui/react-slot', '@radix-ui/react-toast'],
+            'carousel': ['embla-carousel-react'],
+          },
+        },
+      },
+    },
   },
 });
