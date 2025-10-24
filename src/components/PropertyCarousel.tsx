@@ -1,8 +1,12 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, lazy, Suspense } from "react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
+
+// Lazy load dialog components (only needed on click)
+const Dialog = lazy(() => import("@/components/ui/dialog").then(mod => ({ default: mod.Dialog })));
+const DialogContent = lazy(() => import("@/components/ui/dialog").then(mod => ({ default: mod.DialogContent })));
+const DialogTitle = lazy(() => import("@/components/ui/dialog").then(mod => ({ default: mod.DialogTitle })));
+const Button = lazy(() => import("@/components/ui/button").then(mod => ({ default: mod.Button })));
 
 const propertyImages = [
   {
@@ -195,22 +199,22 @@ export const PropertyCarousel = () => {
         </Carousel>
       </div>
 
-      <Dialog open={selectedImageIndex !== null} onOpenChange={() => setSelectedImageIndex(null)}>
-        <DialogContent className="max-w-7xl w-[95vw] h-[95vh] p-0 bg-black/95 border-none z-[9999]">
-          <DialogTitle className="sr-only">
-            {selectedImageIndex !== null ? propertyImages[selectedImageIndex].alt : ''}
-          </DialogTitle>
-          
-          <button
-            onClick={() => setSelectedImageIndex(null)}
-            className="absolute top-4 right-4 z-[10000] p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
-            aria-label="Fermer"
-          >
-            <X className="w-6 h-6 text-white" />
-          </button>
+      {selectedImageIndex !== null && (
+        <Suspense fallback={null}>
+          <Dialog open={selectedImageIndex !== null} onOpenChange={() => setSelectedImageIndex(null)}>
+            <DialogContent className="max-w-7xl w-[95vw] h-[95vh] p-0 bg-black/95 border-none z-[9999]">
+              <DialogTitle className="sr-only">
+                {propertyImages[selectedImageIndex].alt}
+              </DialogTitle>
 
-          {selectedImageIndex !== null && (
-            <>
+              <button
+                onClick={() => setSelectedImageIndex(null)}
+                className="absolute top-4 right-4 z-[10000] p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+                aria-label="Fermer"
+              >
+                <X className="w-6 h-6 text-white" />
+              </button>
+
               <Button
                 variant="ghost"
                 size="icon"
@@ -256,10 +260,10 @@ export const PropertyCarousel = () => {
                   />
                 </picture>
               </div>
-            </>
-          )}
-        </DialogContent>
-      </Dialog>
+            </DialogContent>
+          </Dialog>
+        </Suspense>
+      )}
     </>
   );
 };
