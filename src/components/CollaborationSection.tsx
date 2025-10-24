@@ -65,7 +65,7 @@ export const CollaborationSection = ({ content, body }: CollaborationSectionProp
           </div>
 
           {engagementContent.length > 0 && (
-            <div className="bg-primary text-primary-foreground p-8 border-4 border-rich-black">
+            <div className="bg-magenta-dark text-primary-foreground p-8 border-4 border-rich-black">
               <div className="space-y-4">
                 {engagementContent.map((paragraph, index) => (
                   <p key={index} className={index === 0 ? "font-medium" : ""}>

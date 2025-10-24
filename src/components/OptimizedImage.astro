@@ -1,0 +1,100 @@
+---
+export interface Props {
+  src: string;
+  alt: string;
+  class?: string;
+  loading?: "eager" | "lazy";
+  sizes?: string;
+  width?: number;
+  height?: number;
+  priority?: boolean;
+}
+
+const {
+  src,
+  alt,
+  class: className = "",
+  loading = "lazy",
+  sizes = "(max-width: 640px) 640px, (max-width: 1024px) 1024px, 1920px",
+  width,
+  height,
+  priority = false
+} = Astro.props;
+
+// Extract the base name from the src
+const basename = src.split('/').pop()?.split('.')[0];
+
+// Determine if we should use optimized images (only for our hero images)
+const optimizedImages = [
+  'ferme-du-temple-hero',
+  'interior-1',
+  'building-exterior',
+  'greenhouse',
+  'community-field',
+  'floor-plan'
+];
+
+const shouldOptimize = basename && optimizedImages.includes(basename);
+
+// If priority image, add preload links
+// Priority images will be preloaded via link tags in BaseLayout
+---
+
+{shouldOptimize ? (
+  <picture>
+    <!-- AVIF format for modern browsers -->
+    <source
+      type="image/avif"
+      media="(max-width: 640px)"
+      srcset={`/images/mobile/${basename}.avif`}
+    />
+    <source
+      type="image/avif"
+      media="(max-width: 1024px)"
+      srcset={`/images/tablet/${basename}.avif`}
+    />
+    <source
+      type="image/avif"
+      media="(min-width: 1025px)"
+      srcset={`/images/desktop/${basename}.avif`}
+    />
+
+    <!-- WebP format as fallback -->
+    <source
+      type="image/webp"
+      media="(max-width: 640px)"
+      srcset={`/images/mobile/${basename}.webp`}
+    />
+    <source
+      type="image/webp"
+      media="(max-width: 1024px)"
+      srcset={`/images/tablet/${basename}.webp`}
+    />
+    <source
+      type="image/webp"
+      media="(min-width: 1025px)"
+      srcset={`/images/desktop/${basename}.webp`}
+    />
+
+    <!-- JPG fallback for older browsers -->
+    <img
+      src={src}
+      alt={alt}
+      class={className}
+      loading={loading}
+      width={width}
+      height={height}
+      decoding="async"
+    />
+  </picture>
+) : (
+  <img
+    src={src}
+    alt={alt}
+    class={className}
+    loading={loading}
+    width={width}
+    height={height}
+    decoding="async"
+  />
+)}

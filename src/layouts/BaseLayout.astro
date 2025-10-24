@@ -20,9 +20,32 @@ const {
 <title>{title}</title>
 <meta name="description" content={description} />
 <meta name="author" content="Collectif Beaver" />
+<!-- DNS Prefetch for third-party domains -->
+<link rel="dns-prefetch" href="https://fonts.googleapis.com">
+<link rel="dns-prefetch" href="https://fonts.gstatic.com">
+<link rel="dns-prefetch" href="https://a.basemaps.cartocdn.com">
+<link rel="dns-prefetch" href="https://b.basemaps.cartocdn.com">
+<link rel="dns-prefetch" href="https://c.basemaps.cartocdn.com">
+
+<!-- Preconnect for critical resources -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Montserrat:wght@700;800;900&display=swap">
+
+<!-- Preload critical fonts -->
+<link rel="preload" as="font" type="font/woff2" href="/fonts/BBBPoppinsTN-DisplayBlack.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/fonts/BBBPoppinsTN-DisplayBold.woff2" crossorigin>
+
+<!-- Preload LCP image (interior-1 for hero section) -->
+<link rel="preload" as="image" href="/images/desktop/interior-1.avif" type="image/avif" media="(min-width: 1025px)">
+<link rel="preload" as="image" href="/images/tablet/interior-1.avif" type="image/avif" media="(max-width: 1024px) and (min-width: 641px)">
+<link rel="preload" as="image" href="/images/mobile/interior-1.avif" type="image/avif" media="(max-width: 640px)">
+
+<!-- Async load Google Fonts with font-display optimization -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Montserrat:wght@700;800;900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Montserrat:wght@700;800;900&display=swap" media="print" onload="this.media='all'">
+<noscript>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Montserrat:wght@700;800;900&display=swap">
+</noscript>
 
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />

@@ -102,7 +102,7 @@ export const TimelineSection = ({ content, body }: TimelineSectionProps = {}) =>
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "completed": return "bg-magenta text-white";
+      case "completed": return "bg-magenta-dark text-white";
       case "current": return "bg-butter-yellow text-rich-black";
       case "future": return "bg-muted text-muted-foreground";
       default: return "bg-muted text-muted-foreground";

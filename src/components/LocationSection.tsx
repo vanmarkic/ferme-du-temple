@@ -142,7 +142,7 @@ export const LocationSection = ({ content, body }: LocationSectionProps = {}) =>
             <div className="bg-background border-2 border-rich-black p-8 relative z-10">
               <div className="flex items-center gap-3 mb-6">
                 <Train className="w-6 h-6 text-magenta" />
-                <h4 className="font-bold text-xl uppercase tracking-wider">{transportRailTitle}</h4>
+                <h3 className="font-bold text-xl uppercase tracking-wider">{transportRailTitle}</h3>
               </div>
               <ul className="space-y-3 text-muted-foreground">
                 {trainTransport.map((item, index) => (
@@ -160,7 +160,7 @@ export const LocationSection = ({ content, body }: LocationSectionProps = {}) =>
             <div className="bg-butter-yellow p-8 border-2 border-butter-yellow">
               <div className="flex items-center gap-3 mb-6">
                 <Car className="w-6 h-6 text-rich-black" />
-                <h4 className="font-bold text-xl uppercase tracking-wider text-rich-black">{transportRoadTitle}</h4>
+                <h3 className="font-bold text-xl uppercase tracking-wider text-rich-black">{transportRoadTitle}</h3>
               </div>
               <ul className="space-y-3 text-rich-black">
                 {roadTransport.map((item, index) => (
@@ -175,7 +175,7 @@ export const LocationSection = ({ content, body }: LocationSectionProps = {}) =>
             <div className="bg-butter-yellow/30 border-2 border-butter-yellow p-8">
               <div className="flex items-center gap-3 mb-4">
                 <Plane className="w-6 h-6 text-rich-black" />
-                <h4 className="font-bold text-xl uppercase tracking-wider">{transportAirTitle}</h4>
+                <h3 className="font-bold text-xl uppercase tracking-wider">{transportAirTitle}</h3>
               </div>
               <p className="text-muted-foreground">{airportInfo}</p>
             </div>

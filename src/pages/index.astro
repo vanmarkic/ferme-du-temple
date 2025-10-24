@@ -53,20 +53,20 @@ const { Content: FooterContent } = await render(footerEntry);
 <ProjectSection client:load content={projectEntry.data} body={projectEntry.body} />
 </div>
 <div id="collaboration">
-<CollaborationSection client:load content={collaborationEntry.data} body={collaborationEntry.body} />
+<CollaborationSection client:visible content={collaborationEntry.data} body={collaborationEntry.body} />
 </div>
 <div id="localisation">
-<LocationSection client:only="react" content={locationEntry.data} body={locationEntry.body} />
+<LocationSection client:visible content={locationEntry.data} body={locationEntry.body} />
 </div>
 
 <div id="timeline">
-<TimelineSection client:load content={timelineEntry.data} body={timelineEntry.body} />
+<TimelineSection client:visible content={timelineEntry.data} body={timelineEntry.body} />
 </div>
 <div id="inscription">
-<InscriptionForm client:load content={inscriptionEntry.data} />
+<InscriptionForm client:visible content={inscriptionEntry.data} />
 </div>
 </div>
 </Providers>
 
-  <Footer slot="footer" client:load content={footerEntry.data} body={footerEntry.body} />
+  <Footer slot="footer" client:visible content={footerEntry.data} body={footerEntry.body} />
 </BaseLayout>
