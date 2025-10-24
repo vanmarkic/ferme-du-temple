@@ -139,7 +139,8 @@ export const PropertyCarousel = () => {
                         src={image.src}
                         alt={image.alt}
                         className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                        loading="lazy"
+                        loading={index === 0 ? "eager" : "lazy"}
+                        fetchPriority={index === 0 ? "high" : undefined}
                         decoding="async"
                         width="800"
                         height="450"
