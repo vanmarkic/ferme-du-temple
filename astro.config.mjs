@@ -23,8 +23,12 @@ export default defineConfig({
       rollupOptions: {
         output: {
           manualChunks: (id) => {
-            // Core React - highest priority
+            // Core React + critical utils - highest priority, bundle together
             if (id.includes('node_modules/react/') || id.includes('node_modules/react-dom/')) {
+              return 'react-vendor';
+            }
+            // Bundle critical className utilities with React to avoid dependency chain
+            if (id.includes('clsx') || id.includes('tailwind-merge')) {
               return 'react-vendor';
             }
             // Carousel - defer loading
@@ -43,11 +47,27 @@ export default defineConfig({
             if (id.includes('lucide-react')) {
               return 'icons';
             }
+            // Supabase - separate chunk for form only
+            if (id.includes('@supabase/')) {
+              return 'supabase';
+            }
+            // React Query - separate chunk for form only
+            if (id.includes('@tanstack/react-query')) {
+              return 'react-query';
+            }
+            // Leaflet - separate chunk for map only
+            if (id.includes('leaflet')) {
+              return 'leaflet';
+            }
           },
         },
       },
       cssCodeSplit: true,
       minify: 'esbuild',
+      chunkSizeWarningLimit: 600,
+      modulePreload: {
+        polyfill: false,
+      },
     },
   },
 });

@@ -45,12 +45,12 @@ const { Content: FooterContent } = await render(footerEntry);
 ---
 
 <BaseLayout>
-<Providers client:idle>
-<Navigation client:idle content={navigationEntry.data as NavigationContent} />
+<Providers client:only="react">
+<Navigation client:visible content={navigationEntry.data as NavigationContent} />
 <div class="min-h-screen pt-20">
-<HeroSection client:idle content={heroEntry.data} />
+<HeroSection client:visible content={heroEntry.data} />
 <div id="projet">
-<ProjectSection client:load content={projectEntry.data} body={projectEntry.body} />
+<ProjectSection client:visible content={projectEntry.data} body={projectEntry.body} />
 </div>
 <div id="collaboration">
 <CollaborationSection client:visible content={collaborationEntry.data} body={collaborationEntry.body} />
