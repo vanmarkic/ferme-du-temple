@@ -45,7 +45,6 @@ const { Content: FooterContent } = await render(footerEntry);
 ---
 
 <BaseLayout>
-<Providers client:only="react">
 <Navigation client:visible content={navigationEntry.data as NavigationContent} />
 <div class="min-h-screen pt-20">
 <HeroSection client:idle content={heroEntry.data} />
@@ -63,10 +62,11 @@ const { Content: FooterContent } = await render(footerEntry);
 <TimelineSection client:visible content={timelineEntry.data} body={timelineEntry.body} />
 </div>
 <div id="inscription">
+<Providers client:load>
 <InscriptionForm client:visible content={inscriptionEntry.data} />
-</div>
-</div>
 </Providers>
+</div>
+</div>
 
   <Footer slot="footer" content={footerEntry.data} body={footerEntry.body} />
 </BaseLayout>
