@@ -64,7 +64,7 @@ export const Footer = ({ content, body }: FooterProps = {}) => {
   return (
     <footer
       data-testid="footer"
-      className="relative bg-nature-dark text-white py-16 overflow-hidden h-[400px] md:h-auto md:min-h-[400px]"
+      className="relative bg-nature-dark text-white py-16 overflow-hidden min-h-[400px]"
     >
       {/* Geometric accent */}
       <div className="absolute top-0 left-8 w-2 h-24 bg-magenta z-0"></div>
