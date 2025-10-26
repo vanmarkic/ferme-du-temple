@@ -13,6 +13,10 @@ export default defineConfig({
       applyBaseStyles: false,
     }),
   ],
+  prefetch: {
+    prefetchAll: false, // Only prefetch what we explicitly mark
+    defaultStrategy: 'viewport', // Prefetch when in viewport
+  },
   vite: {
     resolve: {
       alias: {
@@ -67,7 +71,7 @@ export default defineConfig({
       minify: 'esbuild',
       chunkSizeWarningLimit: 600,
       modulePreload: {
-        polyfill: false,
+        polyfill: true, // Enable module preload for better loading
       },
     },
   },

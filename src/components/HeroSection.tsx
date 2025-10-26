@@ -1,4 +1,9 @@
-import { PropertyCarousel } from './PropertyCarousel';
+import { lazy, Suspense } from 'react';
+
+// Lazy load the carousel to avoid critical request chain
+const PropertyCarousel = lazy(() =>
+  import('./PropertyCarousel').then(module => ({ default: module.PropertyCarousel }))
+);
 
 interface HeroContent {
   mainTitle?: string;
@@ -53,7 +58,11 @@ export const HeroSection = ({ content }: HeroSectionProps = {}) => {
           <div className="hidden md:block absolute -right-8 top-8 w-32 h-32 bg-magenta/20 -z-10"></div>
         </div>
         <div className="mb-48">
-          <PropertyCarousel />
+          <Suspense fallback={
+            <div className="w-full h-[400px] bg-gray-100 animate-pulse rounded-lg" />
+          }>
+            <PropertyCarousel />
+          </Suspense>
         </div>
         {/* Asymmetric Grid with Overlapping Images */}
         <div className="grid grid-cols-12 gap-0 mb-48">
