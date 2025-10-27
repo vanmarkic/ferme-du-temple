@@ -37,7 +37,7 @@ button:
   loading: "Envoi en cours..."
 privacyNotice: "En envoyant ce formulaire, vous acceptez d'être contacté·e par le collectif Beaver pour échanger sur votre candidature. Vos données ne seront pas partagées avec des tiers et seront conservées durant 3 ans maximum."
 successTitle: "Candidature envoyée !"
-successMessage: "Merci pour votre intérêt envers le projet d'habitat partagé de la Ferme du Temple. Nous avons bien reçu votre candidature et nous vous recontacterons très prochainement pour échanger sur votre projet et vos motivations."
+successMessage: "Merci pour votre intérêt envers le projet d'habitat partagé de la Ferme du Temple. Nous avons bien reçu votre candidature et nous vous recontacterons dans les semaines à venir pour échanger sur le projet et vos motivations."
 signature: "Le collectif Beaver"
 backButtonLabel: "Retour à l'accueil"
 ---
