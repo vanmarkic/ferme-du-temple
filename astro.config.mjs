@@ -5,7 +5,7 @@ import vercel from '@astrojs/vercel';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://ferme-du-temple.vercel.app',
+  site: 'https://lafermedutemple.be',
   output: 'static',
   adapter: vercel(),
   integrations: [

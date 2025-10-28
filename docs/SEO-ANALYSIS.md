@@ -1,7 +1,7 @@
 # Ferme du Temple - Current SEO Implementation Report
 
 **Generated:** October 28, 2025
-**Site:** https://ferme-du-temple.vercel.app
+**Site:** https://lafermedutemple.be
 **Framework:** Astro 5.14.4 (Static SSG)
 
 ---
@@ -86,7 +86,7 @@ The Ferme du Temple website has a well-structured SEO foundation with good imple
 **File:** `/Users/dragan/Documents/BEAVER/ferme-du-temple/astro.config.mjs` (Lines 1-78)
 
 ### SEO-Relevant Configuration:
-- ✓ **Site URL** (Line 7): `https://ferme-du-temple.vercel.app`
+- ✓ **Site URL** (Line 7): `https://lafermedutemple.be`
   - Correctly set for sitemap and canonical generation
   
 - ✓ **Output Mode** (Line 8): `static`

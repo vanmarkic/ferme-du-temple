@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://ferme-du-temple.vercel.app/sitemap-index.xml
+Sitemap: https://lafermedutemple.be/sitemap-index.xml

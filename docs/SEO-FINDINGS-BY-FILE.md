@@ -89,7 +89,7 @@
 
 **Line 7:** ✓ GOOD - Site URL configured
 ```javascript
-site: 'https://ferme-du-temple.vercel.app',  // ✓ Required for sitemap
+site: 'https://lafermedutemple.be',  // ✓ Required for sitemap
 ```
 
 **Line 8:** ✓ GOOD - Static output
@@ -155,7 +155,7 @@ Allow: /
 **MISSING:** Line after "Allow: /"
 ```
 # ❌ Missing sitemap reference (add after final Allow: /):
-Sitemap: https://ferme-du-temple.vercel.app/sitemap-index.xml
+Sitemap: https://lafermedutemple.be/sitemap-index.xml
 ```
 
 ---
