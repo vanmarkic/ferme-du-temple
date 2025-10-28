@@ -6,7 +6,10 @@ const notFoundEntry = await getEntry('notFound', 'not-found');
 const content = notFoundEntry?.data;
 ---
 
-<BaseLayout title="Page Non Trouvée | Ferme du Temple">
+<BaseLayout
+  title="Page Non Trouvée | Habitat Partagé Ferme du Temple"
+  description="Page introuvable. Retour à l'accueil pour découvrir notre projet d'habitat partagé écologique à Frameries, cohabitat solidaire du Collectif Beaver près de Mons."
+>
   <div class="min-h-screen flex items-center justify-center bg-background">
     <div class="text-center px-4">
       <h1 class="text-6xl font-display font-bold text-rich-black mb-4">{content?.title}</h1>

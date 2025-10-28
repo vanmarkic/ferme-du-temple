@@ -44,29 +44,48 @@ const { Content: TimelineContent } = await render(timelineEntry);
 const { Content: FooterContent } = await render(footerEntry);
 ---
 
-<BaseLayout>
-<Navigation client:visible content={navigationEntry.data as NavigationContent} />
-<div class="min-h-screen pt-20">
-<HeroSection client:load content={heroEntry.data} />
-<div id="projet">
-<ProjectSection client:visible content={projectEntry.data} body={projectEntry.body} />
-</div>
-<div id="collaboration">
-<CollaborationSection client:visible content={collaborationEntry.data} body={collaborationEntry.body} />
-</div>
-<div id="localisation">
-<LocationSection client:visible content={locationEntry.data} body={locationEntry.body} />
-</div>
+<BaseLayout
+  title="Habitat Partagé Écologique Frameries Mons | Ferme du Temple Beaver"
+  description="Habitat partagé écologique à Frameries près de Mons, dans le Hainaut en Belgique. Cohabitat solidaire, communauté de vie durable, habitat groupé en Belgique. Projet participatif sur 8 hectares avec le Collectif Beaver."
+>
+  <Navigation client:visible content={navigationEntry.data as NavigationContent} />
+  <div class="min-h-screen pt-20">
+    <HeroSection client:load content={heroEntry.data} />
+    <div id="projet">
+      <ProjectSection
+        client:visible
+        content={projectEntry.data}
+        body={projectEntry.body}
+      />
+    </div>
+    <div id="collaboration">
+      <CollaborationSection
+        client:visible
+        content={collaborationEntry.data}
+        body={collaborationEntry.body}
+      />
+    </div>
+    <div id="localisation">
+      <LocationSection
+        client:visible
+        content={locationEntry.data}
+        body={locationEntry.body}
+      />
+    </div>
 
-<div id="timeline">
-<TimelineSection client:visible content={timelineEntry.data} body={timelineEntry.body} />
-</div>
-<div id="inscription">
-<Providers client:load>
-<InscriptionForm client:visible content={inscriptionEntry.data} />
-</Providers>
-</div>
-</div>
+    <div id="timeline">
+      <TimelineSection
+        client:visible
+        content={timelineEntry.data}
+        body={timelineEntry.body}
+      />
+    </div>
+    <div id="inscription">
+      <Providers client:load>
+        <InscriptionForm client:visible content={inscriptionEntry.data} />
+      </Providers>
+    </div>
+  </div>
 
   <Footer slot="footer" content={footerEntry.data} body={footerEntry.body} />
 </BaseLayout>

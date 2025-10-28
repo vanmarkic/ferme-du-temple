@@ -5,7 +5,10 @@ import { getEntry } from 'astro:content';
 const content = await getEntry('inscription', 'inscription');
 ---
 
-<BaseLayout title="Candidature Envoyée | Ferme du Temple">
+<BaseLayout
+  title="Candidature Reçue | Habitat Partagé Ferme du Temple"
+  description="Candidature reçue ! Merci pour votre intérêt pour notre habitat partagé écologique à Frameries. Le Collectif Beaver vous contactera pour rejoindre notre communauté."
+>
   <div class="min-h-screen flex items-center justify-center bg-background">
     <div class="max-w-2xl mx-auto px-4 text-center">
       <div class="mb-8">

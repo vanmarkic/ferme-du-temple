@@ -180,9 +180,9 @@ export const HeroSection = ({ content }: HeroSectionProps = {}) => {
                 alt={imageAlt1}
                 className="w-full h-[70vh] object-cover shadow-2xl"
                 loading="eager"
-                fetchPriority="high"
                 decoding="async"
                 style={{ maxWidth: '1200px', maxHeight: '800px' }}
+                {...({ fetchpriority: 'high' } as React.ImgHTMLAttributes<HTMLImageElement>)}
               />
             </picture>
           </div>

@@ -5,75 +5,174 @@ import SpeedInsights from '@vercel/speed-insights/astro';
 interface Props {
   title?: string;
   description?: string;
+  canonical?: string;
 }
 
 const {
-  title = "Habitat Partagé - La Ferme du Temple | Collectif Beaver",
-  description = "Rejoignez l'habitat partagé de la Ferme du Temple près de Mons. Un projet écologique, culturel et solidaire pour construire ensemble un mode de vie durable."
+  title = 'Habitat Partagé - La Ferme du Temple | Collectif Beaver',
+  description = "Habitat partagé écologique à Frameries près de Mons. Projet de cohabitat solidaire et communauté de vie durable sur 2,5 hectares. Rejoignez le Collectif Beaver pour un habitat groupé en Belgique.",
+  canonical = Astro.url.pathname,
 } = Astro.props;
+
+const canonicalURL = new URL(canonical, Astro.site);
 ---
 
 <!doctype html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>{title}</title>
-<meta name="description" content={description} />
-<meta name="author" content="Collectif Beaver" />
-<!-- DNS Prefetch for third-party domains -->
-<link rel="dns-prefetch" href="https://fonts.googleapis.com">
-<link rel="dns-prefetch" href="https://fonts.gstatic.com">
-<link rel="dns-prefetch" href="https://a.basemaps.cartocdn.com">
-<link rel="dns-prefetch" href="https://b.basemaps.cartocdn.com">
-<link rel="dns-prefetch" href="https://c.basemaps.cartocdn.com">
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Collectif Beaver" />
+    <link rel="canonical" href={canonicalURL} />
+    <!-- DNS Prefetch for third-party domains -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    <link rel="dns-prefetch" href="https://a.basemaps.cartocdn.com" />
+    <link rel="dns-prefetch" href="https://b.basemaps.cartocdn.com" />
+    <link rel="dns-prefetch" href="https://c.basemaps.cartocdn.com" />
 
-<!-- Preconnect for critical resources -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Preconnect for critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-<!-- Preload critical fonts -->
-<link rel="preload" as="font" type="font/woff2" href="/fonts/BBBPoppinsTN-DisplayBlack.woff2" crossorigin>
-<link rel="preload" as="font" type="font/woff2" href="/fonts/BBBPoppinsTN-DisplayBold.woff2" crossorigin>
+    <!-- Preload critical fonts -->
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/fonts/BBBPoppinsTN-DisplayBlack.woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/fonts/BBBPoppinsTN-DisplayBold.woff2"
+      crossorigin
+    />
 
-<!-- Critical resources will be preloaded automatically by Astro -->
+    <!-- Critical resources will be preloaded automatically by Astro -->
 
-<!-- Preload LCP image (first carousel image - property-5) with responsive variants -->
-<link rel="preload" as="image"
-  href="/images/carousel/property-5-mobile.avif"
-  imagesrcset="/images/carousel/property-5-mobile.avif 750w, /images/carousel/property-5.avif 800w"
-  imagesizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-  type="image/avif"
-  fetchpriority="high">
-<link rel="preload" as="image"
-  href="/images/carousel/property-5-mobile.webp"
-  imagesrcset="/images/carousel/property-5-mobile.webp 750w, /images/carousel/property-5.webp 800w"
-  imagesizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-  type="image/webp"
-  fetchpriority="high">
+    <!-- Preload LCP image (first carousel image - property-5) with responsive variants -->
+    <link
+      rel="preload"
+      as="image"
+      href="/images/carousel/property-5-mobile.avif"
+      imagesrcset="/images/carousel/property-5-mobile.avif 750w, /images/carousel/property-5.avif 800w"
+      imagesizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+      type="image/avif"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="/images/carousel/property-5-mobile.webp"
+      imagesrcset="/images/carousel/property-5-mobile.webp 750w, /images/carousel/property-5.webp 800w"
+      imagesizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+      type="image/webp"
+      fetchpriority="high"
+    />
 
-<!-- Async load Google Fonts with font-display optional for better CLS -->
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Montserrat:wght@700;800;900&display=optional">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Montserrat:wght@700;800;900&display=optional" media="print" onload="this.media='all'">
-<noscript>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Montserrat:wght@700;800;900&display=optional">
-</noscript>
+    <!-- Async load Google Fonts with font-display optional for better CLS -->
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Montserrat:wght@700;800;900&display=optional"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Montserrat:wght@700;800;900&display=optional"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Montserrat:wght@700;800;900&display=optional"
+      />
+    </noscript>
 
-<meta property="og:title" content={title} />
-<meta property="og:description" content={description} />
-<meta property="og:type" content="website" />
-<meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta
+      property="og:image"
+      content="https://ferme-du-temple.vercel.app/images/carousel/property-5.jpg"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="fr_BE" />
 
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:site" content="@lovable_dev" />
-<meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-</head>
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta
+      name="twitter:image"
+      content="https://ferme-du-temple.vercel.app/images/carousel/property-5.jpg"
+    />
 
-<body>
-<div class="content-container">
-    <slot />
-  </div>
-  <slot name="footer" />
-  <SpeedInsights />
-</body>
+    <!-- Organization Schema -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Collectif Beaver",
+        "url": "https://ferme-du-temple.vercel.app",
+        "logo": "https://ferme-du-temple.vercel.app/images/carousel/property-5.jpg",
+        "description": "Collectif d'habitat partagé écologique et solidaire à la Ferme du Temple",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "227 rue Joseph Wauters",
+          "addressLocality": "Frameries",
+          "postalCode": "7080",
+          "addressCountry": "BE"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": "50.3993",
+          "longitude": "3.9047"
+        },
+        "sameAs": ["https://www.facebook.com/collectifbeaver"]
+      }
+    </script>
+
+    <!-- LocalBusiness Schema -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "La Ferme du Temple - Habitat Partagé",
+        "description": "Projet d'habitat partagé écologique et solidaire dans une ferme rénovée de 2,5 hectares",
+        "url": "https://ferme-du-temple.vercel.app",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "227 rue Joseph Wauters",
+          "addressLocality": "Frameries",
+          "postalCode": "7080",
+          "addressCountry": "BE",
+          "addressRegion": "Hainaut"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": "50.3993",
+          "longitude": "3.9047"
+        },
+        "openingHours": "Mo-Su",
+        "priceRange": "$$"
+      }
+    </script>
+  </head>
+
+  <body>
+    <main class="content-container">
+      <slot />
+    </main>
+    <footer>
+      <slot name="footer" />
+    </footer>
+    <SpeedInsights />
+  </body>
 </html>

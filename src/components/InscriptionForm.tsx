@@ -107,12 +107,12 @@ export const InscriptionForm = ({ content }: InscriptionFormProps = {}) => {
               <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-display text-foreground mb-8 md:mb-12 relative z-10 uppercase break-words hyphens-auto leading-[1.15] max-w-full">
                 {title?.split(' ').map((word, i, arr) =>
                   i === arr.length - 1 ? (
-                    word
+                    <span key={i}>{word}</span>
                   ) : (
-                    <>
+                    <span key={i}>
                       {word}
                       <br />
-                    </>
+                    </span>
                   )
                 )}
               </h2>

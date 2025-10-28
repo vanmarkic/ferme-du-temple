@@ -178,10 +178,10 @@ export const PropertyCarousel = () => {
                         alt={image.alt}
                         className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                         loading={index === 0 ? "eager" : "lazy"}
-                        fetchPriority={index === 0 ? "high" : undefined}
                         decoding="async"
                         width="800"
                         height="450"
+                        {...(index === 0 ? { fetchpriority: 'high' } as React.ImgHTMLAttributes<HTMLImageElement> : {})}
                       />
                     </picture>
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
