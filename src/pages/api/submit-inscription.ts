@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
-import { getUserConfirmationEmail, getAdminNotificationEmail } from '@/lib/email-templates';
+import { getUserConfirmationEmail, getAdminNotificationEmail, getNewsletterConfirmationEmail, getNewsletterAdminNotification } from '@/lib/email-templates';
 
 // In-memory rate limiting
 const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
@@ -62,8 +62,14 @@ export const POST: APIRoute = async ({ request }) => {
     // Parse form data
     const data = await request.json();
 
-    // Validate required fields
-    const requiredFields = ['nom', 'prenom', 'email', 'telephone', 'motivation'];
+    // Detect if this is a newsletter-only submission
+    const isNewsletterOnly = data.newsletterOnly === true;
+
+    // Validate required fields (different for newsletter vs full application)
+    const requiredFields = isNewsletterOnly
+      ? ['email']
+      : ['nom', 'prenom', 'email', 'telephone', 'motivation'];
+
     for (const field of requiredFields) {
       if (!data[field] || data[field].trim() === '') {
         return new Response(
@@ -123,15 +129,25 @@ export const POST: APIRoute = async ({ request }) => {
     const supabase = createClient(supabaseUrl, supabaseKey);
 
     // Prepare data for insert and emails
-    const inscriptionData = {
-      nom: data.nom.trim(),
-      prenom: data.prenom.trim(),
-      email: data.email.trim().toLowerCase(),
-      telephone: data.telephone.trim(),
-      motivation: data.motivation.trim(),
-      besoinsSpecifiques: data.besoinsSpecifiques?.trim() || null,
-      infosPrioritaires: data.infosPrioritaires?.trim() || null,
-    };
+    const inscriptionData = isNewsletterOnly
+      ? {
+          nom: 'NEWSLETTER',
+          prenom: 'NEWSLETTER',
+          email: data.email.trim().toLowerCase(),
+          telephone: 'N/A',
+          motivation: 'Newsletter subscription only',
+          besoinsSpecifiques: null,
+          infosPrioritaires: null,
+        }
+      : {
+          nom: data.nom.trim(),
+          prenom: data.prenom.trim(),
+          email: data.email.trim().toLowerCase(),
+          telephone: data.telephone.trim(),
+          motivation: data.motivation.trim(),
+          besoinsSpecifiques: data.besoinsSpecifiques?.trim() || null,
+          infosPrioritaires: data.infosPrioritaires?.trim() || null,
+        };
 
     // Insert into Supabase
     const { error: insertError } = await supabase.from('inscriptions').insert({
@@ -167,24 +183,47 @@ export const POST: APIRoute = async ({ request }) => {
       const resend = new Resend(resendApiKey);
 
       try {
-        // Send confirmation email to user
-        const userEmail = getUserConfirmationEmail(inscriptionData);
-        await resend.emails.send({
-          from: fromEmail,
-          to: inscriptionData.email,
-          subject: userEmail.subject,
-          html: userEmail.html,
-        });
-
-        // Send notification to admin
-        if (adminEmail) {
-          const adminEmailContent = getAdminNotificationEmail(inscriptionData);
+        // Send different emails based on submission type
+        if (isNewsletterOnly) {
+          // Send newsletter confirmation email to user
+          const newsletterEmail = getNewsletterConfirmationEmail({ email: inscriptionData.email });
           await resend.emails.send({
             from: fromEmail,
-            to: adminEmail,
-            subject: adminEmailContent.subject,
-            html: adminEmailContent.html,
+            to: inscriptionData.email,
+            subject: newsletterEmail.subject,
+            html: newsletterEmail.html,
           });
+
+          // Send newsletter notification to admin
+          if (adminEmail) {
+            const newsletterAdminEmail = getNewsletterAdminNotification({ email: inscriptionData.email });
+            await resend.emails.send({
+              from: fromEmail,
+              to: adminEmail,
+              subject: newsletterAdminEmail.subject,
+              html: newsletterAdminEmail.html,
+            });
+          }
+        } else {
+          // Send full application confirmation email to user
+          const userEmail = getUserConfirmationEmail(inscriptionData);
+          await resend.emails.send({
+            from: fromEmail,
+            to: inscriptionData.email,
+            subject: userEmail.subject,
+            html: userEmail.html,
+          });
+
+          // Send full application notification to admin
+          if (adminEmail) {
+            const adminEmailContent = getAdminNotificationEmail(inscriptionData);
+            await resend.emails.send({
+              from: fromEmail,
+              to: adminEmail,
+              subject: adminEmailContent.subject,
+              html: adminEmailContent.html,
+            });
+          }
         }
       } catch (emailError) {
         // Log email error but don't fail the request

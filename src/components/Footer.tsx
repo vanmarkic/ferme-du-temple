@@ -1,4 +1,8 @@
-import { MapPin } from 'lucide-react';
+import { useState } from 'react';
+import { MapPin, Mail, Loader2 } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { useToast } from '@/hooks/use-toast';
 
 interface FooterContent {
   title?: string;
@@ -8,6 +12,11 @@ interface FooterContent {
   partnersTitle?: string;
   copyright?: string;
   tagline?: string;
+  newsletterTitle?: string;
+  newsletterDescription?: string;
+  newsletterPlaceholder?: string;
+  newsletterButton?: string;
+  newsletterButtonLoading?: string;
 }
 
 interface FooterProps {
@@ -16,8 +25,12 @@ interface FooterProps {
 }
 
 export const Footer = ({ content, body }: FooterProps = {}) => {
-  const { title, address, city, membersTitle, partnersTitle, copyright, tagline } =
+  const { title, address, city, membersTitle, partnersTitle, copyright, tagline, newsletterTitle, newsletterDescription, newsletterPlaceholder, newsletterButton, newsletterButtonLoading } =
     content || {};
+
+  const { toast } = useToast();
+  const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Parse members from markdown body
   const parseMembers = (bodyContent?: string): string[] => {
@@ -61,6 +74,51 @@ export const Footer = ({ content, body }: FooterProps = {}) => {
   const contacts = parseMembers(body);
   const partners = parsePartners(body);
 
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('/api/submit-inscription', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          newsletterOnly: true,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        toast({
+          title: 'Erreur',
+          description: result.error || 'Une erreur est survenue. Veuillez réessayer.',
+          variant: 'destructive',
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
+      toast({
+        title: 'Inscription réussie !',
+        description: 'Merci pour votre intérêt. Vous recevrez bientôt nos nouvelles.',
+      });
+      setEmail('');
+    } catch (error) {
+      console.error('Newsletter submission error:', error);
+      toast({
+        title: 'Erreur',
+        description: 'Une erreur est survenue. Veuillez réessayer.',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <footer
       data-testid="footer"
@@ -72,6 +130,42 @@ export const Footer = ({ content, body }: FooterProps = {}) => {
       <div className="max-w-6xl mx-auto px-6">
         <div className="grid grid-cols-12 gap-0 md:gap-8">
           <div className="col-span-12 md:col-span-10 md:col-start-2">
+            {/* Newsletter Section */}
+            {newsletterTitle && (
+              <div className="relative z-10 mb-12 pb-12 border-b border-gray-700">
+                <h3 className="text-xl font-display font-bold mb-3">{newsletterTitle}</h3>
+                <p className="text-sm text-gray-300 mb-6">{newsletterDescription}</p>
+                <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md">
+                  <Input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder={newsletterPlaceholder}
+                    className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:border-accent"
+                    required
+                    disabled={isSubmitting}
+                  />
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="bg-accent hover:bg-accent/90 text-white whitespace-nowrap"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                        {newsletterButtonLoading}
+                      </>
+                    ) : (
+                      <>
+                        <Mail className="w-4 h-4 mr-2" />
+                        {newsletterButton}
+                      </>
+                    )}
+                  </Button>
+                </form>
+              </div>
+            )}
+
             {/* Contact */}
             <div className="relative z-10">
               <h3 className="text-2xl font-display font-bold mb-6">{title}</h3>

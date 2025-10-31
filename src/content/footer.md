@@ -6,6 +6,11 @@ membersTitle: "Membres du projet"
 partnersTitle: "Partenaires"
 copyright: ""
 tagline: "2025 - Habitat partagé de la Ferme du Temple - Tous droits réservés"
+newsletterTitle: "Restez informé"
+newsletterDescription: "Inscrivez-vous pour recevoir des nouvelles du projet sans engagement."
+newsletterPlaceholder: "Votre email"
+newsletterButton: "S'inscrire"
+newsletterButtonLoading: "Inscription..."
 ---
 
 # Membres

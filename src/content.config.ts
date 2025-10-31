@@ -159,6 +159,11 @@ const footer = defineCollection({
     partnersTitle: z.string(),
     copyright: z.string(),
     tagline: z.string(),
+    newsletterTitle: z.string().optional(),
+    newsletterDescription: z.string().optional(),
+    newsletterPlaceholder: z.string().optional(),
+    newsletterButton: z.string().optional(),
+    newsletterButtonLoading: z.string().optional(),
   }),
 });
 
