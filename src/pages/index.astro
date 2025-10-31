@@ -87,5 +87,7 @@ const { Content: FooterContent } = await render(footerEntry);
     </div>
   </div>
 
-  <Footer slot="footer" content={footerEntry.data} body={footerEntry.body} />
+  <Providers slot="footer" client:load>
+    <Footer client:visible content={footerEntry.data} body={footerEntry.body} />
+  </Providers>
 </BaseLayout>
