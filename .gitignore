@@ -31,3 +31,7 @@ dist-ssr
 .output
 
 .env
+
+# Astro generated files
+.astro/collections/
+.astro/data-store.json
