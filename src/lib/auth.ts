@@ -117,18 +117,26 @@ export async function isAdmin(cookies: AstroCookies): Promise<boolean> {
  * Require admin authentication, redirect to login if not authenticated
  */
 export async function requireAdmin(cookies: AstroCookies, redirectTo: string = '/admin') {
+  console.log('[DEBUG requireAdmin] Starting requireAdmin check');
   const isAdminUser = await isAdmin(cookies);
 
+  console.log('[DEBUG requireAdmin] isAdminUser:', isAdminUser);
+
   if (!isAdminUser) {
+    console.log('[DEBUG requireAdmin] Not admin, returning redirect');
     return {
       authenticated: false,
       redirectTo: `/admin/login?redirect=${encodeURIComponent(redirectTo)}`,
     };
   }
 
+  console.log('[DEBUG requireAdmin] Admin verified, getting user session');
+  const sessionResult = await getSession(cookies);
+  console.log('[DEBUG requireAdmin] Session result - has user:', !!sessionResult.user);
+
   return {
     authenticated: true,
-    user: (await getSession(cookies)).user,
+    user: sessionResult.user,
   };
 }
 
