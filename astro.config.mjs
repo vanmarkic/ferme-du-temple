@@ -6,7 +6,7 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://lafermedutemple.be',
-  output: 'static',
+  output: 'server', // Enable SSR for admin routes
   adapter: vercel(),
   integrations: [
     react(),

@@ -1,183 +1,222 @@
-# Supabase CLI
+# La Ferme du Temple
 
-[![Coverage Status](https://coveralls.io/repos/github/supabase/cli/badge.svg?branch=main)](https://coveralls.io/github/supabase/cli?branch=main) [![Bitbucket Pipelines](https://img.shields.io/bitbucket/pipelines/supabase-cli/setup-cli/master?style=flat-square&label=Bitbucket%20Canary)](https://bitbucket.org/supabase-cli/setup-cli/pipelines) [![Gitlab Pipeline Status](https://img.shields.io/gitlab/pipeline-status/sweatybridge%2Fsetup-cli?label=Gitlab%20Canary)
-](https://gitlab.com/sweatybridge/setup-cli/-/pipelines)
+Website for the participatory ecological housing project "Habitat Partagé Écologique" in Frameries, Belgium.
 
-[Supabase](https://supabase.io) is an open source Firebase alternative. We're building the features of Firebase using enterprise-grade open source tools.
+## Overview
 
-This repository contains all the functionality for Supabase CLI.
+This is an Astro-based website with React components, featuring:
+- Project information and timeline
+- Interactive map with Leaflet
+- Inscription form for candidates
+- Admin dashboard for managing applications
+- Email notifications via Resend
 
-- [x] Running Supabase locally
-- [x] Managing database migrations
-- [x] Creating and deploying Supabase Functions
-- [x] Generating types directly from your database schema
-- [x] Making authenticated HTTP requests to [Management API](https://supabase.com/docs/reference/api/introduction)
+## Tech Stack
 
-## Getting started
+- **Framework:** Astro 5.14.4 (SSR mode)
+- **UI:** React 18 + shadcn/ui + Tailwind CSS
+- **Database:** Supabase (PostgreSQL)
+- **Auth:** Supabase Auth
+- **Email:** Resend
+- **Deployment:** Vercel
+- **Testing:** Vitest + Playwright
 
-### Install the CLI
+## Getting Started
 
-Available via [NPM](https://www.npmjs.com) as dev dependency. To install:
+### Prerequisites
+
+- Node.js 18+
+- npm or yarn
+- Supabase account
+- Resend account (for emails)
+
+### Installation
+
+1. **Clone the repository**
+```bash
+git clone <repository-url>
+cd ferme-du-temple
+```
+
+2. **Install dependencies**
+```bash
+npm install
+```
+
+3. **Set up environment variables**
+
+Copy `.env.example` to `.env` and fill in your credentials:
 
 ```bash
-npm i supabase --save-dev
+cp .env.example .env
 ```
 
-To install the beta release channel:
+Required variables:
+- `SUPABASE_URL` - Your Supabase project URL
+- `SUPABASE_ANON_KEY` - Supabase anonymous key
+- `SUPABASE_SERVICE_ROLE_KEY` - Supabase service role key (for admin creation)
+- `SUPABASE_DB_URL` - PostgreSQL connection string
+- `RESEND_API_KEY` - Resend API key for emails
+- `FROM_EMAIL` - Sender email address
+- `ADMIN_EMAIL` - Admin notification email
 
+4. **Run database migrations**
 ```bash
-npm i supabase@beta --save-dev
+npm run migrate
 ```
 
-When installing with yarn 4, you need to disable experimental fetch with the following nodejs config.
+This creates:
+- `inscriptions` table for candidate applications
+- `admin_users` table for admin access
 
-```
-NODE_OPTIONS=--no-experimental-fetch yarn add supabase
-```
-
-> **Note**
-For Bun versions below v1.0.17, you must add `supabase` as a [trusted dependency](https://bun.sh/guides/install/trusted) before running `bun add -D supabase`.
-
-<details>
-  <summary><b>macOS</b></summary>
-
-  Available via [Homebrew](https://brew.sh). To install:
-
-  ```sh
-  brew install supabase/tap/supabase
-  ```
-
-  To install the beta release channel:
-  
-  ```sh
-  brew install supabase/tap/supabase-beta
-  brew link --overwrite supabase-beta
-  ```
-  
-  To upgrade:
-
-  ```sh
-  brew upgrade supabase
-  ```
-</details>
-
-<details>
-  <summary><b>Windows</b></summary>
-
-  Available via [Scoop](https://scoop.sh). To install:
-
-  ```powershell
-  scoop bucket add supabase https://github.com/supabase/scoop-bucket.git
-  scoop install supabase
-  ```
-
-  To upgrade:
-
-  ```powershell
-  scoop update supabase
-  ```
-</details>
-
-<details>
-  <summary><b>Linux</b></summary>
-
-  Available via [Homebrew](https://brew.sh) and Linux packages.
-
-  #### via Homebrew
-
-  To install:
-
-  ```sh
-  brew install supabase/tap/supabase
-  ```
-
-  To upgrade:
-
-  ```sh
-  brew upgrade supabase
-  ```
-
-  #### via Linux packages
-
-  Linux packages are provided in [Releases](https://github.com/supabase/cli/releases). To install, download the `.apk`/`.deb`/`.rpm`/`.pkg.tar.zst` file depending on your package manager and run the respective commands.
-
-  ```sh
-  sudo apk add --allow-untrusted <...>.apk
-  ```
-
-  ```sh
-  sudo dpkg -i <...>.deb
-  ```
-
-  ```sh
-  sudo rpm -i <...>.rpm
-  ```
-
-  ```sh
-  sudo pacman -U <...>.pkg.tar.zst
-  ```
-</details>
-
-<details>
-  <summary><b>Other Platforms</b></summary>
-
-  You can also install the CLI via [go modules](https://go.dev/ref/mod#go-install) without the help of package managers.
-
-  ```sh
-  go install github.com/supabase/cli@latest
-  ```
-
-  Add a symlink to the binary in `$PATH` for easier access:
-
-  ```sh
-  ln -s "$(go env GOPATH)/bin/cli" /usr/bin/supabase
-  ```
-
-  This works on other non-standard Linux distros.
-</details>
-
-<details>
-  <summary><b>Community Maintained Packages</b></summary>
-
-  Available via [pkgx](https://pkgx.sh/). Package script [here](https://github.com/pkgxdev/pantry/blob/main/projects/supabase.com/cli/package.yml).
-  To install in your working directory:
-
-  ```bash
-  pkgx install supabase
-  ```
-
-  Available via [Nixpkgs](https://nixos.org/). Package script [here](https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/tools/supabase-cli/default.nix).
-</details>
-
-### Run the CLI
-
+5. **Create your first admin user**
 ```bash
-supabase bootstrap
+npm run create-admin
 ```
 
-Or using npx:
+Follow the prompts to set up your admin email and password.
 
+6. **Start development server**
 ```bash
-npx supabase bootstrap
+npm run dev
 ```
 
-The bootstrap command will guide you through the process of setting up a Supabase project using one of the [starter](https://github.com/supabase-community/supabase-samples/blob/main/samples.json) templates.
+Visit http://localhost:4321
 
-## Docs
+## Admin System
 
-Command & config reference can be found [here](https://supabase.com/docs/reference/cli/about).
+The project includes a complete admin authentication system for managing candidate inscriptions.
 
-## Breaking changes
+### Accessing the Admin Dashboard
 
-We follow semantic versioning for changes that directly impact CLI commands, flags, and configurations.
+1. Navigate to `/admin/login`
+2. Login with your admin credentials
+3. View, search, and export inscriptions
 
-However, due to dependencies on other service images, we cannot guarantee that schema migrations, seed.sql, and generated types will always work for the same CLI major version. If you need such guarantees, we encourage you to pin a specific version of CLI in package.json.
+### Admin Features
 
-## Developing
+- **View all inscriptions** in a sortable, paginated table
+- **Search** by name or email
+- **Full detail view** for each candidate
+- **Export data** to CSV or TXT format
+- **Copy email list** for bulk communication
+- **Secure authentication** with JWT tokens
 
-To run from source:
+For detailed documentation, see [docs/ADMIN_SYSTEM.md](docs/ADMIN_SYSTEM.md)
 
-```sh
-# Go >= 1.22
-go run . help
+## Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run test` - Run unit tests
+- `npm run test:watch` - Run tests in watch mode
+- `npm run test:e2e` - Run Playwright E2E tests
+- `npm run test:e2e:ui` - Run E2E tests with UI
+- `npm run migrate` - Run database migrations
+- `npm run create-admin` - Create admin user interactively
+- `npm run lint` - Run ESLint
+
+## Project Structure
+
 ```
+ferme-du-temple/
+├── src/
+│   ├── components/          # React components
+│   │   ├── ui/              # shadcn/ui components
+│   │   ├── AdminDashboard.tsx
+│   │   ├── AdminLoginForm.tsx
+│   │   ├── InscriptionForm.tsx
+│   │   └── ...
+│   ├── content/             # Markdown content files
+│   ├── layouts/             # Astro layouts
+│   ├── lib/                 # Utilities
+│   │   ├── auth.ts          # Authentication utilities
+│   │   ├── export-utils.ts  # Export functionality
+│   │   └── utils.ts
+│   ├── middleware.ts        # Auth middleware
+│   └── pages/
+│       ├── index.astro      # Homepage
+│       ├── admin/           # Admin routes
+│       │   ├── login.astro
+│       │   └── dashboard.astro
+│       └── api/             # API endpoints
+│           ├── submit-inscription.ts
+│           └── admin/
+│               ├── login.ts
+│               ├── logout.ts
+│               └── inscriptions.ts
+├── supabase/
+│   └── migrations/          # SQL migrations
+├── scripts/
+│   ├── migrate.js           # Migration runner
+│   └── create-admin.js      # Admin creation tool
+├── docs/
+│   └── ADMIN_SYSTEM.md      # Admin system docs
+└── public/                  # Static assets
+```
+
+## Content Management
+
+Content is managed via Astro Content Collections in `src/content/`:
+
+- `inscription.md` - Form labels and text
+- `navigation.md` - Menu items
+- `hero.md` - Hero section
+- `project.md` - Project description
+- `location.md` - Address and map info
+- `timeline.md` - Project timeline
+- And more...
+
+Edit these markdown files to update website content without touching code.
+
+## Database Schema
+
+### inscriptions
+Stores candidate applications from the website form.
+
+Fields: `id`, `nom`, `prenom`, `email`, `telephone`, `motivation`, `besoins_specifiques`, `infos_prioritaires`, `created_at`, `updated_at`
+
+### admin_users
+Stores admin users with role-based access.
+
+Fields: `id`, `email`, `role`, `created_at`, `updated_at`
+
+Roles: `admin`, `super_admin`
+
+## Security
+
+- Row Level Security (RLS) enabled on all tables
+- JWT token authentication for admin routes
+- HTTP-only cookies for session management
+- Middleware protection for sensitive routes
+- Environment variable isolation
+
+## Deployment
+
+This project is configured for Vercel deployment:
+
+1. Push to GitHub
+2. Connect to Vercel
+3. Set environment variables in Vercel dashboard
+4. Deploy
+
+Make sure to:
+- Run migrations on production database
+- Create admin users in production
+- Configure Resend for production emails
+
+## Contributing
+
+1. Follow the project conventions in `CLAUDE.md`
+2. Write tests before implementing features (TDD)
+3. Keep code clean and self-documenting
+4. Use meaningful commit messages
+
+## License
+
+[License information]
+
+## Contact
+
+Contact: contact@lafermedutemple.be

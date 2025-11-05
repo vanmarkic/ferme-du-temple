@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { requireAdmin } from '../../lib/auth';
+import { AdminDashboard } from '../../components/AdminDashboard';
+import { Providers } from '../../components/Providers';
+import { Toaster } from '../../components/ui/toaster';
+
+export const prerender = false; // This page must be server-rendered
+
+// Require admin authentication
+const authResult = await requireAdmin(Astro.cookies, '/admin/dashboard');
+
+if (!authResult.authenticated) {
+  return Astro.redirect(authResult.redirectTo);
+}
+---
+
+<BaseLayout title="Admin Dashboard - La Ferme du Temple">
+  <Providers client:load>
+    <AdminDashboard client:load />
+    <Toaster client:load />
+  </Providers>
+</BaseLayout>
