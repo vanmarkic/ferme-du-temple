@@ -47,16 +47,25 @@ export async function getSession(cookies: AstroCookies) {
   console.log('[DEBUG getSession] accessToken present:', !!accessToken);
   console.log('[DEBUG getSession] refreshToken present:', !!refreshToken);
 
-  if (!accessToken) {
-    console.log('[DEBUG getSession] No accessToken, returning null');
+  if (!accessToken || !refreshToken) {
+    console.log('[DEBUG getSession] Missing tokens, returning null');
     return { session: null, user: null };
   }
 
-  const supabase = createServerSupabaseClient(cookies);
-  const { data: { session }, error } = await supabase.auth.getSession();
+  if (!supabaseUrl || !supabaseAnonKey) {
+    console.log('[DEBUG getSession] Missing Supabase env vars');
+    return { session: null, user: null };
+  }
 
-  console.log('[DEBUG getSession] session from supabase:', !!session);
-  console.log('[DEBUG getSession] error from supabase:', error);
+  // Create a fresh Supabase client and restore the session from tokens
+  const supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
+  const { data: { session }, error } = await supabaseClient.auth.setSession({
+    access_token: accessToken,
+    refresh_token: refreshToken,
+  });
+
+  console.log('[DEBUG getSession] session from setSession:', !!session);
+  console.log('[DEBUG getSession] error from setSession:', error);
 
   if (error || !session) {
     console.log('[DEBUG getSession] No session or error, returning null');
@@ -71,17 +80,28 @@ export async function getSession(cookies: AstroCookies) {
  */
 export async function isAdmin(cookies: AstroCookies): Promise<boolean> {
   console.log('[DEBUG isAdmin] Starting isAdmin check');
-  const { user } = await getSession(cookies);
+  const { session, user } = await getSession(cookies);
 
   console.log('[DEBUG isAdmin] user from getSession:', !!user);
 
-  if (!user) {
-    console.log('[DEBUG isAdmin] No user, returning false');
+  if (!user || !session) {
+    console.log('[DEBUG isAdmin] No user or session, returning false');
     return false;
   }
 
-  const supabase = createServerSupabaseClient(cookies);
-  const { data, error } = await supabase
+  if (!supabaseUrl || !supabaseAnonKey) {
+    console.log('[DEBUG isAdmin] Missing Supabase env vars');
+    return false;
+  }
+
+  // Create authenticated client with the session
+  const supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
+  await supabaseClient.auth.setSession({
+    access_token: session.access_token,
+    refresh_token: session.refresh_token,
+  });
+
+  const { data, error } = await supabaseClient
     .from('admin_users')
     .select('id')
     .eq('id', user.id)
