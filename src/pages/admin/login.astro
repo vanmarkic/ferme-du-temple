@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { AdminLoginForm } from '../../components/AdminLoginForm';
+
+export const prerender = false; // This page must be server-rendered
+
+const redirectTo = Astro.url.searchParams.get('redirect') || '/admin/dashboard';
+---
+
+<BaseLayout title="Admin Login - La Ferme du Temple">
+  <div class="min-h-screen bg-gradient-to-br from-magenta/10 to-butter-yellow/10 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <AdminLoginForm client:load redirectTo={redirectTo} />
+  </div>
+</BaseLayout>
