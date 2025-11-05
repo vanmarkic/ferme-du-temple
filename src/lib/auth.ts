@@ -44,14 +44,22 @@ export async function getSession(cookies: AstroCookies) {
   const accessToken = cookies.get('sb-access-token')?.value;
   const refreshToken = cookies.get('sb-refresh-token')?.value;
 
+  console.log('[DEBUG getSession] accessToken present:', !!accessToken);
+  console.log('[DEBUG getSession] refreshToken present:', !!refreshToken);
+
   if (!accessToken) {
+    console.log('[DEBUG getSession] No accessToken, returning null');
     return { session: null, user: null };
   }
 
   const supabase = createServerSupabaseClient(cookies);
   const { data: { session }, error } = await supabase.auth.getSession();
 
+  console.log('[DEBUG getSession] session from supabase:', !!session);
+  console.log('[DEBUG getSession] error from supabase:', error);
+
   if (error || !session) {
+    console.log('[DEBUG getSession] No session or error, returning null');
     return { session: null, user: null };
   }
 
@@ -62,9 +70,13 @@ export async function getSession(cookies: AstroCookies) {
  * Check if the current user is an admin
  */
 export async function isAdmin(cookies: AstroCookies): Promise<boolean> {
+  console.log('[DEBUG isAdmin] Starting isAdmin check');
   const { user } = await getSession(cookies);
 
+  console.log('[DEBUG isAdmin] user from getSession:', !!user);
+
   if (!user) {
+    console.log('[DEBUG isAdmin] No user, returning false');
     return false;
   }
 
@@ -74,6 +86,9 @@ export async function isAdmin(cookies: AstroCookies): Promise<boolean> {
     .select('id')
     .eq('id', user.id)
     .single();
+
+  console.log('[DEBUG isAdmin] admin_users query - data:', !!data, 'error:', error);
+  console.log('[DEBUG isAdmin] returning:', !error && !!data);
 
   return !error && !!data;
 }
