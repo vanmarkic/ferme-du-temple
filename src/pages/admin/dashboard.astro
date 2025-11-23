@@ -1,9 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { requireAdmin } from '../../lib/auth';
-import { AdminDashboard } from '../../components/AdminDashboard';
-import { Providers } from '../../components/Providers';
-import { Toaster } from '../../components/ui/toaster';
+import { AdminDashboardWrapper } from '../../components/AdminDashboardWrapper';
 
 export const prerender = false; // This page must be server-rendered
 
@@ -16,8 +14,5 @@ if (!authResult.authenticated) {
 ---
 
 <BaseLayout title="Admin Dashboard - La Ferme du Temple">
-  <Providers client:load>
-    <AdminDashboard client:load />
-    <Toaster client:load />
-  </Providers>
+  <AdminDashboardWrapper client:only="react" />
 </BaseLayout>
