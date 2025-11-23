@@ -5,14 +5,48 @@
 
 ## 🏡 Notre projet en bref
 
-Le projet **Habitat Beaver** est un habitat partagé multigénérationnel situé à la Ferme du Temple à Frameries. Notre collectif, composé actuellement de **8 adultes entre 35 et 48 ans** et **6 enfants entre 5 et 9 ans** répartis en **4 familles**, vise à créer un lieu de vie dynamique, culturel et productif, articulé autour de trois axes :
+Le projet **Habitat Beaver** est un habitat partagé multigénérationnel situé à la Ferme du Temple à Frameries. Notre collectif est composé actuellement de **8 adultes entre 35 et 48 ans** formant **4 familles avec 6 enfants entre 5 et 9 ans**. Nous provenons de plusieurs régions en Belgique : Bruxelles, Namur, Liège, de Gaume et du Brabant Wallon. Nous visons à créer un lieu de vie dynamique, culturel et productif, articulé autour de trois axes :
 - **Habitat** : vie collective et solidaire
 - **Culture** : arts et création
 - **Agriculture** : permaculture et autonomie alimentaire
 
-Nous provenons de plusieurs endroits en Belgique : Bruxelles, Namur, Liège, Gaume, Brabant Wallon…
-
 Le nom "Beaver" (castor) symbolise notre volonté de transformer positivement notre environnement, en référence au castor, animal ingénieur et facilitateur de biodiversité.
+
+---
+
+## 🤝 Processus de rencontre et d'adhésion
+
+Nous travaillons à définir un processus d'adhésion progressif et transparent. Voici les étapes envisagées pour nous rejoindre :
+
+### Étapes de rencontre
+
+1. **Visioconférence de présentation**
+   - Rencontre collective avec tous les candidats
+   - Présentation du projet et du collectif
+   - Questions/réponses
+
+2. **Visite collective de la ferme**
+   - Découverte des lieux
+   - Discussion sur les potentialités
+   - Échange informel
+
+3. **Réunion de rencontre en présentiel**
+   - Lieu : Bruxelles
+   - Échanges plus approfondis
+   - Partage de nos valeurs et attentes
+
+4. **Période d'observation**
+   - Possibilité d'intégrer les réunions de travail du collectif
+   - Immersion progressive dans la vie collective
+   - Construction de confiance mutuelle
+
+5. **Candidature formelle**
+   - Dossier de candidature
+   - Validation par l'Assemblée Générale
+
+### Communication et outils de travail
+
+Le collectif utilise des outils collaboratifs pour faciliter la coordination et l'échange. Les moyens de communication et de travail seront précisés lors des premières rencontres.
 
 ---
 
@@ -29,23 +63,16 @@ Nous cherchons des personnes partageant ces valeurs et prêtes à s'investir dan
 
 ---
 
-## 🤝 Processus de rencontre
-
-Pour rejoindre le projet, nous avons mis en place un processus progressif de rencontre :
-
-1. **Visio de présentation** : Rencontre en ligne avec tous les candidats
-2. **Visite collective de la ferme** : Découverte du site ensemble
-3. **Réunion de rencontre en présentiel** : À Bruxelles
-4. **Période d'observation** : Possibilité d'intégrer les réunions de travail du collectif
-5. **Processus d'adhésion** : En cours de définition par le collectif
-
----
-
 ## 📋 Processus de prise de décision
 
-### Mode de décision
+### Types de décisions et modes
 
-Le collectif prend ses décisions par **consensus**. Nous cherchons à construire ensemble des solutions qui conviennent à tous, en écoutant les besoins et préoccupations de chacun.
+| Type de décision | Mode | Description |
+|-----------------|------|-------------|
+| **Gouvernance** | Consensus | Qui fait quoi et comment on le fait |
+| **Stratégique** | Consensus | Pourquoi on fait ce que l'on fait |
+| **Opérationnelle** | Consensus | Organisation du quotidien, coordination des groupes de travail |
+| **Régulation** | Médiation | Comment cela se passe entre nous |
 
 ### Groupes de travail (GT)
 - GT Jardin
@@ -121,61 +148,89 @@ Le collectif prend ses décisions par **consensus**. Nous cherchons à construir
 
 ---
 
+## 🏗️ Maîtrise d'œuvre et rénovation
+
+### Équipe d'architecture
+
+Nous travaillons avec le **bureau d'architectes Carton 123** pour la conception et la réalisation du projet de rénovation.
+
+**Leur mission :**
+- Réaliser les travaux de rénovation des infrastructures du bâtiment principal
+- Amener chaque habitation privée jusqu'au stade de **"casco"**
+
+#### Qu'est-ce qu'une rénovation en "Casco" ?
+
+Une rénovation "casco" signifie que seul le **gros œuvre fermé** est achevé :
+- ✅ Structure extérieure complète (murs, toit, fenêtres, portes)
+- ✅ Bâtiment étanche aux intempéries
+- ❌ Sans revêtements de sol
+- ❌ Sans peintures
+- ❌ Sans aménagements intérieurs complets
+
+C'est un état intermédiaire offrant une **toile vierge** où chaque acquéreur peut réaliser lui-même ou faire réaliser les travaux de finition selon ses préférences.
+
+### Participation à la rénovation
+
+Les futurs habitants ont la **possibilité de réduire les coûts** en participant aux travaux de finition :
+- **Avec les architectes** : travaux coordonnés et supervisés
+- **En auto-construction** : selon vos envies, besoins et finances
+
+Cette flexibilité permet d'adapter le projet à chaque situation économique et à chaque désir d'implication.
+
+---
+
 ## 🏠 Programmation architecturale
 
 ### Espaces privés
-- Une dizaine d'habitations autonomes (**10 à 12 unités** envisageables selon le travail des architectes)
-- Typologies variées pour personnes seules et familles
+- **10 à 12 habitations autonomes** envisagées (selon les études d'architecture)
+- Typologies variées adaptées à différents besoins (personnes seules, familles)
 - Logements évolutifs et adaptables
 - Entre **60 et 200m²** selon les besoins
 
-### Architecture et rénovation
-
-#### Architectes et mission
-Nous travaillons avec le bureau d'architectes **Carton 123** pour :
-- La rénovation des infrastructures du bâtiment
-- Réalisation de chaque habitation jusqu'au **casco***
-
-**Rénovation "Casco"** : État où seul le gros œuvre fermé est achevé (structure extérieure : murs, toit, fenêtres, portes terminés et étanches), mais l'intérieur n'a pas de finitions (pas de revêtements de sol, peintures, aménagement complet). C'est une toile vierge où l'acheteur peut réaliser lui-même ou faire réaliser les travaux de finition selon ses goûts.
-
-#### Travaux de finition
-Il sera envisageable de continuer les travaux de finition et d'aménagement :
-- Avec les architectes
-- En auto-construction selon les envies, besoins et finances
-
-#### Division cadastrale
-À l'aide d'un géomètre, nous réaliserons des plans pour la division cadastrale des futures unités de logement dans la ferme.
-
 ### Espaces communs intérieurs
 
-#### Dans un premier temps
-- **Cuisine fonctionnelle** pour accueillir et cuisiner pour 50 personnes avec sa salle à manger et son salon
-- **Différentes salles de réunions** : espace co-working de discussion, salle d'étude, espace silence
-- **Chambres d'amis/accueil public** : un dortoir pour env. 10 personnes et deux chambres lit double
-- **Espace d'expérimentation pour les enfants** (salle de jeu) intérieur
-- **Salle polyvalente** avec différentes activités : expositions, concerts, conférences, résidences d'artistes
-- **Atelier de maintenance et de réparation**
-- **Atelier de construction** avec différentes fonctions : bois, métal, céramique
-- **Local vélo**
+#### Phase 1 - Espaces prioritaires
+- **Foyer commun** : cuisine fonctionnelle pour 50 personnes, salle à manger collective, salon
+- **Salles de réunion** : espace co-working, salle d'étude, espace silence
+- **Chambres d'accueil** : dortoir pour ~10 personnes, 2 chambres lit double
+- **Espace enfants** : salle de jeu intérieure, plaine de jeux extérieure
+- **Salle polyvalente** : expositions, concerts, conférences, résidences d'artistes
+- **Ateliers** : maintenance et réparation, construction (bois, métal, céramique)
+- **Local vélo** et rangements
 
 ### Espaces extérieurs
+
+#### Agriculture et jardinage
 - **Potager collectif** pour les habitants
 - **Verger et forêt-jardin**
 - **Poulailler**
-- **Composte**
-- **Serres** accessibles pour les semis et mise en place d'une micro-pépinière
+- **Serres accessibles** pour semis et micro-pépinière
 - **Projet d'herboristerie**
-- **Plaine de jeux** pour enfants
-- **Terrasses et cours communes**
+- **Compost**
 
-#### Projets futurs
-On rêve également de :
+#### Espaces de vie et loisirs
+- **Espaces de jeux pour enfants** intérieurs et extérieurs sécurisés
+- **Terrasses et cours communes**
+- **Terrain de pétanque**
+
+#### Projets futurs envisagés
 - Piscine naturelle
-- Espace "couvert" extérieur
-- Espace "feu"/barbecue
+- Espaces couverts extérieurs
+- Espace feu/barbecue
 - Sauna
-- Terrain de pétanque
-- Espace camping pour les amis
+- Terrain de camping pour visiteurs
+
+### Modèle d'accès aux logements
+
+#### Phase actuelle (phase 1)
+**Les appartements ne seront PAS mis en location dans la première phase du projet.**
+
+Le collectif recherche **des personnes prêtes à investir dans l'achat de lots privatifs**, engagées à long terme dans le projet.
+
+#### Possibilités futures
+- Mise en location possible selon les décisions de l'Assemblée Générale (Phase 2+)
+- Conditions à définir : adhésion à la charte, acceptation du ROI
+- Le locataire doit participer aux charges communes
 
 ---
 
@@ -183,12 +238,14 @@ On rêve également de :
 
 ### Principes d'inclusivité
 - Habitat **intergénérationnel** pensé pour tous les âges
+- Accessibilité PMR prioritaire dans les **espaces communs**
 - **Langage inclusif** dans nos communications
 - Politique "**Safe Space**" avec tolérance zéro pour les discriminations
 
-### Accessibilité
-- Accessibilité PMR (Personnes à Mobilité Réduite) : non prise en compte pour les habitations privatives
-- Pour les espaces accueillant du public dans une partie de la ferme, l'accessibilité PMR sera prise en considération
+**Note sur l'accessibilité** : 
+- Les habitations privées ne sont pas conçues avec accessibilité PMR prioritaire pour le moment
+- L'accessibilité pour les personnes en mobilité réduite sera prise en compte pour les **parties communes** et pour les espaces accueillant du public
+- Cette aspect pourra être révisé selon les besoins spécifiques des habitants
 
 ### Protection des enfants
 - **Espaces dédiés** intérieurs et extérieurs sécurisés
@@ -245,30 +302,12 @@ On rêve également de :
 
 ---
 
-## ⏳ Chronologie et prochaines étapes
-
-### Prochaines étapes de l'acquisition
-
-1. **Signature du compromis** : Date à confirmer
-2. **Acte de base** (3-4 mois après le compromis) : Le collectif devient officiellement propriétaire de la ferme
-3. **Pendant la signature de l'acte** : 
-   - Division cadastrale
-   - Définition des différentes unités de logement
-4. **Après l'acte** :
-   - Premiers travaux de maintenance
-   - Demande de permis d'urbanisme
-
----
-
 ## 💰 Aspects financiers
 
 ### Coût d'acquisition d'un lot
-- **Prix d'achat de la ferme** : 650 000€ (négocié)
-- **Base estimée par m²** : environ 3 300€/m² (travaux de parachèvement compris)
+- **Base estimée** : environ 3 300€/m² (travaux de finition compris)
+- **Prix d'achat global du site** : 650 000€ (négocié)
 - Division en lots selon la surface et les besoins
-
-### Location des appartements
-**Ce n'est pas envisagé dans la première phase du projet.** Nous cherchons des personnes prêtes à investir dans l'achat de lots privatifs.
 
 ### Système de quotités et charges
 
@@ -289,12 +328,6 @@ Les charges sont réparties selon un **système mixte** défini dans le ROI :
 **Principe du "mix"** : Combinaison de critères pour une répartition juste, évitant qu'un grand lot peu occupé paie autant qu'un petit lot très utilisé.
 
 ### Investissements nécessaires (achat en division)
-
-#### Apport financier requis
-- **Éligibilité bancaire** : Pouvoir contracter un emprunt auprès d'une banque
-- Chaque unité devra contracter un **prêt personnel** pour son logement
-- Il faudra considérer des **frais et un investissement supplémentaire** pour financer les parties communes
-- **Banques en cours d'étude** : VDK, BNP
 
 #### À l'acte de vente
 - **Apport personnel nécessaire** : Variable selon chaque acquéreur (généralement 10-20% du prix du lot)
@@ -351,11 +384,52 @@ Pour un lot de 100m² :
 
 ---
 
+## 📅 Chronologie du projet
+
+### Prochaines étapes
+
+#### 1️⃣ **Signature du compromis**
+- **État** : À venir (date non confirmée)
+- **Contenu** : Accord entre le collectif et le vendeur
+- **Durée typique** : 2-4 semaines avant l'acte
+
+#### 2️⃣ **Signature de l'acte de base** (T0)
+- **Délai** : Entre 3 et 4 mois après le compromis
+- **Qui** : Notaire et collectif
+- **Résultat** : Le collectif devient officiellement propriétaire de la ferme
+- **Simultanément** :
+  * Division cadastrale finalisée
+  * Définition des différentes unités de logement
+  * Plans de division établis avec géomètre
+
+#### 3️⃣ **Premiers travaux et demandes administratives** (T0+)
+- Travaux de maintenance urgents
+- Demande de permis d'urbanisme
+- Début du travail avec Carton 123 (architectes)
+
+#### 4️⃣ **Phase de finition des habitations** (T+)
+- Travaux d'amener les logements au stade "casco"
+- Possibilité de participation des habitants à la finition
+- Finitions individuelles par chaque acquéreur
+
+### Points importants
+
+- **Structure juridique** : Acquisition en "division cadastrale"
+  * Chaque unité est achetée séparément par ses futurs habitants
+  * Chaque acquéreur contracte un prêt personnel pour son logement
+  * Les espaces communs sont gérés collectivement
+
+- **Financement** : Multibanque en cours
+  * Contacts établis auprès de VDK, BNP
+  * Chaque acquéreur doit être éligible pour un emprunt personnel
+
+---
+
 ## 🏗️ Montage juridique
 
 ### Structure envisagée
-- **Copropriété** pour les logements privés (acquisition en "division")
-- **Fondation** possible (à acter dans les 3 prochaines années)
+- **Copropriété** pour les logements privés
+- **Fondation ou ASBL** possible pour le terrain (en discussion)
 - Mécanisme anti-spéculation intégré
 - Facilitation de l'accès au crédit hypothécaire
 
@@ -509,20 +583,20 @@ Depuis l'abandon du modèle fondation au profit de l'achat en division/copropri�
 #### Portage solidaire équilibré pour alléger le crédit collectif initial
 
 **Situation initiale :**
-- 4 acquéreurs initiaux doivent acheter ensemble le bien à 650 000€
+- 4 acquéreurs initiaux doivent acheter ensemble le bien à 715 000€
 - 3 acquéreurs ont des capacités financières limitées
 - 1 acquéreur dispose d'un capital plus important
-- Sans portage, chacun devrait emprunter ~162 500€ (charge mensuelle ~725€/ménage)
+- Sans portage, chacun devrait emprunter ~180 000€ (charge mensuelle ~800€/ménage)
 
 **Mécanisme de portage solidaire en division :**
 
 1. **À l'achat initial (T0)**
    - L'acquéreur avec capital achète **2 lots** (le sien + 1 lot supplémentaire)
    - Répartition : 
-     * Acquéreur-porteur : 2/5 du bien (260 000€)
-     * 3 autres acquéreurs : chacun 1/5 (130 000€)
-   - **Avantage immédiat** : Les 3 autres réduisent leur emprunt de 32 500€ chacun
-   - **Économie mensuelle** : ~145€/mois par ménage sur les charges de crédit
+     * Acquéreur-porteur : 2/5 du bien (286 000€)
+     * 3 autres acquéreurs : chacun 1/5 (143 000€)
+   - **Avantage immédiat** : Les 3 autres réduisent leur emprunt de 37 000€ chacun
+   - **Économie mensuelle** : ~165€/mois par ménage sur les charges de crédit
 
 2. **Phase de portage avec partage équitable (T0 à T+3 ans)**
    - Le lot supplémentaire reste **en attente de rénovation**
@@ -540,15 +614,15 @@ Depuis l'abandon du modèle fondation au profit de l'achat en division/copropri�
    **⚠️ Note importante : Les calculs ci-dessous devront être validés avec Maître Erneux, notamment concernant la récupération partielle des droits d'enregistrement en cas de revente dans les 2 ans.**
    
    **A. Coût total du portage :**
-   - Capital initial : 130 000€
-   - Droits d'enregistrement payés (12,5%) : 16 250€
-   - Récupération si revente dans les 2 ans (60%) : -9 750€
-   - **Perte nette sur droits d'enregistrement : 6 500€**
+   - Capital initial : 143 000€
+   - Droits d'enregistrement payés (12,5%) : 17 875€
+   - Récupération si revente dans les 2 ans (60%) : -10 725€
+   - **Perte nette sur droits d'enregistrement : 7 150€**
    - Frais de notaire porteur : 3 250€
    - Intérêts payés par le porteur : 400€ × 36 mois = 14 400€
    - Charges collectives (porteur) : 37,50€ × 36 mois = 1 350€
    - Charges collectives (3 autres) : 37,50€ × 36 mois × 3 = 4 050€
-   - **Coût total du portage** : 6 500€ + 3 250€ + 14 400€ + 5 400€ = **29 550€**
+   - **Coût total du portage** : 7 150€ + 3 250€ + 14 400€ + 5 400€ = **30 200€**
 
    **B. Formule de prix de vente équitable :**
    ```
@@ -559,41 +633,41 @@ Depuis l'abandon du modèle fondation au profit de l'achat en division/copropri�
    ```
    
    **Application numérique :**
-   - Capital initial : 130 000€
+   - Capital initial : 143 000€
    - Quote-part travaux communs : 15 000€ (estimation)
-   - Indexation 2%/an : 130 000€ × 6% = 7 800€
-   - Remboursement coûts de portage : 29 550€
-   - **Prix de vente final : 182 350€**
+   - Indexation 2%/an : 143 000€ × 6% = 8 580€
+   - Remboursement coûts de portage : 30 200€
+   - **Prix de vente final : 196 780€**
 
 4. **Redistribution équitable**
    
    **Option A : Remboursement intégral + solidarité**
    - Le porteur récupère : 
-     * Son capital : 130 000€
-     * Perte sur droits d'enregistrement : 6 500€
+     * Son capital : 143 000€
+     * Perte sur droits d'enregistrement : 7 150€
      * Frais de notaire : 3 250€
      * Ses intérêts payés : 14 400€
      * Sa part des charges : 1 350€
-     * **Sous-total : 155 500€**
+     * **Sous-total : 169 150€**
    
    - Les 3 autres récupèrent ensemble :
      * Leurs charges payées : 4 050€
    
-   - **Surplus à partager** : 182 350€ - 159 550€ = **22 800€**
-     * Correspondant à l'indexation (7 800€) + travaux (15 000€)
-     * Porteur (60%) : 13 680€
-     * 3 contributeurs (40%) : 9 120€ (3 040€ chacun)
+   - **Surplus à partager** : 196 780€ - 173 200€ = **23 580€**
+     * Correspondant à l'indexation (8 580€) + travaux (15 000€)
+     * Porteur (60%) : 14 148€
+     * 3 contributeurs (40%) : 9 432€ (3 144€ chacun)
    
    **Option B : Compensation partielle + cagnotte commune**
    - Le porteur récupère :
-     * Son capital : 130 000€
-     * 50% perte droits d'enregistrement : 3 250€
+     * Son capital : 143 000€
+     * 50% perte droits d'enregistrement : 3 575€
      * 70% de ses intérêts : 10 080€
-     * **Sous-total : 143 330€**
+     * **Sous-total : 156 655€**
    
-   - **Montant solidaire** : 182 350€ - 143 330€ = **39 020€**
+   - **Montant solidaire** : 196 780€ - 156 655€ = **40 125€**
      * Versé à la cagnotte commune pour financer les espaces collectifs
-     * Ou réparti entre tous (9 755€ par foyer)
+     * Ou réparti entre tous (10 031€ par foyer)
 
 **⚠️ Points à clarifier avec Maître Erneux :**
 - Confirmation du taux de récupération (60% des droits si revente dans les 2 ans)
@@ -604,11 +678,11 @@ Depuis l'abandon du modèle fondation au profit de l'achat en division/copropri�
 **Avantages du système équilibré :**
 
 Pour les 3 acquéreurs initiaux à capacité limitée :
-- **Crédit réduit** : Économie de 32 500€ sur l'emprunt initial
-- **Mensualité allégée** : 580€ au lieu de 725€ (-20%)
+- **Crédit réduit** : Économie de 37 000€ sur l'emprunt initial
+- **Mensualité allégée** : 635€ au lieu de 800€ (-20%)
 - **Participation solidaire modeste** : 37,50€/mois seulement
-- **Option A** : Récupération charges + bonus 3 040€
-- **Option B** : Bénéfice potentiel de 9 755€
+- **Option A** : Récupération charges + bonus 3 144€
+- **Option B** : Bénéfice potentiel de 10 031€
 
 Pour l'acquéreur-porteur :
 - **Option A** : Remboursement total + bonus (rendement ~3,3%/an incluant compensation de la perte sur droits d'enregistrement)
@@ -741,10 +815,10 @@ Une fois tous les lots vendus et le projet stabilisé, nous envisageons de trans
 
 #### Calcul de l'impact fiscal réel
 
-**Exemple pour un bien de 650 000€ :**
-- Valeur du tréfonds : 1-2% = 6 500€ à 13 000€
-- Droits sur l'apport : 7% = **455€ à 910€ seulement**
-- À comparer aux droits normaux : 17,5% sur 650 000€ = 113 750€
+**Exemple pour un bien de 715 000€ :**
+- Valeur du tréfonds : 1-2% = 7 150€ à 14 300€
+- Droits sur l'apport : 7% = **500€ à 1 000€ seulement**
+- À comparer aux droits normaux : 17,5% sur 715 000€ = 125 125€
 
 **Économie fiscale : Plus de 99% de réduction des droits !**
 
@@ -757,7 +831,7 @@ Le CLT sépare la propriété du sol de celle du bâti. Les résidents restent p
 
 ### Avantages du montage optimisé
 
-✅ **Coût fiscal dérisoire** : 455-910€ au lieu de 113 750€
+✅ **Coût fiscal dérisoire** : 500-1000€ au lieu de 125 000€
 ✅ **Propriété conservée** : Les copropriétaires gardent 99% de la valeur
 ✅ **Protection anti-spéculative** : Le sol devient inaliénable
 ✅ **Simplicité** : Pas de transfert complexe, juste le tréfonds
@@ -765,13 +839,13 @@ Le CLT sépare la propriété du sol de celle du bâti. Les résidents restent p
 ### Impact financier global
 
 #### Coûts initiaux (montage optimisé)
-- **Apport du tréfonds** : 455-910€ de droits
+- **Apport du tréfonds** : 500-1000€ de droits
 - **Constitution Fondation** : 1 500-2 000€
 - **Frais de notaire** : 3 000-5 000€
 - **Total** : environ 5 000-8 000€ (soit 1 250-2 000€ par copropriétaire initial)
 
 #### Fiscalité récurrente
-- **Taxe compensatoire** : 0,17% annuel sur 6 500-13 000€ = **11-22€/an**
+- **Taxe compensatoire** : 0,17% annuel sur 7 150-14 300€ = **12-24€/an**
 - **Frais de gestion** : À mutualiser avec les activités de la Fondation
 
 ### Gouvernance de la Fondation
@@ -868,26 +942,56 @@ Le transfert du seul tréfonds (1-2% de la valeur) vers la Fondation est une sol
 
 ---
 
-## 📞 Contacts et prochaines étapes
+## 📞 Contacts et conditions d'accès
+
+### Conditions pour rejoindre le projet
+
+#### Critères essentiels
+
+1. **Adhésion aux valeurs du projet**
+   - Partage des valeurs C.R.I.E.S. (Convivialité, Règles partagées, Introspection, Environnement, Solidarité)
+   - Engagement envers la vie collective
+   - Respect de la démocratie participative et du consensus
+
+2. **Capacité financière**
+   - **Être éligible et capable de contracter un emprunt** auprès d'une banque
+   - Disposer d'un apport personnel (généralement 10-20% du prix du lot)
+   - Justifier d'une situation financière stable
+   - Les banques partenaires : VDK, BNP (entre autres)
+
+3. **Engagement temporel**
+   - Disponibilité pour participer aux réunions mensuelles (minimum 2h/mois)
+   - Contribution minimale de 4 heures par mois aux tâches communes
+   - Participation active à la vie collective
+
+4. **Processus d'adhésion**
+   - Suivre le processus de rencontre et d'observation décrit à la section "Processus de rencontre et d'adhésion"
+   - Accepter la période d'observation avant intégration formelle
+   - Validation finale par l'Assemblée Générale
 
 ### Pour nous rejoindre
-1. **Lecture** de ce guide et de la charte
-2. **Participation** à une réunion d'information
-3. **Visite** du site
-4. **Période d'observation** (2-3 réunions)
-5. **Candidature** formelle
-6. **Validation** par l'AG
+
+1. **Prise de connaissance** : Lire ce guide et la charte du projet
+2. **Première rencontre** : Visioconférence de présentation
+3. **Visite physique** : Découverte du site en petit groupe
+4. **Réunion présentielle** : Rencontre collective à Bruxelles
+5. **Période d'observation** : Intégration aux réunions du collectif (2-3 mois)
+6. **Candidature formelle** : Dossier d'adhésion
+7. **Validation** : Vote d'acceptation par l'Assemblée Générale
+
+### Contact et informations
+
+**Email** : habitatbeaver@gmail.com
 
 ### Documents à consulter
 - Charte complète du projet
 - ROI détaillé avec annexes
 - Plan financier complet
 - Plans architecturaux
-
-### Contact
-**Email** : habitatbeaver@gmail.com
+- Informations auprès des banques partenaires (VDK, BNP)
 
 ---
 
 *Document de travail - Version novembre 2025*
+*Mis à jour avec les informations du collectif*
 *Sujet à évolution selon les décisions collectives*
