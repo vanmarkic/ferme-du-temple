@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
-import { createServerSupabaseClient, isAdmin } from '@/lib/auth';
+import { createClient } from '@supabase/supabase-js';
+import { getSession, isAdmin } from '@/lib/auth';
 
 export const prerender = false;
 
@@ -76,8 +77,30 @@ export const GET: APIRoute = async ({ request, cookies }) => {
       );
     }
 
-    // Create Supabase client with server-side auth
-    const supabase = createServerSupabaseClient(cookies);
+    // Get authenticated session
+    const { session } = await getSession(cookies);
+
+    if (!session) {
+      return new Response(
+        JSON.stringify({
+          error: 'Session expirée. Veuillez vous reconnecter.',
+        }),
+        {
+          status: 401,
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
+    }
+
+    // Create authenticated Supabase client
+    const supabaseUrl = import.meta.env.SUPABASE_URL;
+    const supabaseAnonKey = import.meta.env.SUPABASE_ANON_KEY;
+
+    const supabase = createClient(supabaseUrl, supabaseAnonKey);
+    await supabase.auth.setSession({
+      access_token: session.access_token,
+      refresh_token: session.refresh_token,
+    });
 
     // Calculate offset for pagination
     const offset = (page - 1) * limit;
