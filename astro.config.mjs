@@ -3,6 +3,7 @@ import react from '@astrojs/react';
 import tailwind from '@astrojs/tailwind';
 import vercel from '@astrojs/vercel';
 import sitemap from '@astrojs/sitemap';
+import keystatic from '@keystatic/astro';
 
 export default defineConfig({
   site: 'https://lafermedutemple.be',
@@ -13,6 +14,7 @@ export default defineConfig({
     tailwind({
       applyBaseStyles: false,
     }),
+    keystatic(),
     sitemap({
       i18n: {
         defaultLocale: 'fr',
