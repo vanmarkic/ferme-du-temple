@@ -9,7 +9,7 @@ import { getEntry } from 'astro:content';
 import fs from 'fs';
 import path from 'path';
 
-const guideFilePath = path.join(process.cwd(), 'src/content/habitat-beaver-guide.md');
+const guideFilePath = path.join(process.cwd(), 'src/content/guide/guide.mdx');
 const guideContent = fs.readFileSync(guideFilePath, 'utf-8');
 const sections = parseMarkdownGuide(guideContent);
 
