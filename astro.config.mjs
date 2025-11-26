@@ -2,18 +2,24 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import tailwind from '@astrojs/tailwind';
 import vercel from '@astrojs/vercel';
+import node from '@astrojs/node';
 import sitemap from '@astrojs/sitemap';
 import keystatic from '@keystatic/astro';
+import mdx from '@astrojs/mdx';
+
+const isDev = import.meta.env?.DEV ?? process.env.NODE_ENV !== 'production';
 
 export default defineConfig({
   site: 'https://lafermedutemple.be',
   output: 'server', // Enable SSR for admin routes
-  adapter: vercel(),
+  // Use Node.js adapter in dev for Keystatic local mode, Vercel in production
+  adapter: isDev ? node({ mode: 'standalone' }) : vercel(),
   integrations: [
     react(),
     tailwind({
       applyBaseStyles: false,
     }),
+    mdx(),
     keystatic(),
     sitemap({
       i18n: {

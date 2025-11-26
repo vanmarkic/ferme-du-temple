@@ -1,9 +1,17 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
+// Helper to generate ID from file path - strips directory prefix and extension
+const generateId = ({ entry }: { entry: string }) => {
+  // entry is like "hero/hero.mdx", we want "hero"
+  const parts = entry.split('/');
+  const filename = parts[parts.length - 1];
+  return filename.replace(/\.(mdx?|yaml|json)$/, '');
+};
+
 // Hero Section Collection
 const hero = defineCollection({
-  loader: glob({ pattern: 'hero.md', base: './src/content' }),
+  loader: glob({ pattern: 'hero/hero.mdx', base: './src/content', generateId }),
   schema: z.object({
     mainTitle: z.string(),
     mainSubtitle: z.string(),
@@ -22,7 +30,7 @@ const hero = defineCollection({
 
 // Project Section Collection
 const project = defineCollection({
-  loader: glob({ pattern: 'project.md', base: './src/content' }),
+  loader: glob({ pattern: 'project/project.mdx', base: './src/content', generateId }),
   schema: z.object({
     title: z.string(),
     subtitle: z.string(),
@@ -31,7 +39,7 @@ const project = defineCollection({
 
 // Collaboration Section Collection
 const collaboration = defineCollection({
-  loader: glob({ pattern: 'collaboration.md', base: './src/content' }),
+  loader: glob({ pattern: 'collaboration/collaboration.mdx', base: './src/content', generateId }),
   schema: z.object({
     title: z.string(),
     alignment: z.string().optional(),
@@ -40,7 +48,7 @@ const collaboration = defineCollection({
 
 // Location Section Collection
 const location = defineCollection({
-  loader: glob({ pattern: 'location.md', base: './src/content' }),
+  loader: glob({ pattern: 'location/location.mdx', base: './src/content', generateId }),
   schema: z.object({
     title: z.string(),
     address: z.string(),
@@ -60,7 +68,7 @@ const location = defineCollection({
 
 // Pricing Section Collection
 const pricing = defineCollection({
-  loader: glob({ pattern: 'pricing.md', base: './src/content' }),
+  loader: glob({ pattern: 'pricing/pricing.mdx', base: './src/content', generateId }),
   schema: z.object({
     title: z.string(),
     availability: z.string(),
@@ -72,7 +80,7 @@ const pricing = defineCollection({
 
 // Timeline Section Collection
 const timeline = defineCollection({
-  loader: glob({ pattern: 'timeline.md', base: './src/content' }),
+  loader: glob({ pattern: 'timeline/timeline.mdx', base: './src/content', generateId }),
   schema: z.object({
     title: z.string(),
     subtitle: z.string(),
@@ -81,7 +89,7 @@ const timeline = defineCollection({
 
 // Inscription Form Collection
 const inscription = defineCollection({
-  loader: glob({ pattern: 'inscription.md', base: './src/content' }),
+  loader: glob({ pattern: 'inscription/inscription.mdx', base: './src/content', generateId }),
   schema: z.object({
     title: z.string(),
     subtitle: z.string(),
@@ -138,7 +146,7 @@ const inscription = defineCollection({
 
 // Navigation Collection
 const navigation = defineCollection({
-  loader: glob({ pattern: 'navigation.md', base: './src/content' }),
+  loader: glob({ pattern: 'navigation/navigation.mdx', base: './src/content', generateId }),
   schema: z.object({
     brandName: z.string(),
     menuItems: z.array(z.object({
@@ -150,7 +158,7 @@ const navigation = defineCollection({
 
 // Footer Collection
 const footer = defineCollection({
-  loader: glob({ pattern: 'footer.md', base: './src/content' }),
+  loader: glob({ pattern: 'footer/footer.mdx', base: './src/content', generateId }),
   schema: z.object({
     title: z.string(),
     address: z.string(),
@@ -169,7 +177,7 @@ const footer = defineCollection({
 
 // Not Found Collection
 const notFound = defineCollection({
-  loader: glob({ pattern: 'not-found.md', base: './src/content' }),
+  loader: glob({ pattern: 'not-found/not-found.mdx', base: './src/content', generateId }),
   schema: z.object({
     title: z.string(),
     message: z.string(),
@@ -179,7 +187,7 @@ const notFound = defineCollection({
 
 // Guide Access Collection
 const guideAccess = defineCollection({
-  loader: glob({ pattern: 'guide-access.md', base: './src/content' }),
+  loader: glob({ pattern: 'guide-access/guide-access.mdx', base: './src/content', generateId }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
@@ -191,7 +199,7 @@ const guideAccess = defineCollection({
 
 // Guide Navigation Collection
 const guideNavigation = defineCollection({
-  loader: glob({ pattern: 'guide-navigation.md', base: './src/content' }),
+  loader: glob({ pattern: 'guide-navigation/guide-navigation.mdx', base: './src/content', generateId }),
   schema: z.object({
     title: z.string(),
     toggleMenuLabel: z.string(),
@@ -200,7 +208,7 @@ const guideNavigation = defineCollection({
 
 // Historique Access Collection
 const historiqueAccess = defineCollection({
-  loader: glob({ pattern: 'historique-access.md', base: './src/content' }),
+  loader: glob({ pattern: 'historique-access/historique-access.mdx', base: './src/content', generateId }),
   schema: z.object({
     title: z.string(),
     description: z.string(),

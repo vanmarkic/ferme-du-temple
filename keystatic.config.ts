@@ -1,6 +1,6 @@
 import { config, fields, singleton } from '@keystatic/core';
 
-// Use local storage in dev, GitHub in production
+// Use local storage in development, GitHub in production
 const isProd = process.env.NODE_ENV === 'production';
 
 export default config({
@@ -22,7 +22,7 @@ export default config({
 
     hero: singleton({
       label: 'Hero Section',
-      path: 'src/content/hero',
+      path: 'src/content/hero/hero',
       format: { data: 'yaml', contentField: 'content' },
       schema: {
         mainTitle: fields.text({ label: 'Titre principal' }),
@@ -43,7 +43,7 @@ export default config({
 
     navigation: singleton({
       label: 'Navigation',
-      path: 'src/content/navigation',
+      path: 'src/content/navigation/navigation',
       format: { data: 'yaml', contentField: 'content' },
       schema: {
         brandName: fields.text({ label: 'Nom du site' }),
@@ -63,7 +63,7 @@ export default config({
 
     project: singleton({
       label: 'Section Projet',
-      path: 'src/content/project',
+      path: 'src/content/project/project',
       format: { data: 'yaml', contentField: 'content' },
       schema: {
         title: fields.text({ label: 'Titre de section' }),
@@ -77,7 +77,7 @@ export default config({
 
     collaboration: singleton({
       label: 'Section Collaboration',
-      path: 'src/content/collaboration',
+      path: 'src/content/collaboration/collaboration',
       format: { data: 'yaml', contentField: 'content' },
       schema: {
         title: fields.text({ label: 'Titre de section' }),
@@ -99,7 +99,7 @@ export default config({
 
     location: singleton({
       label: 'Section Localisation',
-      path: 'src/content/location',
+      path: 'src/content/location/location',
       format: { data: 'yaml', contentField: 'content' },
       schema: {
         title: fields.text({ label: 'Titre de section' }),
@@ -124,7 +124,7 @@ export default config({
 
     pricing: singleton({
       label: 'Section Prix',
-      path: 'src/content/pricing',
+      path: 'src/content/pricing/pricing',
       format: { data: 'yaml', contentField: 'content' },
       schema: {
         title: fields.text({ label: 'Titre de section' }),
@@ -141,7 +141,7 @@ export default config({
 
     timeline: singleton({
       label: 'Section Planning',
-      path: 'src/content/timeline',
+      path: 'src/content/timeline/timeline',
       format: { data: 'yaml', contentField: 'content' },
       schema: {
         title: fields.text({ label: 'Titre de section' }),
@@ -155,7 +155,7 @@ export default config({
 
     inscription: singleton({
       label: 'Formulaire Inscription',
-      path: 'src/content/inscription',
+      path: 'src/content/inscription/inscription',
       format: { data: 'yaml', contentField: 'content' },
       schema: {
         title: fields.text({ label: 'Titre de section' }),
@@ -214,7 +214,7 @@ export default config({
 
     footer: singleton({
       label: 'Pied de page',
-      path: 'src/content/footer',
+      path: 'src/content/footer/footer',
       format: { data: 'yaml', contentField: 'content' },
       schema: {
         title: fields.text({ label: 'Titre' }),
@@ -238,7 +238,7 @@ export default config({
 
     notFound: singleton({
       label: 'Page 404',
-      path: 'src/content/not-found',
+      path: 'src/content/not-found/not-found',
       format: { data: 'yaml', contentField: 'content' },
       schema: {
         title: fields.text({ label: 'Titre' }),
@@ -252,7 +252,7 @@ export default config({
 
     guideAccess: singleton({
       label: 'Page accès guide',
-      path: 'src/content/guide-access',
+      path: 'src/content/guide-access/guide-access',
       format: { data: 'yaml', contentField: 'content' },
       schema: {
         title: fields.text({ label: 'Titre' }),
@@ -266,7 +266,7 @@ export default config({
 
     guideNavigation: singleton({
       label: 'Navigation guide',
-      path: 'src/content/guide-navigation',
+      path: 'src/content/guide-navigation/guide-navigation',
       format: { data: 'yaml', contentField: 'content' },
       schema: {
         title: fields.text({ label: 'Titre navigation' }),
@@ -277,7 +277,7 @@ export default config({
 
     guide: singleton({
       label: 'Contenu du Guide',
-      path: 'src/content/habitat-beaver-guide',
+      path: 'src/content/guide/guide',
       format: { data: 'yaml', contentField: 'content' },
       schema: {
         content: fields.mdx({
@@ -291,7 +291,7 @@ export default config({
 
     historiqueAccess: singleton({
       label: 'Page accès historique',
-      path: 'src/content/historique-access',
+      path: 'src/content/historique-access/historique-access',
       format: { data: 'yaml', contentField: 'content' },
       schema: {
         title: fields.text({ label: 'Titre' }),
@@ -305,7 +305,7 @@ export default config({
 
     historique: singleton({
       label: 'Contenu historique',
-      path: 'src/content/historique',
+      path: 'src/content/historique/historique',
       format: { data: 'yaml', contentField: 'content' },
       schema: {
         content: fields.mdx({
