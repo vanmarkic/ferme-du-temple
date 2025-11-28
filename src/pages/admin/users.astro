@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { requireAdmin } from '../../lib/auth';
+import { AdminUsersWrapper } from '../../components/AdminUsersWrapper';
+
+export const prerender = false;
+
+const authResult = await requireAdmin(Astro.cookies, '/admin/users');
+
+if (!authResult.authenticated) {
+  return Astro.redirect(authResult.redirectTo);
+}
+---
+
+<BaseLayout title="Utilisateurs - La Ferme du Temple">
+  <AdminUsersWrapper client:only="react" />
+</BaseLayout>

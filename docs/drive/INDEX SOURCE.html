@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>SOURCE - Index Beaver</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --magenta: hsl(330, 90%, 50%);
+            --magenta-dark: hsl(330, 70%, 40%);
+            --butter-yellow: hsl(48, 95%, 76%);
+            --warm-beige: hsl(40, 30%, 92%);
+            --soft-cream: hsl(40, 35%, 98%);
+            --text-dark: hsl(0, 0%, 10%);
+            --rich-black: hsl(0, 0%, 5%);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Poppins', system-ui, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--soft-cream);
+        }
+
+        h1 {
+            font-weight: 900;
+            font-size: 2.5rem;
+            color: var(--rich-black);
+            margin-bottom: 1rem;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+        }
+
+        h2 {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--rich-black);
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            padding-left: 1rem;
+            border-left: 4px solid var(--magenta);
+            letter-spacing: -0.02em;
+        }
+
+        h3 {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Header accent bar */
+        .header-accent {
+            width: 80px;
+            height: 8px;
+            background: var(--magenta);
+            margin-bottom: 2rem;
+        }
+
+        /* Quote box - Bauhaus style */
+        .intro-box {
+            background: var(--butter-yellow);
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+            border: none;
+            position: relative;
+        }
+
+        .intro-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--magenta);
+        }
+
+        .intro-box strong {
+            font-weight: 700;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Table of contents */
+        .toc {
+            background: white;
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+            border: 2px solid var(--rich-black);
+        }
+
+        .toc-title {
+            font-weight: 700;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            color: var(--magenta);
+        }
+
+        .toc ul {
+            list-style: none;
+        }
+
+        .toc li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--warm-beige);
+        }
+
+        .toc li:last-child {
+            border-bottom: none;
+        }
+
+        .toc a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .toc a:hover {
+            color: var(--magenta);
+        }
+
+        .toc .toc-desc {
+            font-weight: 400;
+            color: hsl(0, 0%, 50%);
+            font-size: 0.875rem;
+        }
+
+        /* Divider */
+        hr {
+            border: none;
+            height: 2px;
+            background: var(--warm-beige);
+            margin: 2.5rem 0;
+        }
+
+        /* Tables */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1rem 0 2rem;
+            background: white;
+        }
+
+        th, td {
+            border: 1px solid var(--warm-beige);
+            padding: 1rem;
+            text-align: left;
+        }
+
+        th {
+            background: var(--rich-black);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+
+        tr:nth-child(even) {
+            background: var(--soft-cream);
+        }
+
+        td strong {
+            color: var(--magenta-dark);
+        }
+
+        /* Links */
+        a {
+            color: var(--magenta);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Tip box */
+        .tip {
+            background: white;
+            border: 2px solid var(--butter-yellow);
+            border-left: 4px solid var(--magenta);
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .tip strong {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--magenta-dark);
+        }
+
+        .tip ol {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+
+        .tip li {
+            margin: 0.5rem 0;
+        }
+
+        /* Code */
+        code {
+            background: var(--warm-beige);
+            padding: 0.2rem 0.5rem;
+            font-family: 'SF Mono', Monaco, monospace;
+            font-size: 0.875rem;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid var(--warm-beige);
+            font-size: 0.875rem;
+            color: hsl(0, 0%, 50%);
+        }
+
+        /* Number badge style */
+        .section-number {
+            display: inline-block;
+            width: 2rem;
+            height: 2rem;
+            background: var(--magenta);
+            color: white;
+            text-align: center;
+            line-height: 2rem;
+            font-weight: 700;
+            margin-right: 0.75rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header-accent"></div>
+
+<h1>SOURCE</h1>
+<p style="font-size: 1.25rem; color: hsl(0,0%,40%); margin-bottom: 2rem;">Documents de Référence Beaver</p>
+
+<div class="intro-box">
+    <strong>On consulte souvent, on modifie rarement.</strong>
+    Ce dossier contient les documents fondateurs, stabilisés et de référence du projet Habitat Beaver.
+</div>
+
+<div class="toc">
+    <div class="toc-title">Sommaire</div>
+    <ul>
+        <li><a href="#gouvernance"><span>Gouvernance</span><span class="toc-desc">Comment on fonctionne ensemble</span></a></li>
+        <li><a href="#finance"><span>Finance</span><span class="toc-desc">Modèles financiers stabilisés</span></a></li>
+        <li><a href="#projet-archi"><span>Projet-Archi</span><span class="toc-desc">Plans et documentation technique</span></a></li>
+        <li><a href="#ferme-du-temple"><span>Ferme-du-Temple</span><span class="toc-desc">Tout sur le lieu</span></a></li>
+        <li><a href="#comment-utiliser"><span>Comment utiliser ?</span><span class="toc-desc">Guide de navigation</span></a></li>
+    </ul>
+</div>
+
+<hr>
+
+<h2 id="gouvernance"><span class="section-number">1</span>Gouvernance/</h2>
+<p>Documents définissant comment on fonctionne ensemble.</p>
+
+<table>
+    <tr><th>Document</th><th>Description</th></tr>
+    <tr><td><strong>Charte/</strong></td><td>Valeurs, engagements, vision commune</td></tr>
+    <tr><td><strong>Processus-décision/</strong></td><td>Comment on prend des décisions (rôles en réunion, etc.)</td></tr>
+    <tr><td><strong>Carte mentale gouvernance</strong></td><td>Vue d'ensemble de notre organisation</td></tr>
+    <tr><td><strong>Les GT.docx</strong></td><td>Structure et rôle des Groupes de Travail</td></tr>
+    <tr><td><strong>RECAPITULATIF...</strong></td><td>Gouvernance stratégique, opérationnelle, régulation</td></tr>
+</table>
+
+<hr>
+
+<h2 id="finance"><span class="section-number">2</span>Finance/</h2>
+<p>Modèles financiers et projections stabilisées.</p>
+
+<table>
+    <tr><th>Sous-dossier</th><th>Contenu</th></tr>
+    <tr><td><strong>Budget-prévisionnel/</strong></td><td>Budget global, projections de faisabilité (V8)</td></tr>
+    <tr><td><strong>Répartition-lots/</strong></td><td>Schéma de projection - comment on divise les coûts</td></tr>
+    <tr><td><strong>Crédit-Castor/</strong></td><td>Calculateurs pour le crédit collectif</td></tr>
+    <tr><td><strong>Formes Juridiques/</strong></td><td>Documentation sur les structures juridiques possibles</td></tr>
+</table>
+
+<hr>
+
+<h2 id="projet-archi"><span class="section-number">3</span>Projet-Archi/</h2>
+<p>Plans et documentation technique du projet architectural.</p>
+
+<table>
+    <tr><th>Sous-dossier</th><th>Contenu</th></tr>
+    <tr><td><strong>Plans/</strong></td><td>Plans architecturaux de la Ferme</td></tr>
+    <tr><td><strong>Devis/</strong></td><td>Devis géomètres et autres</td></tr>
+    <tr><td><strong>Programmation Archi</strong></td><td>Besoins et espaces programmés</td></tr>
+    <tr><td><strong>OSA_WAU227...</strong></td><td>Document de délégation maîtrise d'ouvrage</td></tr>
+</table>
+
+<hr>
+
+<h2 id="ferme-du-temple"><span class="section-number">4</span>Ferme-du-Temple/</h2>
+<p>Tout ce qu'il faut savoir sur le lieu.</p>
+
+<table>
+    <tr><th>Sous-dossier</th><th>Contenu</th></tr>
+    <tr><td><strong>Histoire/</strong></td><td>Sources historiques, documents d'archives, carnet Godin</td></tr>
+    <tr><td><strong>Photos/</strong></td><td>Photos du bâtiment (par zone, fissures, etc.)</td></tr>
+    <tr><td><strong>Doc-technique/</strong></td><td>Analyses sol, mérule, diagnostics</td></tr>
+    <tr><td><strong>Présentation FDT...</strong></td><td>Présentation officielle (InDesign)</td></tr>
+</table>
+
+<hr>
+
+<h2 id="comment-utiliser"><span class="section-number">?</span>Comment utiliser ce dossier ?</h2>
+
+<div class="tip">
+    <strong>Nouveau membre ?</strong>
+    <ol>
+        <li>Commence par <code>Gouvernance/Charte/</code></li>
+        <li>Puis <code>Finance/Répartition-lots/</code></li>
+        <li>Et <code>Ferme-du-Temple/</code> pour découvrir le lieu</li>
+    </ol>
+</div>
+
+<table>
+    <tr><th>Tu cherches...</th><th>Va dans...</th></tr>
+    <tr><td>Les valeurs du projet</td><td><a href="#gouvernance">Gouvernance/Charte/</a></td></tr>
+    <tr><td>Comment on décide</td><td><a href="#gouvernance">Gouvernance/Processus-décision/</a></td></tr>
+    <tr><td>Le budget</td><td><a href="#finance">Finance/Budget-prévisionnel/</a></td></tr>
+    <tr><td>Les plans</td><td><a href="#projet-archi">Projet-Archi/Plans/</a></td></tr>
+    <tr><td>L'histoire du lieu</td><td><a href="#ferme-du-temple">Ferme-du-Temple/Histoire/</a></td></tr>
+</table>
+
+<p style="margin-top: 2rem;"><strong>Raccourcis :</strong> Depuis les dossiers de travail (GT), des raccourcis <code>→ SOURCE...</code> pointent vers ce dossier.</p>
+
+<div class="footer">
+    Dernière mise à jour : Novembre 2025
+</div>
+
+</body>
+</html>

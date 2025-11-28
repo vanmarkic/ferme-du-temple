@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { requireAdmin } from '../../lib/auth';
+import { AdminGuideWrapper } from '../../components/AdminGuideWrapper';
+
+export const prerender = false;
+
+const authResult = await requireAdmin(Astro.cookies, '/admin/guide');
+
+if (!authResult.authenticated) {
+  return Astro.redirect(authResult.redirectTo);
+}
+---
+
+<BaseLayout title="Guide Drive - La Ferme du Temple">
+  <AdminGuideWrapper client:only="react" />
+</BaseLayout>

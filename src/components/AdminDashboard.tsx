@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { InscriptionTable, type Inscription } from './InscriptionTable';
 import { InscriptionDetail } from './InscriptionDetail';
+import { AdminSidebar } from './AdminSidebar';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { exportToCSV, exportToTXT, extractEmailList } from '../lib/export-utils';
@@ -107,8 +108,10 @@ export function AdminDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-magenta/5 to-butter-yellow/5 p-6">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-magenta/5 to-butter-yellow/5 flex">
+      <AdminSidebar currentPage="inscriptions" />
+      <div className="flex-1 p-6">
+        <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="bg-white rounded-lg shadow-lg border-4 border-rich-black p-6 mb-6">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -196,6 +199,7 @@ export function AdminDashboard() {
             inscription={selectedInscription}
           />
         )}
+        </div>
       </div>
     </div>
   );

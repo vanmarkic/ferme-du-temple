@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Guide du Drive Beaver</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --magenta: hsl(330, 90%, 50%);
+            --magenta-dark: hsl(330, 70%, 40%);
+            --butter-yellow: hsl(48, 95%, 76%);
+            --warm-beige: hsl(40, 30%, 92%);
+            --soft-cream: hsl(40, 35%, 98%);
+            --text-dark: hsl(0, 0%, 10%);
+            --rich-black: hsl(0, 0%, 5%);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Poppins', system-ui, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--soft-cream);
+        }
+
+        h1 {
+            font-weight: 900;
+            font-size: 2.5rem;
+            color: var(--rich-black);
+            margin-bottom: 1rem;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+        }
+
+        h2 {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--rich-black);
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            padding-left: 1rem;
+            border-left: 4px solid var(--magenta);
+            letter-spacing: -0.02em;
+        }
+
+        h3 {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        /* Header accent bar */
+        .header-accent {
+            width: 80px;
+            height: 8px;
+            background: var(--magenta);
+            margin-bottom: 2rem;
+        }
+
+        /* Intro box */
+        .intro-box {
+            background: var(--butter-yellow);
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .intro-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--magenta);
+        }
+
+        /* Principle boxes */
+        .principle-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .principle-box {
+            padding: 1.5rem;
+            border: 2px solid;
+        }
+
+        .principle-box.source {
+            background: white;
+            border-color: var(--magenta);
+        }
+
+        .principle-box.active {
+            background: white;
+            border-color: var(--butter-yellow);
+        }
+
+        .principle-box h3 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+
+        .principle-box.source h3 {
+            color: var(--magenta);
+        }
+
+        .principle-box .subtitle {
+            font-size: 0.875rem;
+            color: hsl(0, 0%, 50%);
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .principle-box ul {
+            margin: 0;
+            padding-left: 1.25rem;
+        }
+
+        .principle-box li {
+            margin: 0.25rem 0;
+            font-size: 0.9rem;
+        }
+
+        /* Table of contents */
+        .toc {
+            background: white;
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+            border: 2px solid var(--rich-black);
+        }
+
+        .toc-title {
+            font-weight: 700;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            color: var(--magenta);
+        }
+
+        .toc ul { list-style: none; }
+
+        .toc li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--warm-beige);
+        }
+
+        .toc li:last-child { border-bottom: none; }
+
+        .toc a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .toc a:hover { color: var(--magenta); }
+
+        /* Divider */
+        hr {
+            border: none;
+            height: 2px;
+            background: var(--warm-beige);
+            margin: 2.5rem 0;
+        }
+
+        /* Tree structure */
+        .tree {
+            background: var(--rich-black);
+            color: hsl(48, 95%, 85%);
+            padding: 1.5rem 2rem;
+            font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+            font-size: 0.75rem;
+            line-height: 1.6;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            white-space: pre;
+        }
+
+        .tree a {
+            color: var(--butter-yellow);
+            text-decoration: none;
+        }
+
+        .tree a:hover {
+            text-decoration: underline;
+        }
+
+        .tree .comment {
+            color: hsl(330, 70%, 70%);
+        }
+
+        /* Tables */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1rem 0 2rem;
+            background: white;
+        }
+
+        th, td {
+            border: 1px solid var(--warm-beige);
+            padding: 0.75rem 1rem;
+            text-align: left;
+        }
+
+        th {
+            background: var(--rich-black);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 0.05em;
+        }
+
+        tr:nth-child(even) { background: var(--soft-cream); }
+
+        td strong { color: var(--magenta-dark); }
+
+        /* Links */
+        a {
+            color: var(--magenta);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        a:hover { text-decoration: underline; }
+
+        /* Tip box */
+        .tip {
+            background: white;
+            border: 2px solid var(--butter-yellow);
+            border-left: 4px solid var(--magenta);
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .tip strong {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--magenta-dark);
+        }
+
+        .tip ol, .tip ul {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+
+        .tip li { margin: 0.5rem 0; }
+
+        /* Code */
+        code {
+            background: var(--warm-beige);
+            padding: 0.2rem 0.5rem;
+            font-family: 'SF Mono', Monaco, monospace;
+            font-size: 0.85rem;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid var(--warm-beige);
+            font-size: 0.875rem;
+            color: hsl(0, 0%, 50%);
+        }
+
+        /* Section number */
+        .section-number {
+            display: inline-block;
+            width: 1.75rem;
+            height: 1.75rem;
+            background: var(--magenta);
+            color: white;
+            text-align: center;
+            line-height: 1.75rem;
+            font-weight: 700;
+            font-size: 0.875rem;
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header-accent"></div>
+
+<h1>Guide du Drive Beaver</h1>
+<p style="font-size: 1.25rem; color: hsl(0,0%,40%); margin-bottom: 2rem;">Bienvenue sur le Drive partagé d'Habitat Beaver !</p>
+
+<div class="intro-box">
+    Ce document t'aide à naviguer et comprendre l'organisation de nos fichiers.
+</div>
+
+<div class="toc">
+    <div class="toc-title">Sommaire</div>
+    <ul>
+        <li><a href="#principe">Principe d'organisation</a></li>
+        <li><a href="#plan">Plan du Drive</a></li>
+        <li><a href="#raccourcis">Raccourcis</a></li>
+        <li><a href="#commencer">Par où commencer ?</a></li>
+        <li><a href="#pratiques">Bonnes pratiques</a></li>
+    </ul>
+</div>
+
+<hr>
+
+<h2 id="principe">Principe d'organisation</h2>
+
+<p>Notre Drive est organisé selon <strong>deux logiques</strong> :</p>
+
+<div class="principle-grid">
+    <div class="principle-box source">
+        <h3>SOURCE/</h3>
+        <div class="subtitle">La mémoire du projet</div>
+        <p style="font-weight: 600; margin-bottom: 0.5rem;">On consulte souvent, on modifie rarement</p>
+        <ul>
+            <li>Charte, statuts, valeurs</li>
+            <li>Modèles financiers validés</li>
+            <li>Documentation sur le lieu</li>
+            <li>Plans architecturaux</li>
+        </ul>
+    </div>
+    <div class="principle-box active">
+        <h3>Autres dossiers</h3>
+        <div class="subtitle">Le travail quotidien</div>
+        <p style="font-weight: 600; margin-bottom: 0.5rem;">Modifié régulièrement</p>
+        <ul>
+            <li>Réunions en cours</li>
+            <li>Projets des GT</li>
+            <li>Communications</li>
+            <li>Administration courante</li>
+        </ul>
+    </div>
+</div>
+
+<hr>
+
+<h2 id="plan">Plan du Drive</h2>
+
+<pre class="tree">DRIVE BEAVER/
+│
+├── <a href="SOURCE/INDEX%20SOURCE.html">SOURCE/</a>                    <span class="comment">← RÉFÉRENCE</span>
+│   ├── Gouvernance/
+│   ├── Finance/
+│   ├── Projet-Archi/
+│   └── Ferme-du-Temple/
+│
+├── <a href="#gt-detail">Groupes de Travail/</a>        <span class="comment">← TRAVAIL ACTIF</span>
+│   ├── Accueil/
+│   ├── Architectes/
+│   ├── Finance/
+│   ├── Gouvernance/
+│   ├── Investisseurs/
+│   └── Planification/
+│
+├── <a href="#reunions-detail">Réunions/</a>                  <span class="comment">← VIE COLLECTIVE</span>
+│   ├── PV & ODJ/
+│   ├── Enregistrements/
+│   └── Frigo/
+│
+├── Ferme du temple/           <span class="comment">← ACQUISITION</span>
+│   └── Acquisition/
+│
+├── Admin & Compta/            <span class="comment">← GESTION</span>
+│   ├── Administratif/
+│   └── Comptabilité/
+│
+├── Communication/             <span class="comment">← EXTERNE</span>
+│   ├── Templates/
+│   ├── Présentations/
+│   ├── Contacts/
+│   └── Site Web/
+│
+├── Documentation/             <span class="comment">← RESSOURCES</span>
+├── Partenaires/               <span class="comment">← PARTENAIRES</span>
+├── Photos/                    <span class="comment">← MÉDIATHÈQUE</span>
+└── _Archives/                 <span class="comment">← HISTORIQUE</span></pre>
+
+<h3 id="source-detail">SOURCE/ - Détail</h3>
+<table>
+    <tr><th>Sous-dossier</th><th>Contenu</th></tr>
+    <tr><td><strong>Gouvernance/</strong></td><td>Charte, processus décision, rôles</td></tr>
+    <tr><td><strong>Finance/</strong></td><td>Budget, répartition lots, crédit Castor</td></tr>
+    <tr><td><strong>Projet-Archi/</strong></td><td>Plans, devis, programmation</td></tr>
+    <tr><td><strong>Ferme-du-Temple/</strong></td><td>Histoire, photos, doc technique</td></tr>
+</table>
+
+<h3 id="gt-detail">Groupes de Travail/ - Détail</h3>
+<table>
+    <tr><th>GT</th><th>Mission</th></tr>
+    <tr><td><strong>Accueil</strong></td><td>Intégration nouveaux membres, candidatures</td></tr>
+    <tr><td><strong>Architectes</strong></td><td>Suivi projet architectural</td></tr>
+    <tr><td><strong>Finance</strong></td><td>Montage financier, banques</td></tr>
+    <tr><td><strong>Gouvernance</strong></td><td>Organisation interne</td></tr>
+    <tr><td><strong>Investisseurs</strong></td><td>Relations avec investisseurs</td></tr>
+    <tr><td><strong>Planification</strong></td><td>Planning général, stratégie</td></tr>
+</table>
+
+<h3 id="reunions-detail">Réunions/ - Détail</h3>
+<table>
+    <tr><th>Sous-dossier</th><th>Contenu</th></tr>
+    <tr><td><strong>PV & ODJ/</strong></td><td>Tous les ordres du jour et procès-verbaux</td></tr>
+    <tr><td><strong>Enregistrements/</strong></td><td>Enregistrements Google Meet</td></tr>
+    <tr><td><strong>Frigo/</strong></td><td>Sujets mis de côté pour plus tard</td></tr>
+</table>
+
+<hr>
+
+<h2 id="raccourcis">Raccourcis (→)</h2>
+
+<p>Des raccourcis à la racine permettent d'accéder rapidement aux dossiers fréquents :</p>
+
+<table>
+    <tr><th>Raccourci</th><th>Destination</th></tr>
+    <tr><td><code>→ SOURCE</code></td><td>Dossier SOURCE</td></tr>
+    <tr><td><code>→ GT Accueil</code></td><td>Groupes de Travail/Accueil</td></tr>
+    <tr><td><code>→ GT Finance</code></td><td>Groupes de Travail/Finance</td></tr>
+    <tr><td><code>→ PV & ODJ</code></td><td>Réunions/PV & ODJ</td></tr>
+</table>
+
+<hr>
+
+<h2 id="commencer">Par où commencer ?</h2>
+
+<div class="tip">
+    <strong>Nouveau membre ?</strong>
+    <ol>
+        <li><strong>SOURCE/Gouvernance/Charte/</strong> — Nos valeurs et engagements</li>
+        <li><strong>SOURCE/Ferme-du-Temple/</strong> — Découvrir le lieu</li>
+        <li><strong>SOURCE/Finance/Répartition-lots/</strong> — Comprendre le montage</li>
+    </ol>
+</div>
+
+<table>
+    <tr><th>Tu es...</th><th>Commence par...</th></tr>
+    <tr><td>Nouveau membre</td><td>SOURCE/Gouvernance/Charte/</td></tr>
+    <tr><td>Membre actif</td><td>Réunions/PV & ODJ/ + ton GT</td></tr>
+    <tr><td>En recherche d'un doc de référence</td><td>SOURCE/</td></tr>
+    <tr><td>En recherche d'un doc récent</td><td>Groupes de Travail/</td></tr>
+</table>
+
+<hr>
+
+<h2 id="pratiques">Bonnes pratiques</h2>
+
+<table>
+    <tr><th>Règle</th><th>Exemple</th></tr>
+    <tr><td><strong>Nommer clairement</strong></td><td><code>20251128 - PV réunion.docx</code></td></tr>
+    <tr><td><strong>Ranger au bon endroit</strong></td><td>Actif → GT, Stabilisé → SOURCE</td></tr>
+    <tr><td><strong>Pas de fichiers à la racine</strong></td><td>Tout va dans un dossier</td></tr>
+    <tr><td><strong>Archiver l'obsolète</strong></td><td>→ <code>_Archives/</code></td></tr>
+</table>
+
+<div class="footer">
+    Dernière mise à jour : Novembre 2025
+</div>
+
+</body>
+</html>
