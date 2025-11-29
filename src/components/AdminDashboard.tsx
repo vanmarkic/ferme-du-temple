@@ -146,51 +146,51 @@ export function AdminDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-magenta/5 to-butter-yellow/5 flex">
+    <div className="min-h-screen bg-gradient-to-br from-magenta/5 to-butter-yellow/5 flex flex-col md:flex-row">
       <AdminSidebar currentPage="inscriptions" />
-      <div className="flex-1 p-6">
+      <div className="flex-1 p-4 md:p-6 pt-20 md:pt-6">
         <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="bg-white rounded-lg shadow-lg border-4 border-rich-black p-6 mb-6">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div className="bg-white rounded-lg shadow-lg border-4 border-rich-black p-4 md:p-6 mb-4 md:mb-6">
+          <div className="flex flex-col gap-4">
             <div>
-              <h1 className="text-3xl font-bold text-rich-black mb-2">
+              <h1 className="text-xl md:text-3xl font-bold text-rich-black mb-2">
                 Tableau de bord - Inscriptions
               </h1>
-              <p className="text-gray-600">
+              <p className="text-sm md:text-base text-gray-600">
                 {data?.pagination.total || 0} inscription(s) au total
               </p>
             </div>
 
-            <div className="flex flex-wrap gap-2">
+            <div className="grid grid-cols-3 gap-2 md:flex md:flex-wrap">
               <Button
                 onClick={handleExportCSV}
                 variant="outline"
                 disabled={!data?.data.length}
-                className="border-magenta text-magenta hover:bg-magenta hover:text-white"
+                className="border-magenta text-magenta hover:bg-magenta hover:text-white text-xs md:text-sm"
               >
-                <Download className="w-4 h-4 mr-2" />
-                CSV
+                <Download className="w-4 h-4 md:mr-2" />
+                <span className="hidden md:inline">CSV</span>
               </Button>
 
               <Button
                 onClick={handleExportTXT}
                 variant="outline"
                 disabled={!data?.data.length}
-                className="border-magenta text-magenta hover:bg-magenta hover:text-white"
+                className="border-magenta text-magenta hover:bg-magenta hover:text-white text-xs md:text-sm"
               >
-                <FileText className="w-4 h-4 mr-2" />
-                TXT
+                <FileText className="w-4 h-4 md:mr-2" />
+                <span className="hidden md:inline">TXT</span>
               </Button>
 
               <Button
                 onClick={handleCopyEmails}
                 variant="outline"
                 disabled={!data?.data.length}
-                className="border-butter-yellow text-butter-yellow hover:bg-butter-yellow hover:text-rich-black"
+                className="border-butter-yellow text-butter-yellow hover:bg-butter-yellow hover:text-rich-black text-xs md:text-sm"
               >
-                <Mail className="w-4 h-4 mr-2" />
-                Copier emails
+                <Mail className="w-4 h-4 md:mr-2" />
+                <span className="hidden md:inline">Copier emails</span>
               </Button>
             </div>
           </div>
@@ -201,10 +201,10 @@ export function AdminDashboard() {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
               <Input
                 type="text"
-                placeholder="Rechercher par nom, prénom ou email..."
+                placeholder="Rechercher..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10"
+                className="pl-10 text-sm md:text-base"
               />
             </div>
           </form>

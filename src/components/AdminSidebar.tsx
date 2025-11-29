@@ -1,4 +1,5 @@
-import { Users, FolderOpen, UserCog, LogOut } from 'lucide-react';
+import { useState } from 'react';
+import { Users, FolderOpen, UserCog, LogOut, Menu, X } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 interface AdminSidebarProps {
@@ -27,6 +28,8 @@ const navItems = [
 ];
 
 export function AdminSidebar({ currentPage }: AdminSidebarProps) {
+  const [isOpen, setIsOpen] = useState(false);
+
   const handleLogout = async () => {
     try {
       await fetch('/api/admin/logout', { method: 'POST' });
@@ -37,8 +40,8 @@ export function AdminSidebar({ currentPage }: AdminSidebarProps) {
     }
   };
 
-  return (
-    <aside className="w-48 shrink-0 bg-rich-black text-white min-h-screen p-4 flex flex-col">
+  const NavContent = () => (
+    <>
       <nav className="space-y-2 flex-1">
         {navItems.map((item) => {
           const Icon = item.icon;
@@ -54,6 +57,7 @@ export function AdminSidebar({ currentPage }: AdminSidebarProps) {
                   ? 'bg-magenta text-white'
                   : 'text-gray-300 hover:bg-white/10 hover:text-white'
               )}
+              onClick={() => setIsOpen(false)}
             >
               <Icon className="w-5 h-5" />
               <span className="font-medium">{item.label}</span>
@@ -62,7 +66,6 @@ export function AdminSidebar({ currentPage }: AdminSidebarProps) {
         })}
       </nav>
 
-      {/* Logout button */}
       <button
         onClick={handleLogout}
         className="flex items-center gap-3 px-3 py-2 rounded-md transition-colors text-gray-400 hover:bg-red-500/20 hover:text-red-400 mt-4 border-t border-white/10 pt-4"
@@ -70,6 +73,46 @@ export function AdminSidebar({ currentPage }: AdminSidebarProps) {
         <LogOut className="w-5 h-5" />
         <span className="font-medium">Deconnexion</span>
       </button>
-    </aside>
+    </>
+  );
+
+  return (
+    <>
+      {/* Mobile header bar */}
+      <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-rich-black text-white px-4 py-3 flex items-center justify-between">
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="p-2 hover:bg-white/10 rounded-md transition-colors"
+          aria-label={isOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+        >
+          {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        </button>
+        <span className="font-bold text-lg">Admin</span>
+        <div className="w-10" /> {/* Spacer for centering */}
+      </div>
+
+      {/* Mobile sidebar overlay */}
+      {isOpen && (
+        <div
+          className="md:hidden fixed inset-0 bg-black/50 z-40"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
+
+      {/* Mobile sidebar */}
+      <aside
+        className={cn(
+          'md:hidden fixed top-14 left-0 bottom-0 w-64 bg-rich-black text-white p-4 flex flex-col z-50 transform transition-transform duration-300 ease-in-out',
+          isOpen ? 'translate-x-0' : '-translate-x-full'
+        )}
+      >
+        <NavContent />
+      </aside>
+
+      {/* Desktop sidebar */}
+      <aside className="hidden md:flex w-48 shrink-0 bg-rich-black text-white min-h-screen p-4 flex-col">
+        <NavContent />
+      </aside>
+    </>
   );
 }

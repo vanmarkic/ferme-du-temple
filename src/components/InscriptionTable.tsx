@@ -148,23 +148,23 @@ export const InscriptionTable = ({
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6 p-4 md:p-0">
       {/* Controls */}
-      <div className="flex items-center justify-between flex-wrap gap-4">
-        <div className="flex items-center gap-3">
-          <span className="text-sm font-medium">Afficher:</span>
-          <div className="flex gap-2">
+      <div className="flex items-center justify-between flex-wrap gap-2 md:gap-4">
+        <div className="flex items-center gap-2 md:gap-3">
+          <span className="text-xs md:text-sm font-medium">Afficher:</span>
+          <div className="flex gap-1 md:gap-2">
             {[10, 20, 50].map((size) => (
               <Button
                 key={size}
                 variant={pageSize === size ? 'default' : 'outline'}
                 size="sm"
                 onClick={() => handlePageSizeChange(size)}
-                className={
+                className={`text-xs md:text-sm px-2 md:px-3 ${
                   pageSize === size
                     ? 'bg-magenta hover:bg-magenta/90 text-white'
                     : 'border-rich-black'
-                }
+                }`}
               >
                 {size}
               </Button>
@@ -172,13 +172,71 @@ export const InscriptionTable = ({
           </div>
         </div>
 
-        <div className="text-sm text-muted-foreground">
+        <div className="text-xs md:text-sm text-muted-foreground">
           {sortedInscriptions.length} inscription{sortedInscriptions.length > 1 ? 's' : ''}
         </div>
       </div>
 
-      {/* Table */}
-      <div className="border-4 border-rich-black overflow-x-auto">
+      {/* Mobile Sort Dropdown */}
+      <div className="md:hidden">
+        <select
+          value={`${sortField}-${sortDirection}`}
+          onChange={(e) => {
+            const [field, dir] = e.target.value.split('-') as [SortField, SortDirection];
+            setSortField(field);
+            setSortDirection(dir);
+            setCurrentPage(1);
+          }}
+          className="w-full p-2 border-2 border-rich-black rounded-md text-sm bg-white"
+        >
+          <option value="created_at-desc">Date (recent)</option>
+          <option value="created_at-asc">Date (ancien)</option>
+          <option value="nom-asc">Nom (A-Z)</option>
+          <option value="nom-desc">Nom (Z-A)</option>
+          <option value="prenom-asc">Prénom (A-Z)</option>
+          <option value="prenom-desc">Prénom (Z-A)</option>
+        </select>
+      </div>
+
+      {/* Mobile Card View */}
+      <div className="md:hidden space-y-3">
+        {paginatedInscriptions.map((inscription) => (
+          <div
+            key={inscription.id}
+            onClick={() => onRowClick(inscription)}
+            className="bg-white border-2 border-rich-black rounded-lg p-4 cursor-pointer hover:bg-magenta/5 active:bg-magenta/10 transition-colors"
+          >
+            <div className="flex justify-between items-start gap-2">
+              <div className="flex-1 min-w-0">
+                <p className="font-bold text-rich-black truncate">
+                  {inscription.prenom} {inscription.nom}
+                </p>
+                <p className="text-sm text-muted-foreground truncate">{inscription.email}</p>
+                <p className="text-sm text-muted-foreground">{inscription.telephone}</p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  {formatDate(inscription.created_at)}
+                </p>
+              </div>
+              {isSuperAdmin && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onDelete?.(inscription);
+                  }}
+                  className="text-red-500 hover:text-red-700 hover:bg-red-50 shrink-0"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </Button>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Desktop Table */}
+      <div className="hidden md:block border-4 border-rich-black overflow-x-auto">
         <table className="w-full min-w-[800px]">
           <thead className="bg-butter-yellow border-b-4 border-rich-black">
             <tr>
