@@ -1,16 +1,26 @@
 User-agent: Googlebot
 Allow: /
+Disallow: /admin
+Disallow: /guide
 
 User-agent: Bingbot
 Allow: /
+Disallow: /admin
+Disallow: /guide
 
 User-agent: Twitterbot
 Allow: /
+Disallow: /admin
+Disallow: /guide
 
 User-agent: facebookexternalhit
 Allow: /
+Disallow: /admin
+Disallow: /guide
 
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /guide
 
 Sitemap: https://lafermedutemple.be/sitemap-index.xml

@@ -1,0 +1,55 @@
+# La Ferme du Temple - Habitat Partagé Écologique
+
+> Projet d'habitat partagé écologique porté par le Collectif Beaver à Frameries (Hainaut, Belgique). Un lieu de vie ancré dans le territoire, dynamique et productif, s'articulant autour de la culture des arts et de la terre.
+
+## Le Projet
+
+La Ferme du Temple est une pépinière de projets mixtes et innovants, articulée autour de trois pôles principaux:
+
+### Pôle Habitat
+Une dizaine d'habitations autonomes en copropriété avec des espaces communs: cuisine collective, salle polyvalente, ateliers, espaces d'accueil.
+
+### Pôle Culturel
+Un espace pollinisateur pour faire fleurir des idées, cultiver l'art sous différentes formes et tisser des liens sociaux. Un lieu de création et diffusion culturelle.
+
+### Pôle Terre
+Plus de 7 hectares pour développer un 'domaine gourmand': potager, forêt comestible, vergers, vignoble, plantes aromatiques et médicinales.
+
+## Le Collectif Beaver
+
+Le nom Beaver signifie Castor en anglais. Comme ce mammifère qui est une espèce-ingénieure aménageant son écosystème, nous souhaitons transformer positivement notre environnement en soutenant une transition sociale et écologique.
+
+Membres actuels: 8 adultes, 6 enfants, 4 unités de logement.
+
+## Localisation
+
+- Adresse: 227 avenue Joseph Wauters, 7080 Frameries, Province du Hainaut, Belgique
+- Gare SNCB Frameries: 5min à pied
+- Mons: 15min en voiture, 5min en train
+- Bruxelles: 1h en voiture, 1H05 en train
+
+## Le Domaine
+
+Un patrimoine historique exceptionnel datant des chevaliers de l'Ordre des Templiers (XIIe siècle):
+
+- 7 hectares de prairies arborées
+- Ruisseau traversant la parcelle
+- Imposant corps de logis historique
+- Ancienne chapelle du XIIe siècle
+- Ancienne forge et ateliers
+- Écuries surmontées de fenils
+- Serre de 80 mètres
+
+## Gouvernance
+
+Gouvernance partagée avec approche horizontale. Décisions par consensus et consentement. Mandats et rôles tournants. Réunions de gouvernance, stratégiques, opérationnelles, de régulation et d'apprentissages.
+
+## Contact
+
+- Site web: https://lafermedutemple.be
+- Inscription: https://lafermedutemple.be/#inscription
+
+## Disallow
+
+- /admin
+- /guide
