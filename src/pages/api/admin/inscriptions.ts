@@ -4,6 +4,24 @@ import { getSession, isAdmin } from '@/lib/auth';
 
 export const prerender = false;
 
+// Helper to check if user is super_admin
+async function isSuperAdmin(cookies: Parameters<typeof isAdmin>[0]): Promise<boolean> {
+  const { session } = await getSession(cookies);
+  if (!session) return false;
+
+  const supabaseUrl = import.meta.env.SUPABASE_URL;
+  const supabaseServiceKey = import.meta.env.SUPABASE_SERVICE_ROLE_KEY;
+  const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
+  const { data } = await supabase
+    .from('admin_users')
+    .select('role')
+    .eq('id', session.user.id)
+    .single();
+
+  return data?.role === 'super_admin';
+}
+
 export const GET: APIRoute = async ({ request, cookies }) => {
   try {
     // Check if user is admin
@@ -171,6 +189,56 @@ export const GET: APIRoute = async ({ request, cookies }) => {
         status: 500,
         headers: { 'Content-Type': 'application/json' },
       }
+    );
+  }
+};
+
+// DELETE: Remove an inscription (super_admin only)
+export const DELETE: APIRoute = async ({ url, cookies }) => {
+  try {
+    // Check if user is super_admin
+    const superAdmin = await isSuperAdmin(cookies);
+    if (!superAdmin) {
+      return new Response(
+        JSON.stringify({ error: 'Acces refuse. Super admin requis.' }),
+        { status: 403, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
+    const inscriptionId = url.searchParams.get('id');
+    if (!inscriptionId) {
+      return new Response(
+        JSON.stringify({ error: 'ID inscription requis' }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
+    const supabaseUrl = import.meta.env.SUPABASE_URL;
+    const supabaseServiceKey = import.meta.env.SUPABASE_SERVICE_ROLE_KEY;
+    const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
+    const { error } = await supabase
+      .from('inscriptions')
+      .delete()
+      .eq('id', inscriptionId);
+
+    if (error) {
+      console.error('Delete inscription error:', error);
+      return new Response(
+        JSON.stringify({ error: 'Erreur lors de la suppression' }),
+        { status: 500, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
+    return new Response(
+      JSON.stringify({ success: true }),
+      { status: 200, headers: { 'Content-Type': 'application/json' } }
+    );
+  } catch (error) {
+    console.error('Delete API error:', error);
+    return new Response(
+      JSON.stringify({ error: 'Erreur serveur' }),
+      { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
   }
 };

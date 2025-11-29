@@ -1,4 +1,4 @@
-import { Users, FolderOpen, UserCog } from 'lucide-react';
+import { Users, FolderOpen, UserCog, LogOut } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 interface AdminSidebarProps {
@@ -27,9 +27,19 @@ const navItems = [
 ];
 
 export function AdminSidebar({ currentPage }: AdminSidebarProps) {
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/admin/logout', { method: 'POST' });
+      window.location.href = '/admin/login';
+    } catch (err) {
+      console.error('Logout error:', err);
+      window.location.href = '/admin/login';
+    }
+  };
+
   return (
-    <aside className="w-48 shrink-0 bg-rich-black text-white min-h-screen p-4">
-      <nav className="space-y-2">
+    <aside className="w-48 shrink-0 bg-rich-black text-white min-h-screen p-4 flex flex-col">
+      <nav className="space-y-2 flex-1">
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = item.id === currentPage;
@@ -51,6 +61,15 @@ export function AdminSidebar({ currentPage }: AdminSidebarProps) {
           );
         })}
       </nav>
+
+      {/* Logout button */}
+      <button
+        onClick={handleLogout}
+        className="flex items-center gap-3 px-3 py-2 rounded-md transition-colors text-gray-400 hover:bg-red-500/20 hover:text-red-400 mt-4 border-t border-white/10 pt-4"
+      >
+        <LogOut className="w-5 h-5" />
+        <span className="font-medium">Deconnexion</span>
+      </button>
     </aside>
   );
 }

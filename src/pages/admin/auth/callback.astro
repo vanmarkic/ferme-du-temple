@@ -1,0 +1,125 @@
+---
+import { createClient } from '@supabase/supabase-js';
+import { setAuthCookies } from '../../../lib/auth';
+
+export const prerender = false;
+
+const supabaseUrl = import.meta.env.SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.SUPABASE_ANON_KEY;
+const supabaseServiceKey = import.meta.env.SUPABASE_SERVICE_ROLE_KEY;
+
+const redirectTo = Astro.url.searchParams.get('redirect') || '/admin/dashboard';
+
+// Get the tokens from the URL hash (Supabase puts them there)
+// Since we can't access hash on server, we need to handle this client-side
+// But for PKCE flow, Supabase also sends code as query param
+const code = Astro.url.searchParams.get('code');
+const accessToken = Astro.url.searchParams.get('access_token');
+const refreshToken = Astro.url.searchParams.get('refresh_token');
+
+let error = null;
+let success = false;
+
+if (code) {
+  // Exchange code for session
+  const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+  const { data, error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
+
+  if (exchangeError) {
+    error = exchangeError.message;
+  } else if (data.session) {
+    // Verify user is admin
+    const supabaseService = createClient(supabaseUrl, supabaseServiceKey);
+    const { data: adminUser } = await supabaseService
+      .from('admin_users')
+      .select('id')
+      .eq('id', data.user.id)
+      .single();
+
+    if (!adminUser) {
+      error = 'Acces non autorise';
+    } else {
+      // Set cookies
+      setAuthCookies(
+        Astro.cookies,
+        data.session.access_token,
+        data.session.refresh_token,
+        data.session.expires_in
+      );
+      success = true;
+    }
+  }
+} else if (accessToken && refreshToken) {
+  // Direct token flow (less common)
+  const supabaseService = createClient(supabaseUrl, supabaseServiceKey);
+  const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+  const { data: { user }, error: userError } = await supabase.auth.getUser(accessToken);
+
+  if (userError || !user) {
+    error = 'Token invalide';
+  } else {
+    // Verify user is admin
+    const { data: adminUser } = await supabaseService
+      .from('admin_users')
+      .select('id')
+      .eq('id', user.id)
+      .single();
+
+    if (!adminUser) {
+      error = 'Acces non autorise';
+    } else {
+      setAuthCookies(Astro.cookies, accessToken, refreshToken, 3600);
+      success = true;
+    }
+  }
+}
+
+if (success) {
+  return Astro.redirect(redirectTo);
+}
+---
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connexion - La Ferme du Temple</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-pink-100 to-yellow-100 flex items-center justify-center">
+  <div class="bg-white rounded-lg shadow-lg p-8 max-w-md w-full mx-4 text-center">
+    {error ? (
+      <>
+        <div class="text-red-500 text-6xl mb-4">✕</div>
+        <h1 class="text-2xl font-bold text-gray-800 mb-2">Erreur de connexion</h1>
+        <p class="text-gray-600 mb-6">{error}</p>
+        <a href="/admin/login" class="inline-block bg-pink-500 text-white px-6 py-2 rounded hover:bg-pink-600">
+          Reessayer
+        </a>
+      </>
+    ) : (
+      <>
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500 mx-auto mb-4"></div>
+        <h1 class="text-2xl font-bold text-gray-800 mb-2">Verification en cours...</h1>
+        <p class="text-gray-600">Veuillez patienter</p>
+        <script>
+          // Handle hash fragment (for implicit flow)
+          if (window.location.hash) {
+            const params = new URLSearchParams(window.location.hash.substring(1));
+            const accessToken = params.get('access_token');
+            const refreshToken = params.get('refresh_token');
+
+            if (accessToken && refreshToken) {
+              const redirect = new URLSearchParams(window.location.search).get('redirect') || '/admin/dashboard';
+              window.location.href = `/admin/auth/callback?access_token=${accessToken}&refresh_token=${refreshToken}&redirect=${encodeURIComponent(redirect)}`;
+            }
+          }
+        </script>
+      </>
+    )}
+  </div>
+</body>
+</html>

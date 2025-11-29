@@ -1,6 +1,8 @@
 import type { APIRoute } from 'astro';
 import { supabase, setAuthCookies } from '../../../lib/auth';
 
+export const prerender = false;
+
 export const POST: APIRoute = async ({ request, cookies }) => {
   try {
     const body = await request.json();
@@ -8,7 +10,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
 
     if (!email || !password) {
       return new Response(
-        JSON.stringify({ error: 'Email and password are required' }),
+        JSON.stringify({ error: 'Email et mot de passe requis' }),
         { status: 400, headers: { 'Content-Type': 'application/json' } }
       );
     }
@@ -21,7 +23,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
 
     if (authError || !authData.session) {
       return new Response(
-        JSON.stringify({ error: 'Invalid credentials' }),
+        JSON.stringify({ error: 'Identifiants invalides' }),
         { status: 401, headers: { 'Content-Type': 'application/json' } }
       );
     }
@@ -37,7 +39,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
       // User is authenticated but not an admin
       await supabase.auth.signOut();
       return new Response(
-        JSON.stringify({ error: 'Unauthorized: Admin access required' }),
+        JSON.stringify({ error: 'Acces non autorise' }),
         { status: 403, headers: { 'Content-Type': 'application/json' } }
       );
     }
@@ -64,7 +66,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
   } catch (error) {
     console.error('Login error:', error);
     return new Response(
-      JSON.stringify({ error: 'Internal server error' }),
+      JSON.stringify({ error: 'Erreur interne' }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
   }

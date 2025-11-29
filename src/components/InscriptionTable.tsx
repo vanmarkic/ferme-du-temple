@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
-import { ChevronUp, ChevronDown, ChevronsUpDown, Loader2, AlertCircle } from 'lucide-react';
+import { ChevronUp, ChevronDown, ChevronsUpDown, Loader2, AlertCircle, Trash2 } from 'lucide-react';
 
 // Type matching the database schema
 export interface Inscription {
@@ -23,6 +23,8 @@ interface InscriptionTableProps {
   onRowClick: (inscription: Inscription) => void;
   isLoading?: boolean;
   error?: string | null;
+  isSuperAdmin?: boolean;
+  onDelete?: (inscription: Inscription) => void;
 }
 
 export const InscriptionTable = ({
@@ -30,6 +32,8 @@ export const InscriptionTable = ({
   onRowClick,
   isLoading = false,
   error = null,
+  isSuperAdmin = false,
+  onDelete,
 }: InscriptionTableProps) => {
   const [sortField, setSortField] = useState<SortField>('created_at');
   const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
@@ -223,6 +227,11 @@ export const InscriptionTable = ({
                   {renderSortIcon('created_at')}
                 </button>
               </th>
+              {isSuperAdmin && (
+                <th className="text-center p-4">
+                  <span className="font-bold uppercase tracking-wider">Actions</span>
+                </th>
+              )}
             </tr>
           </thead>
           <tbody className="bg-background">
@@ -241,6 +250,21 @@ export const InscriptionTable = ({
                 <td className="p-4 text-muted-foreground">{inscription.email}</td>
                 <td className="p-4 text-muted-foreground">{inscription.telephone}</td>
                 <td className="p-4 text-muted-foreground">{formatDate(inscription.created_at)}</td>
+                {isSuperAdmin && (
+                  <td className="p-4 text-center">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onDelete?.(inscription);
+                      }}
+                      className="text-red-500 hover:text-red-700 hover:bg-red-50"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </Button>
+                  </td>
+                )}
               </tr>
             ))}
           </tbody>

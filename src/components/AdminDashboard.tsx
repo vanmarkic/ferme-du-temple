@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { InscriptionTable, type Inscription } from './InscriptionTable';
 import { InscriptionDetail } from './InscriptionDetail';
 import { AdminSidebar } from './AdminSidebar';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { exportToCSV, exportToTXT, extractEmailList } from '../lib/export-utils';
-import { Download, FileText, Mail, LogOut, Search } from 'lucide-react';
+import { Download, FileText, Mail, Search } from 'lucide-react';
 import { useToast } from '../hooks/use-toast';
 
 interface InscriptionsResponse {
@@ -19,6 +19,13 @@ interface InscriptionsResponse {
   };
 }
 
+interface CurrentUser {
+  id: string;
+  email: string;
+  role: 'admin' | 'super_admin';
+  isSuperAdmin: boolean;
+}
+
 export function AdminDashboard() {
   const [selectedInscription, setSelectedInscription] = useState<Inscription | null>(null);
   const [detailOpen, setDetailOpen] = useState(false);
@@ -26,6 +33,17 @@ export function AdminDashboard() {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(20);
   const { toast } = useToast();
+  const queryClient = useQueryClient();
+
+  // Fetch current user info
+  const { data: currentUser } = useQuery<CurrentUser>({
+    queryKey: ['current-user'],
+    queryFn: async () => {
+      const response = await fetch('/api/admin/me');
+      if (!response.ok) throw new Error('Failed to fetch user');
+      return response.json();
+    },
+  });
 
   const { data, isLoading, error, refetch } = useQuery<InscriptionsResponse>({
     queryKey: ['inscriptions', page, limit, searchQuery],
@@ -88,16 +106,36 @@ export function AdminDashboard() {
     }
   };
 
-  const handleLogout = async () => {
-    try {
-      await fetch('/api/admin/logout', { method: 'POST' });
-      window.location.href = '/admin/login';
-    } catch (err) {
+  const deleteMutation = useMutation({
+    mutationFn: async (id: string) => {
+      const response = await fetch(`/api/admin/inscriptions?id=${id}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || 'Erreur lors de la suppression');
+      }
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['inscriptions'] });
+      toast({
+        title: 'Supprimé',
+        description: 'L\'inscription a été supprimée',
+      });
+    },
+    onError: (error: Error) => {
       toast({
         title: 'Erreur',
-        description: 'Erreur lors de la déconnexion',
+        description: error.message,
         variant: 'destructive',
       });
+    },
+  });
+
+  const handleDelete = (inscription: Inscription) => {
+    if (confirm(`Supprimer l'inscription de ${inscription.prenom} ${inscription.nom} ?`)) {
+      deleteMutation.mutate(inscription.id);
     }
   };
 
@@ -154,15 +192,6 @@ export function AdminDashboard() {
                 <Mail className="w-4 h-4 mr-2" />
                 Copier emails
               </Button>
-
-              <Button
-                onClick={handleLogout}
-                variant="outline"
-                className="border-rich-black text-rich-black hover:bg-rich-black hover:text-white"
-              >
-                <LogOut className="w-4 h-4 mr-2" />
-                Déconnexion
-              </Button>
             </div>
           </div>
 
@@ -188,6 +217,8 @@ export function AdminDashboard() {
             onRowClick={handleRowClick}
             isLoading={isLoading}
             error={error?.message || null}
+            isSuperAdmin={currentUser?.isSuperAdmin || false}
+            onDelete={handleDelete}
           />
         </div>
 
