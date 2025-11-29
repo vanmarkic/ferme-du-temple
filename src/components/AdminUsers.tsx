@@ -116,45 +116,45 @@ export function AdminUsers() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-magenta/5 to-butter-yellow/5 flex">
+    <div className="min-h-screen bg-gradient-to-br from-magenta/5 to-butter-yellow/5 flex flex-col md:flex-row">
       <AdminSidebar currentPage="users" />
-      <div className="flex-1 p-6">
+      <div className="flex-1 p-4 md:p-6 pt-20 md:pt-6">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
-          <div className="bg-white rounded-lg shadow-lg border-4 border-rich-black p-6 mb-6">
-            <h1 className="text-3xl font-bold text-rich-black mb-2">
+          <div className="bg-white rounded-lg shadow-lg border-4 border-rich-black p-4 md:p-6 mb-4 md:mb-6">
+            <h1 className="text-xl md:text-3xl font-bold text-rich-black mb-2">
               Gestion des utilisateurs
             </h1>
-            <p className="text-gray-600">
+            <p className="text-sm md:text-base text-gray-600">
               {users?.length || 0} administrateur(s)
             </p>
           </div>
 
           {/* Add new user form */}
-          <div className="bg-white rounded-lg shadow-lg border-4 border-rich-black p-6 mb-6">
-            <h2 className="text-xl font-bold text-rich-black mb-4 flex items-center gap-2">
+          <div className="bg-white rounded-lg shadow-lg border-4 border-rich-black p-4 md:p-6 mb-4 md:mb-6">
+            <h2 className="text-lg md:text-xl font-bold text-rich-black mb-4 flex items-center gap-2">
               <UserPlus className="w-5 h-5" />
               Ajouter un administrateur
             </h2>
-            <form onSubmit={handleCreateUser} className="flex flex-col md:flex-row gap-4">
+            <form onSubmit={handleCreateUser} className="flex flex-col gap-3 md:gap-4">
               <Input
                 type="email"
                 placeholder="Email"
                 value={newEmail}
                 onChange={(e) => setNewEmail(e.target.value)}
-                className="flex-1"
+                className="w-full text-sm md:text-base"
               />
               <Input
                 type="password"
                 placeholder="Mot de passe (min 6 car.)"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
-                className="flex-1"
+                className="w-full text-sm md:text-base"
               />
               <Button
                 type="submit"
                 disabled={createUserMutation.isPending}
-                className="bg-magenta hover:bg-magenta-dark text-white"
+                className="bg-magenta hover:bg-magenta-dark text-white w-full md:w-auto md:self-start"
               >
                 {createUserMutation.isPending ? (
                   <Loader2 className="w-4 h-4 animate-spin" />
@@ -181,54 +181,94 @@ export function AdminUsers() {
                 Aucun administrateur
               </div>
             ) : (
-              <table className="w-full">
-                <thead>
-                  <tr className="bg-rich-black text-white">
-                    <th className="px-4 py-3 text-left font-semibold">Email</th>
-                    <th className="px-4 py-3 text-left font-semibold">Role</th>
-                    <th className="px-4 py-3 text-left font-semibold">Cree le</th>
-                    <th className="px-4 py-3 text-right font-semibold">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {users?.map((user, i) => (
-                    <tr
-                      key={user.id}
-                      className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
-                    >
-                      <td className="px-4 py-3 font-medium">{user.email}</td>
-                      <td className="px-4 py-3">
-                        <span className={`inline-flex items-center gap-1 px-2 py-1 rounded text-sm ${
-                          user.role === 'super_admin'
-                            ? 'bg-magenta/10 text-magenta'
-                            : 'bg-gray-100 text-gray-600'
-                        }`}>
-                          {user.role === 'super_admin' ? (
-                            <ShieldCheck className="w-4 h-4" />
-                          ) : (
-                            <Shield className="w-4 h-4" />
-                          )}
-                          {user.role === 'super_admin' ? 'Super Admin' : 'Admin'}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3 text-gray-500">
-                        {new Date(user.created_at).toLocaleDateString('fr-FR')}
-                      </td>
-                      <td className="px-4 py-3 text-right">
+              <>
+                {/* Mobile Card View */}
+                <div className="md:hidden divide-y divide-gray-200">
+                  {users?.map((user) => (
+                    <div key={user.id} className="p-4 space-y-2">
+                      <div className="flex justify-between items-start">
+                        <div className="min-w-0 flex-1">
+                          <p className="font-medium text-sm truncate">{user.email}</p>
+                          <p className="text-xs text-gray-500 mt-1">
+                            {new Date(user.created_at).toLocaleDateString('fr-FR')}
+                          </p>
+                        </div>
                         <Button
                           variant="outline"
                           size="sm"
                           onClick={() => handleDeleteUser(user.id, user.email)}
                           disabled={deleteUserMutation.isPending}
-                          className="text-red-500 border-red-500 hover:bg-red-50"
+                          className="text-red-500 border-red-500 hover:bg-red-50 ml-2 shrink-0"
                         >
                           <Trash2 className="w-4 h-4" />
                         </Button>
-                      </td>
-                    </tr>
+                      </div>
+                      <span className={`inline-flex items-center gap-1 px-2 py-1 rounded text-xs ${
+                        user.role === 'super_admin'
+                          ? 'bg-magenta/10 text-magenta'
+                          : 'bg-gray-100 text-gray-600'
+                      }`}>
+                        {user.role === 'super_admin' ? (
+                          <ShieldCheck className="w-3 h-3" />
+                        ) : (
+                          <Shield className="w-3 h-3" />
+                        )}
+                        {user.role === 'super_admin' ? 'Super Admin' : 'Admin'}
+                      </span>
+                    </div>
                   ))}
-                </tbody>
-              </table>
+                </div>
+
+                {/* Desktop Table View */}
+                <table className="hidden md:table w-full">
+                  <thead>
+                    <tr className="bg-rich-black text-white">
+                      <th className="px-4 py-3 text-left font-semibold">Email</th>
+                      <th className="px-4 py-3 text-left font-semibold">Role</th>
+                      <th className="px-4 py-3 text-left font-semibold">Cree le</th>
+                      <th className="px-4 py-3 text-right font-semibold">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {users?.map((user, i) => (
+                      <tr
+                        key={user.id}
+                        className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
+                      >
+                        <td className="px-4 py-3 font-medium">{user.email}</td>
+                        <td className="px-4 py-3">
+                          <span className={`inline-flex items-center gap-1 px-2 py-1 rounded text-sm ${
+                            user.role === 'super_admin'
+                              ? 'bg-magenta/10 text-magenta'
+                              : 'bg-gray-100 text-gray-600'
+                          }`}>
+                            {user.role === 'super_admin' ? (
+                              <ShieldCheck className="w-4 h-4" />
+                            ) : (
+                              <Shield className="w-4 h-4" />
+                            )}
+                            {user.role === 'super_admin' ? 'Super Admin' : 'Admin'}
+                          </span>
+                        </td>
+                        <td className="px-4 py-3 text-gray-500">
+                          {new Date(user.created_at).toLocaleDateString('fr-FR')}
+                        </td>
+                        <td className="px-4 py-3 text-right">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => handleDeleteUser(user.id, user.email)}
+                            disabled={deleteUserMutation.isPending}
+                            className="text-red-500 border-red-500 hover:bg-red-50"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </>
             )}
           </div>
         </div>

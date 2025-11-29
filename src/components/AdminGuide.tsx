@@ -4,17 +4,17 @@ const DRIVE_BASE_URL = 'https://drive.google.com/drive/folders/1bAAUo8qFu1KaRZ22
 
 export function AdminGuide() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-magenta/5 to-butter-yellow/5 flex">
+    <div className="min-h-screen bg-gradient-to-br from-magenta/5 to-butter-yellow/5 flex flex-col md:flex-row">
       <AdminSidebar currentPage="guide" />
-      <div className="flex-1 p-6 overflow-y-auto">
+      <div className="flex-1 p-4 md:p-6 pt-20 md:pt-6 overflow-y-auto">
         <div className="max-w-4xl mx-auto">
           {/* Header accent bar */}
-          <div className="w-20 h-2 bg-magenta mb-8" />
+          <div className="w-16 md:w-20 h-2 bg-magenta mb-6 md:mb-8" />
 
-          <h1 className="text-5xl font-black text-rich-black mb-2 tracking-tight">
+          <h1 className="text-3xl md:text-5xl font-black text-rich-black mb-2 tracking-tight">
             Guide Drive Beaver
           </h1>
-          <p className="text-xl text-gray-500 mb-8">
+          <p className="text-lg md:text-xl text-gray-500 mb-6 md:mb-8">
             Bienvenue sur le Drive partage d'Habitat Beaver !
           </p>
 
@@ -302,31 +302,33 @@ export function AdminGuide() {
 
 function Table({ headers, rows }: { headers: string[]; rows: string[][] }) {
   return (
-    <table className="w-full border-collapse bg-white mb-6">
-      <thead>
-        <tr>
-          {headers.map((header) => (
-            <th
-              key={header}
-              className="bg-rich-black text-white font-semibold uppercase text-xs tracking-wide p-3 text-left border border-warm-beige"
-            >
-              {header}
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {rows.map((row, i) => (
-          <tr key={i} className={i % 2 === 1 ? 'bg-soft-cream' : ''}>
-            {row.map((cell, j) => (
-              <td key={j} className="p-3 border border-warm-beige">
-                {j === 0 ? <strong className="text-magenta-dark">{cell}</strong> : cell}
-              </td>
+    <div className="overflow-x-auto mb-6">
+      <table className="w-full border-collapse bg-white min-w-[300px]">
+        <thead>
+          <tr>
+            {headers.map((header) => (
+              <th
+                key={header}
+                className="bg-rich-black text-white font-semibold uppercase text-xs tracking-wide p-2 md:p-3 text-left border border-warm-beige"
+              >
+                {header}
+              </th>
             ))}
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {rows.map((row, i) => (
+            <tr key={i} className={i % 2 === 1 ? 'bg-soft-cream' : ''}>
+              {row.map((cell, j) => (
+                <td key={j} className="p-2 md:p-3 border border-warm-beige text-sm md:text-base">
+                  {j === 0 ? <strong className="text-magenta-dark">{cell}</strong> : cell}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 
@@ -353,7 +355,7 @@ function DriveTree({ driveUrl }: { driveUrl: string }) {
   );
 
   return (
-    <pre className="bg-rich-black text-butter-yellow p-6 font-mono text-xs leading-relaxed overflow-x-auto mb-6 whitespace-pre">
+    <pre className="bg-rich-black text-butter-yellow p-3 md:p-6 font-mono text-[10px] md:text-xs leading-relaxed overflow-x-auto mb-6 whitespace-pre">
       <Line>DRIVE BEAVER/</Line>
       <Line>│</Line>
       <Line>├── <Link>SOURCE/</Link>                    <Comment>← REFERENCE</Comment></Line>
