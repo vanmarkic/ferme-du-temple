@@ -26,7 +26,7 @@ import { VersionMismatchWarning } from './VersionMismatchWarning';
 import { useOrderedParticipantBreakdown } from '../hooks/useCalculatorState';
 import HorizontalSwimLaneTimeline from './HorizontalSwimLaneTimeline';
 import { updateBuyerWithRecalculatedPrice } from '../utils/portageRecalculation';
-import { UnlockProvider, useUnlock } from '../contexts/UnlockContext';
+import { UnlockProvider } from '../contexts/UnlockContext';
 import { UnlockButton } from './shared/UnlockButton';
 import { ReadonlyModeSwitch } from './shared/ReadonlyModeSwitch';
 import toast, { Toaster } from 'react-hot-toast';
@@ -139,8 +139,6 @@ export default function EnDivisionCorrect() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [fullscreenParticipantIndex, setFullscreenParticipantIndex]);
 
-  // Unlock context for readonly mode
-  const { unlockedBy } = useUnlock();
 
   // Version mismatch handler (unique to this component)
   const handleExportAndReset = () => {
@@ -327,63 +325,61 @@ export default function EnDivisionCorrect() {
           </div>
 
           {/* Sync Status Indicator */}
-          {unlockedBy && (
-            <div className="fixed top-6 right-6 z-40 no-print">
-              <div className="bg-white rounded-lg shadow-md px-3 py-2 text-xs">
-                <div className="flex items-center gap-2">
-                  {syncMode === 'supabase' && (
-                    <>
-                      <div className={`w-2 h-2 rounded-full ${isSyncing ? 'bg-yellow-500 animate-pulse' : isDirty ? 'bg-orange-500' : 'bg-green-500'}`} />
-                      <span className="text-gray-700 font-medium">
-                        {isSyncing ? 'Sauvegarde...' : isDirty ? 'Non sauvegardé' : 'Sauvegardé'}
-                      </span>
-                    </>
-                  )}
-                  {syncMode === 'localStorage' && (
-                    <>
-                      <div className="w-2 h-2 rounded-full bg-blue-500" />
-                      <span className="text-gray-700 font-medium">Local</span>
-                    </>
-                  )}
-                  {syncMode === 'offline' && (
-                    <>
-                      <div className="w-2 h-2 rounded-full bg-gray-400" />
-                      <span className="text-gray-700 font-medium">Hors ligne</span>
-                    </>
-                  )}
-                </div>
-                {lastSyncedAt && syncMode === 'supabase' && (
-                  <div className="text-gray-500 mt-1">
-                    Dernière sync: {new Date(lastSyncedAt).toLocaleTimeString('fr-BE')}
-                  </div>
+          <div className="fixed top-6 right-6 z-40 no-print">
+            <div className="bg-white rounded-lg shadow-md px-3 py-2 text-xs">
+              <div className="flex items-center gap-2">
+                {syncMode === 'supabase' && (
+                  <>
+                    <div className={`w-2 h-2 rounded-full ${isSyncing ? 'bg-yellow-500 animate-pulse' : isDirty ? 'bg-orange-500' : 'bg-green-500'}`} />
+                    <span className="text-gray-700 font-medium">
+                      {isSyncing ? 'Sauvegarde...' : isDirty ? 'Non sauvegardé' : 'Sauvegardé'}
+                    </span>
+                  </>
                 )}
-                {syncError && (
-                  <div className="text-red-600 mt-1">
-                    ⚠️ {syncError}
-                  </div>
+                {syncMode === 'localStorage' && (
+                  <>
+                    <div className="w-2 h-2 rounded-full bg-blue-500" />
+                    <span className="text-gray-700 font-medium">Local</span>
+                  </>
                 )}
-                {/* Save/Discard buttons when dirty */}
-                {isDirty && syncMode === 'supabase' && (
-                  <div className="flex gap-2 mt-2">
-                    <button
-                      onClick={() => save()}
-                      disabled={isSyncing}
-                      className="px-2 py-1 bg-green-600 text-white rounded text-xs hover:bg-green-700 disabled:opacity-50"
-                    >
-                      Sauvegarder
-                    </button>
-                    <button
-                      onClick={() => discard()}
-                      disabled={isSyncing}
-                      className="px-2 py-1 bg-gray-500 text-white rounded text-xs hover:bg-gray-600 disabled:opacity-50"
-                    >
-                      Annuler
-                    </button>
-                  </div>
+                {syncMode === 'offline' && (
+                  <>
+                    <div className="w-2 h-2 rounded-full bg-gray-400" />
+                    <span className="text-gray-700 font-medium">Hors ligne</span>
+                  </>
                 )}
               </div>
+              {lastSyncedAt && syncMode === 'supabase' && (
+                <div className="text-gray-500 mt-1">
+                  Dernière sync: {new Date(lastSyncedAt).toLocaleTimeString('fr-BE')}
+                </div>
+              )}
+              {syncError && (
+                <div className="text-red-600 mt-1">
+                  ⚠️ {syncError}
+                </div>
+              )}
+              {/* Save/Discard buttons when dirty */}
+              {isDirty && syncMode === 'supabase' && (
+                <div className="flex gap-2 mt-2">
+                  <button
+                    onClick={() => save()}
+                    disabled={isSyncing}
+                    className="px-2 py-1 bg-green-600 text-white rounded text-xs hover:bg-green-700 disabled:opacity-50"
+                  >
+                    Sauvegarder
+                  </button>
+                  <button
+                    onClick={() => discard()}
+                    disabled={isSyncing}
+                    className="px-2 py-1 bg-gray-500 text-white rounded text-xs hover:bg-gray-600 disabled:opacity-50"
+                  >
+                    Annuler
+                  </button>
+                </div>
+              )}
             </div>
-          )}
+          </div>
 
           <div className="max-w-7xl mx-auto">
             {/* Print-only header */}

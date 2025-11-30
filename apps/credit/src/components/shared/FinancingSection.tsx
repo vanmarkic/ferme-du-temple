@@ -23,7 +23,6 @@ export function FinancingSection({
 
   const capitalApporte = participant.capitalApporte ?? 0;
   const useTwoLoans = participant.useTwoLoans ?? false;
-  const includeParachevements = participant.loan2IncludesParachevements ?? false;
 
   const remainingToFinance = phaseCosts.grandTotal - capitalApporte;
 
@@ -146,47 +145,6 @@ export function FinancingSection({
                       {formatCurrency(participantCalc.loan2MonthlyPayment)}/mois
                     </p>
                   )}
-                </div>
-              </div>
-
-              {/* Parachèvements payment choice - reframed as HOW to pay */}
-              <div className="bg-green-50 rounded-lg p-4 border border-green-200">
-                <p className="text-sm font-medium text-gray-700 mb-3">
-                  Comment payer les parachèvements?
-                </p>
-                <div className="flex items-center gap-4">
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="radio"
-                      name="parachevementPayment"
-                      checked={!includeParachevements}
-                      onChange={() =>
-                        onUpdateParticipant({
-                          ...participant,
-                          loan2IncludesParachevements: false,
-                        })
-                      }
-                      className="w-4 h-4"
-                    />
-                    <span className="text-sm">Cash (payer plus tard)</span>
-                  </label>
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="radio"
-                      name="parachevementPayment"
-                      checked={includeParachevements}
-                      onChange={() =>
-                        onUpdateParticipant({
-                          ...participant,
-                          loan2IncludesParachevements: true,
-                        })
-                      }
-                      className="w-4 h-4"
-                    />
-                    <span className="text-sm">
-                      Ajouter au prêt 2 (+{formatCurrency(phaseCosts.emmenagement.total)})
-                    </span>
-                  </label>
                 </div>
               </div>
             </>
