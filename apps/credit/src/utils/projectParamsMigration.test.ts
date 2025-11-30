@@ -5,8 +5,7 @@
  * - Nov 12 (b071f02): Added travauxCommuns with ExpenseLineItem[] format: { label, amount }
  * - Nov 14 (fd03a6f): Changed to TravauxCommunsItem[] format: { label, sqm, cascoPricePerSqm, parachevementPricePerSqm, amount? }
  * - Nov 14 (9dd8e6b): Added maxTotalLots field (optional, default: 10)
- * - Existing Firestore documents have OLD format without sqm fields and missing maxTotalLots
- * - Need migration to convert OLD → NEW format
+ * - Need migration to convert OLD → NEW format (old format missing sqm fields and maxTotalLots)
  */
 
 import { describe, test, expect } from 'vitest';

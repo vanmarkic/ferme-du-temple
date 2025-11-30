@@ -1371,20 +1371,12 @@ function isValidDate(date: Date): boolean {
  * Poka-yoke: Returns fallback if the result would be an Invalid Date
  *
  * Handles edge cases:
- * - Firestore timestamp objects: { seconds, nanoseconds }
  * - Invalid date strings: "invalid-date-string"
  * - Empty strings: ""
  * - Already invalid Date objects
  */
 function ensureDate(date: Date | string | undefined, fallback: Date): Date {
   if (!date) return fallback;
-
-  // Handle Firestore timestamp objects: { type, seconds, nanoseconds }
-  if (typeof date === 'object' && 'seconds' in date && typeof (date as { seconds: number }).seconds === 'number') {
-    const firestoreTimestamp = date as { seconds: number; nanoseconds?: number };
-    const result = new Date(firestoreTimestamp.seconds * 1000);
-    return isValidDate(result) ? result : fallback;
-  }
 
   if (date instanceof Date) {
     return isValidDate(date) ? date : fallback;

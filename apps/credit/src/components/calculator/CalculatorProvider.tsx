@@ -1,11 +1,10 @@
 /**
  * Calculator Provider - Data management layer for the calculator
  *
- * Supabase version for ferme-du-temple:
- * - No Firebase/Firestore
- * - No unlock system (admin auth handled by ferme-du-temple)
+ * Features:
  * - Explicit Save/Discard buttons (no auto-save)
  * - Unsaved changes warning
+ * - Supabase data persistence with fallback to defaults
  */
 
 import { type ReactNode, useMemo, useRef, useEffect, useState, useCallback } from 'react';

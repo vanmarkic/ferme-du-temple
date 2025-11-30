@@ -1,11 +1,6 @@
 /**
  * Storage utilities for Credit Castor
  *
- * IMPORTANT: Data loading priority is now:
- * 1. Firestore (if available and authenticated)
- * 2. localStorage (fallback)
- * 3. Error alert (no valid data source)
- *
  * DEFAULT_* constants are ONLY used for:
  * - Reset functionality (when user explicitly requests reset)
  * - NOT for initial application load

@@ -1,10 +1,5 @@
 /**
  * Calculator Context - Centralized state management for calculator data
- *
- * Supabase version for ferme-du-temple:
- * - No Firebase/Firestore sync types
- * - Explicit save/discard actions
- * - Simpler state management
  */
 
 import { createContext, useContext } from 'react';

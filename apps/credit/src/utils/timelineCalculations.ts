@@ -24,37 +24,17 @@ function addDaysToDateString(dateString: string, days: number): string {
 }
 
 /**
- * Convert Firestore Timestamp to Date if needed
- *
- * @param value - Possible Firestore Timestamp object or regular date value
- * @returns Date object, string, or original value
- */
-function convertFirestoreTimestamp(value: any): Date | string | null | undefined {
-  // Check if this is a Firestore Timestamp object (has seconds and nanoseconds)
-  if (value && typeof value === 'object' && 'seconds' in value && 'nanoseconds' in value) {
-    // Convert Firestore Timestamp to JavaScript Date
-    return new Date(value.seconds * 1000 + value.nanoseconds / 1000000)
-  }
-  return value
-}
-
-/**
  * Safely converts a date value to an ISO date string (YYYY-MM-DD).
  * Returns the fallback date if the input is invalid.
- * Handles Firestore Timestamp objects automatically.
  *
- * @param dateValue - Date string, Date object, Firestore Timestamp, or falsy value
+ * @param dateValue - Date string, Date object, or falsy value
  * @param fallback - Fallback date string to use if dateValue is invalid
  * @returns ISO date string (YYYY-MM-DD)
  */
-function safeToISODateString(dateValue: string | Date | null | undefined | any, fallback: string): string {
+function safeToISODateString(dateValue: string | Date | null | undefined, fallback: string): string {
   if (!dateValue) return fallback
 
-  // Convert Firestore Timestamp if needed
-  const converted = convertFirestoreTimestamp(dateValue)
-  if (!converted) return fallback
-
-  const date = converted instanceof Date ? converted : new Date(converted)
+  const date = dateValue instanceof Date ? dateValue : new Date(dateValue)
 
   // Check if date is valid
   if (isNaN(date.getTime())) {

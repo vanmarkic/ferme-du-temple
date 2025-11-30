@@ -1,0 +1,576 @@
+{
+  "version": 2,
+  "releaseVersion": "2.9.1",
+  "timestamp": "2025-11-30T15:02:53.239Z",
+  "participants": [
+    {
+      "capitalApporte": 50000,
+      "registrationFeesRate": 3,
+      "surface": 150,
+      "loan2DelayYears": 1.5,
+      "cascoSqm": 140,
+      "useTwoLoans": true,
+      "name": "Manuela/Dragan",
+      "loan2RenovationAmount": 200000,
+      "entryDate": "2026-02-01T00:00:00.000Z",
+      "interestRate": 4,
+      "parachevementsPerM2": 500,
+      "unitId": 1,
+      "isFounder": true,
+      "quantity": 1,
+      "capitalForLoan2": 100000,
+      "durationYears": 25,
+      "parachevementsSqm": 120
+    },
+    {
+      "interestRate": 4.5,
+      "capitalApporte": 450000,
+      "capitalForLoan2": 300000,
+      "unitId": 3,
+      "durationYears": 25,
+      "surface": 225,
+      "quantity": 1,
+      "parachevementsPerM2": 250,
+      "cascoSqm": 175,
+      "parachevementsSqm": 225,
+      "name": "Cathy/Jim",
+      "capitalForLoan1": 150000,
+      "registrationFeesRate": 3,
+      "entryDate": "2026-02-01T00:00:00.000Z",
+      "loan2RenovationAmount": 266925,
+      "isFounder": true,
+      "useTwoLoans": true
+    },
+    {
+      "cascoSqm": 120,
+      "registrationFeesRate": 12.5,
+      "interestRate": 4,
+      "lotsOwned": [
+        {
+          "lotId": 1,
+          "unitId": 5,
+          "acquiredDate": "2026-02-01T00:00:00.000Z",
+          "isPortage": false,
+          "allocatedSurface": 118,
+          "surface": 118
+        }
+      ],
+      "parachevementsPerM2": 500,
+      "durationYears": 25,
+      "surface": 200,
+      "entryDate": "2026-02-01T00:00:00.000Z",
+      "quantity": 1,
+      "name": "Annabelle/Colin",
+      "parachevementsSqm": 120,
+      "unitId": 5,
+      "isFounder": true,
+      "capitalApporte": 200000
+    },
+    {
+      "useTwoLoans": true,
+      "parachevementsPerM2": 500,
+      "capitalApporte": 245000,
+      "name": "Julie/Séverin",
+      "surface": 150,
+      "entryDate": "2026-02-01T00:00:00.000Z",
+      "isFounder": true,
+      "durationYears": 25,
+      "capitalForLoan1": 70000,
+      "loan2RenovationAmount": 236023.2,
+      "capitalForLoan2": 175000,
+      "interestRate": 4,
+      "registrationFeesRate": 3,
+      "quantity": 1,
+      "unitId": 6
+    },
+    {
+      "unitId": 7,
+      "name": "Participant·e 5",
+      "isFounder": false,
+      "entryDate": "2027-02-01T00:00:00.000Z",
+      "capitalApporte": 50000,
+      "enabled": true,
+      "surface": 60,
+      "quantity": 1,
+      "durationYears": 25,
+      "purchaseDetails": {
+        "buyingFrom": "Copropriété",
+        "breakdown": {
+          "feesRecovery": 0,
+          "renovations": 0,
+          "indexation": 1651.257766174592,
+          "carryingCostRecovery": 4128.17248459959,
+          "basePrice": 82620
+        },
+        "lotId": 999,
+        "purchasePrice": 88399.43025077418
+      },
+      "interestRate": 4,
+      "registrationFeesRate": 3,
+      "parachevementsPerM2": 500
+    },
+    {
+      "entryDate": "2027-02-01T00:00:00.000Z",
+      "durationYears": 25,
+      "isFounder": false,
+      "purchaseDetails": {
+        "purchasePrice": 147332.3837512903,
+        "lotId": 999,
+        "buyingFrom": "Copropriété"
+      },
+      "enabled": true,
+      "unitId": 8,
+      "name": "Participant·e 6",
+      "parachevementsPerM2": 500,
+      "surface": 101,
+      "quantity": 1,
+      "registrationFeesRate": 12.5,
+      "interestRate": 4.5,
+      "capitalApporte": 100000
+    },
+    {
+      "interestRate": 4.5,
+      "capitalApporte": 100000,
+      "enabled": true,
+      "purchaseDetails": {
+        "purchasePrice": 147332.3837512903,
+        "buyingFrom": "Copropriété",
+        "lotId": 999
+      },
+      "durationYears": 25,
+      "isFounder": false,
+      "entryDate": "2027-02-01T00:00:00.000Z",
+      "parachevementsPerM2": 500,
+      "name": "Participant·e 7",
+      "registrationFeesRate": 12.5,
+      "unitId": 9,
+      "quantity": 1,
+      "surface": 100
+    },
+    {
+      "enabled": true,
+      "interestRate": 4.5,
+      "isFounder": false,
+      "capitalApporte": 100000,
+      "durationYears": 25,
+      "surface": 100,
+      "unitId": 10,
+      "name": "Participant·e 8",
+      "purchaseDetails": {
+        "lotId": 999,
+        "buyingFrom": "Copropriété",
+        "purchasePrice": 147332.3837512903
+      },
+      "quantity": 1,
+      "entryDate": "2027-02-01T00:00:00.000Z",
+      "registrationFeesRate": 12.5,
+      "parachevementsPerM2": 500
+    },
+    {
+      "purchaseDetails": {
+        "purchasePrice": 147332.3837512903,
+        "buyingFrom": "Copropriété",
+        "lotId": 999
+      },
+      "isFounder": false,
+      "interestRate": 4.5,
+      "entryDate": "2027-02-01T00:00:00.000Z",
+      "unitId": 11,
+      "parachevementsPerM2": 500,
+      "surface": 100,
+      "capitalApporte": 100000,
+      "quantity": 1,
+      "name": "Participant·e 9",
+      "enabled": true,
+      "durationYears": 25,
+      "registrationFeesRate": 12.5
+    }
+  ],
+  "projectParams": {
+    "batimentFondationComplete": 0,
+    "renovationStartDate": "2027-02-23",
+    "infrastructures": 0,
+    "demolition": 0,
+    "batimentCoproConservatoire": 0,
+    "expenseCategories": {
+      "habitabiliteSommaire": [
+        {
+          "label": "plomberie",
+          "amount": 1000
+        },
+        {
+          "label": "électricité (refaire un tableau)",
+          "amount": 1000
+        },
+        {
+          "amount": 2000,
+          "label": "retirer des lignes (électrique)"
+        },
+        {
+          "label": "isolation thermique",
+          "amount": 1000
+        },
+        {
+          "amount": 2000,
+          "label": "cloisons"
+        },
+        {
+          "label": "chauffage",
+          "amount": 0
+        }
+      ],
+      "conservatoire": [
+        {
+          "amount": 40000,
+          "label": "Traitement Mérule"
+        },
+        {
+          "amount": 20000,
+          "label": "Démolition (mérule)"
+        },
+        {
+          "label": "nettoyage du site",
+          "amount": 6000
+        },
+        {
+          "label": "toitures",
+          "amount": 10000
+        },
+        {
+          "amount": 2000,
+          "label": "sécurité du site? (portes, accès..)"
+        }
+      ],
+      "premierTravaux": [
+        {
+          "amount": 150,
+          "label": "poulailler"
+        },
+        {
+          "label": "atelier maintenance (et reparation)",
+          "amount": 500
+        },
+        {
+          "label": "stockage ressources/énergie/consommables (eau, bois,...)",
+          "amount": 700
+        },
+        {
+          "label": "verger prix par 1ha",
+          "amount": 2000
+        },
+        {
+          "amount": 2500,
+          "label": "atelier construction"
+        },
+        {
+          "amount": 3000,
+          "label": "Cuisine (commune)"
+        },
+        {
+          "amount": 5000,
+          "label": "travaux chapelle rudimentaires"
+        },
+        {
+          "amount": 5000,
+          "label": "local + outil jardin"
+        }
+      ]
+    },
+    "mesuresConservatoires": 0,
+    "travauxCommuns": {
+      "enabled": true,
+      "items": [
+        {
+          "sqm": 338,
+          "label": "Rénovation complète",
+          "amount": 270000,
+          "cascoPricePerSqm": 600,
+          "parachevementPricePerSqm": 200
+        }
+      ]
+    },
+    "batimentFondationConservatoire": 0,
+    "totalPurchase": 650000,
+    "globalCascoPerM2": 1590,
+    "etudesPreparatoires": 0,
+    "fraisGeneraux3ans": 0,
+    "cascoTvaRate": 6,
+    "maxTotalLots": 11,
+    "fraisEtudesPreparatoires": 0
+  },
+  "deedDate": "2026-02-01",
+  "portageFormula": {
+    "coproReservesShare": 0,
+    "averageInterestRate": 4.5,
+    "carryingCostRecovery": 100,
+    "indexationRate": 2
+  },
+  "unitDetails": {
+    "1": {
+      "casco": 178080,
+      "parachevements": 56000
+    },
+    "3": {
+      "casco": 213060,
+      "parachevements": 67000
+    },
+    "5": {
+      "casco": 187620,
+      "parachevements": 59000
+    },
+    "6": {
+      "casco": 171720,
+      "parachevements": 54000
+    }
+  },
+  "calculations": {
+    "totalSurface": 1186,
+    "pricePerM2": 548.0607082630692,
+    "sharedCosts": 217327.44,
+    "sharedPerPerson": 24147.493333333332,
+    "participantBreakdown": [
+      {
+        "name": "Manuela/Dragan",
+        "unitId": 1,
+        "surface": 150,
+        "quantity": 1,
+        "pricePerM2": 548.0607082630692,
+        "purchaseShare": 82209.10623946038,
+        "droitEnregistrements": 2466.2731871838114,
+        "fraisNotaireFixe": 1000,
+        "casco": 235956,
+        "parachevements": 60000,
+        "personalRenovationCost": 295956,
+        "constructionCost": 326000.44444444444,
+        "constructionCostPerUnit": 326000.44444444444,
+        "travauxCommunsPerUnit": 30044.444444444445,
+        "sharedCosts": 24147.493333333332,
+        "totalCost": 435823.31720442197,
+        "loanNeeded": 305778.87275997753,
+        "financingRatio": 70.16120080985769,
+        "monthlyPayment": 1086.1766999766344,
+        "totalRepayment": 480264.9889486125,
+        "totalInterest": 174486.11618863497,
+        "loan1Amount": 205778.87275997753,
+        "loan1MonthlyPayment": 1086.1766999766344,
+        "loan1Interest": 120074.13723301276,
+        "loan2Amount": 100000,
+        "loan2DurationYears": 23.5,
+        "loan2MonthlyPayment": 547.5602090624901,
+        "loan2Interest": 54411.97895562221
+      },
+      {
+        "name": "Cathy/Jim",
+        "unitId": 3,
+        "surface": 225,
+        "quantity": 1,
+        "pricePerM2": 548.0607082630692,
+        "purchaseShare": 123313.65935919055,
+        "droitEnregistrements": 3699.4097807757166,
+        "fraisNotaireFixe": 1000,
+        "casco": 294945,
+        "parachevements": 56250,
+        "personalRenovationCost": 351195,
+        "constructionCost": 381239.44444444444,
+        "constructionCostPerUnit": 381239.44444444444,
+        "travauxCommunsPerUnit": 30044.444444444445,
+        "sharedCosts": 24147.493333333332,
+        "totalCost": 533400.0069177441,
+        "loanNeeded": 86430.56247329962,
+        "financingRatio": 16.20370479047034,
+        "monthlyPayment": 480.4091371118318,
+        "totalRepayment": 144122.74113354954,
+        "totalInterest": 57692.17866024992,
+        "loan1Amount": 86430.56247329962,
+        "loan1MonthlyPayment": 480.4091371118318,
+        "loan1Interest": 57692.17866024992,
+        "loan2Amount": 0,
+        "loan2DurationYears": 23,
+        "loan2MonthlyPayment": 0,
+        "loan2Interest": 0
+      },
+      {
+        "name": "Annabelle/Colin",
+        "unitId": 5,
+        "surface": 200,
+        "quantity": 1,
+        "pricePerM2": 548.0607082630692,
+        "purchaseShare": 109612.14165261383,
+        "droitEnregistrements": 13701.51770657673,
+        "fraisNotaireFixe": 1000,
+        "casco": 202248,
+        "parachevements": 60000,
+        "personalRenovationCost": 262248,
+        "constructionCost": 292292.44444444444,
+        "constructionCostPerUnit": 292292.44444444444,
+        "travauxCommunsPerUnit": 30044.444444444445,
+        "sharedCosts": 24147.493333333332,
+        "totalCost": 440753.59713696834,
+        "loanNeeded": 240753.59713696834,
+        "financingRatio": 54.62317238040644,
+        "monthlyPayment": 1270.7861800309965,
+        "totalRepayment": 381235.85400929896,
+        "totalInterest": 140482.25687233062
+      },
+      {
+        "name": "Julie/Séverin",
+        "unitId": 6,
+        "surface": 150,
+        "quantity": 1,
+        "pricePerM2": 548.0607082630692,
+        "purchaseShare": 82209.10623946038,
+        "droitEnregistrements": 2466.2731871838114,
+        "fraisNotaireFixe": 1000,
+        "casco": 252810,
+        "parachevements": 75000,
+        "personalRenovationCost": 327810,
+        "constructionCost": 357854.44444444444,
+        "constructionCostPerUnit": 357854.44444444444,
+        "travauxCommunsPerUnit": 30044.444444444445,
+        "sharedCosts": 24147.493333333332,
+        "totalCost": 467677.31720442197,
+        "loanNeeded": 192632.87275997753,
+        "financingRatio": 41.18926996747581,
+        "monthlyPayment": 694.6843382225004,
+        "totalRepayment": 301838.60771078477,
+        "totalInterest": 109205.73495080721,
+        "loan1Amount": 131609.67275997752,
+        "loan1MonthlyPayment": 694.6843382225004,
+        "loan1Interest": 76795.62870677258,
+        "loan2Amount": 61023.20000000001,
+        "loan2DurationYears": 23,
+        "loan2MonthlyPayment": 338.5264718986762,
+        "loan2Interest": 32410.10624403463
+      },
+      {
+        "name": "Participant·e 5",
+        "unitId": 7,
+        "surface": 60,
+        "quantity": 1,
+        "pricePerM2": 548.0607082630692,
+        "purchaseShare": 33844.1942770751,
+        "droitEnregistrements": 1015.3258283122528,
+        "fraisNotaireFixe": 1000,
+        "casco": 101124,
+        "parachevements": 30000,
+        "personalRenovationCost": 131124,
+        "constructionCost": 161168.44444444444,
+        "constructionCostPerUnit": 161168.44444444444,
+        "travauxCommunsPerUnit": 30044.444444444445,
+        "sharedCosts": 24147.493333333332,
+        "totalCost": 221175.4578831651,
+        "loanNeeded": 171175.4578831651,
+        "financingRatio": 77.39351351251084,
+        "monthlyPayment": 903.5271282557392,
+        "totalRepayment": 271058.13847672177,
+        "totalInterest": 99882.68059355667
+      },
+      {
+        "name": "Participant·e 6",
+        "unitId": 8,
+        "surface": 101,
+        "quantity": 1,
+        "pricePerM2": 548.0607082630692,
+        "purchaseShare": 56971.06036640974,
+        "droitEnregistrements": 7121.382545801218,
+        "fraisNotaireFixe": 1000,
+        "casco": 170225.4,
+        "parachevements": 50500,
+        "personalRenovationCost": 220725.4,
+        "constructionCost": 250769.84444444443,
+        "constructionCostPerUnit": 250769.84444444443,
+        "travauxCommunsPerUnit": 30044.444444444445,
+        "sharedCosts": 24147.493333333332,
+        "totalCost": 340009.78068998875,
+        "loanNeeded": 240009.78068998875,
+        "financingRatio": 70.58908135022823,
+        "monthlyPayment": 1334.0523113603153,
+        "totalRepayment": 400215.6934080946,
+        "totalInterest": 160205.91271810583
+      },
+      {
+        "name": "Participant·e 7",
+        "unitId": 9,
+        "surface": 100,
+        "quantity": 1,
+        "pricePerM2": 548.0607082630692,
+        "purchaseShare": 56406.99046179183,
+        "droitEnregistrements": 7050.873807723979,
+        "fraisNotaireFixe": 1000,
+        "casco": 168540,
+        "parachevements": 50000,
+        "personalRenovationCost": 218540,
+        "constructionCost": 248584.44444444444,
+        "constructionCostPerUnit": 248584.44444444444,
+        "travauxCommunsPerUnit": 30044.444444444445,
+        "sharedCosts": 24147.493333333332,
+        "totalCost": 337189.8020472936,
+        "loanNeeded": 237189.80204729358,
+        "financingRatio": 70.34311257551788,
+        "monthlyPayment": 1318.3779541926237,
+        "totalRepayment": 395513.3862577871,
+        "totalInterest": 158323.58421049354
+      },
+      {
+        "name": "Participant·e 8",
+        "unitId": 10,
+        "surface": 100,
+        "quantity": 1,
+        "pricePerM2": 548.0607082630692,
+        "purchaseShare": 56406.99046179183,
+        "droitEnregistrements": 7050.873807723979,
+        "fraisNotaireFixe": 1000,
+        "casco": 168540,
+        "parachevements": 50000,
+        "personalRenovationCost": 218540,
+        "constructionCost": 248584.44444444444,
+        "constructionCostPerUnit": 248584.44444444444,
+        "travauxCommunsPerUnit": 30044.444444444445,
+        "sharedCosts": 24147.493333333332,
+        "totalCost": 337189.8020472936,
+        "loanNeeded": 237189.80204729358,
+        "financingRatio": 70.34311257551788,
+        "monthlyPayment": 1318.3779541926237,
+        "totalRepayment": 395513.3862577871,
+        "totalInterest": 158323.58421049354
+      },
+      {
+        "name": "Participant·e 9",
+        "unitId": 11,
+        "surface": 100,
+        "quantity": 1,
+        "pricePerM2": 548.0607082630692,
+        "purchaseShare": 56406.99046179183,
+        "droitEnregistrements": 7050.873807723979,
+        "fraisNotaireFixe": 1000,
+        "casco": 168540,
+        "parachevements": 50000,
+        "personalRenovationCost": 218540,
+        "constructionCost": 248584.44444444444,
+        "constructionCostPerUnit": 248584.44444444444,
+        "travauxCommunsPerUnit": 30044.444444444445,
+        "sharedCosts": 24147.493333333332,
+        "totalCost": 337189.8020472936,
+        "loanNeeded": 237189.80204729358,
+        "financingRatio": 70.34311257551788,
+        "monthlyPayment": 1318.3779541926237,
+        "totalRepayment": 395513.3862577871,
+        "totalInterest": 158323.58421049354
+      }
+    ],
+    "totals": {
+      "purchase": 650000,
+      "totalDroitEnregistrements": 51622.80365900547,
+      "totalFraisNotaireFixe": 9000,
+      "construction": 2515078.4,
+      "shared": 217327.44,
+      "totalTravauxCommuns": 270400,
+      "travauxCommunsPerUnit": 30044.444444444445,
+      "total": 3434028.6436590054,
+      "capitalTotal": 1395000,
+      "totalLoansNeeded": 1948350.5498452578,
+      "averageLoan": 216483.39442725087,
+      "averageCapital": 155000
+    }
+  }
+}

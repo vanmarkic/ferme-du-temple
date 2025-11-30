@@ -10,7 +10,7 @@
  * - 2.0.0: BREAKING CHANGE - Data structure updates in core interfaces (Participant, ProjectParams, PortageFormulaParams)
  * - 1.16.0: Implemented semantic versioning for version compatibility
  * - 1.15.0: Refactored notaryFees → droitEnregistrements (backward compatible)
- * - 1.14.0: Added Firestore sync and multi-user collaboration features
+ * - 1.14.0: Added multi-user collaboration features
  * - 1.0.0: Initial version with portage lots, purchaseDetails, and timeline features
  */
 

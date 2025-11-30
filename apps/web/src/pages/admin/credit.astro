@@ -1,25 +1,8 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { requireAdmin } from '../../lib/auth';
-import CreditCastorApp from '../../credit-castor/components/CreditCastorApp';
-
-export const prerender = false; // This page must be server-rendered
-
-// Require admin authentication
-const authResult = await requireAdmin(Astro.cookies, '/admin/credit');
-
-if (!authResult.authenticated) {
-  return Astro.redirect(authResult.redirectTo);
-}
+// Credit Castor is now a separate app - redirect to it
+// In production, Vercel rewrite handles /admin/credit/* -> credit.lafermedutemple.be
+// In dev, redirect to the credit app's dev server
+return Astro.redirect(import.meta.env.DEV
+  ? 'http://localhost:4322/admin/credit'
+  : '/admin/credit');
 ---
-
-<BaseLayout title="Credit Castor - La Ferme du Temple">
-  <CreditCastorApp client:only="react" />
-</BaseLayout>
-
-<style is:global>
-  /* Credit Castor uses Tailwind - ensure it works within ferme-du-temple */
-  .credit-castor-container {
-    min-height: 100vh;
-  }
-</style>
