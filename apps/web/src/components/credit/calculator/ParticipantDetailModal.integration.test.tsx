@@ -11,6 +11,22 @@ import type {
 } from '@repo/credit-calculator/utils';
 import type { Lot } from '@repo/credit-calculator/types';
 
+// Mock the UnlockContext to avoid localStorage dependencies
+vi.mock('../contexts/UnlockContext', () => ({
+  useUnlock: () => ({
+    isUnlocked: true,
+    isReadonlyMode: false,
+    isForceReadonly: false,
+    unlockedAt: null,
+    unlockedBy: null,
+    unlock: vi.fn(),
+    lock: vi.fn(),
+    validatePassword: vi.fn(),
+    setReadonlyMode: vi.fn(),
+    isLoading: false,
+  }),
+}));
+
 describe('ParticipantDetailModal Integration', () => {
   const mockLot: Lot = {
     lotId: 1,
@@ -172,19 +188,19 @@ describe('ParticipantDetailModal Integration', () => {
     expect(screen.getByText('MENSUALITÉ')).toBeInTheDocument();
   });
 
-  it('should show financing section when clicked', () => {
+  it('should show loan section when clicked', () => {
     render(<ParticipantDetailModal {...defaultProps} />);
 
-    // Find and click the Financement section
-    const financingButton = screen.getByText(/Financement/).closest('button');
-    expect(financingButton).toBeInTheDocument();
+    // Find and click the Prêt section (renamed from Financement)
+    const loanButton = screen.getByText(/Prêt/).closest('button');
+    expect(loanButton).toBeInTheDocument();
 
-    if (financingButton) {
-      fireEvent.click(financingButton);
-      // Should now see expanded financing details
-      expect(screen.getByText('Capital apporté:')).toBeInTheDocument();
-      expect(screen.getByText('Un seul prêt')).toBeInTheDocument();
-      expect(screen.getByText('Deux prêts')).toBeInTheDocument();
+    if (loanButton) {
+      fireEvent.click(loanButton);
+      // Should now see expanded loan details
+      expect(screen.getByText("Frais d'enregistrement")).toBeInTheDocument();
+      expect(screen.getByText(/Taux d'intérêt/)).toBeInTheDocument();
+      expect(screen.getByText('Financement en deux prêts')).toBeInTheDocument();
     }
   });
 
@@ -263,7 +279,7 @@ describe('ParticipantDetailModal Integration', () => {
     }
   });
 
-  it('should call onUpdateParticipant when financing type changes', () => {
+  it('should call onUpdateParticipant when loan type changes', () => {
     const onUpdateParticipant = vi.fn();
     render(
       <ParticipantDetailModal
@@ -272,15 +288,15 @@ describe('ParticipantDetailModal Integration', () => {
       />
     );
 
-    // Expand financing section
-    const financingButton = screen.getByText(/Financement/).closest('button');
-    if (financingButton) {
-      fireEvent.click(financingButton);
+    // Expand loan section (renamed from financing)
+    const loanButton = screen.getByText(/Prêt/).closest('button');
+    if (loanButton) {
+      fireEvent.click(loanButton);
 
-      // Click on "Deux prêts" radio button
-      const twoLoansRadio = screen.getByText('Deux prêts').closest('label')?.querySelector('input');
-      if (twoLoansRadio) {
-        fireEvent.click(twoLoansRadio);
+      // Click on "Financement en deux prêts" checkbox
+      const twoLoansCheckbox = screen.getByText('Financement en deux prêts').closest('label')?.querySelector('input');
+      if (twoLoansCheckbox) {
+        fireEvent.click(twoLoansCheckbox);
         expect(onUpdateParticipant).toHaveBeenCalled();
       }
     }

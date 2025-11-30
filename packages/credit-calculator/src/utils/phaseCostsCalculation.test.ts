@@ -16,8 +16,8 @@ describe('calculatePhaseCosts', () => {
 
     const result = calculatePhaseCosts(participantCalc as ParticipantCalculation);
 
-    expect(result.signature.total).toBe(45200); // 35000 + 5200 + 5000
-    expect(result.construction.total).toBe(87500); // 60000 + 15000 + 12500
+    expect(result.signature.total).toBe(60200); // 35000 + 5200 + 5000 + 15000 (commun)
+    expect(result.construction.total).toBe(72500); // 60000 + 12500
     expect(result.emmenagement.total).toBe(25000);
     expect(result.grandTotal).toBe(157700);
   });
@@ -38,9 +38,9 @@ describe('calculatePhaseCosts', () => {
     expect(result.signature.purchaseShare).toBe(35000);
     expect(result.signature.registrationFees).toBe(5200);
     expect(result.signature.notaryFees).toBe(5000);
+    expect(result.signature.commun).toBe(15000);
 
     expect(result.construction.casco).toBe(60000);
-    expect(result.construction.commun).toBe(15000);
     expect(result.construction.travauxCommuns).toBe(12500);
 
     expect(result.emmenagement.parachevements).toBe(25000);
@@ -69,44 +69,44 @@ describe('calculatePhaseCosts', () => {
 describe('suggestLoanAllocation', () => {
   it('should allocate signature costs to loan 1 minus capital', () => {
     const phaseCosts: PhaseCosts = {
-      signature: { purchaseShare: 35000, registrationFees: 5200, notaryFees: 5000, total: 45200 },
-      construction: { casco: 60000, travauxCommuns: 12500, commun: 15000, total: 87500 },
+      signature: { purchaseShare: 35000, registrationFees: 5200, notaryFees: 5000, commun: 15000, total: 60200 },
+      construction: { casco: 60000, travauxCommuns: 12500, total: 72500 },
       emmenagement: { parachevements: 25000, total: 25000 },
       grandTotal: 157700,
     };
 
     const result = suggestLoanAllocation(phaseCosts, 20000, false);
 
-    expect(result.loan1Amount).toBe(25200); // 45200 - 20000 capital
-    expect(result.loan2Amount).toBe(87500); // construction costs
+    expect(result.loan1Amount).toBe(40200); // 60200 - 20000 capital
+    expect(result.loan2Amount).toBe(72500); // construction costs
     expect(result.includeParachevements).toBe(false);
   });
 
   it('should include parachevements in loan 2 when toggled', () => {
     const phaseCosts: PhaseCosts = {
-      signature: { purchaseShare: 35000, registrationFees: 5200, notaryFees: 5000, total: 45200 },
-      construction: { casco: 60000, travauxCommuns: 12500, commun: 15000, total: 87500 },
+      signature: { purchaseShare: 35000, registrationFees: 5200, notaryFees: 5000, commun: 15000, total: 60200 },
+      construction: { casco: 60000, travauxCommuns: 12500, total: 72500 },
       emmenagement: { parachevements: 25000, total: 25000 },
       grandTotal: 157700,
     };
 
     const result = suggestLoanAllocation(phaseCosts, 20000, true);
 
-    expect(result.loan2Amount).toBe(112500); // 87500 + 25000
+    expect(result.loan2Amount).toBe(97500); // 72500 + 25000
     expect(result.includeParachevements).toBe(true);
   });
 
   it('should not go negative if capital exceeds signature costs', () => {
     const phaseCosts: PhaseCosts = {
-      signature: { purchaseShare: 35000, registrationFees: 5200, notaryFees: 5000, total: 45200 },
-      construction: { casco: 60000, travauxCommuns: 0, commun: 15000, total: 75000 },
+      signature: { purchaseShare: 35000, registrationFees: 5200, notaryFees: 5000, commun: 15000, total: 60200 },
+      construction: { casco: 60000, travauxCommuns: 0, total: 60000 },
       emmenagement: { parachevements: 25000, total: 25000 },
       grandTotal: 145200,
     };
 
-    const result = suggestLoanAllocation(phaseCosts, 50000, false);
+    const result = suggestLoanAllocation(phaseCosts, 65000, false);
 
     expect(result.loan1Amount).toBe(0); // Capital covers signature
-    expect(result.loan2Amount).toBe(70200); // 75000 - (50000 - 45200) excess capital
+    expect(result.loan2Amount).toBe(55200); // 60000 - (65000 - 60200) excess capital
   });
 });

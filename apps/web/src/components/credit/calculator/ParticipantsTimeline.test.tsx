@@ -4,12 +4,19 @@ import '@testing-library/jest-dom';
 import { ParticipantsTimeline } from './ParticipantsTimeline';
 import type { Participant } from '@repo/credit-calculator/utils';
 
-// Mock the useProjectParamPermissions hook
-vi.mock('../../hooks/useFieldPermissions', () => ({
-  useProjectParamPermissions: () => ({
-    canEdit: true,
-    isLocked: false,
-    lockReason: undefined,
+// Mock the UnlockContext to avoid localStorage dependencies
+vi.mock('../contexts/UnlockContext', () => ({
+  useUnlock: () => ({
+    isUnlocked: true,
+    isReadonlyMode: false,
+    isForceReadonly: false,
+    unlockedAt: null,
+    unlockedBy: null,
+    unlock: vi.fn(),
+    lock: vi.fn(),
+    validatePassword: vi.fn(),
+    setReadonlyMode: vi.fn(),
+    isLoading: false,
   }),
 }));
 

@@ -16,7 +16,6 @@ import type {
 } from '@repo/credit-calculator/types';
 import TimelineHeader from './timeline/TimelineHeader';
 import TimelineNameColumn from './timeline/TimelineNameColumn';
-import TimelineCardsArea from './timeline/TimelineCardsArea';
 import FraisGenerauxDetailModal from './calculator/FraisGenerauxDetailModal';
 
 type FraisGenerauxEvent = FraisGenerauxYearlyEvent | NewcomerFraisGenerauxReimbursementEvent;
@@ -102,19 +101,21 @@ export default function HorizontalSwimLaneTimeline({
       <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
         <TimelineHeader onAddParticipant={onAddParticipant} />
 
-        <div className="flex overflow-x-auto">
-          <TimelineNameColumn participants={participants} onUpdateParticipant={onUpdateParticipant} />
-          <TimelineCardsArea
-            allDates={allDates}
-            coproSnapshots={coproSnapshots}
-            fraisGenerauxEvents={fraisGenerauxEvents}
-            participants={participants}
-            snapshots={snapshots}
-            onOpenParticipantDetails={onOpenParticipantDetails}
-            onOpenCoproDetails={onOpenCoproDetails}
-            onOpenFraisGenerauxDetails={setFraisGenerauxEvent}
-            coproReservesShare={coproReservesShare}
-          />
+        <div className="overflow-x-auto">
+          <div className="inline-flex flex-col min-w-full">
+            <TimelineNameColumn
+              participants={participants}
+              onUpdateParticipant={onUpdateParticipant}
+              allDates={allDates}
+              coproSnapshots={coproSnapshots}
+              fraisGenerauxEvents={fraisGenerauxEvents}
+              snapshots={snapshots}
+              onOpenParticipantDetails={onOpenParticipantDetails}
+              onOpenCoproDetails={onOpenCoproDetails}
+              onOpenFraisGenerauxDetails={setFraisGenerauxEvent}
+              coproReservesShare={coproReservesShare}
+            />
+          </div>
         </div>
       </div>
 

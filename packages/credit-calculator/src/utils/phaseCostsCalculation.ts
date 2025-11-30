@@ -5,12 +5,12 @@ export interface PhaseCosts {
     purchaseShare: number;
     registrationFees: number;
     notaryFees: number;
+    commun: number;
     total: number;
   };
   construction: {
     casco: number;
     travauxCommuns: number;
-    commun: number;
     total: number;
   };
   emmenagement: {
@@ -29,8 +29,8 @@ export interface LoanAllocation {
 
 /**
  * Groups participant costs by payment phase timing
- * - Signature: Paid at deed signing (purchase + notary + registration)
- * - Construction: Paid progressively during construction (CASCO + commun + travaux)
+ * - Signature: Paid at deed signing (purchase + notary + registration + commun)
+ * - Construction: Paid progressively during construction (CASCO + travaux)
  * - Emménagement: Paid when inhabitant decides to move in (parachèvements)
  */
 export function calculatePhaseCosts(p: ParticipantCalculation): PhaseCosts {
@@ -38,17 +38,17 @@ export function calculatePhaseCosts(p: ParticipantCalculation): PhaseCosts {
     purchaseShare: p.purchaseShare ?? 0,
     registrationFees: p.droitEnregistrements ?? 0,
     notaryFees: p.fraisNotaireFixe ?? 0,
+    commun: p.sharedCosts ?? 0,
     total: 0,
   };
-  signature.total = signature.purchaseShare + signature.registrationFees + signature.notaryFees;
+  signature.total = signature.purchaseShare + signature.registrationFees + signature.notaryFees + signature.commun;
 
   const construction = {
     casco: p.casco ?? 0,
     travauxCommuns: p.travauxCommunsPerUnit ?? 0,
-    commun: p.sharedCosts ?? 0,
     total: 0,
   };
-  construction.total = construction.casco + construction.travauxCommuns + construction.commun;
+  construction.total = construction.casco + construction.travauxCommuns;
 
   const emmenagement = {
     parachevements: p.parachevements ?? 0,

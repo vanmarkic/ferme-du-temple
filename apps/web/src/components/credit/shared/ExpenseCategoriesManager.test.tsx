@@ -9,9 +9,20 @@ import {
   type UnitDetails,
 } from '@repo/credit-calculator/utils';
 
-// Mock the useProjectParamPermissions hook
-vi.mock('../../hooks/useFieldPermissions', () => ({
-  useProjectParamPermissions: () => ({ canEdit: true })
+// Mock the UnlockContext to avoid localStorage dependencies
+vi.mock('../contexts/UnlockContext', () => ({
+  useUnlock: () => ({
+    isUnlocked: true,
+    isReadonlyMode: false,
+    isForceReadonly: false,
+    unlockedAt: null,
+    unlockedBy: null,
+    unlock: vi.fn(),
+    lock: vi.fn(),
+    validatePassword: vi.fn(),
+    setReadonlyMode: vi.fn(),
+    isLoading: false,
+  }),
 }));
 
 describe('ExpenseCategoriesManager - TRAVAUX COMMUNS Display', () => {

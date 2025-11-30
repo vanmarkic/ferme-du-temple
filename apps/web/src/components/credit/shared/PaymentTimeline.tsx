@@ -73,6 +73,7 @@ export function PaymentTimeline({
             { label: "Part d'achat", amount: signature.purchaseShare },
             { label: 'Enregistrement', amount: signature.registrationFees },
             { label: 'Notaire', amount: signature.notaryFees },
+            { label: 'Commun', amount: signature.commun },
           ]}
         />
 
@@ -85,7 +86,6 @@ export function PaymentTimeline({
           items={[
             { label: 'CASCO', amount: construction.casco },
             { label: 'Travaux communs', amount: construction.travauxCommuns },
-            { label: 'Commun', amount: construction.commun },
           ]}
         />
 
