@@ -22,7 +22,7 @@ export default function FraisGenerauxLane({
   onOpenEventDetails
 }: FraisGenerauxLaneProps) {
   return (
-    <div className="h-48 flex items-center border-b border-gray-200 swimlane-row bg-purple-25">
+    <div className="min-h-48 py-2 flex items-center border-b border-gray-200 swimlane-row bg-purple-25">
       {allDates.map((date, dateIdx) => {
         const dateStr = date.toISOString().split('T')[0];
         const event = events.find(
