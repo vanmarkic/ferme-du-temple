@@ -1,0 +1,714 @@
+import { useState, useEffect } from 'react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
+import * as Tooltip from '@radix-ui/react-tooltip';
+import { calculateTotalTravauxCommuns } from '../utils/calculatorUtils';
+import { ParticipantsTimeline } from './calculator/ParticipantsTimeline';
+import { ProjectHeader } from './calculator/ProjectHeader';
+import { VerticalToolbar } from './calculator/VerticalToolbar';
+import ParticipantDetailModal from './calculator/ParticipantDetailModal';
+import CoproDetailModal from './calculator/CoproDetailModal';
+import AllFoundersPrintView from './calculator/AllFoundersPrintView';
+import { FormulaTooltip } from './FormulaTooltip';
+import { formatCurrency } from '../utils/formatting';
+import { ExpenseCategoriesManager } from './shared/ExpenseCategoriesManager';
+import PortageFormulaConfig from './PortageFormulaConfig';
+import AvailableLotsView from './AvailableLotsView';
+import { getAvailableLotsForNewcomer } from '../utils/availableLots';
+import { validateAddPortageLot } from '../utils/lotValidation';
+import type { CoproLot } from '../types/timeline';
+import {
+  getPricePerM2Formula,
+  getTotalProjectCostFormula
+} from '../utils/formulaExplanations';
+import { loadFromLocalStorage, clearPinnedParticipant } from '../utils/storage';
+import { RELEASE_VERSION } from '../utils/version';
+import { VersionMismatchWarning } from './VersionMismatchWarning';
+import { useOrderedParticipantBreakdown } from '../hooks/useCalculatorState';
+import HorizontalSwimLaneTimeline from './HorizontalSwimLaneTimeline';
+import { updateBuyerWithRecalculatedPrice } from '../utils/portageRecalculation';
+import { UnlockProvider, useUnlock } from '../contexts/UnlockContext';
+import { UnlockButton } from './shared/UnlockButton';
+import { ReadonlyModeSwitch } from './shared/ReadonlyModeSwitch';
+import toast, { Toaster } from 'react-hot-toast';
+import { useCalculator } from '../contexts/CalculatorContext';
+
+interface CoproSnapshot {
+  date: Date;
+  availableLots: number;
+  totalSurface: number;
+  soldThisDate: string[];
+  reserveIncrease: number;
+  colorZone: number;
+}
+
+export default function EnDivisionCorrect() {
+  const [isCostBreakdownExpanded, setIsCostBreakdownExpanded] = useState(false);
+  const [showAllFoundersPrint, setShowAllFoundersPrint] = useState(false);
+  
+  // Get state and actions from context
+  const { state, actions } = useCalculator();
+  const {
+    participants,
+    projectParams,
+    deedDate,
+    portageFormula,
+    pinnedParticipant,
+    fullscreenParticipantIndex,
+    versionMismatch,
+    syncMode,
+    isSyncing,
+    lastSyncedAt,
+    syncError,
+    isDirty,
+    calculations,
+    unitDetails
+  } = state;
+
+  const {
+    setParticipants,
+    setProjectParams,
+    handleDeedDateChange,
+    handleRenovationStartDateChange,
+    setPortageFormula,
+    setFullscreenParticipantIndex,
+    setVersionMismatch,
+    handlePinParticipant,
+    handleUnpinParticipant,
+    addParticipant,
+    updateParticipant,
+    updateParticipantName,
+    updateParticipantSurface,
+    removeParticipant,
+    downloadScenario,
+    loadScenario,
+    resetToDefaults,
+    exportToExcel,
+    save,
+    discard
+  } = actions;
+
+  // Copropriété modal state
+  const [coproSnapshot, setCoproSnapshot] = useState<CoproSnapshot | null>(null);
+
+  // URL hash routing for participant modals
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      const match = hash.match(/^#participant\/(\d+)$/);
+      if (match) {
+        const index = parseInt(match[1], 10);
+        if (index >= 0 && index < participants.length) {
+          setFullscreenParticipantIndex(index);
+        }
+      } else if (!hash || hash === '#') {
+        setFullscreenParticipantIndex(null);
+      }
+    };
+
+    // Handle initial hash on mount
+    handleHashChange();
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, [participants.length, setFullscreenParticipantIndex]);
+
+  // Sync URL hash when fullscreenParticipantIndex changes programmatically
+  useEffect(() => {
+    const expectedHash = fullscreenParticipantIndex !== null
+      ? `#participant/${fullscreenParticipantIndex}`
+      : '';
+
+    if (window.location.hash !== expectedHash) {
+      if (fullscreenParticipantIndex !== null) {
+        window.history.pushState(null, '', `#participant/${fullscreenParticipantIndex}`);
+      } else if (window.location.hash.startsWith('#participant/')) {
+        window.history.pushState(null, '', window.location.pathname + window.location.search);
+      }
+    }
+  }, [fullscreenParticipantIndex]);
+
+  // Keyboard handler for Escape key to close modal
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && fullscreenParticipantIndex !== null) {
+        setFullscreenParticipantIndex(null);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [fullscreenParticipantIndex, setFullscreenParticipantIndex]);
+
+  // Unlock context for readonly mode
+  const { unlockedBy } = useUnlock();
+
+  // Version mismatch handler (unique to this component)
+  const handleExportAndReset = () => {
+    const stored = loadFromLocalStorage();
+    if (stored) {
+      const dataStr = JSON.stringify(stored, null, 2);
+      const dataBlob = new Blob([dataStr], { type: 'application/json' });
+      const url = URL.createObjectURL(dataBlob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `credit-castor-backup-v${stored.storedVersion || 'unknown'}-${new Date().toISOString().split('T')[0]}.json`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+    clearPinnedParticipant();
+    resetToDefaults();
+    setTimeout(() => window.location.reload(), 500);
+  };
+
+  const handleDismissVersionWarning = () => {
+    setVersionMismatch({ show: false });
+  };
+
+  // Reorder participant breakdown to show pinned participant first
+  const orderedParticipantBreakdown = useOrderedParticipantBreakdown(calculations, pinnedParticipant);
+
+  // Handler for printing all founders
+  const handlePrintAllFounders = () => {
+    setShowAllFoundersPrint(true);
+    // Use setTimeout to ensure the component is rendered before printing
+    setTimeout(() => {
+      window.print();
+      // Hide after print dialog closes (user might cancel)
+      setTimeout(() => setShowAllFoundersPrint(false), 1000);
+    }, 100);
+  };
+
+  // Participant detail operations (wrappers for provider actions)
+  const updateNotaryRate = (index: number, value: number) => {
+    const newParticipants = [...participants];
+    newParticipants[index] = { ...newParticipants[index], registrationFeesRate: value };
+    setParticipants(newParticipants);
+  };
+
+  const updateInterestRate = (index: number, value: number) => {
+    const newParticipants = [...participants];
+    newParticipants[index] = { ...newParticipants[index], interestRate: value };
+    setParticipants(newParticipants);
+  };
+
+  const updateDuration = (index: number, value: number) => {
+    const newParticipants = [...participants];
+    newParticipants[index] = { ...newParticipants[index], durationYears: value };
+    setParticipants(newParticipants);
+  };
+
+  const updateQuantity = (index: number, value: number) => {
+    const newParticipants = [...participants];
+    newParticipants[index] = { ...newParticipants[index], quantity: value };
+    setParticipants(newParticipants);
+  };
+
+  const updateParachevementsPerM2 = (index: number, value: number) => {
+    const newParticipants = [...participants];
+    newParticipants[index] = { ...newParticipants[index], parachevementsPerM2: value };
+    setParticipants(newParticipants);
+  };
+
+  const updateCascoSqm = (index: number, value: number | undefined) => {
+    const newParticipants = [...participants];
+    newParticipants[index] = { ...newParticipants[index], cascoSqm: value };
+    setParticipants(newParticipants);
+  };
+
+  const updateParachevementsSqm = (index: number, value: number | undefined) => {
+    const newParticipants = [...participants];
+    newParticipants[index] = { ...newParticipants[index], parachevementsSqm: value };
+    setParticipants(newParticipants);
+  };
+
+  // Portage lot operations
+  const addPortageLot = (participantIndex: number, coproLots: CoproLot[] = []) => {
+    // Validate against maxTotalLots constraint from projectParams
+    const maxTotalLots = projectParams.maxTotalLots ?? 10;
+    const validation = validateAddPortageLot(participants, coproLots, maxTotalLots);
+    if (!validation.isValid) {
+      toast.error(validation.error || 'Cannot add lot: Maximum total lots reached');
+      return;
+    }
+
+    const participantCalc = calculations.participantBreakdown[participantIndex];
+    const newParticipants = [...participants];
+    const currentLots = newParticipants[participantIndex].lotsOwned || [];
+    const nextLotId = currentLots.length > 0 ? Math.max(...currentLots.map(l => l.lotId)) + 1 : 1;
+
+    // Get unitId from first lot if available, otherwise use 0 for custom portage lot
+    const defaultUnitId = currentLots.length > 0 ? currentLots[0].unitId : 0;
+
+    newParticipants[participantIndex] = {
+      ...newParticipants[participantIndex],
+      lotsOwned: [
+        ...currentLots,
+        {
+          lotId: nextLotId,
+          unitId: defaultUnitId,
+          surface: 80,
+          isPortage: true,
+          allocatedSurface: 80,
+          acquiredDate: new Date(deedDate),
+          originalPrice: participantCalc?.purchaseShare || 0,
+          originalNotaryFees: participantCalc?.droitEnregistrements || 0,
+          originalConstructionCost: participantCalc?.casco || 0
+        }
+      ]
+    };
+    setParticipants(newParticipants);
+  };
+
+  const removePortageLot = (participantIndex: number, lotId: number) => {
+    const newParticipants = [...participants];
+    const currentLots = newParticipants[participantIndex].lotsOwned || [];
+    newParticipants[participantIndex] = {
+      ...newParticipants[participantIndex],
+      lotsOwned: currentLots.filter(lot => lot.lotId !== lotId)
+    };
+    setParticipants(newParticipants);
+  };
+
+  const updatePortageLotSurface = (participantIndex: number, lotId: number, surface: number) => {
+    const newParticipants = [...participants];
+    const currentLots = newParticipants[participantIndex].lotsOwned || [];
+    newParticipants[participantIndex] = {
+      ...newParticipants[participantIndex],
+      lotsOwned: currentLots.map(lot =>
+        lot.lotId === lotId ? { ...lot, surface, allocatedSurface: surface } : lot
+      )
+    };
+    setParticipants(newParticipants);
+  };
+
+  const updatePortageLotConstructionPayment = (
+    participantIndex: number,
+    lotId: number,
+    founderPaysCasco: boolean,
+    founderPaysParachèvement: boolean
+  ) => {
+    const newParticipants = [...participants];
+    const currentLots = newParticipants[participantIndex].lotsOwned || [];
+    newParticipants[participantIndex] = {
+      ...newParticipants[participantIndex],
+      lotsOwned: currentLots.map(lot =>
+        lot.lotId === lotId
+          ? { ...lot, founderPaysCasco, founderPaysParachèvement }
+          : lot
+      )
+    };
+    setParticipants(newParticipants);
+  };
+
+  return (
+    <UnlockProvider>
+      <Tooltip.Provider>
+        {/* Toast Notifications */}
+        <Toaster />
+
+        {/* Version Mismatch Warning Modal */}
+        {versionMismatch.show && (
+          <VersionMismatchWarning
+            storedVersion={versionMismatch.storedVersion}
+            currentVersion={RELEASE_VERSION}
+            onExportAndReset={handleExportAndReset}
+            onDismiss={handleDismissVersionWarning}
+          />
+        )}
+
+
+        <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-100 p-6">
+          {/* Floating Mode Controls */}
+          <div className="fixed top-6 left-6 z-40 no-print flex flex-col gap-2">
+            <ReadonlyModeSwitch />
+            <UnlockButton />
+          </div>
+
+          {/* Sync Status Indicator */}
+          {unlockedBy && (
+            <div className="fixed top-6 right-6 z-40 no-print">
+              <div className="bg-white rounded-lg shadow-md px-3 py-2 text-xs">
+                <div className="flex items-center gap-2">
+                  {syncMode === 'supabase' && (
+                    <>
+                      <div className={`w-2 h-2 rounded-full ${isSyncing ? 'bg-yellow-500 animate-pulse' : isDirty ? 'bg-orange-500' : 'bg-green-500'}`} />
+                      <span className="text-gray-700 font-medium">
+                        {isSyncing ? 'Sauvegarde...' : isDirty ? 'Non sauvegardé' : 'Sauvegardé'}
+                      </span>
+                    </>
+                  )}
+                  {syncMode === 'localStorage' && (
+                    <>
+                      <div className="w-2 h-2 rounded-full bg-blue-500" />
+                      <span className="text-gray-700 font-medium">Local</span>
+                    </>
+                  )}
+                  {syncMode === 'offline' && (
+                    <>
+                      <div className="w-2 h-2 rounded-full bg-gray-400" />
+                      <span className="text-gray-700 font-medium">Hors ligne</span>
+                    </>
+                  )}
+                </div>
+                {lastSyncedAt && syncMode === 'supabase' && (
+                  <div className="text-gray-500 mt-1">
+                    Dernière sync: {new Date(lastSyncedAt).toLocaleTimeString('fr-BE')}
+                  </div>
+                )}
+                {syncError && (
+                  <div className="text-red-600 mt-1">
+                    ⚠️ {syncError}
+                  </div>
+                )}
+                {/* Save/Discard buttons when dirty */}
+                {isDirty && syncMode === 'supabase' && (
+                  <div className="flex gap-2 mt-2">
+                    <button
+                      onClick={() => save()}
+                      disabled={isSyncing}
+                      className="px-2 py-1 bg-green-600 text-white rounded text-xs hover:bg-green-700 disabled:opacity-50"
+                    >
+                      Sauvegarder
+                    </button>
+                    <button
+                      onClick={() => discard()}
+                      disabled={isSyncing}
+                      className="px-2 py-1 bg-gray-500 text-white rounded text-xs hover:bg-gray-600 disabled:opacity-50"
+                    >
+                      Annuler
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          <div className="max-w-7xl mx-auto">
+            {/* Print-only header */}
+            <div className="print-header hidden">
+              <h1 className="text-2xl font-bold">Achat Ferme du Temple - Rapport de Division</h1>
+              <p className="text-sm text-gray-600 mt-2">
+                Généré le {new Date().toLocaleDateString('fr-BE', { day: 'numeric', month: 'long', year: 'numeric' })}
+              </p>
+            </div>
+
+            <ProjectHeader
+              calculations={calculations}
+              participants={participants}
+            />
+
+        <VerticalToolbar
+          onDownloadScenario={downloadScenario}
+          onLoadScenario={loadScenario}
+          onExportToExcel={exportToExcel}
+          onPrintAllFounders={handlePrintAllFounders}
+        />
+
+        <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
+          <button
+            onClick={() => setIsCostBreakdownExpanded(!isCostBreakdownExpanded)}
+            className="w-full text-left rounded transition-colors hover:bg-gray-50 cursor-pointer"
+          >
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-bold text-gray-800">Décomposition des Coûts</h2>
+              <div className="flex items-center gap-2">
+                {isCostBreakdownExpanded ? (
+                  <ChevronUp className="w-5 h-5 text-gray-500" />
+                ) : (
+                  <ChevronDown className="w-5 h-5 text-gray-500" />
+                )}
+              </div>
+            </div>
+            <div className="flex items-center justify-center gap-3">
+                <div className="p-3 bg-white rounded-lg border border-gray-200 flex-1">
+                  <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">Achat Total</p>
+                  <p className="text-lg font-bold text-gray-900">{formatCurrency(calculations.totals.purchase)}</p>
+                  <p className="text-xs text-blue-600 mt-1">
+                    <FormulaTooltip formula={getPricePerM2Formula(calculations.totals, calculations.totalSurface)}>
+                      {formatCurrency(calculations.pricePerM2)}/m²
+                    </FormulaTooltip>
+                  </p>
+                </div>
+
+                <div className="text-2xl font-bold text-gray-400 flex-shrink-0">+</div>
+
+                <div className="p-3 bg-white rounded-lg border border-purple-200 flex-1">
+                  <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">Commun Infrastr.</p>
+                  <p className="text-lg font-bold text-purple-700">
+                    {formatCurrency(calculations.sharedCosts + calculateTotalTravauxCommuns(projectParams))}
+                  </p>
+                  <p className="text-xs text-purple-500 mt-1">
+                    {formatCurrency((calculations.sharedCosts + calculateTotalTravauxCommuns(projectParams)) / participants.length)}/pers
+                  </p>
+                </div>
+
+                <div className="text-2xl font-bold text-gray-400 flex-shrink-0">+</div>
+
+                <div className="p-3 bg-white rounded-lg border border-orange-200 flex-1">
+                  <FormulaTooltip formula={[
+                    "Rénovations personnelles",
+                    `CASCO (gros œuvre): ${formatCurrency(calculations.participantBreakdown.reduce((sum, p) => sum + p.casco, 0))}`,
+                    `+ Parachèvements: ${formatCurrency(calculations.participantBreakdown.reduce((sum, p) => sum + p.parachevements, 0))}`,
+                    `= ${formatCurrency(calculations.participantBreakdown.reduce((sum, p) => sum + p.personalRenovationCost, 0))}`
+                  ]}>
+                    <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">Rénovations Perso.</p>
+                  </FormulaTooltip>
+                  <p className="text-lg font-bold text-orange-700">{formatCurrency(calculations.participantBreakdown.reduce((sum, p) => sum + p.personalRenovationCost, 0))}</p>
+                  <p className="text-xs text-orange-500 mt-1">CASCO + Parachèv.</p>
+                </div>
+
+                <div className="text-2xl font-bold text-gray-400 flex-shrink-0">+</div>
+
+                <div className="p-3 bg-white rounded-lg border border-gray-200 flex-1">
+                  <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">Frais d'enregistrements</p>
+                  <p className="text-lg font-bold text-gray-900">{formatCurrency(calculations.totals.totalDroitEnregistrements)}</p>
+                  <p className="text-xs text-gray-400 mt-1">taux individuels</p>
+                </div>
+
+                <div className="text-2xl font-bold text-gray-400 flex-shrink-0">=</div>
+
+                <div className="p-3 bg-gray-50 rounded-lg border border-gray-300 flex-1">
+                  <p className="text-xs text-gray-600 uppercase tracking-wide mb-1 font-semibold">TOTAL</p>
+                  <p className="text-lg font-bold text-gray-900">
+                    <FormulaTooltip formula={getTotalProjectCostFormula()}>
+                      {formatCurrency(calculations.totals.total)}
+                    </FormulaTooltip>
+                  </p>
+                </div>
+              </div>
+          </button>
+
+          {isCostBreakdownExpanded && (
+              <div className="mt-4 p-4 bg-purple-50 border border-purple-200 rounded-lg">
+                <h3 className="text-sm font-semibold text-gray-800 mb-3">Détail Commun</h3>
+
+                {projectParams.expenseCategories && (
+                  <ExpenseCategoriesManager
+                    expenseCategories={projectParams.expenseCategories}
+                    projectParams={projectParams}
+                    sharedCosts={calculations.sharedCosts}
+                    onUpdateProjectParams={setProjectParams}
+                    participants={participants}
+                    unitDetails={unitDetails}
+                  />
+                )}
+
+                <div className="mt-4 p-3 bg-purple-100 rounded-lg border border-purple-300">
+                  <div className="flex justify-between items-center">
+                    <p className="text-sm font-semibold text-gray-700">Total commun:</p>
+                    <p className="text-lg font-bold text-purple-800">
+                      {formatCurrency(calculations.sharedCosts + calculateTotalTravauxCommuns(projectParams))}
+                    </p>
+                  </div>
+                  <p className="text-xs text-gray-600 mt-1">
+                    {formatCurrency((calculations.sharedCosts + calculateTotalTravauxCommuns(projectParams)) / participants.length)} par personne
+                  </p>
+                </div>
+              </div>
+          )}
+        </div>
+
+        {/* Horizontal Timeline */}
+        <HorizontalSwimLaneTimeline
+          participants={participants}
+          projectParams={projectParams}
+          calculations={calculations}
+          deedDate={deedDate}
+          onOpenParticipantDetails={setFullscreenParticipantIndex}
+          onOpenCoproDetails={setCoproSnapshot}
+          onAddParticipant={addParticipant}
+          onUpdateParticipant={updateParticipant}
+          coproReservesShare={portageFormula.coproReservesShare}
+        />
+
+        {/* Full-screen participant detail modal */}
+        {fullscreenParticipantIndex !== null && (() => {
+          const idx = fullscreenParticipantIndex;
+          const p = orderedParticipantBreakdown.find(pb => pb.name === participants[idx].name);
+          if (!p) return null;
+
+          return (
+            <ParticipantDetailModal
+              isOpen={true}
+              onClose={() => setFullscreenParticipantIndex(null)}
+              participantIndex={idx}
+              participant={participants[idx]}
+              participantBreakdown={p}
+              deedDate={deedDate}
+              allParticipants={participants}
+              calculations={calculations}
+              projectParams={projectParams}
+              unitDetails={unitDetails}
+              formulaParams={portageFormula}
+              isPinned={pinnedParticipant === p.name}
+              onPin={() => handlePinParticipant(p.name)}
+              onUnpin={handleUnpinParticipant}
+              onUpdateName={(name) => updateParticipantName(idx, name)}
+              onUpdateSurface={(surface) => updateParticipantSurface(idx, surface)}
+              onUpdateNotaryRate={(rate) => updateNotaryRate(idx, rate)}
+              onUpdateInterestRate={(rate) => updateInterestRate(idx, rate)}
+              onUpdateDuration={(years) => updateDuration(idx, years)}
+              onUpdateQuantity={(qty) => updateQuantity(idx, qty)}
+              onUpdateParachevementsPerM2={(value) => updateParachevementsPerM2(idx, value)}
+              onUpdateCascoSqm={(value) => updateCascoSqm(idx, value)}
+              onUpdateParachevementsSqm={(value) => updateParachevementsSqm(idx, value)}
+              onUpdateParticipant={(updated) => {
+                const newParticipants = [...participants];
+                const oldParticipant = newParticipants[idx];
+
+                // Update buyer participant
+                newParticipants[idx] = updated;
+
+                // Check if entry date changed (handle both Date objects and ISO strings)
+                const oldEntryTime = oldParticipant.entryDate ? new Date(oldParticipant.entryDate).getTime() : null;
+                const newEntryTime = updated.entryDate ? new Date(updated.entryDate).getTime() : null;
+                const entryDateChanged = oldEntryTime !== newEntryTime;
+
+                // Handle seller's lot soldDate updates
+                const oldPurchase = oldParticipant.purchaseDetails;
+                const newPurchase = updated.purchaseDetails;
+
+                // If buyer has a portage lot purchase
+                if (newPurchase?.buyingFrom && newPurchase?.lotId && newPurchase.buyingFrom !== 'Copropriété') {
+                  const sellerIdx = newParticipants.findIndex(p => p.name === newPurchase.buyingFrom);
+                  if (sellerIdx !== -1 && newParticipants[sellerIdx].lotsOwned) {
+                    const seller = newParticipants[sellerIdx];
+
+                    // Update seller's lot soldDate (always, even if date didn't change)
+                    newParticipants[sellerIdx] = {
+                      ...seller,
+                      lotsOwned: seller.lotsOwned?.map(lot =>
+                        lot.lotId === newPurchase.lotId
+                          ? { ...lot, soldDate: updated.entryDate }
+                          : lot
+                      )
+                    };
+
+                    // ALWAYS recalculate buyer's purchase price for portage lots
+                    // This ensures reactive updates when entry date changes
+                    console.log('🔄 Recalculating portage price for', updated.name, {
+                      oldDate: oldParticipant.entryDate?.toISOString(),
+                      newDate: updated.entryDate?.toISOString(),
+                      entryDateChanged,
+                      oldPrice: newParticipants[idx].purchaseDetails?.purchasePrice
+                    });
+
+                    newParticipants[idx] = updateBuyerWithRecalculatedPrice(
+                      newParticipants[idx],
+                      newParticipants[sellerIdx],
+                      deedDate,
+                      portageFormula
+                    );
+
+                    console.log('✅ New purchase price:', newParticipants[idx].purchaseDetails?.purchasePrice);
+                  }
+                }
+                // If buyer has copro purchase, just update soldDate
+                else if (newPurchase?.buyingFrom === 'Copropriété' && newPurchase?.lotId) {
+                  // Copro purchases don't need price recalculation
+                  // They're sold at a fixed price from the copropriété inventory
+                }
+                // If buyer unselected a portage lot, clear seller's soldDate
+                else if (oldPurchase?.buyingFrom && oldPurchase?.lotId && !newPurchase) {
+                  const sellerIdx = newParticipants.findIndex(p => p.name === oldPurchase.buyingFrom);
+                  if (sellerIdx !== -1 && newParticipants[sellerIdx].lotsOwned) {
+                    newParticipants[sellerIdx] = {
+                      ...newParticipants[sellerIdx],
+                      lotsOwned: newParticipants[sellerIdx].lotsOwned?.map(lot =>
+                        lot.lotId === oldPurchase.lotId
+                          ? { ...lot, soldDate: undefined }
+                          : lot
+                      )
+                    };
+                  }
+                }
+
+                setParticipants(newParticipants);
+              }}
+              onAddPortageLot={() => addPortageLot(idx)}
+              onRemovePortageLot={(lotId) => removePortageLot(idx, lotId)}
+              onUpdatePortageLotSurface={(lotId, surface) => updatePortageLotSurface(idx, lotId, surface)}
+              onUpdatePortageLotConstructionPayment={(lotId, founderPaysCasco, founderPaysParachèvement) =>
+                updatePortageLotConstructionPayment(idx, lotId, founderPaysCasco, founderPaysParachèvement)}
+              onRemove={() => removeParticipant(idx)}
+              totalParticipants={participants.length}
+            />
+          );
+        })()}
+
+        {/* Copropriété detail modal */}
+        {coproSnapshot && (
+          <CoproDetailModal
+            isOpen={true}
+            onClose={() => setCoproSnapshot(null)}
+            snapshot={coproSnapshot}
+            coproReservesShare={portageFormula.coproReservesShare}
+            allParticipants={participants}
+            deedDate={deedDate}
+          />
+        )}
+
+        {/* All Founders Print View */}
+        {showAllFoundersPrint && (() => {
+          const founders = participants.filter(p => p.isFounder);
+          const founderCalculations = founders.map(founder => {
+            const calc = orderedParticipantBreakdown.find(pb => pb.name === founder.name);
+            return calc || calculations.participantBreakdown.find(pb => pb.name === founder.name);
+          }).filter((calc): calc is NonNullable<typeof calc> => calc !== undefined);
+
+          if (founders.length === 0 || founderCalculations.length === 0) {
+            return null;
+          }
+
+          return (
+            <AllFoundersPrintView
+              founders={founders}
+              founderCalculations={founderCalculations}
+              deedDate={deedDate}
+              allParticipants={participants}
+              calculations={calculations}
+              projectParams={projectParams}
+              unitDetails={unitDetails}
+              formulaParams={portageFormula}
+            />
+          );
+        })()}
+
+        <ParticipantsTimeline
+          participants={participants}
+          deedDate={deedDate}
+          renovationStartDate={projectParams.renovationStartDate}
+          onDeedDateChange={handleDeedDateChange}
+          onRenovationStartDateChange={handleRenovationStartDateChange}
+          onUpdateParticipant={updateParticipant}
+        />
+
+        {/* Global Portage Formula Configuration */}
+        <div className="mt-8">
+          <PortageFormulaConfig
+            formulaParams={portageFormula}
+            onUpdateParams={setPortageFormula}
+            deedDate={new Date(deedDate)}
+          />
+        </div>
+
+        {/* Available Lots Marketplace */}
+        <div className="mt-8">
+          <AvailableLotsView
+            availableLots={getAvailableLotsForNewcomer(
+              participants,
+              [], // Copro lots - empty for now
+              calculations
+            )}
+            deedDate={new Date(deedDate)}
+            formulaParams={portageFormula}
+          />
+          </div>
+        </div>
+        </div>
+      </Tooltip.Provider>
+    </UnlockProvider>
+  );
+}

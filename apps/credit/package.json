@@ -1,0 +1,32 @@
+{
+  "name": "@repo/credit",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev --port 4322",
+    "build": "astro build",
+    "preview": "astro preview",
+    "test": "vitest run",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@astrojs/react": "^4.4.0",
+    "@astrojs/tailwind": "^6.0.2",
+    "@radix-ui/react-tooltip": "^1.2.8",
+    "@repo/auth": "workspace:*",
+    "@repo/config": "workspace:*",
+    "@supabase/supabase-js": "^2.76.1",
+    "astro": "^5.16.0",
+    "date-fns": "^4.1.0",
+    "lucide-react": "^0.545.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^5.0.4",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
+  }
+}
