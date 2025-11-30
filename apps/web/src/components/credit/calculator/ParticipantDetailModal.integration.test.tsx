@@ -371,4 +371,80 @@ describe('ParticipantDetailModal Integration', () => {
       expect(onClose).toHaveBeenCalled();
     }
   });
+
+  describe('Two-loan mode display', () => {
+    const twoLoanParticipant: Participant = {
+      ...mockParticipant,
+      useTwoLoans: true,
+      capitalApporte: 50000,
+      capitalForLoan2: 10000,
+      loan2DelayYears: 2,
+    };
+
+    const twoLoanCalc: ParticipantCalculation = {
+      ...mockCalc,
+      useTwoLoans: true,
+      capitalApporte: 50000,
+      capitalForLoan2: 10000,
+      loan1Amount: 5200, // signature costs - capitalApporte
+      loan1MonthlyPayment: 26,
+      loan1Interest: 2800,
+      loan2Amount: 75000, // construction costs - capitalForLoan2
+      loan2MonthlyPayment: 377,
+      loan2Interest: 28100,
+      loan2DurationYears: 23,
+      loanNeeded: 80200, // loan1 + loan2
+      totalInterest: 30900,
+      totalRepayment: 111100,
+    };
+
+    it('should display two-loan summary instead of À FINANCER when useTwoLoans is true', () => {
+      render(
+        <ParticipantDetailModal
+          {...defaultProps}
+          participant={twoLoanParticipant}
+          participantBreakdown={twoLoanCalc}
+        />
+      );
+
+      // When two-loan mode is active, should NOT show "À FINANCER" label
+      // (that label only appears in single-loan mode)
+      expect(screen.queryByText('À FINANCER')).not.toBeInTheDocument();
+
+      // Should show "À emprunter" labels in the two-loan summary
+      const emprunterLabels = screen.getAllByText('À emprunter');
+      expect(emprunterLabels.length).toBeGreaterThanOrEqual(2);
+    });
+
+    it('should display correct loan amounts per phase in two-loan mode', () => {
+      render(
+        <ParticipantDetailModal
+          {...defaultProps}
+          participant={twoLoanParticipant}
+          participantBreakdown={twoLoanCalc}
+        />
+      );
+
+      // The timeline should show loan1Amount for signature phase
+      expect(screen.getByText('5 200 €')).toBeInTheDocument();
+
+      // The timeline should show loan2Amount for construction phase
+      expect(screen.getByText('75 000 €')).toBeInTheDocument();
+    });
+
+    it('should correctly account for capitalForLoan2 in total loan needed', () => {
+      render(
+        <ParticipantDetailModal
+          {...defaultProps}
+          participant={twoLoanParticipant}
+          participantBreakdown={twoLoanCalc}
+        />
+      );
+
+      // Total loan needed (loan1 + loan2 = 5200 + 75000 = 80200)
+      // This value should appear in both header AND timeline summary
+      const totalLoanAmounts = screen.getAllByText('80 200 €');
+      expect(totalLoanAmounts.length).toBeGreaterThanOrEqual(2);
+    });
+  });
 });

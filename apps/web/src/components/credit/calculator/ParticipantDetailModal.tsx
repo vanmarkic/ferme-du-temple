@@ -19,6 +19,7 @@ import AvailableLotsView from '../AvailableLotsView';
 import PortageLotConfig from '../PortageLotConfig';
 import { ExpectedPaybacksCard } from '../shared/ExpectedPaybacksCard';
 import { PaymentTimeline } from '../shared/PaymentTimeline';
+import { useExpectedPaybacks } from '../hooks/useExpectedPaybacks';
 import { LoanSection } from '../shared/LoanSection';
 import { PropertySection } from '../shared/PropertySection';
 import { CollapsibleSection } from '../shared/CollapsibleSection';
@@ -99,6 +100,16 @@ export default function ParticipantDetailModal({
   const phaseCosts = useMemo(
     () => calculatePhaseCosts(p),
     [p]
+  );
+
+  const { totalRecovered: expectedPaybackTotal } = useExpectedPaybacks(
+    participant,
+    allParticipants,
+    deedDate,
+    formulaParams.coproReservesShare,
+    projectParams,
+    calculations,
+    formulaParams
   );
 
   if (!isOpen) return null;
@@ -225,6 +236,19 @@ export default function ParticipantDetailModal({
               ? Math.round(p.loan1MonthlyPayment + p.loan2MonthlyPayment)
               : Math.round(p.monthlyPayment)
           }
+          twoLoanBreakdown={
+            participant.useTwoLoans && p.loan1Amount !== undefined && p.loan2Amount !== undefined
+              ? {
+                  loan1Amount: p.loan1Amount,
+                  loan1MonthlyPayment: p.loan1MonthlyPayment || 0,
+                  loan2Amount: p.loan2Amount,
+                  loan2MonthlyPayment: p.loan2MonthlyPayment || 0,
+                  signatureCosts: phaseCosts.signature.total,
+                  constructionCosts: phaseCosts.construction.total,
+                }
+              : undefined
+          }
+          expectedPaybackTotal={expectedPaybackTotal}
         />
 
         {/* 2. LoanSection - Merged financing and loan parameters */}

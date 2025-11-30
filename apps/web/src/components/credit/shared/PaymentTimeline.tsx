@@ -16,6 +16,8 @@ interface PaymentTimelineProps {
   monthlyPayment: number;
   /** For two-loan mode: show per-phase loan amounts */
   twoLoanBreakdown?: TwoLoanBreakdown;
+  /** Total amount expected to be recovered from future participant entries */
+  expectedPaybackTotal?: number;
 }
 
 export function PaymentTimeline({
@@ -23,6 +25,7 @@ export function PaymentTimeline({
   capitalApporte,
   monthlyPayment,
   twoLoanBreakdown,
+  expectedPaybackTotal,
 }: PaymentTimelineProps) {
   const { signature, construction, emmenagement, grandTotal } = phaseCosts;
   const toFinance = Math.max(0, grandTotal - capitalApporte);
@@ -38,9 +41,21 @@ export function PaymentTimeline({
 
   return (
     <div className="mb-6">
-      <h3 className="text-xs text-gray-500 uppercase tracking-wide font-semibold mb-4 text-center">
-        MON PARCOURS DE PAIEMENT
-      </h3>
+      {/* Header with optional payback card */}
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex-1" />
+        <h3 className="text-xs text-gray-500 uppercase tracking-wide font-semibold text-center">
+          MON PARCOURS DE PAIEMENT
+        </h3>
+        <div className="flex-1 flex justify-end">
+          {expectedPaybackTotal !== undefined && expectedPaybackTotal > 0 && (
+            <div className="bg-purple-50 border border-purple-200 rounded-lg px-3 py-1.5 text-right">
+              <p className="text-[10px] text-purple-600 uppercase tracking-wide font-medium">Total récupéré</p>
+              <p className="text-sm font-bold text-purple-700">{formatCurrency(expectedPaybackTotal)}</p>
+            </div>
+          )}
+        </div>
+      </div>
 
       {/* Timeline connector line - 3 dots only (phases, not total) */}
       <div className="relative mb-4">

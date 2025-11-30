@@ -1,3 +1,6 @@
+/**
+ * @vitest-environment jsdom
+ */
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { PaymentTimeline } from './PaymentTimeline';
@@ -89,5 +92,132 @@ describe('PaymentTimeline', () => {
     // Timeline should have exactly 3 dots for 3 phases
     const dots = container.querySelectorAll('[data-testid="timeline-dot"]');
     expect(dots).toHaveLength(3);
+  });
+
+  describe('Two-loan mode', () => {
+    const twoLoanBreakdown = {
+      loan1Amount: 15200, // signature: 45200 - 30000 capital
+      loan1MonthlyPayment: 76,
+      loan2Amount: 77500, // construction: 87500 - 10000 capitalForLoan2
+      loan2MonthlyPayment: 390,
+      signatureCosts: 45200,
+      constructionCosts: 87500,
+    };
+
+    it('should display two-loan summary bar instead of single-loan summary when twoLoanBreakdown is provided', () => {
+      render(
+        <PaymentTimeline
+          phaseCosts={mockPhaseCosts}
+          capitalApporte={30000}
+          monthlyPayment={639}
+          twoLoanBreakdown={twoLoanBreakdown}
+        />
+      );
+
+      // Two-loan mode should NOT show "À FINANCER" (that's single-loan mode)
+      expect(screen.queryByText('À FINANCER')).not.toBeInTheDocument();
+
+      // Should show loan amounts per phase with "À emprunter" labels
+      const emprunterLabels = screen.getAllByText('À emprunter');
+      expect(emprunterLabels.length).toBeGreaterThanOrEqual(2);
+    });
+
+    it('should display correct loan amounts per phase in two-loan mode', () => {
+      render(
+        <PaymentTimeline
+          phaseCosts={mockPhaseCosts}
+          capitalApporte={30000}
+          monthlyPayment={639}
+          twoLoanBreakdown={twoLoanBreakdown}
+        />
+      );
+
+      // Signature loan amount (15 200 €)
+      expect(screen.getByText('15 200 €')).toBeInTheDocument();
+
+      // Construction loan amount (77 500 €)
+      expect(screen.getByText('77 500 €')).toBeInTheDocument();
+
+      // Total loan amount (15200 + 77500 = 92 700 €)
+      expect(screen.getByText('92 700 €')).toBeInTheDocument();
+    });
+
+    it('should display monthly payments per phase in two-loan mode', () => {
+      render(
+        <PaymentTimeline
+          phaseCosts={mockPhaseCosts}
+          capitalApporte={30000}
+          monthlyPayment={639}
+          twoLoanBreakdown={twoLoanBreakdown}
+        />
+      );
+
+      // Monthly payments
+      expect(screen.getByText('76 €/mois')).toBeInTheDocument();
+      expect(screen.getByText('390 €/mois')).toBeInTheDocument();
+
+      // Combined max monthly (76 + 390 = 466)
+      expect(screen.getByText('~466 €/mois (max)')).toBeInTheDocument();
+    });
+
+    it('should show phase labels in two-loan summary bar', () => {
+      render(
+        <PaymentTimeline
+          phaseCosts={mockPhaseCosts}
+          capitalApporte={30000}
+          monthlyPayment={639}
+          twoLoanBreakdown={twoLoanBreakdown}
+        />
+      );
+
+      // Summary bar should show phase labels
+      // The SIGNATURE label appears twice (once in phase card, once in summary)
+      const signatureLabels = screen.getAllByText('SIGNATURE');
+      expect(signatureLabels.length).toBe(2);
+
+      const constructionLabels = screen.getAllByText('CONSTRUCTION');
+      expect(constructionLabels.length).toBe(2);
+    });
+  });
+
+  describe('Expected payback total', () => {
+    it('should display expected payback card when expectedPaybackTotal is provided', () => {
+      render(
+        <PaymentTimeline
+          phaseCosts={mockPhaseCosts}
+          capitalApporte={30000}
+          monthlyPayment={639}
+          expectedPaybackTotal={71168}
+        />
+      );
+
+      expect(screen.getByText('Total récupéré')).toBeInTheDocument();
+      expect(screen.getByText('71 168 €')).toBeInTheDocument();
+    });
+
+    it('should not display expected payback card when expectedPaybackTotal is 0', () => {
+      render(
+        <PaymentTimeline
+          phaseCosts={mockPhaseCosts}
+          capitalApporte={30000}
+          monthlyPayment={639}
+          expectedPaybackTotal={0}
+        />
+      );
+
+      expect(screen.queryByText('Total récupéré')).not.toBeInTheDocument();
+    });
+
+    it('should not display expected payback card when expectedPaybackTotal is undefined', () => {
+      render(
+        <PaymentTimeline
+          phaseCosts={mockPhaseCosts}
+          capitalApporte={30000}
+          monthlyPayment={639}
+        />
+      );
+
+      expect(screen.queryByText('Total récupéré')).not.toBeInTheDocument();
+    });
   });
 });
