@@ -3,6 +3,12 @@
   "outputDirectory": "dist",
   "framework": "astro",
   "regions": ["cdg1"],
+  "rewrites": [
+    {
+      "source": "/admin/credit/:path*",
+      "destination": "https://credit.lafermedutemple.be/:path*"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
