@@ -7,8 +7,10 @@
 
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 
-const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL || '';
-const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY || '';
+// For client-side React components, use PUBLIC_ prefixed env vars
+// These must be set in the Astro config or .env file
+const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL || import.meta.env.SUPABASE_URL || '';
+const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY || import.meta.env.SUPABASE_ANON_KEY || '';
 
 // Log warning if not configured (but don't fail during build)
 if (!supabaseUrl || !supabaseAnonKey) {
