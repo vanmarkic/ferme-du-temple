@@ -46,6 +46,225 @@ export interface SaveResult {
   error?: string;
 }
 
+export interface ParticipantChanges {
+  added: { index: number; participant: Participant }[];
+  removed: Participant[];
+  updated: { index: number; participant: Participant }[];
+}
+
+export interface ProjectChanges {
+  deedDateChanged: boolean;
+  projectParamsChanged: boolean;
+  portageFormulaChanged: boolean;
+  hasChanges: boolean;
+}
+
+export interface OriginalProjectData {
+  deedDate: string;
+  projectParams: ProjectParams;
+  portageFormula: PortageFormulaParams;
+}
+
+// ============================================
+// Change Detection (Pure Function - Testable)
+// ============================================
+
+/**
+ * Detect changes between original and current participant arrays.
+ * Uses unitId as the stable identifier for participants.
+ * Returns lists of added, removed, and updated participants.
+ */
+export function detectParticipantChanges(
+  original: Participant[],
+  current: Participant[]
+): ParticipantChanges {
+  const changes: ParticipantChanges = {
+    added: [],
+    removed: [],
+    updated: [],
+  };
+
+  // Create maps by unitId for efficient lookup
+  const originalByUnitId = new Map(
+    original.map((p) => [p.unitId, p])
+  );
+  const currentByUnitId = new Map(
+    current.map((p, index) => [p.unitId, { participant: p, index }])
+  );
+
+  // Find removed participants (in original but not in current)
+  for (const orig of original) {
+    if (!currentByUnitId.has(orig.unitId)) {
+      changes.removed.push(orig);
+    }
+  }
+
+  // Find added and updated participants
+  for (const [unitId, { participant, index }] of currentByUnitId) {
+    const orig = originalByUnitId.get(unitId);
+
+    if (!orig) {
+      // New participant
+      changes.added.push({ index, participant });
+    } else {
+      // Check if changed
+      if (!participantsEqual(orig, participant)) {
+        changes.updated.push({ index, participant });
+      }
+    }
+  }
+
+  return changes;
+}
+
+/**
+ * Deep comparison of two participants.
+ * Returns true if they are semantically equal.
+ */
+function participantsEqual(a: Participant, b: Participant): boolean {
+  // Compare primitive fields
+  if (
+    a.name !== b.name ||
+    a.capitalApporte !== b.capitalApporte ||
+    a.registrationFeesRate !== b.registrationFeesRate ||
+    a.interestRate !== b.interestRate ||
+    a.durationYears !== b.durationYears ||
+    a.surface !== b.surface ||
+    a.unitId !== b.unitId ||
+    a.quantity !== b.quantity ||
+    a.parachevementsPerM2 !== b.parachevementsPerM2 ||
+    a.cascoSqm !== b.cascoSqm ||
+    a.parachevementsSqm !== b.parachevementsSqm ||
+    a.enabled !== b.enabled ||
+    a.isFounder !== b.isFounder ||
+    a.useTwoLoans !== b.useTwoLoans ||
+    a.loan2DelayYears !== b.loan2DelayYears ||
+    a.capitalForLoan2 !== b.capitalForLoan2 ||
+    a.loan2RenovationAmount !== b.loan2RenovationAmount
+  ) {
+    return false;
+  }
+
+  // Compare dates
+  if (!datesEqual(a.entryDate, b.entryDate) || !datesEqual(a.exitDate, b.exitDate)) {
+    return false;
+  }
+
+  // Compare lotsOwned
+  if (!lotsOwnedEqual(a.lotsOwned, b.lotsOwned)) {
+    return false;
+  }
+
+  // Compare purchaseDetails
+  if (!purchaseDetailsEqual(a.purchaseDetails, b.purchaseDetails)) {
+    return false;
+  }
+
+  return true;
+}
+
+function datesEqual(a: Date | undefined, b: Date | undefined): boolean {
+  if (a === undefined && b === undefined) return true;
+  if (a === undefined || b === undefined) return false;
+  return a.getTime() === b.getTime();
+}
+
+function lotsOwnedEqual(a: Lot[] | undefined, b: Lot[] | undefined): boolean {
+  if (a === undefined && b === undefined) return true;
+  if (a === undefined || b === undefined) return false;
+  if (a.length !== b.length) return false;
+
+  for (let i = 0; i < a.length; i++) {
+    const lotA = a[i];
+    const lotB = b[i];
+    if (
+      lotA.lotId !== lotB.lotId ||
+      lotA.surface !== lotB.surface ||
+      lotA.unitId !== lotB.unitId ||
+      lotA.isPortage !== lotB.isPortage ||
+      lotA.allocatedSurface !== lotB.allocatedSurface ||
+      lotA.originalPrice !== lotB.originalPrice ||
+      lotA.originalNotaryFees !== lotB.originalNotaryFees ||
+      lotA.originalConstructionCost !== lotB.originalConstructionCost ||
+      lotA.monthlyCarryingCost !== lotB.monthlyCarryingCost ||
+      lotA.founderPaysCasco !== lotB.founderPaysCasco ||
+      lotA.founderPaysParachèvement !== lotB.founderPaysParachèvement ||
+      lotA.soldTo !== lotB.soldTo ||
+      lotA.salePrice !== lotB.salePrice ||
+      lotA.carryingCosts !== lotB.carryingCosts ||
+      !datesEqual(lotA.acquiredDate, lotB.acquiredDate) ||
+      !datesEqual(lotA.soldDate, lotB.soldDate)
+    ) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function purchaseDetailsEqual(
+  a: Participant['purchaseDetails'],
+  b: Participant['purchaseDetails']
+): boolean {
+  if (a === undefined && b === undefined) return true;
+  if (a === undefined || b === undefined) return false;
+  return (
+    a.buyingFrom === b.buyingFrom &&
+    a.lotId === b.lotId &&
+    a.purchasePrice === b.purchasePrice &&
+    JSON.stringify(a.breakdown) === JSON.stringify(b.breakdown)
+  );
+}
+
+/**
+ * Detect changes between original and current project data.
+ * Returns which sections have changed (deedDate, projectParams, portageFormula).
+ */
+export function detectProjectChanges(
+  original: OriginalProjectData,
+  current: OriginalProjectData
+): ProjectChanges {
+  const deedDateChanged = original.deedDate !== current.deedDate;
+  const projectParamsChanged = !projectParamsEqual(original.projectParams, current.projectParams);
+  const portageFormulaChanged = !portageFormulaEqual(original.portageFormula, current.portageFormula);
+
+  return {
+    deedDateChanged,
+    projectParamsChanged,
+    portageFormulaChanged,
+    hasChanges: deedDateChanged || projectParamsChanged || portageFormulaChanged,
+  };
+}
+
+function projectParamsEqual(a: ProjectParams, b: ProjectParams): boolean {
+  return (
+    a.totalPurchase === b.totalPurchase &&
+    a.mesuresConservatoires === b.mesuresConservatoires &&
+    a.demolition === b.demolition &&
+    a.infrastructures === b.infrastructures &&
+    a.etudesPreparatoires === b.etudesPreparatoires &&
+    a.fraisEtudesPreparatoires === b.fraisEtudesPreparatoires &&
+    a.fraisGeneraux3ans === b.fraisGeneraux3ans &&
+    a.batimentFondationConservatoire === b.batimentFondationConservatoire &&
+    a.batimentFondationComplete === b.batimentFondationComplete &&
+    a.batimentCoproConservatoire === b.batimentCoproConservatoire &&
+    a.globalCascoPerM2 === b.globalCascoPerM2 &&
+    a.cascoTvaRate === b.cascoTvaRate &&
+    a.maxTotalLots === b.maxTotalLots &&
+    a.renovationStartDate === b.renovationStartDate &&
+    JSON.stringify(a.expenseCategories) === JSON.stringify(b.expenseCategories) &&
+    JSON.stringify(a.travauxCommuns) === JSON.stringify(b.travauxCommuns)
+  );
+}
+
+function portageFormulaEqual(a: PortageFormulaParams, b: PortageFormulaParams): boolean {
+  return (
+    a.indexationRate === b.indexationRate &&
+    a.carryingCostRecovery === b.carryingCostRecovery &&
+    a.averageInterestRate === b.averageInterestRate &&
+    a.coproReservesShare === b.coproReservesShare
+  );
+}
+
 // ============================================
 // Transform Functions (DB Row → App Type)
 // ============================================
@@ -247,9 +466,19 @@ export async function loadProject(projectId: string): Promise<LoadResult> {
 // Save Project Data
 // ============================================
 
+/**
+ * Save project data with granular participant updates.
+ *
+ * When originalParticipants is provided, only the changed participants
+ * are updated in the database (INSERT, UPDATE, DELETE as needed).
+ *
+ * When originalParticipants is not provided, falls back to the legacy
+ * behavior of deleting all participants and re-inserting them.
+ */
 export async function saveProject(
   projectId: string,
-  data: ProjectData
+  data: ProjectData,
+  originalParticipants?: Participant[]
 ): Promise<SaveResult> {
   if (!isSupabaseConfigured()) {
     return { success: false, error: 'Supabase not configured' };
@@ -274,28 +503,85 @@ export async function saveProject(
       return { success: false, error: 'Failed to save project: ' + projectError.message };
     }
 
-    // 2. Delete existing participants (we'll replace them all)
-    const { error: deleteError } = await supabase
-      .from('participants')
-      .delete()
-      .eq('project_id', projectId);
+    // 2. Handle participants with granular updates if original data provided
+    if (originalParticipants) {
+      const changes = detectParticipantChanges(originalParticipants, data.participants);
 
-    if (deleteError) {
-      return { success: false, error: 'Failed to clear participants: ' + deleteError.message };
-    }
+      // Delete removed participants
+      if (changes.removed.length > 0) {
+        const removedUnitIds = changes.removed
+          .map(p => p.unitId)
+          .filter((id): id is number => id !== undefined);
 
-    // 3. Insert all participants
-    if (data.participants.length > 0) {
-      const participantRows = data.participants.map((p, i) =>
-        participantToRow(p, projectId, i, userId)
-      );
+        if (removedUnitIds.length > 0) {
+          const { error: deleteError } = await supabase
+            .from('participants')
+            .delete()
+            .eq('project_id', projectId)
+            .in('unit_id', removedUnitIds);
 
-      const { error: insertError } = await supabase
+          if (deleteError) {
+            return { success: false, error: 'Failed to remove participants: ' + deleteError.message };
+          }
+        }
+      }
+
+      // Insert new participants
+      if (changes.added.length > 0) {
+        const addedRows = changes.added.map(({ index, participant }) =>
+          participantToRow(participant, projectId, index, userId)
+        );
+
+        const { error: insertError } = await supabase
+          .from('participants')
+          .insert(addedRows);
+
+        if (insertError) {
+          return { success: false, error: 'Failed to add participants: ' + insertError.message };
+        }
+      }
+
+      // Update changed participants
+      if (changes.updated.length > 0) {
+        for (const { index, participant } of changes.updated) {
+          const row = participantToRow(participant, projectId, index, userId);
+
+          const { error: updateError } = await supabase
+            .from('participants')
+            .update(row)
+            .eq('project_id', projectId)
+            .eq('unit_id', participant.unitId);
+
+          if (updateError) {
+            return { success: false, error: 'Failed to update participant: ' + updateError.message };
+          }
+        }
+      }
+
+      console.log(`✅ Granular save: ${changes.added.length} added, ${changes.updated.length} updated, ${changes.removed.length} removed`);
+    } else {
+      // Legacy behavior: delete all and re-insert
+      const { error: deleteError } = await supabase
         .from('participants')
-        .insert(participantRows);
+        .delete()
+        .eq('project_id', projectId);
 
-      if (insertError) {
-        return { success: false, error: 'Failed to save participants: ' + insertError.message };
+      if (deleteError) {
+        return { success: false, error: 'Failed to clear participants: ' + deleteError.message };
+      }
+
+      if (data.participants.length > 0) {
+        const participantRows = data.participants.map((p, i) =>
+          participantToRow(p, projectId, i, userId)
+        );
+
+        const { error: insertError } = await supabase
+          .from('participants')
+          .insert(participantRows);
+
+        if (insertError) {
+          return { success: false, error: 'Failed to save participants: ' + insertError.message };
+        }
       }
     }
 

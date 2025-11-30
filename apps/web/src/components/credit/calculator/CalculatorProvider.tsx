@@ -281,13 +281,18 @@ export function CalculatorProvider({ children, projectId = 'default' }: Calculat
     setIsSaving(true);
     setSyncError(null);
 
-    const result = await saveProject(projectId, {
-      id: projectId,
-      participants,
-      projectParams,
-      deedDate,
-      portageFormula,
-    });
+    // Pass original participants for granular updates (only changed participants will be updated in DB)
+    const result = await saveProject(
+      projectId,
+      {
+        id: projectId,
+        participants,
+        projectParams,
+        deedDate,
+        portageFormula,
+      },
+      originalDataRef.current?.participants
+    );
 
     setIsSaving(false);
 
