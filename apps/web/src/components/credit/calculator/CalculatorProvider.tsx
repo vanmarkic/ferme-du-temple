@@ -27,7 +27,7 @@ import {
 import { useCalculatorState } from '../hooks/useCalculatorState';
 import { useParticipantOperations } from '../hooks/useParticipantOperations';
 import { CalculatorContext, type CalculatorContextValue } from '../contexts/CalculatorContext';
-import { loadProject, saveProject } from '../services/supabaseData';
+import { loadProject, saveProjectData, saveParticipantData } from '../services/supabaseData';
 import { isSupabaseConfigured } from '../services/supabase';
 import toast from 'react-hot-toast';
 
@@ -281,22 +281,35 @@ export function CalculatorProvider({ children, projectId = 'default' }: Calculat
     setIsSaving(true);
     setSyncError(null);
 
-    // Pass original participants for granular updates (only changed participants will be updated in DB)
-    const result = await saveProject(
+    // Save project data (deedDate, projectParams, portageFormula)
+    const projectResult = await saveProjectData(
       projectId,
-      {
-        id: projectId,
-        participants,
-        projectParams,
-        deedDate,
-        portageFormula,
-      },
+      { deedDate, projectParams, portageFormula },
+      originalDataRef.current ? {
+        deedDate: originalDataRef.current.deedDate,
+        projectParams: originalDataRef.current.projectParams,
+        portageFormula: originalDataRef.current.portageFormula,
+      } : undefined
+    );
+
+    if (!projectResult.success) {
+      setIsSaving(false);
+      setSyncError(projectResult.error || 'Save failed');
+      toast.custom(() => <SimpleToast message={`Erreur: ${projectResult.error}`} type="error" />);
+      console.error('❌ Project save failed:', projectResult.error);
+      return false;
+    }
+
+    // Save participant data
+    const participantResult = await saveParticipantData(
+      projectId,
+      participants,
       originalDataRef.current?.participants
     );
 
     setIsSaving(false);
 
-    if (result.success) {
+    if (participantResult.success) {
       setIsDirty(false);
       setLastSyncedAt(new Date());
       originalDataRef.current = { participants, projectParams, deedDate, portageFormula };
@@ -304,9 +317,9 @@ export function CalculatorProvider({ children, projectId = 'default' }: Calculat
       console.log('✅ Saved to Supabase');
       return true;
     } else {
-      setSyncError(result.error || 'Save failed');
-      toast.custom(() => <SimpleToast message={`Erreur: ${result.error}`} type="error" />);
-      console.error('❌ Save failed:', result.error);
+      setSyncError(participantResult.error || 'Save failed');
+      toast.custom(() => <SimpleToast message={`Erreur: ${participantResult.error}`} type="error" />);
+      console.error('❌ Participant save failed:', participantResult.error);
       return false;
     }
   }, [participants, projectParams, deedDate, portageFormula, projectId]);

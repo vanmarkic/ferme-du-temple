@@ -463,21 +463,96 @@ export async function loadProject(projectId: string): Promise<LoadResult> {
 }
 
 // ============================================
-// Save Project Data
+// Save Project Data (split into two functions)
 // ============================================
 
 /**
- * Save project data with granular participant updates.
+ * Save project-level data (deedDate, projectParams, portageFormula).
  *
- * When originalParticipants is provided, only the changed participants
- * are updated in the database (INSERT, UPDATE, DELETE as needed).
- *
- * When originalParticipants is not provided, falls back to the legacy
- * behavior of deleting all participants and re-inserting them.
+ * When originalData is provided, only changed fields are updated.
+ * When originalData is not provided, all fields are upserted.
  */
-export async function saveProject(
+export async function saveProjectData(
   projectId: string,
-  data: ProjectData,
+  data: {
+    deedDate: string;
+    projectParams: ProjectParams;
+    portageFormula: PortageFormulaParams;
+  },
+  originalData?: OriginalProjectData
+): Promise<SaveResult> {
+  if (!isSupabaseConfigured()) {
+    return { success: false, error: 'Supabase not configured' };
+  }
+
+  const user = await getCurrentUser();
+  const userId = user?.id;
+
+  try {
+    if (originalData) {
+      const projectChanges = detectProjectChanges(originalData, data);
+
+      if (projectChanges.hasChanges) {
+        const updateFields: Record<string, unknown> = {
+          updated_by: userId,
+        };
+
+        if (projectChanges.deedDateChanged) {
+          updateFields.deed_date = data.deedDate;
+        }
+        if (projectChanges.projectParamsChanged) {
+          updateFields.project_params = data.projectParams;
+        }
+        if (projectChanges.portageFormulaChanged) {
+          updateFields.portage_formula = data.portageFormula;
+        }
+
+        const { error: projectError } = await supabase
+          .from('projects')
+          .update(updateFields)
+          .eq('id', projectId);
+
+        if (projectError) {
+          return { success: false, error: 'Failed to save project: ' + projectError.message };
+        }
+
+        console.log(`✅ Granular project save: deedDate=${projectChanges.deedDateChanged}, projectParams=${projectChanges.projectParamsChanged}, portageFormula=${projectChanges.portageFormulaChanged}`);
+      } else {
+        console.log('✅ No project-level changes detected, skipping project update');
+      }
+    } else {
+      const { error: projectError } = await supabase
+        .from('projects')
+        .upsert({
+          id: projectId,
+          deed_date: data.deedDate,
+          project_params: data.projectParams,
+          portage_formula: data.portageFormula,
+          updated_by: userId,
+        });
+
+      if (projectError) {
+        return { success: false, error: 'Failed to save project: ' + projectError.message };
+      }
+    }
+
+    return { success: true };
+  } catch (err) {
+    console.error('Error saving project data:', err);
+    return { success: false, error: String(err) };
+  }
+}
+
+/**
+ * Save participant data with granular updates.
+ *
+ * When originalParticipants is provided, only changed participants are updated
+ * (INSERT for new, UPDATE for changed, DELETE for removed).
+ * When originalParticipants is not provided, all participants are deleted and re-inserted.
+ */
+export async function saveParticipantData(
+  projectId: string,
+  participants: Participant[],
   originalParticipants?: Participant[]
 ): Promise<SaveResult> {
   if (!isSupabaseConfigured()) {
@@ -488,24 +563,8 @@ export async function saveProject(
   const userId = user?.id;
 
   try {
-    // 1. Upsert project row
-    const { error: projectError } = await supabase
-      .from('projects')
-      .upsert({
-        id: projectId,
-        deed_date: data.deedDate,
-        project_params: data.projectParams,
-        portage_formula: data.portageFormula,
-        updated_by: userId,
-      });
-
-    if (projectError) {
-      return { success: false, error: 'Failed to save project: ' + projectError.message };
-    }
-
-    // 2. Handle participants with granular updates if original data provided
     if (originalParticipants) {
-      const changes = detectParticipantChanges(originalParticipants, data.participants);
+      const changes = detectParticipantChanges(originalParticipants, participants);
 
       // Delete removed participants
       if (changes.removed.length > 0) {
@@ -558,7 +617,7 @@ export async function saveProject(
         }
       }
 
-      console.log(`✅ Granular save: ${changes.added.length} added, ${changes.updated.length} updated, ${changes.removed.length} removed`);
+      console.log(`✅ Granular participant save: ${changes.added.length} added, ${changes.updated.length} updated, ${changes.removed.length} removed`);
     } else {
       // Legacy behavior: delete all and re-insert
       const { error: deleteError } = await supabase
@@ -570,8 +629,8 @@ export async function saveProject(
         return { success: false, error: 'Failed to clear participants: ' + deleteError.message };
       }
 
-      if (data.participants.length > 0) {
-        const participantRows = data.participants.map((p, i) =>
+      if (participants.length > 0) {
+        const participantRows = participants.map((p, i) =>
           participantToRow(p, projectId, i, userId)
         );
 
@@ -587,9 +646,48 @@ export async function saveProject(
 
     return { success: true };
   } catch (err) {
-    console.error('Error saving project:', err);
+    console.error('Error saving participant data:', err);
     return { success: false, error: String(err) };
   }
+}
+
+/**
+ * Save all project data (convenience function that calls both saveProjectData and saveParticipantData).
+ * @deprecated Use saveProjectData and saveParticipantData separately for better granularity.
+ */
+export async function saveProject(
+  projectId: string,
+  data: ProjectData,
+  originalData?: {
+    participants?: Participant[];
+    deedDate?: string;
+    projectParams?: ProjectParams;
+    portageFormula?: PortageFormulaParams;
+  }
+): Promise<SaveResult> {
+  // Save project data
+  const originalProjectData = originalData?.deedDate && originalData?.projectParams && originalData?.portageFormula
+    ? { deedDate: originalData.deedDate, projectParams: originalData.projectParams, portageFormula: originalData.portageFormula }
+    : undefined;
+
+  const projectResult = await saveProjectData(
+    projectId,
+    { deedDate: data.deedDate, projectParams: data.projectParams, portageFormula: data.portageFormula },
+    originalProjectData
+  );
+
+  if (!projectResult.success) {
+    return projectResult;
+  }
+
+  // Save participant data
+  const participantResult = await saveParticipantData(
+    projectId,
+    data.participants,
+    originalData?.participants
+  );
+
+  return participantResult;
 }
 
 // ============================================
