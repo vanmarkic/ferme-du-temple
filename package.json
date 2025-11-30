@@ -1,9 +1,10 @@
 {
   "name": "ferme-du-temple-monorepo",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "turbo dev",
-    "build": "turbo build",
+    "build": "turbo build && node scripts/combine-builds.js",
     "lint": "turbo lint",
     "test": "turbo test",
     "dev:web": "turbo dev --filter=@repo/web",

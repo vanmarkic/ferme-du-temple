@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { Users, FolderOpen, UserCog, LogOut, Menu, X } from 'lucide-react';
+import { Users, FolderOpen, UserCog, LogOut, Menu, X, Calculator } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 interface AdminSidebarProps {
-  currentPage: 'inscriptions' | 'guide' | 'users';
+  currentPage: 'inscriptions' | 'guide' | 'users' | 'credit';
 }
 
 const navItems = [
@@ -12,6 +12,12 @@ const navItems = [
     label: 'Inscriptions',
     href: '/admin/dashboard',
     icon: Users,
+  },
+  {
+    id: 'credit' as const,
+    label: 'Credit Castor',
+    href: '/admin/credit',
+    icon: Calculator,
   },
   {
     id: 'guide' as const,

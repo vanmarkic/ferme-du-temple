@@ -5,7 +5,9 @@
     "jsxImportSource": "react",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@repo/credit-calculator": ["../../packages/credit-calculator/src/index.ts"],
+      "@repo/credit-calculator/*": ["../../packages/credit-calculator/src/*"]
     },
     "noImplicitAny": false,
     "noUnusedParameters": false,

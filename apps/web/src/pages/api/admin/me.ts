@@ -4,13 +4,15 @@ import { getSession, isAdmin } from '../../../lib/auth';
 
 export const prerender = false;
 
+const jsonHeaders = { 'Content-Type': 'application/json' };
+
 export const GET: APIRoute = async ({ cookies }) => {
   try {
     const isAdminUser = await isAdmin(cookies);
     if (!isAdminUser) {
       return new Response(
         JSON.stringify({ error: 'Non autorise' }),
-        { status: 401, headers: { 'Content-Type': 'application/json' } }
+        { status: 401, headers: jsonHeaders }
       );
     }
 
@@ -18,7 +20,7 @@ export const GET: APIRoute = async ({ cookies }) => {
     if (!session) {
       return new Response(
         JSON.stringify({ error: 'Session expiree' }),
-        { status: 401, headers: { 'Content-Type': 'application/json' } }
+        { status: 401, headers: jsonHeaders }
       );
     }
 
@@ -35,7 +37,7 @@ export const GET: APIRoute = async ({ cookies }) => {
     if (error || !data) {
       return new Response(
         JSON.stringify({ error: 'Utilisateur non trouve' }),
-        { status: 404, headers: { 'Content-Type': 'application/json' } }
+        { status: 404, headers: jsonHeaders }
       );
     }
 
@@ -45,14 +47,16 @@ export const GET: APIRoute = async ({ cookies }) => {
         email: data.email,
         role: data.role,
         isSuperAdmin: data.role === 'super_admin',
+        accessToken: session.access_token,
+        refreshToken: session.refresh_token,
       }),
-      { status: 200, headers: { 'Content-Type': 'application/json' } }
+      { status: 200, headers: jsonHeaders }
     );
   } catch (error) {
     console.error('Error in /api/admin/me:', error);
     return new Response(
       JSON.stringify({ error: 'Erreur serveur' }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
+      { status: 500, headers: jsonHeaders }
     );
   }
 };

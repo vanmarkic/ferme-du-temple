@@ -19,6 +19,7 @@
   "dependencies": {
     "@repo/auth": "workspace:*",
     "@repo/config": "workspace:*",
+    "@repo/credit-calculator": "workspace:*",
     "@astrojs/mdx": "^4.3.12",
     "@astrojs/node": "^9.5.1",
     "@astrojs/react": "^4.4.0",
