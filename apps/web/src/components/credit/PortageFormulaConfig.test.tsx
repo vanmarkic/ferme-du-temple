@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import PortageFormulaConfig from './PortageFormulaConfig';
-import type { PortageFormulaParams } from '@repo/credit-calculator/utils/calculatorUtils';
+import type { PortageFormulaParams } from '@repo/credit-calculator/utils';
 import { UnlockProvider } from './contexts/UnlockContext';
 
 describe('PortageFormulaConfig', () => {

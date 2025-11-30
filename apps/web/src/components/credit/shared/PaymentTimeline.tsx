@@ -1,6 +1,5 @@
 import { PaymentPhaseCard } from './PaymentPhaseCard';
-import { formatCurrency } from '@repo/credit-calculator/utils/formatting';
-import type { PhaseCosts } from '@repo/credit-calculator/utils/phaseCostsCalculation';
+import { formatCurrency, type PhaseCosts } from '@repo/credit-calculator/utils';
 
 interface TwoLoanBreakdown {
   loan1Amount: number;

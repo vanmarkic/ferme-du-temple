@@ -1,6 +1,12 @@
 import { useMemo } from 'react';
-import { calculateExpectedPaybacks, type Payback } from '@repo/credit-calculator/utils/calculatorUtils';
-import type { Participant, ProjectParams, CalculationResults, PortageFormulaParams } from '@repo/credit-calculator/utils/calculatorUtils';
+import {
+  calculateExpectedPaybacks,
+  type Payback,
+  type Participant,
+  type ProjectParams,
+  type CalculationResults,
+  type PortageFormulaParams,
+} from '@repo/credit-calculator/utils';
 
 /**
  * Hook to calculate expected paybacks for a participant

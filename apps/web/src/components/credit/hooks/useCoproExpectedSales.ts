@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import type { Participant } from '@repo/credit-calculator/utils/calculatorUtils';
+import type { Participant } from '@repo/credit-calculator/utils';
 
 export interface CoproSale {
   date: Date;

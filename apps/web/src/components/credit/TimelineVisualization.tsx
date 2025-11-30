@@ -6,8 +6,8 @@
  */
 
 import React, { useState } from 'react';
-import type { DomainEvent } from '@repo/credit-calculator/types/timeline';
-import { calculateMonthsBetween } from '@repo/credit-calculator/utils/coproRedistribution';
+import type { DomainEvent } from '@repo/credit-calculator/types';
+import { calculateMonthsBetween } from '@repo/credit-calculator/utils';
 
 interface TimelineVisualizationProps {
   deedDate: Date;

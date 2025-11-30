@@ -1,16 +1,19 @@
 import { useMemo, useState } from 'react';
-import type { Participant, CalculationResults, ProjectParams, UnitDetails } from '@repo/credit-calculator/utils/calculatorUtils';
-import { DEFAULT_PORTAGE_FORMULA } from '@repo/credit-calculator/utils/calculatorUtils';
 import {
+  DEFAULT_PORTAGE_FORMULA,
   getUniqueSortedDates,
   generateCoproSnapshots,
-  generateParticipantSnapshots
-} from '@repo/credit-calculator/utils/timelineCalculations';
-import { generateAllFraisGenerauxEvents } from '@repo/credit-calculator/utils/fraisGenerauxYearly';
+  generateParticipantSnapshots,
+  generateAllFraisGenerauxEvents,
+  type Participant,
+  type CalculationResults,
+  type ProjectParams,
+  type UnitDetails,
+} from '@repo/credit-calculator/utils';
 import type {
   FraisGenerauxYearlyEvent,
-  NewcomerFraisGenerauxReimbursementEvent
-} from '@repo/credit-calculator/types/timeline';
+  NewcomerFraisGenerauxReimbursementEvent,
+} from '@repo/credit-calculator/types';
 import TimelineHeader from './timeline/TimelineHeader';
 import TimelineNameColumn from './timeline/TimelineNameColumn';
 import TimelineCardsArea from './timeline/TimelineCardsArea';

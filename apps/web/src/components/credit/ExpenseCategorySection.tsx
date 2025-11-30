@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { ChevronDown, ChevronUp, Plus, X } from 'lucide-react';
-import type { ExpenseLineItem } from '@repo/credit-calculator/utils/calculatorUtils';
-import { formatCurrency } from '@repo/credit-calculator/utils/formatting';
+import { formatCurrency, type ExpenseLineItem } from '@repo/credit-calculator/utils';
 
 interface ExpenseCategorySectionProps {
   title: string;

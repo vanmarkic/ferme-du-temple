@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import AvailableLotsView from './AvailableLotsView';
-import type { AvailableLot } from '@repo/credit-calculator/utils/availableLots';
+import type { AvailableLot } from '@repo/credit-calculator/utils';
 
 describe('AvailableLotsView', () => {
   const deedDate = new Date('2026-02-01');

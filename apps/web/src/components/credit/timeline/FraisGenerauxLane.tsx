@@ -1,8 +1,8 @@
 import FraisGenerauxEventCard from './FraisGenerauxEventCard';
 import type {
   FraisGenerauxYearlyEvent,
-  NewcomerFraisGenerauxReimbursementEvent
-} from '@repo/credit-calculator/types/timeline';
+  NewcomerFraisGenerauxReimbursementEvent,
+} from '@repo/credit-calculator/types';
 
 type FraisGenerauxEvent = FraisGenerauxYearlyEvent | NewcomerFraisGenerauxReimbursementEvent;
 

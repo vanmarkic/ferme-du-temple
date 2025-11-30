@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Info } from 'lucide-react';
-import type { Participant } from '@repo/credit-calculator/utils/calculatorUtils';
+import type { Participant } from '@repo/credit-calculator/utils';
 import { getDateEntriesFromTimeline } from './draggableRenovationDateUtils';
 
 interface DraggableRenovationDateCardProps {

@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import { ChevronDown, ChevronRight } from 'lucide-react';
-import { formatCurrency } from '@repo/credit-calculator/utils/formatting';
-import type { PhaseCosts } from '@repo/credit-calculator/utils/phaseCostsCalculation';
-import type { Participant, ParticipantCalculation } from '@repo/credit-calculator/utils/calculatorUtils';
+import {
+  formatCurrency,
+  type PhaseCosts,
+  type Participant,
+  type ParticipantCalculation,
+} from '@repo/credit-calculator/utils';
 
 interface FinancingSectionProps {
   phaseCosts: PhaseCosts;

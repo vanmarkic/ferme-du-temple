@@ -1,8 +1,8 @@
 import { X } from 'lucide-react';
 import type {
   FraisGenerauxYearlyEvent,
-  NewcomerFraisGenerauxReimbursementEvent
-} from '@repo/credit-calculator/types/timeline';
+  NewcomerFraisGenerauxReimbursementEvent,
+} from '@repo/credit-calculator/types';
 import { FraisGenerauxYearlyDetails } from '../events/FraisGenerauxYearlyDetails';
 import { NewcomerReimbursementDetails } from '../events/NewcomerReimbursementDetails';
 

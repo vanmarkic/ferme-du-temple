@@ -1,6 +1,6 @@
 import React, { useState, useRef, useMemo } from 'react';
 import { Clock, Users, ChevronDown, ChevronUp } from 'lucide-react';
-import type { Participant } from '@repo/credit-calculator/utils/calculatorUtils';
+import type { Participant } from '@repo/credit-calculator/utils';
 import { useProjectParamPermissions } from '../hooks/useFieldPermissions';
 import { DraggableRenovationDateCard } from './DraggableRenovationDateCard';
 

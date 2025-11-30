@@ -1,8 +1,8 @@
-import { formatCurrency } from '@repo/credit-calculator/utils/formatting';
+import { formatCurrency } from '@repo/credit-calculator/utils';
 import type {
   FraisGenerauxYearlyEvent,
-  NewcomerFraisGenerauxReimbursementEvent
-} from '@repo/credit-calculator/types/timeline';
+  NewcomerFraisGenerauxReimbursementEvent,
+} from '@repo/credit-calculator/types';
 
 type FraisGenerauxEvent = FraisGenerauxYearlyEvent | NewcomerFraisGenerauxReimbursementEvent;
 

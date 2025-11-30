@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { ParticipantsTimeline } from './ParticipantsTimeline';
-import type { Participant } from '@repo/credit-calculator/utils/calculatorUtils';
+import type { Participant } from '@repo/credit-calculator/utils';
 
 // Mock the useProjectParamPermissions hook
 vi.mock('../../hooks/useFieldPermissions', () => ({

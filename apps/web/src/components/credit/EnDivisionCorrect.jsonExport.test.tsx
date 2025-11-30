@@ -4,9 +4,13 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import { calculateAll } from '@repo/credit-calculator/utils/calculatorUtils';
-import type { Participant, ProjectParams, UnitDetails } from '@repo/credit-calculator/utils/calculatorUtils';
-import { RELEASE_VERSION } from '@repo/credit-calculator/utils/version';
+import {
+  calculateAll,
+  RELEASE_VERSION,
+  type Participant,
+  type ProjectParams,
+  type UnitDetails,
+} from '@repo/credit-calculator/utils';
 
 describe('JSON Export Completeness', () => {
   const mockParticipants: Participant[] = [

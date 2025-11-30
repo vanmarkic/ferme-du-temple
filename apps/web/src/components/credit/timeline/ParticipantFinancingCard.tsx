@@ -1,5 +1,5 @@
-import { formatCurrency } from '@repo/credit-calculator/utils/formatting';
-import type { TimelineTransaction } from '@repo/credit-calculator/types/timeline';
+import { formatCurrency } from '@repo/credit-calculator/utils';
+import type { TimelineTransaction } from '@repo/credit-calculator/types';
 
 interface ParticipantFinancingCardProps {
   date: Date;

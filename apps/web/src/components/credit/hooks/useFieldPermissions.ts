@@ -5,7 +5,7 @@ import {
   getLockReason,
   isCollectiveField,
   isIndividualField,
-} from '@repo/credit-calculator/utils/fieldPermissions';
+} from '@repo/credit-calculator/utils';
 
 /**
  * Hook to check field permissions based on unlock state.

@@ -1,12 +1,19 @@
-import { formatCurrency } from '@repo/credit-calculator/utils/formatting';
+import {
+  formatCurrency,
+  validateTwoLoanFinancing,
+  calculateExpenseCategoriesTotal,
+  type Participant,
+  type ParticipantCalculation,
+  type CalculationResults,
+  type ProjectParams,
+  type PortageFormulaParams,
+  type UnitDetails,
+} from '@repo/credit-calculator/utils';
 import { CostBreakdownGrid } from '../shared/CostBreakdownGrid';
 import { ConstructionDetailSection } from '../shared/ConstructionDetailSection';
 import { FinancingResultCard } from '../shared/FinancingResultCard';
 import { ExpectedPaybacksCard } from '../shared/ExpectedPaybacksCard';
 import { TwoLoanFinancingSection } from '../shared/TwoLoanFinancingSection';
-import { validateTwoLoanFinancing } from '@repo/credit-calculator/utils/twoLoanValidation';
-import { calculateExpenseCategoriesTotal } from '@repo/credit-calculator/utils/calculatorUtils';
-import type { Participant, ParticipantCalculation, CalculationResults, ProjectParams, PortageFormulaParams, UnitDetails } from '@repo/credit-calculator/utils/calculatorUtils';
 
 interface AllFoundersPrintViewProps {
   founders: Participant[];

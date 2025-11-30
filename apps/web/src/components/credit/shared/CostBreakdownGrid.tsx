@@ -1,14 +1,17 @@
-import { formatCurrency } from '@repo/credit-calculator/utils/formatting';
-import type { Participant, ParticipantCalculation, ProjectParams, PortageFormulaParams } from '@repo/credit-calculator/utils/calculatorUtils';
-import { 
+import {
+  formatCurrency,
   calculateCommunCostsBreakdown,
   calculateCommunCostsWithPortageCopro,
   calculateParticipantsAtPurchaseTime,
   calculateParticipantsAtEntryDate,
   calculateNewcomerPurchasePrice,
   calculateQuotiteForFounder,
-  type UnitDetails 
-} from '@repo/credit-calculator/utils/calculatorUtils';
+  type Participant,
+  type ParticipantCalculation,
+  type ProjectParams,
+  type PortageFormulaParams,
+  type UnitDetails,
+} from '@repo/credit-calculator/utils';
 
 interface CostBreakdownGridProps {
   participant: Participant;

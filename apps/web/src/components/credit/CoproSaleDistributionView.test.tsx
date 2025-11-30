@@ -8,7 +8,7 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen, within } from '@testing-library/react';
 import CoproSaleDistributionView from './CoproSaleDistributionView';
-import type { CoproSale } from '@repo/credit-calculator/stateMachine/types';
+import type { CoproSale } from '@repo/credit-calculator/stateMachine';
 
 describe('CoproSaleDistributionView', () => {
   // Test data: €115,000 sale with 2 founders

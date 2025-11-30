@@ -1,5 +1,5 @@
-import type { NewcomerFraisGenerauxReimbursementEvent } from '@repo/credit-calculator/types/timeline';
-import { formatCurrency } from '@repo/credit-calculator/utils/formatting';
+import type { NewcomerFraisGenerauxReimbursementEvent } from '@repo/credit-calculator/types';
+import { formatCurrency } from '@repo/credit-calculator/utils';
 
 interface NewcomerReimbursementDetailsProps {
   event: NewcomerFraisGenerauxReimbursementEvent;

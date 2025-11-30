@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import * as Tooltip from '@radix-ui/react-tooltip';
 import PortageLotConfig from './PortageLotConfig';
-import type { PortageFormulaParams } from '@repo/credit-calculator/utils/calculatorUtils';
+import type { PortageFormulaParams } from '@repo/credit-calculator/utils';
 
 describe('PortageLotConfig', () => {
   const defaultFormulaParams: PortageFormulaParams = {

@@ -1,5 +1,9 @@
-import { formatCurrency } from '@repo/credit-calculator/utils/formatting';
-import type { Participant, ParticipantCalculation, ProjectParams } from '@repo/credit-calculator/utils/calculatorUtils';
+import {
+  formatCurrency,
+  type Participant,
+  type ParticipantCalculation,
+  type ProjectParams,
+} from '@repo/credit-calculator/utils';
 
 interface ConstructionDetailSectionProps {
   participant: Participant;

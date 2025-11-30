@@ -8,7 +8,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import ParticipantDetailModal from './ParticipantDetailModal';
-import type { Participant, CalculationResults, ProjectParams } from '@repo/credit-calculator/utils/calculatorUtils';
+import type { Participant, CalculationResults, ProjectParams } from '@repo/credit-calculator/utils';
 
 describe('ParticipantDetailModal - Reactive Portage Price Recalculation', () => {
   const deedDate = '2026-02-01';

@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { DraggableRenovationDateCard } from './DraggableRenovationDateCard';
-import type { Participant } from '@repo/credit-calculator/utils/calculatorUtils';
+import type { Participant } from '@repo/credit-calculator/utils';
 
 describe('DraggableRenovationDateCard', () => {
   const mockParticipants: Participant[] = [

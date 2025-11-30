@@ -1,9 +1,13 @@
-import type { Lot } from '@repo/credit-calculator/types/timeline';
-import type { PortageFormulaParams } from '@repo/credit-calculator/utils/calculatorUtils';
-import { calculateCarryingCosts, calculatePortageLotPrice, calculateYearsHeld } from '@repo/credit-calculator/utils/portageCalculations';
-import { formatCurrency } from '@repo/credit-calculator/utils/formatting';
+import type { Lot } from '@repo/credit-calculator/types';
+import {
+  calculateCarryingCosts,
+  calculatePortageLotPrice,
+  calculateYearsHeld,
+  formatCurrency,
+  getPortageLotPriceFormula,
+  type PortageFormulaParams,
+} from '@repo/credit-calculator/utils';
 import { FormulaTooltip } from './FormulaTooltip';
-import { getPortageLotPriceFormula } from '@repo/credit-calculator/utils/formulaExplanations';
 
 interface PortageLotConfigProps {
   portageLots: Lot[];

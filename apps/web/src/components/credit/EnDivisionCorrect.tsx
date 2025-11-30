@@ -1,7 +1,19 @@
 import { useState, useEffect } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import * as Tooltip from '@radix-ui/react-tooltip';
-import { calculateTotalTravauxCommuns } from '@repo/credit-calculator/utils/calculatorUtils';
+import {
+  calculateTotalTravauxCommuns,
+  formatCurrency,
+  getAvailableLotsForNewcomer,
+  validateAddPortageLot,
+  getPricePerM2Formula,
+  getTotalProjectCostFormula,
+  loadFromLocalStorage,
+  clearPinnedParticipant,
+  RELEASE_VERSION,
+  updateBuyerWithRecalculatedPrice,
+} from '@repo/credit-calculator/utils';
+import type { CoproLot } from '@repo/credit-calculator/types';
 import { ParticipantsTimeline } from './calculator/ParticipantsTimeline';
 import { ProjectHeader } from './calculator/ProjectHeader';
 import { VerticalToolbar } from './calculator/VerticalToolbar';
@@ -9,23 +21,12 @@ import ParticipantDetailModal from './calculator/ParticipantDetailModal';
 import CoproDetailModal from './calculator/CoproDetailModal';
 import AllFoundersPrintView from './calculator/AllFoundersPrintView';
 import { FormulaTooltip } from './FormulaTooltip';
-import { formatCurrency } from '@repo/credit-calculator/utils/formatting';
 import { ExpenseCategoriesManager } from './shared/ExpenseCategoriesManager';
 import PortageFormulaConfig from './PortageFormulaConfig';
 import AvailableLotsView from './AvailableLotsView';
-import { getAvailableLotsForNewcomer } from '@repo/credit-calculator/utils/availableLots';
-import { validateAddPortageLot } from '@repo/credit-calculator/utils/lotValidation';
-import type { CoproLot } from '@repo/credit-calculator/types/timeline';
-import {
-  getPricePerM2Formula,
-  getTotalProjectCostFormula
-} from '@repo/credit-calculator/utils/formulaExplanations';
-import { loadFromLocalStorage, clearPinnedParticipant } from '@repo/credit-calculator/utils/storage';
-import { RELEASE_VERSION } from '@repo/credit-calculator/utils/version';
 import { VersionMismatchWarning } from './VersionMismatchWarning';
 import { useOrderedParticipantBreakdown } from './hooks/useCalculatorState';
 import HorizontalSwimLaneTimeline from './HorizontalSwimLaneTimeline';
-import { updateBuyerWithRecalculatedPrice } from '@repo/credit-calculator/utils/portageRecalculation';
 import { UnlockProvider } from './contexts/UnlockContext';
 import { UnlockButton } from './shared/UnlockButton';
 import { ReadonlyModeSwitch } from './shared/ReadonlyModeSwitch';

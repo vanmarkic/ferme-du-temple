@@ -14,9 +14,9 @@ import {
   updateParachevementsSqm,
   addPortageLot,
   removePortageLot,
-  updatePortageLotSurface
+  updatePortageLotSurface,
 } from './useParticipantOperations';
-import type { Participant } from '@repo/credit-calculator/utils/calculatorUtils';
+import type { Participant } from '@repo/credit-calculator/utils';
 
 describe('useParticipantOperations', () => {
   const baseParticipant: Participant = {

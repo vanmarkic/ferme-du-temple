@@ -1,7 +1,6 @@
 import { X } from 'lucide-react';
-import { formatCurrency } from '@repo/credit-calculator/utils/formatting';
+import { formatCurrency, type Participant } from '@repo/credit-calculator/utils';
 import { useCoproExpectedSales } from '../hooks/useCoproExpectedSales';
-import type { Participant } from '@repo/credit-calculator/utils/calculatorUtils';
 
 interface CoproSnapshot {
   date: Date;

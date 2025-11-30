@@ -10,9 +10,12 @@ import { useState, useMemo, useRef, type Dispatch, type SetStateAction } from 'r
 import {
   loadPinnedParticipant,
   savePinnedParticipant,
-  clearPinnedParticipant
-} from '@repo/credit-calculator/utils/storage';
-import type { Participant, ProjectParams, PortageFormulaParams, CalculationResults } from '@repo/credit-calculator/utils/calculatorUtils';
+  clearPinnedParticipant,
+  type Participant,
+  type ProjectParams,
+  type PortageFormulaParams,
+  type CalculationResults,
+} from '@repo/credit-calculator/utils';
 
 export interface CalculatorState {
   // State values

@@ -1,4 +1,4 @@
-import { formatCurrency } from '@repo/credit-calculator/utils/formatting';
+import { formatCurrency } from '@repo/credit-calculator/utils';
 
 interface CoproInventoryCardProps {
   date: Date;

@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
-import type { PortageFormulaParams } from '@repo/credit-calculator/utils/calculatorUtils';
-import { calculateCarryingCosts, calculateFormulaPreview } from '@repo/credit-calculator/utils/portageCalculations';
-import { formatCurrency } from '@repo/credit-calculator/utils/formatting';
+import {
+  calculateCarryingCosts,
+  calculateFormulaPreview,
+  formatCurrency,
+  type PortageFormulaParams,
+} from '@repo/credit-calculator/utils';
 import { usePortageFormulaPermissions } from './hooks/useFieldPermissions';
 
 interface PortageFormulaConfigProps {

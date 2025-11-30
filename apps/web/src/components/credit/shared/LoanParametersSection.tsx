@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import { ChevronDown, ChevronRight } from 'lucide-react';
-import { formatCurrency } from '@repo/credit-calculator/utils/formatting';
-import type { Participant, ParticipantCalculation } from '@repo/credit-calculator/utils/calculatorUtils';
-import type { TwoLoanValidationErrors } from '@repo/credit-calculator/utils/twoLoanValidation';
+import {
+  formatCurrency,
+  type Participant,
+  type ParticipantCalculation,
+  type TwoLoanValidationErrors,
+} from '@repo/credit-calculator/utils';
 import { TwoLoanFinancingSection } from './TwoLoanFinancingSection';
 
 interface LoanParametersSectionProps {

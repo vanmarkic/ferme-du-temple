@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { Participant, ParticipantCalculation } from '@repo/credit-calculator/utils/calculatorUtils';
+import type { Participant, ParticipantCalculation } from '@repo/credit-calculator/utils';
 
 interface TwoLoanFinancingSectionProps {
   participant: Participant;

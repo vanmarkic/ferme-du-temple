@@ -1,8 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { FinancingSection } from './FinancingSection';
-import type { PhaseCosts } from '@repo/credit-calculator/utils/phaseCostsCalculation';
-import type { Participant, ParticipantCalculation } from '@repo/credit-calculator/utils/calculatorUtils';
+import type { PhaseCosts, Participant, ParticipantCalculation } from '@repo/credit-calculator/utils';
 
 describe('FinancingSection', () => {
   const mockPhaseCosts: PhaseCosts = {

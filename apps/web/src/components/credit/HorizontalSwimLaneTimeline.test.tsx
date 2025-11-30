@@ -1,8 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import HorizontalSwimLaneTimeline from './HorizontalSwimLaneTimeline';
-import type { Participant } from '@repo/credit-calculator/utils/calculatorUtils';
-import type { CalculationResults, ProjectParams } from '@repo/credit-calculator/utils/calculatorUtils';
+import type { Participant, CalculationResults, ProjectParams } from '@repo/credit-calculator/utils';
 
 describe('HorizontalSwimLaneTimeline', () => {
   const deedDate = '2026-02-01';

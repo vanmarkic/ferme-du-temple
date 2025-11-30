@@ -1,4 +1,4 @@
-import type { DomainEvent, NewcomerJoinsEvent, HiddenLotRevealedEvent } from '@repo/credit-calculator/types/timeline';
+import type { DomainEvent, NewcomerJoinsEvent, HiddenLotRevealedEvent } from '@repo/credit-calculator/types';
 import { NewcomerJoinsDetails } from './NewcomerJoinsDetails';
 import { HiddenLotRevealedDetails } from './HiddenLotRevealedDetails';
 

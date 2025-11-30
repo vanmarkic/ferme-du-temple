@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import { useExpectedPaybacks } from './useExpectedPaybacks';
-import type { Participant } from '@repo/credit-calculator/utils/calculatorUtils';
+import type { Participant } from '@repo/credit-calculator/utils';
 
 describe('useExpectedPaybacks', () => {
   const deedDate = '2024-01-01';

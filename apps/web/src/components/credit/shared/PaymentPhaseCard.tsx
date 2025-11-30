@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
-import { formatCurrency } from '@repo/credit-calculator/utils/formatting';
+import { formatCurrency } from '@repo/credit-calculator/utils';
 
 type PhaseVariant = 'fixed' | 'progressive' | 'flexible';
 

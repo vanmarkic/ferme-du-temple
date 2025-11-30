@@ -6,8 +6,14 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { CostBreakdownGrid } from './CostBreakdownGrid';
-import * as calculatorUtils from '@repo/credit-calculator/utils/calculatorUtils';
-import type { Participant, ParticipantCalculation, ProjectParams, PortageFormulaParams, UnitDetails } from '@repo/credit-calculator/utils/calculatorUtils';
+import * as calculatorUtils from '@repo/credit-calculator/utils';
+import type {
+  Participant,
+  ParticipantCalculation,
+  ProjectParams,
+  PortageFormulaParams,
+  UnitDetails,
+} from '@repo/credit-calculator/utils';
 
 describe('CostBreakdownGrid - Quotité Display Trace', () => {
   // Mock the calculation function to trace calls

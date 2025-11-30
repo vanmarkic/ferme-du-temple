@@ -8,7 +8,13 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen, within } from '@testing-library/react';
 import { CostBreakdownGrid } from './CostBreakdownGrid';
-import type { Participant, ParticipantCalculation, ProjectParams, PortageFormulaParams, UnitDetails } from '@repo/credit-calculator/utils/calculatorUtils';
+import type {
+  Participant,
+  ParticipantCalculation,
+  ProjectParams,
+  PortageFormulaParams,
+  UnitDetails,
+} from '@repo/credit-calculator/utils';
 
 describe('CostBreakdownGrid - Non-Founder Quotité Display', () => {
   // Actual data from user

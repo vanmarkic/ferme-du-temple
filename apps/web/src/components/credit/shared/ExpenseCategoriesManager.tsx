@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { formatCurrency } from '@repo/credit-calculator/utils/formatting';
 import { ExpenseCategorySection } from '../ExpenseCategorySection';
 import { Plus, X } from 'lucide-react';
 import {
+  formatCurrency,
   calculateExpenseCategoriesTotal,
   getFraisGenerauxBreakdown,
   calculateTotalTravauxCommuns,
@@ -10,8 +10,8 @@ import {
   type ExpenseCategories,
   type ProjectParams,
   type Participant,
-  type UnitDetails
-} from '@repo/credit-calculator/utils/calculatorUtils';
+  type UnitDetails,
+} from '@repo/credit-calculator/utils';
 import { useProjectParamPermissions } from '../hooks/useFieldPermissions';
 
 interface ExpenseCategoriesManagerProps {

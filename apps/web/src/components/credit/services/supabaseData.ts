@@ -17,8 +17,8 @@
  */
 
 import { supabase, isSupabaseConfigured, getCurrentUser } from './supabase';
-import type { Participant, ProjectParams, PortageFormulaParams } from '@repo/credit-calculator/utils/calculatorUtils';
-import type { Lot } from '@repo/credit-calculator/types/timeline';
+import type { Participant, ProjectParams, PortageFormulaParams } from '@repo/credit-calculator/utils';
+import type { Lot } from '@repo/credit-calculator/types';
 
 // ============================================
 // Type Definitions

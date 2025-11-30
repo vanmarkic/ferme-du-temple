@@ -1,5 +1,5 @@
-import type { HiddenLotRevealedEvent } from '@repo/credit-calculator/types/timeline';
-import { formatCurrency } from '@repo/credit-calculator/utils/formatting';
+import type { HiddenLotRevealedEvent } from '@repo/credit-calculator/types';
+import { formatCurrency } from '@repo/credit-calculator/utils';
 
 interface HiddenLotRevealedDetailsProps {
   event: HiddenLotRevealedEvent;

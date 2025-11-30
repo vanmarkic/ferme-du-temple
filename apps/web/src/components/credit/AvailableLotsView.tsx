@@ -7,15 +7,15 @@
 
 import { useState } from 'react';
 import { isAfter } from 'date-fns';
-import type { AvailableLot } from '@repo/credit-calculator/utils/availableLots';
-import type { PortageLotPrice } from '@repo/credit-calculator/utils/portageCalculations';
-import type { PortageFormulaParams } from '@repo/credit-calculator/utils/calculatorUtils';
 import {
   calculateYearsHeld,
   calculateCoproEstimatedPrice,
   calculatePortageLotPrice,
-  calculateCarryingCosts
-} from '@repo/credit-calculator/utils/portageCalculations';
+  calculateCarryingCosts,
+  type AvailableLot,
+  type PortageLotPrice,
+  type PortageFormulaParams,
+} from '@repo/credit-calculator/utils';
 
 interface AvailableLotsViewProps {
   availableLots: AvailableLot[];

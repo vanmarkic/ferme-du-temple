@@ -1,4 +1,4 @@
-import type { Participant } from '@repo/credit-calculator/utils/calculatorUtils';
+import type { Participant } from '@repo/credit-calculator/utils';
 
 /**
  * Safely converts a date value to an ISO date string (YYYY-MM-DD).

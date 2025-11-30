@@ -11,7 +11,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { loadProject, saveProject, type ProjectData } from '../services/supabaseData';
-import type { Participant, ProjectParams, PortageFormulaParams } from '@repo/credit-calculator/utils/calculatorUtils';
+import type { Participant, ProjectParams, PortageFormulaParams } from '@repo/credit-calculator/utils';
 
 // ============================================
 // Types

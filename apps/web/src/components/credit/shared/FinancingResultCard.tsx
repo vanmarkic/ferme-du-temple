@@ -1,6 +1,12 @@
-import { formatCurrency } from '@repo/credit-calculator/utils/formatting';
-import type { Participant, ParticipantCalculation, ProjectParams } from '@repo/credit-calculator/utils/calculatorUtils';
-import { getFraisGenerauxBreakdown, calculateExpenseCategoriesTotal, type UnitDetails } from '@repo/credit-calculator/utils/calculatorUtils';
+import {
+  formatCurrency,
+  getFraisGenerauxBreakdown,
+  calculateExpenseCategoriesTotal,
+  type Participant,
+  type ParticipantCalculation,
+  type ProjectParams,
+  type UnitDetails,
+} from '@repo/credit-calculator/utils';
 
 interface FinancingResultCardProps {
   participantCalc: ParticipantCalculation;

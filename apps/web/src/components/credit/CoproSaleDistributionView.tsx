@@ -5,13 +5,13 @@
  * Shows buyer payment, founder distributions, and reserve increase
  */
 
-import type { CoproSale } from '@repo/credit-calculator/stateMachine/types';
+import type { CoproSale } from '@repo/credit-calculator/stateMachine';
 import {
   calculateDistributionPercentages,
   calculateQuotiteFromAmount,
-  sumDistributionAmounts
-} from '@repo/credit-calculator/utils/coproRedistribution';
-import { formatDate } from '@repo/credit-calculator/utils/formatting';
+  sumDistributionAmounts,
+  formatDate,
+} from '@repo/credit-calculator/utils';
 
 interface CoproSaleDistributionViewProps {
   sale: CoproSale;

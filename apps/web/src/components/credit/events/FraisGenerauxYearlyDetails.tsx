@@ -1,6 +1,6 @@
-import type { FraisGenerauxYearlyEvent } from '@repo/credit-calculator/types/timeline';
-import { formatCurrency } from '@repo/credit-calculator/utils/formatting';
 import { useState } from 'react';
+import type { FraisGenerauxYearlyEvent } from '@repo/credit-calculator/types';
+import { formatCurrency } from '@repo/credit-calculator/utils';
 
 interface FraisGenerauxYearlyDetailsProps {
   event: FraisGenerauxYearlyEvent;

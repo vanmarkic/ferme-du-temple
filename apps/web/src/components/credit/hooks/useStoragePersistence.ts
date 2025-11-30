@@ -4,8 +4,12 @@
  */
 
 import { useEffect } from 'react';
-import { saveToLocalStorage } from '@repo/credit-calculator/utils/storage';
-import type { Participant, ProjectParams, PortageFormulaParams } from '@repo/credit-calculator/utils/calculatorUtils';
+import {
+  saveToLocalStorage,
+  type Participant,
+  type ProjectParams,
+  type PortageFormulaParams,
+} from '@repo/credit-calculator/utils';
 
 /**
  * Hook that auto-saves calculator state to localStorage

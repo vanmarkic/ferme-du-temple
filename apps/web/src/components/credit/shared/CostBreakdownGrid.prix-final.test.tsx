@@ -10,8 +10,14 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { CostBreakdownGrid } from './CostBreakdownGrid';
-import { calculateNewcomerPurchasePrice } from '@repo/credit-calculator/utils/calculatorUtils';
-import type { Participant, ParticipantCalculation, ProjectParams, PortageFormulaParams, UnitDetails } from '@repo/credit-calculator/utils/calculatorUtils';
+import {
+  calculateNewcomerPurchasePrice,
+  type Participant,
+  type ParticipantCalculation,
+  type ProjectParams,
+  type PortageFormulaParams,
+  type UnitDetails,
+} from '@repo/credit-calculator/utils';
 
 describe('CostBreakdownGrid - Prix Final Display', () => {
   const deedDate = '2026-02-01';

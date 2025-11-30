@@ -7,8 +7,7 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import { getAvailableLotsForNewcomer } from '@repo/credit-calculator/utils/availableLots';
-import type { Participant } from '@repo/credit-calculator/utils/calculatorUtils';
+import { getAvailableLotsForNewcomer, type Participant } from '@repo/credit-calculator/utils';
 
 describe('Portage Flow - Founder adds lot, Newcomer buys', () => {
   it('should show available portage lot after founder adds it', () => {

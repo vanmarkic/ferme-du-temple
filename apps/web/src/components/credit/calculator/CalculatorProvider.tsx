@@ -8,16 +8,24 @@
  */
 
 import { type ReactNode, useMemo, useRef, useEffect, useState, useCallback } from 'react';
-import { calculateAll, DEFAULT_PORTAGE_FORMULA } from '@repo/credit-calculator/utils/calculatorUtils';
-import type { Participant, ProjectParams, PortageFormulaParams } from '@repo/credit-calculator/utils/calculatorUtils';
-import { exportCalculations } from '@repo/credit-calculator/utils/excelExport';
-import { XlsxWriter } from '@repo/credit-calculator/utils/exportWriter';
-import { generateParticipantSnapshots } from '@repo/credit-calculator/utils/timelineCalculations';
-import { downloadScenarioFile, createFileUploadHandler } from '@repo/credit-calculator/utils/scenarioFileIO';
-import { DEFAULT_PARTICIPANTS, DEFAULT_PROJECT_PARAMS, DEFAULT_DEED_DATE } from '@repo/credit-calculator/utils/storage';
+import {
+  calculateAll,
+  DEFAULT_PORTAGE_FORMULA,
+  exportCalculations,
+  XlsxWriter,
+  generateParticipantSnapshots,
+  downloadScenarioFile,
+  createFileUploadHandler,
+  DEFAULT_PARTICIPANTS,
+  DEFAULT_PROJECT_PARAMS,
+  DEFAULT_DEED_DATE,
+  syncSoldDatesFromPurchaseDetails,
+  type Participant,
+  type ProjectParams,
+  type PortageFormulaParams,
+} from '@repo/credit-calculator/utils';
 import { useCalculatorState } from '../hooks/useCalculatorState';
 import { useParticipantOperations } from '../hooks/useParticipantOperations';
-import { syncSoldDatesFromPurchaseDetails } from '@repo/credit-calculator/utils/participantSync';
 import { CalculatorContext, type CalculatorContextValue } from '../contexts/CalculatorContext';
 import { loadProject, saveProject } from '../services/supabaseData';
 import { isSupabaseConfigured } from '../services/supabase';

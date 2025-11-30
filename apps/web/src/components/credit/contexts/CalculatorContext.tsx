@@ -3,8 +3,13 @@
  */
 
 import { createContext, useContext } from 'react';
-import type { Participant, ProjectParams, PortageFormulaParams, CalculationResults } from '@repo/credit-calculator/utils/calculatorUtils';
-import type { UnitDetails } from '@repo/credit-calculator/utils/calculatorUtils';
+import type {
+  Participant,
+  ProjectParams,
+  PortageFormulaParams,
+  CalculationResults,
+  UnitDetails,
+} from '@repo/credit-calculator/utils';
 
 /**
  * Sync mode for the calculator

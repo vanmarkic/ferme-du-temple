@@ -1,9 +1,9 @@
-import type { Participant } from '@repo/credit-calculator/utils/calculatorUtils';
+import type { Participant } from '@repo/credit-calculator/utils';
 import type {
   TimelineTransaction,
   FraisGenerauxYearlyEvent,
-  NewcomerFraisGenerauxReimbursementEvent
-} from '@repo/credit-calculator/types/timeline';
+  NewcomerFraisGenerauxReimbursementEvent,
+} from '@repo/credit-calculator/types';
 import CoproLane from './CoproLane';
 import FraisGenerauxLane from './FraisGenerauxLane';
 import ParticipantLane from './ParticipantLane';

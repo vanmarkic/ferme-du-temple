@@ -3,9 +3,12 @@
  * Provides pure functions for participant manipulation
  */
 
-import type { Participant } from '@repo/credit-calculator/utils/calculatorUtils';
-import type { CoproLot } from '@repo/credit-calculator/types/timeline';
-import { validateAddPortageLot, DEFAULT_MAX_TOTAL_LOTS } from '@repo/credit-calculator/utils/lotValidation';
+import {
+  validateAddPortageLot,
+  DEFAULT_MAX_TOTAL_LOTS,
+  type Participant,
+} from '@repo/credit-calculator/utils';
+import type { CoproLot } from '@repo/credit-calculator/types';
 
 export interface ParticipantOperations {
   addParticipant: (

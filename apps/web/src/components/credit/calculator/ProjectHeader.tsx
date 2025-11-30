@@ -1,6 +1,5 @@
 import { Calculator, Users, DollarSign, Home, Building2, Wallet } from 'lucide-react';
-import { formatCurrency } from '@repo/credit-calculator/utils/formatting';
-import type { CalculationResults, Participant } from '@repo/credit-calculator/utils/calculatorUtils';
+import { formatCurrency, type CalculationResults, type Participant } from '@repo/credit-calculator/utils';
 
 interface ProjectHeaderProps {
   calculations: CalculationResults;

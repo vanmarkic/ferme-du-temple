@@ -1,7 +1,20 @@
 import { useMemo } from 'react';
 import { X, Star, Printer } from 'lucide-react';
-import { formatCurrency } from '@repo/credit-calculator/utils/formatting';
-import { formatDateForInput } from '@repo/credit-calculator/utils/dateValidation';
+import {
+  formatCurrency,
+  formatDateForInput,
+  getAvailableLotsForNewcomer,
+  validateTwoLoanFinancing,
+  calculatePhaseCosts,
+  type AvailableLot,
+  type PortageLotPrice,
+  type Participant,
+  type ParticipantCalculation,
+  type CalculationResults,
+  type ProjectParams,
+  type PortageFormulaParams,
+  type UnitDetails,
+} from '@repo/credit-calculator/utils';
 import AvailableLotsView from '../AvailableLotsView';
 import PortageLotConfig from '../PortageLotConfig';
 import { ExpectedPaybacksCard } from '../shared/ExpectedPaybacksCard';
@@ -10,11 +23,6 @@ import { FinancingSection } from '../shared/FinancingSection';
 import { PropertySection } from '../shared/PropertySection';
 import { LoanParametersSection } from '../shared/LoanParametersSection';
 import { CollapsibleSection } from '../shared/CollapsibleSection';
-import { getAvailableLotsForNewcomer, type AvailableLot } from '@repo/credit-calculator/utils/availableLots';
-import type { PortageLotPrice } from '@repo/credit-calculator/utils/portageCalculations';
-import type { Participant, ParticipantCalculation, CalculationResults, ProjectParams, PortageFormulaParams, UnitDetails } from '@repo/credit-calculator/utils/calculatorUtils';
-import { validateTwoLoanFinancing } from '@repo/credit-calculator/utils/twoLoanValidation';
-import { calculatePhaseCosts } from '@repo/credit-calculator/utils/phaseCostsCalculation';
 
 interface ParticipantDetailModalProps {
   isOpen: boolean;

@@ -1,5 +1,5 @@
-import type { Participant } from '@repo/credit-calculator/utils/calculatorUtils';
-import type { TimelineTransaction } from '@repo/credit-calculator/types/timeline';
+import type { Participant } from '@repo/credit-calculator/utils';
+import type { TimelineTransaction } from '@repo/credit-calculator/types';
 import ParticipantFinancingCard from './ParticipantFinancingCard';
 
 interface TimelineSnapshot {

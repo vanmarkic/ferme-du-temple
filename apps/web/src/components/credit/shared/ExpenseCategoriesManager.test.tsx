@@ -1,8 +1,13 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { ExpenseCategoriesManager } from './ExpenseCategoriesManager';
-import { formatCurrency } from '@repo/credit-calculator/utils/formatting';
-import type { ExpenseCategories, ProjectParams, Participant, UnitDetails } from '@repo/credit-calculator/utils/calculatorUtils';
+import {
+  formatCurrency,
+  type ExpenseCategories,
+  type ProjectParams,
+  type Participant,
+  type UnitDetails,
+} from '@repo/credit-calculator/utils';
 
 // Mock the useProjectParamPermissions hook
 vi.mock('../../hooks/useFieldPermissions', () => ({

@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import { ChevronDown, ChevronRight } from 'lucide-react';
-import { formatCurrency } from '@repo/credit-calculator/utils/formatting';
-import type { Participant, ParticipantCalculation, ProjectParams } from '@repo/credit-calculator/utils/calculatorUtils';
+import {
+  formatCurrency,
+  type Participant,
+  type ParticipantCalculation,
+  type ProjectParams,
+} from '@repo/credit-calculator/utils';
 
 interface PropertySectionProps {
   participant: Participant;

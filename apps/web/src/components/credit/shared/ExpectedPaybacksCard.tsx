@@ -1,8 +1,13 @@
-import { formatCurrency } from '@repo/credit-calculator/utils/formatting';
+import {
+  formatCurrency,
+  getExpectedPaybacksFormula,
+  type Participant,
+  type ProjectParams,
+  type CalculationResults,
+  type PortageFormulaParams,
+} from '@repo/credit-calculator/utils';
 import { FormulaTooltip } from '../FormulaTooltip';
-import { getExpectedPaybacksFormula } from '@repo/credit-calculator/utils/formulaExplanations';
 import { useExpectedPaybacks } from '../hooks/useExpectedPaybacks';
-import type { Participant, ProjectParams, CalculationResults, PortageFormulaParams } from '@repo/credit-calculator/utils/calculatorUtils';
 
 interface ExpectedPaybacksCardProps {
   participant: Participant;

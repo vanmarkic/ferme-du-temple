@@ -1,8 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { ExpectedPaybacksCard } from './ExpectedPaybacksCard';
-import { calculateCoproSalePrice } from '@repo/credit-calculator/utils/portageCalculations';
-import type { Participant } from '@repo/credit-calculator/utils/calculatorUtils';
+import { calculateCoproSalePrice, type Participant } from '@repo/credit-calculator/utils';
 import * as Tooltip from '@radix-ui/react-tooltip';
 
 describe('ExpectedPaybacksCard - Copro Redistribution with Renovation Costs', () => {

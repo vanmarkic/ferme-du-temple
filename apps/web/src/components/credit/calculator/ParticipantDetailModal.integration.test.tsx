@@ -1,8 +1,15 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import ParticipantDetailModal from './ParticipantDetailModal';
-import type { Participant, ProjectParams, ParticipantCalculation, CalculationResults, PortageFormulaParams, UnitDetails } from '@repo/credit-calculator/utils/calculatorUtils';
-import type { Lot } from '@repo/credit-calculator/types/timeline';
+import type {
+  Participant,
+  ProjectParams,
+  ParticipantCalculation,
+  CalculationResults,
+  PortageFormulaParams,
+  UnitDetails,
+} from '@repo/credit-calculator/utils';
+import type { Lot } from '@repo/credit-calculator/types';
 
 describe('ParticipantDetailModal Integration', () => {
   const mockLot: Lot = {
