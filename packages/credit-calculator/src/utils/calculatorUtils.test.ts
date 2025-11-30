@@ -1024,6 +1024,22 @@ describe('Calculator Utils', () => {
       expect(result).toEqual({ casco: 159000, parachevements: 50000 });
     });
 
+    it('should treat null cascoSqm as undefined (use surface fallback)', () => {
+      // BUG FIX: When database returns null for casco_sqm, it should fall back to surface
+      // Previously: null !== undefined was true, so actualCascoSqm = null, and null * 1590 = 0
+      // Fixed: null should be treated same as undefined, falling back to surface
+      const result = calculateCascoAndParachevements(99, 61, {}, 1590, undefined, null as unknown as number | undefined, undefined);
+      // Expected: 61 × 1590 = 96990 (should use surface since cascoSqm is null)
+      expect(result.casco).toBe(96990);
+    });
+
+    it('should treat null parachevementsSqm as undefined (use surface fallback)', () => {
+      // Same bug fix for parachevementsSqm
+      const result = calculateCascoAndParachevements(99, 61, {}, 1590, 500, undefined, null as unknown as number | undefined);
+      // Expected: 61 × 500 = 30500 (should use surface since parachevementsSqm is null)
+      expect(result.parachevements).toBe(30500);
+    });
+
     describe('TVA (VAT) calculation', () => {
       it('should apply 6% TVA to CASCO costs', () => {
         // 100m² × 1590€/m² = 159000€ base
@@ -2451,6 +2467,117 @@ describe('calculateAll - Non-founder purchase share calculation', () => {
       nonFounder!.purchaseShare * 0.125, // 12.5% registration fees
       1
     );
+  });
+});
+
+// ============================================
+// BUG FIX: Newcomer buying from Copropriété should have CASCO
+// ============================================
+
+describe('calculateAll - Newcomer CASCO calculation bug', () => {
+  it('should NOT zero CASCO for newcomer buying from Copropriété when lotId collides with founder portage lot', () => {
+    // BUG: When a newcomer buys from Copropriété with purchaseDetails.lotId that matches
+    // a founder's portage lot with founderPaysCasco: true, the newcomer's CASCO is incorrectly zeroed.
+    //
+    // ROOT CAUSE: The portage lot lookup at line ~781 doesn't check buyingFrom === 'Copropriété',
+    // so it finds the founder's portage lot and applies the adjustment meant for portage buyers only.
+    //
+    // EXPECTED: Newcomers buying from Copropriété should have CASCO calculated normally,
+    // regardless of lotId collisions with founder portage lots.
+
+    const deedDate = '2026-02-01';
+    const formulaParams: PortageFormulaParams = {
+      indexationRate: 2.0,
+      carryingCostRecovery: 100,
+      averageInterestRate: 4.5,
+      coproReservesShare: 30
+    };
+
+    const participants: Participant[] = [
+      {
+        name: 'Founder with Portage Lot',
+        capitalApporte: 200000,
+        registrationFeesRate: 3,
+        unitId: 1,
+        surface: 200,
+        interestRate: 4,
+        durationYears: 25,
+        quantity: 2, // Has 2 lots: personal + portage
+        isFounder: true,
+        entryDate: new Date('2026-02-01'),
+        lotsOwned: [
+          {
+            lotId: 1,
+            surface: 100,
+            unitId: 1,
+            isPortage: false,
+            acquiredDate: new Date('2026-02-01'),
+          },
+          {
+            lotId: 6, // This lotId will "collide" with newcomer's purchaseDetails.lotId
+            surface: 100,
+            unitId: 1,
+            isPortage: true,
+            founderPaysCasco: true, // Founder pays CASCO for this portage lot
+            founderPaysParachèvement: true,
+            allocatedSurface: 100,
+            acquiredDate: new Date('2026-02-01'),
+          },
+        ],
+      },
+      {
+        name: 'Newcomer from Copro',
+        capitalApporte: 100000,
+        registrationFeesRate: 12.5,
+        unitId: 8,
+        surface: 101, // 101m² like in the screenshot
+        interestRate: 4.5,
+        durationYears: 25,
+        quantity: 1,
+        isFounder: false,
+        entryDate: new Date('2027-02-01'), // 1 year after deed
+        purchaseDetails: {
+          buyingFrom: 'Copropriété', // Buying from COPRO, not from founder
+          lotId: 6, // Same as founder's portage lot - this should NOT cause CASCO adjustment
+          purchasePrice: 150000,
+        },
+      },
+    ];
+
+    const projectParams: ProjectParams = {
+      totalPurchase: 650000,
+      mesuresConservatoires: 0,
+      demolition: 0,
+      infrastructures: 0,
+      etudesPreparatoires: 0,
+      fraisEtudesPreparatoires: 0,
+      fraisGeneraux3ans: 0,
+      batimentFondationConservatoire: 0,
+      batimentFondationComplete: 0,
+      batimentCoproConservatoire: 0,
+      globalCascoPerM2: 1590,
+      cascoTvaRate: 6, // 6% TVA
+    };
+
+    const unitDetails: UnitDetails = {
+      1: { casco: 178080, parachevements: 56000 },
+    };
+
+    const results = calculateAll(participants, projectParams, unitDetails, deedDate, formulaParams);
+
+    const newcomer = results.participantBreakdown.find(p => p.name === 'Newcomer from Copro');
+    expect(newcomer).toBeDefined();
+
+    // CRITICAL ASSERTION: Newcomer buying from Copropriété should have CASCO > 0
+    // Expected: 101m² × 1590 €/m² × 1.06 (TVA) ≈ 170,225 €
+    const expectedCasco = 101 * 1590 * 1.06;
+
+    expect(newcomer!.casco).toBeGreaterThan(0);
+    expect(newcomer!.casco).toBeCloseTo(expectedCasco, 0);
+
+    // Also verify personalRenovationCost includes CASCO
+    // personalRenovationCost = casco + parachevements
+    expect(newcomer!.personalRenovationCost).toBeGreaterThan(newcomer!.casco!);
   });
 });
 

@@ -109,13 +109,20 @@ function saveUnlockState(state: UnlockState): void {
  * - Tracks who unlocked and when
  *
  * @param projectId - Project ID (unused, kept for backwards compatibility)
- * @param onNotification - Optional callback (unused, kept for backwards compatibility)
+ * @param forceReadonly - When true, forces readonly mode regardless of stored state
  */
 export function useUnlockState(
   _projectId: string = 'default',
-  _onNotification?: unknown
+  forceReadonly: boolean = false
 ) {
-  const [state, setState] = useState<UnlockState>(loadUnlockState);
+  const [state, setState] = useState<UnlockState>(() => {
+    const loaded = loadUnlockState();
+    // Force readonly mode if specified
+    if (forceReadonly) {
+      return { ...loaded, isReadonlyMode: true };
+    }
+    return loaded;
+  });
 
   // Sync state to localStorage whenever it changes
   useEffect(() => {

@@ -9,8 +9,13 @@ export const onRequest = defineMiddleware(async (context, next) => {
     return next();
   }
 
-  // Protect /admin routes (except login)
+  // Protect /admin routes (except login and credit which allows readonly public access)
   if (url.pathname.startsWith('/admin') && url.pathname !== '/admin/login') {
+    // Allow /admin/credit without auth - it runs in readonly mode for unauthenticated users
+    if (url.pathname === '/admin/credit') {
+      return next();
+    }
+
     const adminStatus = await isAdmin(cookies);
 
     if (!adminStatus) {

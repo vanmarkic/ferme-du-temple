@@ -52,7 +52,7 @@ export function FinancingSection({
           </span>
         </div>
         <div className="flex items-center gap-3">
-          <span className="font-bold text-blue-700">{monthlyPayment} €/mois</span>
+          <span className="font-bold text-blue-700">{formatCurrency(monthlyPayment)}/mois</span>
           {isExpanded ? (
             <ChevronDown className="w-4 h-4 text-gray-400" />
           ) : (

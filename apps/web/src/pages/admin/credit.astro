@@ -1,16 +1,12 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { requireAdmin } from '../../lib/auth';
 import CreditCastorApp from '../../components/credit/CreditCastorApp';
 import '../../components/credit/index.css';
 
 export const prerender = false;
 
-const authResult = await requireAdmin(Astro.cookies, '/admin/credit');
-
-if (!authResult.authenticated) {
-  return Astro.redirect(authResult.redirectTo);
-}
+// No auth check - page is publicly accessible in readonly mode
+// Authentication status is checked client-side to determine edit capabilities
 ---
 
 <BaseLayout title="Credit Castor - La Ferme du Temple">

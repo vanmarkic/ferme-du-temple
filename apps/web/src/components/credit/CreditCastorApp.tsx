@@ -3,7 +3,7 @@
  *
  * This is the entry point for Credit Castor.
  * Authentication is handled client-side via /api/admin/me endpoint.
- * Now running in the main web app - no cross-origin complexity.
+ * Unauthenticated users can access in readonly mode.
  */
 
 import { useEffect, useState } from 'react';
@@ -29,10 +29,12 @@ export default function CreditCastorApp() {
           }
           setAuthState('authenticated');
         } else {
+          // Unauthenticated users get readonly access
           setAuthState('unauthenticated');
         }
       })
       .catch(() => {
+        // On error, allow readonly access
         setAuthState('unauthenticated');
       });
   }, []);
@@ -45,14 +47,10 @@ export default function CreditCastorApp() {
     );
   }
 
-  if (authState === 'unauthenticated') {
-    const redirectTo = encodeURIComponent(window.location.pathname);
-    window.location.href = `/admin/login?redirect=${redirectTo}`;
-    return null;
-  }
-
+  // Both authenticated and unauthenticated users can access the app
+  // Unauthenticated users will be in readonly mode (enforced by UnlockProvider)
   return (
-    <UnlockProvider>
+    <UnlockProvider forceReadonly={authState === 'unauthenticated'}>
       <CalculatorProvider>
         <EnDivisionCorrect />
       </CalculatorProvider>

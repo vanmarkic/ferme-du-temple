@@ -5,9 +5,15 @@ import { useUnlock } from '../contexts/UnlockContext';
  * Toggle switch for readonly mode.
  * When ON (readonly), all fields are disabled.
  * When OFF (edit mode), fields follow normal permission rules.
+ * Hidden when forceReadonly is true (unauthenticated users).
  */
 export function ReadonlyModeSwitch() {
-  const { isReadonlyMode, setReadonlyMode } = useUnlock();
+  const { isReadonlyMode, setReadonlyMode, isForceReadonly } = useUnlock();
+
+  // Hide toggle for unauthenticated users (forced readonly)
+  if (isForceReadonly) {
+    return null;
+  }
 
   const handleToggle = () => {
     if (isReadonlyMode) {

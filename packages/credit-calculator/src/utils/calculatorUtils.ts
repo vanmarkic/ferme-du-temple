@@ -491,8 +491,9 @@ export function calculateCascoAndParachevements(
   parachevementsSqm?: number,
   cascoTvaRate: number = 0
 ): { casco: number; parachevements: number } {
-  const actualCascoSqm = cascoSqm !== undefined ? cascoSqm : surface;
-  const actualParachevementsSqm = parachevementsSqm !== undefined ? parachevementsSqm : surface;
+  // Use nullish coalescing to handle both null and undefined from database
+  const actualCascoSqm = cascoSqm ?? surface;
+  const actualParachevementsSqm = parachevementsSqm ?? surface;
 
   // CASCO: Always use global rate
   let casco = actualCascoSqm * globalCascoPerM2;
@@ -778,7 +779,8 @@ export function calculateAll(
     );
 
     // Check if participant is buying a portage lot and adjust construction costs
-    if (p.purchaseDetails?.lotId) {
+    // ONLY for portage lot purchases (from founder), NOT for Copropriété purchases
+    if (p.purchaseDetails?.lotId && p.purchaseDetails?.buyingFrom !== 'Copropriété') {
       // Find the portage lot from all participants' lotsOwned
       const portageLot = participants
         .flatMap(seller => seller.lotsOwned || [])

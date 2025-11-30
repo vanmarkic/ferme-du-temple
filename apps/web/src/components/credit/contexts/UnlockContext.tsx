@@ -10,6 +10,8 @@ interface UnlockContextValue extends UnlockState {
   validatePassword: (password: string) => boolean;
   setReadonlyMode: (isReadonly: boolean) => void;
   isLoading: boolean;
+  /** Whether readonly mode is forced (user cannot toggle) */
+  isForceReadonly: boolean;
 }
 
 const UnlockContext = createContext<UnlockContextValue | undefined>(undefined);
@@ -17,24 +19,21 @@ const UnlockContext = createContext<UnlockContextValue | undefined>(undefined);
 /**
  * Provider component that makes unlock state available to all child components.
  *
- * Usage:
- * ```tsx
- * <UnlockProvider projectId="my-project">
- *   <YourApp />
- * </UnlockProvider>
- * ```
+ * @param forceReadonly - When true, forces readonly mode and prevents toggling (for unauthenticated users)
  */
 export function UnlockProvider({
   children,
   projectId = 'default',
+  forceReadonly = false,
 }: {
   children: ReactNode;
   projectId?: string;
+  forceReadonly?: boolean;
 }) {
-  const unlockState = useUnlockState(projectId);
+  const unlockState = useUnlockState(projectId, forceReadonly);
 
   return (
-    <UnlockContext.Provider value={unlockState}>
+    <UnlockContext.Provider value={{ ...unlockState, isForceReadonly: forceReadonly }}>
       {children}
     </UnlockContext.Provider>
   );
