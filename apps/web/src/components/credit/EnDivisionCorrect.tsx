@@ -27,7 +27,7 @@ import AvailableLotsView from './AvailableLotsView';
 import { VersionMismatchWarning } from './VersionMismatchWarning';
 import { useOrderedParticipantBreakdown } from './hooks/useCalculatorState';
 import HorizontalSwimLaneTimeline from './HorizontalSwimLaneTimeline';
-import { UnlockProvider } from './contexts/UnlockContext';
+import { UnlockProvider, useUnlock } from './contexts/UnlockContext';
 import { UnlockButton } from './shared/UnlockButton';
 import { ReadonlyModeSwitch } from './shared/ReadonlyModeSwitch';
 import { SaveBar } from './shared/SaveBar';
@@ -86,6 +86,9 @@ export default function EnDivisionCorrect() {
     save,
     discard
   } = actions;
+
+  // Get readonly state for unauthenticated users
+  const { isForceReadonly } = useUnlock();
 
   // Copropriété modal state
   const [coproSnapshot, setCoproSnapshot] = useState<CoproSnapshot | null>(null);
@@ -324,14 +327,16 @@ export default function EnDivisionCorrect() {
             <UnlockButton />
           </div>
 
-          {/* Save/Discard Bar - appears at bottom when there are unsaved changes */}
-          <SaveBar
-            isDirty={isDirty}
-            isSaving={isSyncing}
-            error={syncError}
-            onSave={save}
-            onDiscard={discard}
-          />
+          {/* Save/Discard Bar - hidden for unauthenticated (readonly) users */}
+          {!isForceReadonly && (
+            <SaveBar
+              isDirty={isDirty}
+              isSaving={isSyncing}
+              error={syncError}
+              onSave={save}
+              onDiscard={discard}
+            />
+          )}
 
           <div className="max-w-7xl mx-auto">
             {/* Print-only header */}

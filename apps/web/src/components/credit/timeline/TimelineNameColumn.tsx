@@ -29,6 +29,8 @@ export default function TimelineNameColumn({ participants, onUpdateParticipant }
         >
           <div className="flex items-center gap-2">
             <input
+              id={`participant-enabled-${idx}`}
+              name={`participant-enabled-${idx}`}
               type="checkbox"
               checked={p.enabled !== false}
               onChange={(e) => {
@@ -39,10 +41,11 @@ export default function TimelineNameColumn({ participants, onUpdateParticipant }
               }}
               className="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
               title={p.enabled === false ? "Activer ce participant" : "Désactiver ce participant"}
+              aria-label={`${p.enabled === false ? "Activer" : "Désactiver"} ${p.name}`}
             />
-            <div className={`font-semibold ${p.enabled === false ? 'text-gray-500' : 'text-gray-800'}`}>
+            <label htmlFor={`participant-enabled-${idx}`} className={`font-semibold cursor-pointer ${p.enabled === false ? 'text-gray-500' : 'text-gray-800'}`}>
               {p.name}
-            </div>
+            </label>
           </div>
         </div>
       ))}

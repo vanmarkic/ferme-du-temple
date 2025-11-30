@@ -23,6 +23,7 @@ export function ExpenseCategorySection({
 }: ExpenseCategorySectionProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const total = items.reduce((sum, item) => sum + item.amount, 0);
+  const titleSlug = title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
 
   return (
     <div className="mb-3 border border-gray-200 rounded-lg overflow-hidden">
@@ -45,7 +46,10 @@ export function ExpenseCategorySection({
         <div className="p-3 bg-white space-y-2">
           {items.map((item, index) => (
             <div key={index} className="grid grid-cols-[1fr_auto_auto] gap-2 items-center">
+              <label htmlFor={`${titleSlug}-label-${index}`} className="sr-only">Label</label>
               <input
+                id={`${titleSlug}-label-${index}`}
+                name={`${titleSlug}-label-${index}`}
                 type="text"
                 value={item.label}
                 onChange={(e) => onItemLabelChange(index, e.target.value)}
@@ -54,7 +58,10 @@ export function ExpenseCategorySection({
                 className={`px-3 py-2 text-xs border border-gray-300 rounded-lg focus:border-purple-500 focus:ring-1 focus:ring-purple-500 focus:outline-none bg-white ${disabled ? 'opacity-60 cursor-not-allowed bg-gray-50' : ''}`}
                 placeholder="Label"
               />
+              <label htmlFor={`${titleSlug}-amount-${index}`} className="sr-only">Montant</label>
               <input
+                id={`${titleSlug}-amount-${index}`}
+                name={`${titleSlug}-amount-${index}`}
                 type="number"
                 step="100"
                 value={item.amount}

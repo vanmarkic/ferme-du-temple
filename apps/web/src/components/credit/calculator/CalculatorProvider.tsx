@@ -29,6 +29,7 @@ import { useParticipantOperations } from '../hooks/useParticipantOperations';
 import { CalculatorContext, type CalculatorContextValue } from '../contexts/CalculatorContext';
 import { loadProject, saveProjectData, saveParticipantData } from '../services/supabaseData';
 import { isSupabaseConfigured } from '../services/supabase';
+import { useUnlock } from '../contexts/UnlockContext';
 import toast from 'react-hot-toast';
 
 interface CalculatorProviderProps {
@@ -59,6 +60,9 @@ function SimpleToast({ message, type }: { message: string; type: 'success' | 'er
 }
 
 export function CalculatorProvider({ children, projectId = 'default' }: CalculatorProviderProps) {
+  // Get readonly state from UnlockContext (prevents writes for unauthenticated users)
+  const { isForceReadonly } = useUnlock();
+
   // Core state management
   const state = useCalculatorState();
   const {
@@ -268,6 +272,12 @@ export function CalculatorProvider({ children, projectId = 'default' }: Calculat
 
   // === SAVE ===
   const save = useCallback(async (): Promise<boolean> => {
+    // Prevent writes for unauthenticated users (defense-in-depth)
+    if (isForceReadonly) {
+      toast.custom(() => <SimpleToast message="Mode lecture seule - sauvegarde impossible" type="error" />);
+      return false;
+    }
+
     if (!isSupabaseConfigured()) {
       toast.custom(() => <SimpleToast message="Supabase non configuré" type="error" />);
       return false;
@@ -324,7 +334,7 @@ export function CalculatorProvider({ children, projectId = 'default' }: Calculat
     toast.custom(() => <SimpleToast message="Sauvegardé!" type="success" />);
     console.log('✅ Saved to Supabase');
     return true;
-  }, [participants, projectParams, deedDate, portageFormula, projectId]);
+  }, [participants, projectParams, deedDate, portageFormula, projectId, isForceReadonly]);
 
   // === DISCARD ===
   const discard = useCallback(async (): Promise<void> => {

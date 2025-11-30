@@ -128,7 +128,10 @@ export const ParticipantsTimeline: React.FC<ParticipantsTimelineProps> = ({
                   {isFounders ? (
                     <div className="space-y-3">
                       <div>
+                        <label htmlFor="deed-date" className="sr-only">Date de l'acte</label>
                         <input
+                          id="deed-date"
+                          name="deed-date"
                           type="date"
                           value={deedDate}
                           onChange={(e) => onDeedDateChange(e.target.value)}

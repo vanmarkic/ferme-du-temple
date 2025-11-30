@@ -224,6 +224,8 @@ export function ExpenseCategoriesManager({
         >
           <div className="flex items-center gap-2">
             <input
+              id="travaux-communs-toggle"
+              name="travaux-communs-toggle"
               type="checkbox"
               checked={travauxCommuns.enabled}
               onChange={(e) => {
@@ -276,7 +278,10 @@ export function ExpenseCategoriesManager({
                   return (
                     <div key={index} className="space-y-2 p-3 border border-gray-200 rounded-lg bg-gray-50">
                       <div className="grid grid-cols-[1fr_auto] gap-2 items-center">
+                        <label htmlFor={`travaux-label-${index}`} className="sr-only">Label</label>
                         <input
+                          id={`travaux-label-${index}`}
+                          name={`travaux-label-${index}`}
                           type="text"
                           value={item.label}
                           onChange={(e) => handleTravauxCommunsItemLabelChange(index, e.target.value)}
@@ -425,10 +430,12 @@ export function ExpenseCategoriesManager({
           <div className="p-3 bg-white space-y-2">
           {/* Global CASCO rate input */}
           <div className="flex items-center gap-2">
-            <label className="text-xs text-gray-600 whitespace-nowrap">
+            <label htmlFor="global-casco-perm2" className="text-xs text-gray-600 whitespace-nowrap">
               Prix CASCO/m² Global:
             </label>
             <input
+              id="global-casco-perm2"
+              name="global-casco-perm2"
               type="number"
               step="10"
               value={projectParams.globalCascoPerM2}
@@ -446,10 +453,12 @@ export function ExpenseCategoriesManager({
 
           {/* Max Total Lots input */}
           <div className="flex items-center gap-2">
-            <label className="text-xs text-gray-600 whitespace-nowrap">
+            <label htmlFor="max-total-lots" className="text-xs text-gray-600 whitespace-nowrap">
               Nombre max. de lots:
             </label>
             <input
+              id="max-total-lots"
+              name="max-total-lots"
               type="number"
               step="1"
               min="1"
@@ -468,10 +477,12 @@ export function ExpenseCategoriesManager({
 
           {/* TVA rate input */}
           <div className="flex items-center gap-2">
-            <label className="text-xs text-gray-600 whitespace-nowrap">
+            <label htmlFor="casco-tva-rate" className="text-xs text-gray-600 whitespace-nowrap">
               TVA CASCO:
             </label>
             <input
+              id="casco-tva-rate"
+              name="casco-tva-rate"
               type="number"
               step="1"
               min="0"

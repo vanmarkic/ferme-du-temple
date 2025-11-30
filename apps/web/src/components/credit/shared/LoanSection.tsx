@@ -23,7 +23,7 @@ interface LoanSectionProps {
 }
 
 export function LoanSection({
-  phaseCosts,
+  phaseCosts: _phaseCosts,
   participant,
   participantCalc: p,
   participantIndex: idx,
@@ -34,11 +34,11 @@ export function LoanSection({
   onUpdateParticipant,
   defaultExpanded = false,
 }: LoanSectionProps) {
+  void _phaseCosts; // Reserved for future use
   const [isExpanded, setIsExpanded] = useState(defaultExpanded);
 
-  const capitalApporte = participant.capitalApporte ?? 0;
   const useTwoLoans = participant.useTwoLoans ?? false;
-  const remainingToFinance = phaseCosts.grandTotal - capitalApporte;
+  const capitalApporte = participant.capitalApporte ?? 0;
 
   // Calculate combined monthly payment for summary
   const monthlyPayment = useTwoLoans
@@ -75,33 +75,6 @@ export function LoanSection({
       {/* Expanded content */}
       {isExpanded && (
         <div className="p-4 border-t border-gray-200 space-y-4">
-          {/* Capital and remaining */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <label htmlFor={`capital-apporte-${idx}`} className="text-sm text-gray-600">Capital apporté:</label>
-              <input
-                id={`capital-apporte-${idx}`}
-                name={`capital-apporte-${idx}`}
-                type="number"
-                value={capitalApporte}
-                onChange={(e) =>
-                  onUpdateParticipant({
-                    ...participant,
-                    capitalApporte: parseFloat(e.target.value) || 0,
-                  })
-                }
-                className="w-32 px-2 py-1 border border-gray-300 rounded text-right font-medium"
-                step="1000"
-              />
-            </div>
-            <div className="text-sm">
-              <span className="text-gray-600">Reste à financer: </span>
-              <span className="font-bold text-red-700">
-                {formatCurrency(Math.max(0, remainingToFinance))}
-              </span>
-            </div>
-          </div>
-
           {/* Loan parameters grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* Registration fees */}
@@ -198,6 +171,23 @@ export function LoanSection({
                   <p className="text-xl font-bold text-gray-900">
                     {formatCurrency(p.loanNeeded)}
                   </p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <label htmlFor={`capital-apporte-${idx}`} className="text-sm text-gray-600">Capital apporté:</label>
+                  <input
+                    id={`capital-apporte-${idx}`}
+                    name={`capital-apporte-${idx}`}
+                    type="number"
+                    value={capitalApporte}
+                    onChange={(e) =>
+                      onUpdateParticipant({
+                        ...participant,
+                        capitalApporte: parseFloat(e.target.value) || 0,
+                      })
+                    }
+                    className="w-28 px-2 py-1 border border-gray-300 rounded text-right font-medium"
+                    step="1000"
+                  />
                 </div>
                 <div className="text-right">
                   <p className="text-sm text-gray-600">Mensualité</p>

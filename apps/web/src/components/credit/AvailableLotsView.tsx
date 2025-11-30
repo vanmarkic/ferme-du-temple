@@ -217,10 +217,12 @@ export default function AvailableLotsView({
 
                   <div className="mb-3">
                     <div className="bg-white p-3 rounded border border-purple-200">
-                      <label className="block text-xs text-gray-600 mb-2">
+                      <label htmlFor={`copro-surface-${lot.lotId}`} className="block text-xs text-gray-600 mb-2">
                         Choisissez votre surface (max {lot.surface}m²)
                       </label>
                       <input
+                        id={`copro-surface-${lot.lotId}`}
+                        name={`copro-surface-${lot.lotId}`}
                         type="number"
                         min="0"
                         max={lot.surface}

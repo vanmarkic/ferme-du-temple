@@ -74,8 +74,10 @@ export function TwoLoanFinancingSection({
             <div className="grid grid-cols-2 gap-4 mb-3">
               {/* Capital at signature */}
               <div>
-                <label className="block text-xs text-gray-600 mb-1">À la signature</label>
+                <label htmlFor={`capital-signature-${participant.unitId}`} className="block text-xs text-gray-600 mb-1">À la signature</label>
                 <input
+                  id={`capital-signature-${participant.unitId}`}
+                  name={`capital-signature-${participant.unitId}`}
                   type="number"
                   value={participant.capitalApporte}
                   onChange={(e) => {
@@ -89,8 +91,10 @@ export function TwoLoanFinancingSection({
 
               {/* Capital during construction */}
               <div>
-                <label className="block text-xs text-gray-600 mb-1">Pendant travaux</label>
+                <label htmlFor={`capital-travaux-${participant.unitId}`} className="block text-xs text-gray-600 mb-1">Pendant travaux</label>
                 <input
+                  id={`capital-travaux-${participant.unitId}`}
+                  name={`capital-travaux-${participant.unitId}`}
                   type="number"
                   value={capitalForLoan2}
                   onChange={(e) => {
@@ -115,7 +119,7 @@ export function TwoLoanFinancingSection({
           {/* Section 2: Loan timing */}
           <div className="bg-white rounded-lg p-4 border border-blue-100">
             <div className="flex items-center justify-between mb-3">
-              <label className="block text-sm font-semibold text-gray-700">
+              <label htmlFor={`loan2-delay-${participant.unitId}`} className="block text-sm font-semibold text-gray-700">
                 Prêt 2 commence après
               </label>
               {loan2DurationYears > 0 && (
@@ -127,6 +131,8 @@ export function TwoLoanFinancingSection({
 
             <div className="flex items-center gap-3">
               <input
+                id={`loan2-delay-${participant.unitId}`}
+                name={`loan2-delay-${participant.unitId}`}
                 type="number"
                 value={loan2DelayYears}
                 onChange={(e) => {
@@ -163,8 +169,10 @@ export function TwoLoanFinancingSection({
                   Calculé: {personalRenovationCost.toLocaleString('fr-FR')} €
                 </p>
                 <div className="flex items-center gap-2">
-                  <span className="text-xs text-gray-600">Ajuster:</span>
+                  <label htmlFor={`renovation-amount-${participant.unitId}`} className="text-xs text-gray-600">Ajuster:</label>
                   <input
+                    id={`renovation-amount-${participant.unitId}`}
+                    name={`renovation-amount-${participant.unitId}`}
                     type="number"
                     value={participant.loan2RenovationAmount ?? ''}
                     placeholder={personalRenovationCost.toLocaleString('fr-FR')}
