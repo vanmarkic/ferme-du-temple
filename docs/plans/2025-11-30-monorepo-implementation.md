@@ -160,29 +160,76 @@ git commit -m "refactor: move ferme-du-temple to apps/web"
 
 ---
 
-## Task 3: Copy credit-castor to apps/credit
+## Task 3: Move credit-castor from src/ to apps/credit
 
 **Files:**
-- Create: `apps/credit/` (copy from `/Users/dragan/Documents/credit-castor`)
+- Move: `src/credit-castor/` → `apps/credit/src/`
+- Create: `apps/credit/package.json`
+- Create: `apps/credit/astro.config.mjs`
+- Create: `apps/credit/tailwind.config.js`
+- Create: `apps/credit/tsconfig.json`
+- Create: `apps/credit/postcss.config.js`
 
-**Step 1: Copy credit-castor (excluding node_modules and .git)**
+**Note:** credit-castor source is already in the repo at `src/credit-castor/`. We need to restructure it as a proper Astro app.
+
+**Step 1: Create apps/credit directory structure**
 
 Run:
 ```bash
-rsync -av --exclude='node_modules' --exclude='.git' --exclude='dist' --exclude='.astro' /Users/dragan/Documents/credit-castor/ apps/credit/
+mkdir -p apps/credit/src
+mkdir -p apps/credit/public
 ```
 
-**Step 2: Update apps/credit/package.json name**
+**Step 2: Move credit-castor source to apps/credit/src**
 
-Edit `apps/credit/package.json`, change line 2:
+Run:
+```bash
+mv src/credit-castor/* apps/credit/src/
+rmdir src/credit-castor
+```
+
+**Step 3: Create apps/credit/package.json**
+
+Create `apps/credit/package.json`:
 
 ```json
-"name": "@repo/credit",
+{
+  "name": "@repo/credit",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev --port 4322",
+    "build": "astro build",
+    "preview": "astro preview",
+    "test": "vitest run",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@astrojs/react": "^4.4.0",
+    "@astrojs/tailwind": "^6.0.2",
+    "@radix-ui/react-tooltip": "^1.2.8",
+    "@repo/auth": "workspace:*",
+    "@repo/config": "workspace:*",
+    "@supabase/supabase-js": "^2.76.1",
+    "astro": "^5.16.0",
+    "date-fns": "^4.1.0",
+    "lucide-react": "^0.545.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^5.0.4",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
+  }
+}
 ```
 
-**Step 3: Update apps/credit/astro.config.mjs for new base path**
+**Step 4: Create apps/credit/astro.config.mjs**
 
-Replace `apps/credit/astro.config.mjs`:
+Create `apps/credit/astro.config.mjs`:
 
 ```javascript
 import { defineConfig } from 'astro/config';
@@ -205,11 +252,60 @@ export default defineConfig({
 });
 ```
 
-**Step 4: Commit**
+**Step 5: Create apps/credit/tailwind.config.js**
+
+Create `apps/credit/tailwind.config.js`:
+
+```javascript
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./src/**/*.{js,ts,jsx,tsx,astro}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+```
+
+**Step 6: Create apps/credit/tsconfig.json**
+
+Create `apps/credit/tsconfig.json`:
+
+```json
+{
+  "extends": "astro/tsconfigs/strict",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "skipLibCheck": true
+  }
+}
+```
+
+**Step 7: Create apps/credit/postcss.config.js**
+
+Create `apps/credit/postcss.config.js`:
+
+```javascript
+export default {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+}
+```
+
+**Step 8: Commit**
 
 ```bash
 git add apps/credit
-git commit -m "feat: add credit-castor as apps/credit"
+git commit -m "feat: restructure credit-castor as apps/credit"
 ```
 
 ---
@@ -676,29 +772,18 @@ git commit -m "refactor: update apps/web to use @repo/auth"
 ## Task 7: Update apps/credit to Use Shared Auth
 
 **Files:**
-- Modify: `apps/credit/package.json`
 - Create: `apps/credit/src/lib/auth.ts`
 - Create: `apps/credit/src/middleware.ts`
 
-**Step 1: Add workspace dependencies to apps/credit/package.json**
+**Note:** `@repo/auth` dependency already added in Task 3's package.json.
 
-Edit `apps/credit/package.json`, add to dependencies:
-
-```json
-"@repo/auth": "workspace:*",
-"@repo/config": "workspace:*",
-"@supabase/supabase-js": "^2.76.1"
-```
-
-Remove Firebase-related dependencies (firebase).
-
-**Step 2: Create apps/credit/src/lib directory**
+**Step 1: Create apps/credit/src/lib directory**
 
 Run: `mkdir -p apps/credit/src/lib`
 
-**Step 3: Create apps/credit/src/lib/auth.ts**
+**Step 2: Create apps/credit/src/lib/auth.ts**
 
-Create `apps/credit/src/lib/auth.ts`:
+Create `apps/credit/src/lib/auth.ts` (this replaces the Firebase-based auth):
 
 ```typescript
 import type { AstroCookies } from 'astro';
@@ -732,7 +817,7 @@ export async function isAdmin(cookies: AstroCookies) {
 }
 ```
 
-**Step 4: Create apps/credit/src/middleware.ts**
+**Step 3: Create apps/credit/src/middleware.ts**
 
 Create `apps/credit/src/middleware.ts`:
 
@@ -756,7 +841,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
 });
 ```
 
-**Step 5: Add env.d.ts types for Supabase env vars**
+**Step 4: Add env.d.ts types for Supabase env vars**
 
 Edit `apps/credit/src/env.d.ts`, add:
 
@@ -767,10 +852,10 @@ interface ImportMetaEnv {
 }
 ```
 
-**Step 6: Commit**
+**Step 5: Commit**
 
 ```bash
-git add apps/credit/package.json apps/credit/src/lib apps/credit/src/middleware.ts apps/credit/src/env.d.ts
+git add apps/credit/src/lib apps/credit/src/middleware.ts apps/credit/src/env.d.ts
 git commit -m "feat: integrate apps/credit with @repo/auth"
 ```
 
