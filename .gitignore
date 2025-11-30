@@ -31,7 +31,12 @@ dist-ssr
 .output
 
 .env
+.env.local
 
 # Astro generated files
+.astro
 .astro/collections/
 .astro/data-store.json
+
+# Turbo
+.turbo
