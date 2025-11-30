@@ -1,15 +1,4 @@
 declare module 'astro:content' {
-	interface Render {
-		'.mdx': Promise<{
-			Content: import('astro').MDXContent;
-			headings: import('astro').MarkdownHeading[];
-			remarkPluginFrontmatter: Record<string, any>;
-			components: import('astro').MDXInstance<{}>['components'];
-		}>;
-	}
-}
-
-declare module 'astro:content' {
 	export interface RenderResult {
 		Content: import('astro/runtime/server/index.js').AstroComponentFactory;
 		headings: import('astro').MarkdownHeading[];
@@ -173,111 +162,7 @@ declare module 'astro:content' {
 	};
 
 	type DataEntryMap = {
-		"collaboration": Record<string, {
-  id: string;
-  body?: string;
-  collection: "collaboration";
-  data: InferEntrySchema<"collaboration">;
-  rendered?: RenderedContent;
-  filePath?: string;
-}>;
-"footer": Record<string, {
-  id: string;
-  body?: string;
-  collection: "footer";
-  data: InferEntrySchema<"footer">;
-  rendered?: RenderedContent;
-  filePath?: string;
-}>;
-"guideAccess": Record<string, {
-  id: string;
-  body?: string;
-  collection: "guideAccess";
-  data: InferEntrySchema<"guideAccess">;
-  rendered?: RenderedContent;
-  filePath?: string;
-}>;
-"guideNavigation": Record<string, {
-  id: string;
-  body?: string;
-  collection: "guideNavigation";
-  data: InferEntrySchema<"guideNavigation">;
-  rendered?: RenderedContent;
-  filePath?: string;
-}>;
-"hero": Record<string, {
-  id: string;
-  body?: string;
-  collection: "hero";
-  data: InferEntrySchema<"hero">;
-  rendered?: RenderedContent;
-  filePath?: string;
-}>;
-"historiqueAccess": Record<string, {
-  id: string;
-  body?: string;
-  collection: "historiqueAccess";
-  data: InferEntrySchema<"historiqueAccess">;
-  rendered?: RenderedContent;
-  filePath?: string;
-}>;
-"inscription": Record<string, {
-  id: string;
-  body?: string;
-  collection: "inscription";
-  data: InferEntrySchema<"inscription">;
-  rendered?: RenderedContent;
-  filePath?: string;
-}>;
-"location": Record<string, {
-  id: string;
-  body?: string;
-  collection: "location";
-  data: InferEntrySchema<"location">;
-  rendered?: RenderedContent;
-  filePath?: string;
-}>;
-"navigation": Record<string, {
-  id: string;
-  body?: string;
-  collection: "navigation";
-  data: InferEntrySchema<"navigation">;
-  rendered?: RenderedContent;
-  filePath?: string;
-}>;
-"notFound": Record<string, {
-  id: string;
-  body?: string;
-  collection: "notFound";
-  data: InferEntrySchema<"notFound">;
-  rendered?: RenderedContent;
-  filePath?: string;
-}>;
-"pricing": Record<string, {
-  id: string;
-  body?: string;
-  collection: "pricing";
-  data: InferEntrySchema<"pricing">;
-  rendered?: RenderedContent;
-  filePath?: string;
-}>;
-"project": Record<string, {
-  id: string;
-  body?: string;
-  collection: "project";
-  data: InferEntrySchema<"project">;
-  rendered?: RenderedContent;
-  filePath?: string;
-}>;
-"timeline": Record<string, {
-  id: string;
-  body?: string;
-  collection: "timeline";
-  data: InferEntrySchema<"timeline">;
-  rendered?: RenderedContent;
-  filePath?: string;
-}>;
-
+		
 	};
 
 	type AnyEntryMap = ContentEntryMap & DataEntryMap;
@@ -309,6 +194,6 @@ declare module 'astro:content' {
 		LiveContentConfig['collections'][C]['loader']
 	>;
 
-	export type ContentConfig = typeof import("../src/content.config.js");
+	export type ContentConfig = typeof import("../src/content.config.mjs");
 	export type LiveContentConfig = never;
 }
