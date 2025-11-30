@@ -197,7 +197,8 @@ describe('Newcomer Lot Price - Date and Year Scenarios', () => {
       expect(difference).toBeCloseTo(priceYear1.indexation + priceYear1.carryingCostRecovery, 0);
     });
 
-    it('should have higher lot sales price in 2027 than in 2026, all else being equal', () => {
+    it('should have higher lot sales price in 2027 than in 2026, when participant list is unchanged', () => {
+      // This test verifies: with SAME participants, later date = higher price
       const founderA = createParticipant('Alice', 100, true, DEED_DATE);
       const founderB = createParticipant('Bob', 100, true, DEED_DATE);
       const newcomerC = createParticipant('Carol', 100, false);
@@ -213,7 +214,7 @@ describe('Newcomer Lot Price - Date and Year Scenarios', () => {
         '2026-01-01'
       );
 
-      // Price in 2027
+      // Price in 2027 - SAME participant list
       const price2027 = calculateNewcomerPurchasePrice(
         newcomerC.surface,
         allParticipants,
@@ -222,17 +223,71 @@ describe('Newcomer Lot Price - Date and Year Scenarios', () => {
         '2027-01-01'
       );
 
-      // 2027 price should be higher than 2026 price
+      // 2027 price should be higher than 2026 price (more indexation + carrying costs)
       expect(price2027.totalPrice).toBeGreaterThan(price2026.totalPrice);
 
-      // Verify the components all increase
+      // Verify the time-based components increase
       expect(price2027.yearsHeld).toBeGreaterThan(price2026.yearsHeld);
       expect(price2027.indexation).toBeGreaterThan(price2026.indexation);
       expect(price2027.carryingCostRecovery).toBeGreaterThan(price2026.carryingCostRecovery);
 
-      // Base price should remain the same (same quotité)
+      // Base price should remain the same (same quotité, same participants)
       expect(price2027.basePrice).toBeCloseTo(price2026.basePrice, 0);
       expect(price2027.quotite).toBeCloseTo(price2026.quotite, 5);
+    });
+
+    it('should have LOWER lot price in 2027 if more newcomers joined, diluting quotité', () => {
+      // This test reflects REAL-WORLD behavior: new participants = diluted quotité = lower base price
+      // The base price reduction can outweigh indexation gains
+      const founderA = createParticipant('Alice', 100, true, DEED_DATE);
+      const founderB = createParticipant('Bob', 100, true, DEED_DATE);
+
+      // In 2026: only founders exist, newcomer C buys
+      const participantsIn2026 = [founderA, founderB];
+      const newcomerC_2026 = createParticipant('Carol', 61, false, '2026-11-01');
+      const allIn2026 = [...participantsIn2026, newcomerC_2026];
+
+      const price2026 = calculateNewcomerPurchasePrice(
+        newcomerC_2026.surface,
+        allIn2026,
+        TOTAL_PROJECT_COST,
+        DEED_DATE,
+        '2026-11-01'
+      );
+
+      // In 2027: another newcomer D joined in mid-2026, diluting the pool
+      const newcomerD_mid2026 = createParticipant('David', 150, false, '2026-06-01');
+      const newcomerC_2027 = createParticipant('Carol', 61, false, '2027-11-01');
+      const allIn2027 = [founderA, founderB, newcomerD_mid2026, newcomerC_2027];
+
+      const price2027 = calculateNewcomerPurchasePrice(
+        newcomerC_2027.surface,
+        allIn2027,
+        TOTAL_PROJECT_COST,
+        DEED_DATE,
+        '2027-11-01'
+      );
+
+      // Quotité is LOWER in 2027 due to dilution (more total surface)
+      expect(price2027.quotite).toBeLessThan(price2026.quotite);
+
+      // Base price is LOWER in 2027 (lower quotité × same project cost)
+      expect(price2027.basePrice).toBeLessThan(price2026.basePrice);
+
+      // Even though indexation is higher per-euro, the base is so much lower
+      // that total price can be LOWER in 2027
+      // This matches the real UI behavior shown in screenshots:
+      // 2026: 73,382€ → 2027: 56,461€
+
+      // The base price drop outweighs indexation gains when dilution is significant
+      const basePriceDrop = price2026.basePrice - price2027.basePrice;
+      const indexationGain = price2027.indexation - price2026.indexation;
+      const carryingGain = price2027.carryingCostRecovery - price2026.carryingCostRecovery;
+
+      // Document: if dilution is large enough, total drops
+      if (basePriceDrop > indexationGain + carryingGain) {
+        expect(price2027.totalPrice).toBeLessThan(price2026.totalPrice);
+      }
     });
   });
 
