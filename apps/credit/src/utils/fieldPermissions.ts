@@ -65,8 +65,7 @@ const INDIVIDUAL_FIELD_PATTERNS = [
   'participants.*.cascoSqm',
   'participants.*.parachevementsSqm',
 
-  // Two-loan capital allocation
-  'participants.*.capitalForLoan1',
+  // Two-loan capital allocation (v3: capitalForLoan2 only, capitalApporte is signature capital)
   'participants.*.capitalForLoan2',
 ];
 

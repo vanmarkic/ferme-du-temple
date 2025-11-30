@@ -15,6 +15,7 @@ import type { UnitDetails } from './calculatorUtils';
 import type { TimelineSnapshot } from './timelineCalculations';
 import { syncSoldDatesFromPurchaseDetails } from './participantSync';
 import { migrateProjectParams } from './projectParamsMigration';
+import { migrateParticipants } from './participantMigration';
 
 export interface ScenarioData {
   version: number;
@@ -201,8 +202,11 @@ export function deserializeScenario(jsonString: string): LoadScenarioResult {
       };
     }
 
+    // Apply participant migrations (v2→v3: two-loan redesign)
+    const migratedParticipants = migrateParticipants(data.participants);
+
     // Sync soldDate fields from purchaseDetails to ensure consistency
-    const syncedParticipants = syncSoldDatesFromPurchaseDetails(data.participants);
+    const syncedParticipants = syncSoldDatesFromPurchaseDetails(migratedParticipants);
 
     // Backward compatibility: use default portageFormula if not present in file
     const portageFormula = data.portageFormula

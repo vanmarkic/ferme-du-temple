@@ -16,9 +16,8 @@ export interface Participant {
   // Two-loan financing support (from calculator)
   useTwoLoans?: boolean;
   loan2DelayYears?: number;
-  loan2RenovationAmount?: number;
-  capitalForLoan1?: number;
-  capitalForLoan2?: number;
+  capitalForLoan2?: number;  // Additional capital available later (for loan 2)
+  loan2RenovationAmount?: number;  // Optional override for construction costs
   
   // Purchase details for newcomers (from calculator)
   purchaseDetails?: {

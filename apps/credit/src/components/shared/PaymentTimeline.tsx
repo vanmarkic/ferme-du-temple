@@ -2,19 +2,40 @@ import { PaymentPhaseCard } from './PaymentPhaseCard';
 import { formatCurrency } from '../../utils/formatting';
 import type { PhaseCosts } from '../../utils/phaseCostsCalculation';
 
+interface TwoLoanBreakdown {
+  loan1Amount: number;
+  loan1MonthlyPayment: number;
+  loan2Amount: number;
+  loan2MonthlyPayment: number;
+  signatureCosts: number;
+  constructionCosts: number;
+}
+
 interface PaymentTimelineProps {
   phaseCosts: PhaseCosts;
   capitalApporte: number;
   monthlyPayment: number;
+  /** For two-loan mode: show per-phase loan amounts */
+  twoLoanBreakdown?: TwoLoanBreakdown;
 }
 
 export function PaymentTimeline({
   phaseCosts,
   capitalApporte,
   monthlyPayment,
+  twoLoanBreakdown,
 }: PaymentTimelineProps) {
   const { signature, construction, emmenagement, grandTotal } = phaseCosts;
   const toFinance = Math.max(0, grandTotal - capitalApporte);
+
+  // Two-loan mode calculations
+  const isTwoLoanMode = twoLoanBreakdown !== undefined;
+  const totalLoanAmount = isTwoLoanMode
+    ? twoLoanBreakdown.loan1Amount + twoLoanBreakdown.loan2Amount
+    : toFinance;
+  const maxMonthlyPayment = isTwoLoanMode
+    ? twoLoanBreakdown.loan1MonthlyPayment + twoLoanBreakdown.loan2MonthlyPayment
+    : monthlyPayment;
 
   return (
     <div className="mb-6">
@@ -81,35 +102,84 @@ export function PaymentTimeline({
         />
       </div>
 
-      {/* Summary bar - answers key questions at a glance */}
-      <div className="bg-gray-100 rounded-lg border border-gray-300 p-4">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
-          <div>
-            <p className="text-xs text-gray-500 uppercase tracking-wide font-semibold mb-1">
-              TOTAL
-            </p>
-            <p className="text-xl font-bold text-gray-900">
-              {formatCurrency(grandTotal)}
-            </p>
-          </div>
-          <div>
-            <p className="text-xs text-gray-500 uppercase tracking-wide font-semibold mb-1">
-              À FINANCER
-            </p>
-            <p className="text-xl font-bold text-red-700">
-              {formatCurrency(toFinance)}
-            </p>
-          </div>
-          <div>
-            <p className="text-xs text-gray-500 uppercase tracking-wide font-semibold mb-1">
-              MENSUALITÉ
-            </p>
-            <p className="text-xl font-bold text-blue-700">
-              ~{monthlyPayment} €/mois
-            </p>
+      {/* Summary bar - different layout for two-loan mode */}
+      {isTwoLoanMode ? (
+        /* Two-loan mode: show per-phase loan amounts */
+        <div className="bg-gray-100 rounded-lg border border-gray-300 p-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+            <div>
+              <p className="text-xs text-gray-500 uppercase tracking-wide font-semibold mb-1">
+                SIGNATURE
+              </p>
+              <p className="text-xs text-gray-500 mb-0.5">À emprunter</p>
+              <p className="text-xl font-bold text-gray-900">
+                {formatCurrency(twoLoanBreakdown.loan1Amount)}
+              </p>
+              {twoLoanBreakdown.loan1Amount > 0 && (
+                <p className="text-xs text-gray-500">
+                  {Math.round(twoLoanBreakdown.loan1MonthlyPayment)} €/mois
+                </p>
+              )}
+            </div>
+            <div>
+              <p className="text-xs text-gray-500 uppercase tracking-wide font-semibold mb-1">
+                CONSTRUCTION
+              </p>
+              <p className="text-xs text-gray-500 mb-0.5">À emprunter</p>
+              <p className="text-xl font-bold text-gray-900">
+                {formatCurrency(twoLoanBreakdown.loan2Amount)}
+              </p>
+              {twoLoanBreakdown.loan2Amount > 0 && (
+                <p className="text-xs text-gray-500">
+                  {Math.round(twoLoanBreakdown.loan2MonthlyPayment)} €/mois
+                </p>
+              )}
+            </div>
+            <div className="bg-white/50 rounded-lg p-2">
+              <p className="text-xs text-gray-500 uppercase tracking-wide font-semibold mb-1">
+                TOTAL
+              </p>
+              <p className="text-xs text-gray-500 mb-0.5">À emprunter</p>
+              <p className="text-xl font-bold text-blue-700">
+                {formatCurrency(totalLoanAmount)}
+              </p>
+              <p className="text-xs text-gray-500">
+                ~{Math.round(maxMonthlyPayment)} €/mois (max)
+              </p>
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        /* Single-loan mode: original layout */
+        <div className="bg-gray-100 rounded-lg border border-gray-300 p-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+            <div>
+              <p className="text-xs text-gray-500 uppercase tracking-wide font-semibold mb-1">
+                TOTAL
+              </p>
+              <p className="text-xl font-bold text-gray-900">
+                {formatCurrency(grandTotal)}
+              </p>
+            </div>
+            <div>
+              <p className="text-xs text-gray-500 uppercase tracking-wide font-semibold mb-1">
+                À FINANCER
+              </p>
+              <p className="text-xl font-bold text-red-700">
+                {formatCurrency(toFinance)}
+              </p>
+            </div>
+            <div>
+              <p className="text-xs text-gray-500 uppercase tracking-wide font-semibold mb-1">
+                MENSUALITÉ
+              </p>
+              <p className="text-xl font-bold text-blue-700">
+                ~{monthlyPayment} €/mois
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

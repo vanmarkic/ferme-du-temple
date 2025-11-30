@@ -1,6 +1,7 @@
 import type { AstroCookies } from 'astro';
 import {
   createSupabaseClient,
+  createServerSupabaseClient as createServerSupabaseClientBase,
   getSession as getSessionBase,
   isAdmin as isAdminBase,
   requireAdmin as requireAdminBase,
@@ -47,3 +48,8 @@ export function setAuthCookies(
 }
 
 export { clearAuthCookies };
+
+// Server-side Supabase client (ignores cookies param for API compatibility)
+export function createServerSupabaseClient(_cookies: AstroCookies) {
+  return createServerSupabaseClientBase(supabaseUrl, supabaseAnonKey);
+}

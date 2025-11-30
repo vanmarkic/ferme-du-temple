@@ -116,9 +116,8 @@ function transformParticipantRow(row: Record<string, unknown>): Participant {
     // Two-loan fields
     useTwoLoans: (row.use_two_loans as boolean) ?? false,
     loan2DelayYears: row.loan2_delay_years as number | undefined,
-    loan2RenovationAmount: row.loan2_renovation_amount as number | undefined,
-    capitalForLoan1: row.capital_for_loan1 as number | undefined,
     capitalForLoan2: row.capital_for_loan2 as number | undefined,
+    loan2RenovationAmount: row.loan2_renovation_amount as number | undefined,
 
     // Complex nested fields
     lotsOwned,
@@ -153,9 +152,8 @@ function participantToRow(p: Participant, projectId: string, order: number, user
     parachevements_sqm: p.parachevementsSqm ?? null,
     use_two_loans: p.useTwoLoans ?? false,
     loan2_delay_years: p.loan2DelayYears ?? null,
-    loan2_renovation_amount: p.loan2RenovationAmount ?? null,
-    capital_for_loan1: p.capitalForLoan1 ?? null,
     capital_for_loan2: p.capitalForLoan2 ?? null,
+    loan2_renovation_amount: p.loan2RenovationAmount ?? null,
     updated_by: userId ?? null,
   };
 }

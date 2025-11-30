@@ -339,7 +339,7 @@ export function buildExportSheetData(
       addCell(r, 'AO', p.loan2DurationYears ? `${p.loan2DurationYears} ans` : '');
       addCell(r, 'AP', p.loan2DelayYears || 2);
       addCell(r, 'AQ', p.loan2RenovationAmount);
-      addCell(r, 'AR', p.capitalForLoan1);
+      addCell(r, 'AR', p.capitalApporte);  // v3: capitalApporte is now signature capital
       addCell(r, 'AS', p.capitalForLoan2);
     } else {
       addCell(r, 'AH', 'Non');

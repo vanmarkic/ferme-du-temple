@@ -9,18 +9,16 @@ import { calculateCoproRedistribution } from './coproRedistribution';
 
 export interface Participant {
   name: string;
-  capitalApporte: number;
+  capitalApporte: number;  // Capital available at signature (for loan 1)
   registrationFeesRate: number;
   interestRate: number;
   durationYears: number;
 
   // Two-loan financing (optional)
-  useTwoLoans?: boolean;  // Checkbox: enable 2-loan financing
+  useTwoLoans?: boolean;  // Enable two-loan mode
   loan2DelayYears?: number;  // Default: 2 (when loan 2 starts after loan 1)
-  loan2RenovationAmount?: number;  // Absolute € amount of (casco+parachevements) in loan 2
-  loan2IncludesParachevements?: boolean;  // Whether to include parachevements in loan 2
-  capitalForLoan1?: number;  // How much of capitalApporte goes to loan 1
-  capitalForLoan2?: number;  // How much of capitalApporte goes to loan 2
+  capitalForLoan2?: number;  // Additional capital available later (for loan 2, e.g., from house sale)
+  loan2RenovationAmount?: number;  // Optional override for construction phase costs
 
   // Timeline fields
   isFounder?: boolean; // True if entered at deed date
@@ -624,9 +622,14 @@ export function calculateFinancingRatio(
 }
 
 /**
- * Calculate two-loan financing breakdown
- * Loan 1: purchaseShare + droitEnregistrements + fraisNotaireFixe + sharedCosts + (personalRenovationCost - loan2RenovationAmount) - capitalForLoan1
- * Loan 2: loan2RenovationAmount - capitalForLoan2
+ * Calculate two-loan financing breakdown (v3 - phase-based split)
+ *
+ * Phase 1 (Signature/Loan 1): purchaseShare + droitEnregistrements + fraisNotaireFixe + sharedCosts
+ * Phase 2 (Construction/Loan 2): personalRenovationCost (or loan2RenovationAmount override)
+ *
+ * Capital allocation:
+ * - capitalApporte: Applied to signature costs (Loan 1)
+ * - capitalForLoan2: Applied to construction costs (Loan 2)
  */
 export function calculateTwoLoanFinancing(
   purchaseShare: number,
@@ -644,18 +647,24 @@ export function calculateTwoLoanFinancing(
   loan2MonthlyPayment: number;
   loan2Interest: number;
   totalInterest: number;
+  // New fields for UI display
+  signatureCosts: number;
+  constructionCosts: number;
 } {
-  const loan2RenovationAmount = participant.loan2RenovationAmount || 0;
-  const capitalForLoan1 = participant.capitalForLoan1 || 0;
   const capitalForLoan2 = participant.capitalForLoan2 || 0;
   const loan2DelayYears = participant.loan2DelayYears ?? 2;
 
-  // Loan 1: Everything except the renovation going to loan 2
-  const loan1RenovationPortion = personalRenovationCost - loan2RenovationAmount;
-  const loan1Amount = Math.max(0, purchaseShare + droitEnregistrements + fraisNotaireFixe + sharedCosts + loan1RenovationPortion - capitalForLoan1);
+  // Phase 1: Signature costs (purchase + fees)
+  const signatureCosts = purchaseShare + droitEnregistrements + fraisNotaireFixe + sharedCosts;
 
-  // Loan 2: Only the specified renovation amount
-  const loan2Amount = Math.max(0, loan2RenovationAmount - capitalForLoan2);
+  // Phase 2: Construction costs (defaults to personalRenovationCost, can be overridden)
+  const constructionCosts = participant.loan2RenovationAmount ?? personalRenovationCost;
+
+  // Loan 1: Signature costs minus capital at signature
+  const loan1Amount = Math.max(0, signatureCosts - participant.capitalApporte);
+
+  // Loan 2: Construction costs minus capital for loan 2
+  const loan2Amount = Math.max(0, constructionCosts - capitalForLoan2);
 
   // Loan 2 duration: Same end date as loan 1
   const loan2DurationYears = participant.durationYears - loan2DelayYears;
@@ -676,7 +685,9 @@ export function calculateTwoLoanFinancing(
     loan2DurationYears,
     loan2MonthlyPayment,
     loan2Interest,
-    totalInterest: loan1Interest + loan2Interest
+    totalInterest: loan1Interest + loan2Interest,
+    signatureCosts,
+    constructionCosts
   };
 }
 

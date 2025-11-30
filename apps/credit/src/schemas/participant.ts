@@ -73,10 +73,8 @@ export const ParticipantSchema = z.object({
   // Two-loan financing (optional)
   useTwoLoans: z.boolean().optional(),
   loan2DelayYears: z.number().int().min(0).optional(),
-  loan2RenovationAmount: z.number().min(0).optional(),
-  loan2IncludesParachevements: z.boolean().optional(),
-  capitalForLoan1: z.number().min(0).optional(),
-  capitalForLoan2: z.number().min(0).optional(),
+  capitalForLoan2: z.number().min(0).optional(),  // Additional capital available later (for loan 2)
+  loan2RenovationAmount: z.number().min(0).optional(),  // Optional override for construction costs
 
   // Timeline fields
   isFounder: z.boolean().optional(),

@@ -614,11 +614,10 @@ describe('JSON Export Completeness', () => {
       parachevementsPerM2: 500,
       isFounder: true,
       entryDate: new Date('2026-02-01'),
-      // Two-loan financing enabled
+      // Two-loan financing enabled (v3: capitalApporte is signature capital)
       useTwoLoans: true,
       loan2DelayYears: 2,
       loan2RenovationAmount: 80000,
-      capitalForLoan1: 60000,
       capitalForLoan2: 40000
     };
 

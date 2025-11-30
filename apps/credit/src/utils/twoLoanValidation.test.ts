@@ -6,39 +6,20 @@ describe('validateTwoLoanFinancing', () => {
   it('should return no errors for valid two-loan config', () => {
     const participant: Participant = {
       name: 'Test',
-      capitalApporte: 100000,
+      capitalApporte: 100000,  // Signature capital
       registrationFeesRate: 12.5,
       interestRate: 4.5,
       durationYears: 20,
       useTwoLoans: true,
       loan2DelayYears: 2,
-      loan2RenovationAmount: 50000,
-      capitalForLoan1: 50000,
-      capitalForLoan2: 50000,
+      capitalForLoan2: 50000,  // Construction capital
     };
 
     const errors = validateTwoLoanFinancing(participant, 100000);
     expect(Object.keys(errors)).toHaveLength(0);
   });
 
-  it('should error when capital allocation exceeds available capital', () => {
-    const participant: Participant = {
-      name: 'Test',
-      capitalApporte: 100000,
-      registrationFeesRate: 12.5,
-      interestRate: 4.5,
-      durationYears: 20,
-      useTwoLoans: true,
-      capitalForLoan1: 70000,
-      capitalForLoan2: 50000, // Total 120k > 100k
-    };
-
-    const errors = validateTwoLoanFinancing(participant, 100000);
-    expect(errors.capitalAllocation).toBeDefined();
-    expect(errors.capitalAllocation).toContain('dépasse le capital disponible');
-  });
-
-  it('should error when renovation amount exceeds total renovation', () => {
+  it('should error when renovation amount override exceeds total renovation', () => {
     const participant: Participant = {
       name: 'Test',
       capitalApporte: 100000,
@@ -51,6 +32,22 @@ describe('validateTwoLoanFinancing', () => {
 
     const errors = validateTwoLoanFinancing(participant, 100000);
     expect(errors.renovationAmount).toBeDefined();
+    expect(errors.renovationAmount).toContain('dépasse le coût calculé');
+  });
+
+  it('should not error when renovation amount override is not set (uses default)', () => {
+    const participant: Participant = {
+      name: 'Test',
+      capitalApporte: 100000,
+      registrationFeesRate: 12.5,
+      interestRate: 4.5,
+      durationYears: 20,
+      useTwoLoans: true,
+      // loan2RenovationAmount not set - will use personalRenovationCost as default
+    };
+
+    const errors = validateTwoLoanFinancing(participant, 100000);
+    expect(errors.renovationAmount).toBeUndefined();
   });
 
   it('should error when loan delay >= total duration', () => {
@@ -68,6 +65,21 @@ describe('validateTwoLoanFinancing', () => {
     expect(errors.loanDelay).toBeDefined();
   });
 
+  it('should error when loan 2 duration would be less than 1 year', () => {
+    const participant: Participant = {
+      name: 'Test',
+      capitalApporte: 100000,
+      registrationFeesRate: 12.5,
+      interestRate: 4.5,
+      durationYears: 20,
+      useTwoLoans: true,
+      loan2DelayYears: 20, // Results in 0 years for loan 2
+    };
+
+    const errors = validateTwoLoanFinancing(participant, 100000);
+    expect(errors.loanDelay).toBeDefined();
+  });
+
   it('should return no errors when useTwoLoans is false', () => {
     const participant: Participant = {
       name: 'Test',
@@ -76,8 +88,7 @@ describe('validateTwoLoanFinancing', () => {
       interestRate: 4.5,
       durationYears: 20,
       useTwoLoans: false,
-      // Invalid values but shouldn't matter
-      capitalForLoan1: 200000,
+      // Invalid values but shouldn't matter since two-loan mode is off
       loan2RenovationAmount: 500000,
     };
 

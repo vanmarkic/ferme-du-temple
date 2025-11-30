@@ -27,11 +27,10 @@ describe('UI-to-Export Parity', () => {
     interestRate: 'Taux interet',
     durationYears: 'Duree (ans)',
 
-    // Dual loan system (input fields)
+    // Dual loan system (input fields) - v3: capitalApporte is signature capital
     useTwoLoans: '2 prets',
     loan2DelayYears: 'Pret2 delai',
     loan2RenovationAmount: 'Reno pret2',
-    capitalForLoan1: 'Capital pret1',
     capitalForLoan2: 'Capital pret2',
 
     // Timeline
@@ -227,11 +226,10 @@ describe('UI-to-Export Parity', () => {
       totalRepayment: 200000,
       totalInterest: 70000,
 
-      // Dual loan inputs
+      // Dual loan inputs (v3: capitalApporte is signature capital)
       useTwoLoans: true,
       loan2DelayYears: 2,
       loan2RenovationAmount: 20000,
-      capitalForLoan1: 20000,
       capitalForLoan2: 10000,
 
       // Dual loan calculations
@@ -291,7 +289,7 @@ describe('UI-to-Export Parity', () => {
       cell.data.value === 350 || // loan2MonthlyPayment
       cell.data.value === 40000 || // loan2Interest
       cell.data.value === 2 || // loan2DelayYears
-      cell.data.value === 20000 // loan2RenovationAmount or capitalForLoan1
+      cell.data.value === 20000 // loan2RenovationAmount
     );
 
     // Should have found multiple cells with dual loan data

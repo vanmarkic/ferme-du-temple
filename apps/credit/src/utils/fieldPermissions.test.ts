@@ -90,7 +90,7 @@ describe('fieldPermissions', () => {
     });
 
     it('should identify two-loan capital allocation as individual', () => {
-      expect(isIndividualField('participants.0.capitalForLoan1')).toBe(true);
+      // v3: capitalForLoan2 only (capitalApporte is now signature capital, tested above)
       expect(isIndividualField('participants.0.capitalForLoan2')).toBe(true);
     });
 

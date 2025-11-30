@@ -1965,27 +1965,25 @@ describe('calculateCommunCostsWithPortageCopro', () => {
   });
 });
 
-describe('calculateTwoLoanFinancing', () => {
-  it('should split costs between two loans with default 2/3 split', () => {
+describe('calculateTwoLoanFinancing (v3 - phase-based split)', () => {
+  it('should split costs by phase: signature vs construction', () => {
+    // v3: capitalApporte = signature capital, capitalForLoan2 = construction capital
     const participant: Participant = {
       name: 'Test',
-      capitalApporte: 100000,
+      capitalApporte: 50000,  // Signature capital
       registrationFeesRate: 12.5,
       interestRate: 4.5,
       durationYears: 20,
       useTwoLoans: true,
       loan2DelayYears: 2,
-      loan2RenovationAmount: 100000, // 2/3 of 150k renovation
-      capitalForLoan1: 50000,
-      capitalForLoan2: 50000,
+      capitalForLoan2: 50000,  // Construction capital
     };
 
     const purchaseShare = 200000;
-    const notaryFees = 25000;
+    const notaryFees = 25000;  // droitEnregistrements
+    const fraisNotaireFixe = 1000;
     const sharedCosts = 50000;
     const personalRenovationCost = 150000; // casco + parachevements
-
-    const fraisNotaireFixe = 1000; // 1 lot * 1000€
 
     const result = calculateTwoLoanFinancing(
       purchaseShare,
@@ -1996,11 +1994,17 @@ describe('calculateTwoLoanFinancing', () => {
       participant
     );
 
-    // Loan 1: 200k + 25k + 1k + 50k + 50k (renovation not in loan2) - 50k (capital) = 276k
-    expect(result.loan1Amount).toBe(276000);
+    // Signature costs: 200k + 25k + 1k + 50k = 276k
+    expect(result.signatureCosts).toBe(276000);
 
-    // Loan 2: 100k - 50k (capital) = 50k
-    expect(result.loan2Amount).toBe(50000);
+    // Construction costs (defaults to personalRenovationCost): 150k
+    expect(result.constructionCosts).toBe(150000);
+
+    // Loan 1: signatureCosts - capitalApporte = 276k - 50k = 226k
+    expect(result.loan1Amount).toBe(226000);
+
+    // Loan 2: constructionCosts - capitalForLoan2 = 150k - 50k = 100k
+    expect(result.loan2Amount).toBe(100000);
 
     // Loan 2 duration: 20 - 2 = 18 years
     expect(result.loan2DurationYears).toBe(18);
@@ -2013,27 +2017,45 @@ describe('calculateTwoLoanFinancing', () => {
     expect(result.totalInterest).toBe(result.loan1Interest + result.loan2Interest);
   });
 
-  it('should handle zero loan 2 amount', () => {
+  it('should handle zero loan 2 when construction capital covers costs', () => {
     const participant: Participant = {
       name: 'Test',
-      capitalApporte: 100000,
+      capitalApporte: 100000,  // Signature capital
       registrationFeesRate: 12.5,
       interestRate: 4.5,
       durationYears: 20,
       useTwoLoans: true,
       loan2DelayYears: 2,
-      loan2RenovationAmount: 0,
-      capitalForLoan1: 100000,
-      capitalForLoan2: 0,
+      capitalForLoan2: 200000,  // More than construction costs
     };
 
     const result = calculateTwoLoanFinancing(200000, 25000, 1000, 50000, 150000, participant);
 
-    // All renovation in loan 1
-    expect(result.loan1Amount).toBe(326000); // 200k+25k+1k+50k+150k-100k
+    // Construction costs: 150k, capital: 200k -> loan2 = 0
     expect(result.loan2Amount).toBe(0);
     expect(result.loan2MonthlyPayment).toBe(0);
     expect(result.loan2Interest).toBe(0);
+  });
+
+  it('should allow loan2RenovationAmount override for construction costs', () => {
+    const participant: Participant = {
+      name: 'Test',
+      capitalApporte: 50000,
+      registrationFeesRate: 12.5,
+      interestRate: 4.5,
+      durationYears: 20,
+      useTwoLoans: true,
+      loan2DelayYears: 2,
+      capitalForLoan2: 50000,
+      loan2RenovationAmount: 200000,  // Override: higher than calculated 150k
+    };
+
+    const result = calculateTwoLoanFinancing(200000, 25000, 1000, 50000, 150000, participant);
+
+    // Construction costs uses override
+    expect(result.constructionCosts).toBe(200000);
+    // Loan 2: 200k - 50k = 150k
+    expect(result.loan2Amount).toBe(150000);
   });
 
   it('should default loan2DelayYears to 2 if not specified', () => {
@@ -2044,9 +2066,7 @@ describe('calculateTwoLoanFinancing', () => {
       interestRate: 4.5,
       durationYears: 20,
       useTwoLoans: true,
-      loan2RenovationAmount: 50000,
-      capitalForLoan1: 0,
-      capitalForLoan2: 0,
+      // loan2DelayYears not set
     };
 
     const result = calculateTwoLoanFinancing(100000, 12500, 1000, 25000, 75000, participant);
@@ -2434,12 +2454,13 @@ describe('calculateAll - Non-founder purchase share calculation', () => {
   });
 });
 
-describe('calculateAll with two-loan financing', () => {
+describe('calculateAll with two-loan financing (v3)', () => {
   it('should use two-loan calculations when useTwoLoans is true', () => {
+    // v3: capitalApporte = signature capital, capitalForLoan2 = construction capital
     const participants: Participant[] = [
       {
         name: 'Two-Loan User',
-        capitalApporte: 100000,
+        capitalApporte: 60000,  // Signature capital
         registrationFeesRate: 12.5,
         interestRate: 4.5,
         durationYears: 20,
@@ -2448,9 +2469,7 @@ describe('calculateAll with two-loan financing', () => {
         quantity: 1,
         useTwoLoans: true,
         loan2DelayYears: 2,
-        loan2RenovationAmount: 50000,
-        capitalForLoan1: 60000,
-        capitalForLoan2: 40000,
+        capitalForLoan2: 40000,  // Construction capital
       }
     ];
 
@@ -2492,16 +2511,12 @@ describe('calculateAll with two-loan financing', () => {
     expect(p.totalInterest).toBe(p.loan1Interest! + p.loan2Interest!);
   });
 
-  it('should calculate correct total loan amount for two-loan scenario (bug fix)', () => {
-    // Reproducing the bug from user screenshot:
-    // Total cost: 425197 €
-    // Capital: 120000 € (50000 loan1 + 70000 loan2)
-    // Expected loan needed: 305197 €
-    // But was showing only: 195197 € (missing loan2Amount of 110000)
+  it('should calculate correct total loan amount for two-loan scenario (v3)', () => {
+    // v3: capitalApporte = signature capital, capitalForLoan2 = construction capital
     const participants: Participant[] = [
       {
         name: 'Manuela/Dragan',
-        capitalApporte: 120000,
+        capitalApporte: 50000,  // Signature capital
         registrationFeesRate: 3,
         interestRate: 3.5,
         durationYears: 25,
@@ -2510,9 +2525,8 @@ describe('calculateAll with two-loan financing', () => {
         quantity: 1,
         useTwoLoans: true,
         loan2DelayYears: 1,
-        loan2RenovationAmount: 180000,
-        capitalForLoan1: 50000,
-        capitalForLoan2: 70000,
+        capitalForLoan2: 70000,  // Construction capital
+        loan2RenovationAmount: 180000,  // Optional override
       }
     ];
 
@@ -2547,10 +2561,9 @@ describe('calculateAll with two-loan financing', () => {
     expect(p.loan1Amount).toBeGreaterThan(0);
     expect(p.loan2Amount).toBeGreaterThan(0);
 
-    // Verify that the two-loan approach correctly distributes capital
-    // loan1Amount uses capitalForLoan1, loan2Amount uses capitalForLoan2
-    const totalCapitalUsed = participants[0].capitalForLoan1! + participants[0].capitalForLoan2!;
-    expect(totalCapitalUsed).toBe(participants[0].capitalApporte);
+    // v3: Total capital is sum of signature + construction capital
+    const totalCapital = participants[0].capitalApporte + (participants[0].capitalForLoan2 || 0);
+    expect(totalCapital).toBe(120000);  // 50k + 70k
   });
 
   it('should use single-loan calculations when useTwoLoans is false', () => {

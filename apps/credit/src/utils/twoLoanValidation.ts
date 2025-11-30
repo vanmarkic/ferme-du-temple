@@ -1,13 +1,19 @@
 import type { Participant } from './calculatorUtils';
 
 export interface TwoLoanValidationErrors {
-  capitalAllocation?: string;
   renovationAmount?: string;
   loanDelay?: string;
 }
 
 /**
- * Validate two-loan financing parameters
+ * Validate two-loan financing parameters (v3 - simplified)
+ *
+ * Removed validations:
+ * - capitalAllocation: No longer needed (capitalForLoan1 merged into capitalApporte)
+ *
+ * Remaining validations:
+ * - renovationAmount: Optional override can't exceed total renovation cost
+ * - loanDelay: Loan 2 must have at least 1 year duration
  */
 export function validateTwoLoanFinancing(
   participant: Participant,
@@ -19,19 +25,14 @@ export function validateTwoLoanFinancing(
     return errors; // No validation needed
   }
 
-  // Validate capital allocation
-  const capitalForLoan1 = participant.capitalForLoan1 || 0;
-  const capitalForLoan2 = participant.capitalForLoan2 || 0;
-  const totalAllocated = capitalForLoan1 + capitalForLoan2;
-
-  if (totalAllocated > participant.capitalApporte) {
-    errors.capitalAllocation = `Capital alloué (€${totalAllocated.toLocaleString()}) dépasse le capital disponible (€${participant.capitalApporte.toLocaleString()})`;
-  }
-
-  // Validate renovation amount
-  const loan2RenovationAmount = participant.loan2RenovationAmount || 0;
-  if (loan2RenovationAmount > personalRenovationCost) {
-    errors.renovationAmount = `Montant rénovation prêt 2 (€${loan2RenovationAmount.toLocaleString()}) dépasse la rénovation totale (€${personalRenovationCost.toLocaleString()})`;
+  // Validate renovation amount override (if set)
+  if (participant.loan2RenovationAmount !== undefined) {
+    if (participant.loan2RenovationAmount > personalRenovationCost) {
+      errors.renovationAmount = `Montant construction (${participant.loan2RenovationAmount.toLocaleString()} €) dépasse le coût calculé (${personalRenovationCost.toLocaleString()} €)`;
+    }
+    if (participant.loan2RenovationAmount < 0) {
+      errors.renovationAmount = `Montant construction ne peut pas être négatif`;
+    }
   }
 
   // Validate loan delay
