@@ -19,9 +19,8 @@ import AvailableLotsView from '../AvailableLotsView';
 import PortageLotConfig from '../PortageLotConfig';
 import { ExpectedPaybacksCard } from '../shared/ExpectedPaybacksCard';
 import { PaymentTimeline } from '../shared/PaymentTimeline';
-import { FinancingSection } from '../shared/FinancingSection';
+import { LoanSection } from '../shared/LoanSection';
 import { PropertySection } from '../shared/PropertySection';
-import { LoanParametersSection } from '../shared/LoanParametersSection';
 import { CollapsibleSection } from '../shared/CollapsibleSection';
 
 interface ParticipantDetailModalProps {
@@ -121,7 +120,10 @@ export default function ParticipantDetailModal({
             {/* Left Column: Name and Info (2 rows) */}
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-3">
+                <label htmlFor={`participant-name-${idx}`} className="sr-only">Nom du participant</label>
                 <input
+                  id={`participant-name-${idx}`}
+                  name={`participant-name-${idx}`}
                   type="text"
                   value={p.name}
                   onChange={(e) => onUpdateName(e.target.value)}
@@ -225,12 +227,17 @@ export default function ParticipantDetailModal({
           }
         />
 
-        {/* 2. FinancingSection - Collapsed by default */}
-        <div className="mb-6">
-          <FinancingSection
+        {/* 2. LoanSection - Merged financing and loan parameters */}
+        <div className="mb-4">
+          <LoanSection
             phaseCosts={phaseCosts}
             participant={participant}
             participantCalc={p}
+            participantIndex={idx}
+            validationErrors={validationErrors}
+            onUpdateNotaryRate={onUpdateNotaryRate}
+            onUpdateInterestRate={onUpdateInterestRate}
+            onUpdateDuration={onUpdateDuration}
             onUpdateParticipant={onUpdateParticipant}
             defaultExpanded={false}
           />
@@ -247,21 +254,6 @@ export default function ParticipantDetailModal({
             onUpdateParachevementsPerM2={onUpdateParachevementsPerM2}
             onUpdateCascoSqm={onUpdateCascoSqm}
             onUpdateParachevementsSqm={onUpdateParachevementsSqm}
-            defaultExpanded={false}
-          />
-        </div>
-
-        {/* 4. LoanParametersSection - Interest rate, duration, two-loan config */}
-        <div className="mb-4">
-          <LoanParametersSection
-            participant={participant}
-            participantCalc={p}
-            participantIndex={idx}
-            validationErrors={validationErrors}
-            onUpdateNotaryRate={onUpdateNotaryRate}
-            onUpdateInterestRate={onUpdateInterestRate}
-            onUpdateDuration={onUpdateDuration}
-            onUpdateParticipant={onUpdateParticipant}
             defaultExpanded={false}
           />
         </div>
@@ -299,8 +291,10 @@ export default function ParticipantDetailModal({
         {/* 5. CollapsibleSection: Statut - Entry date and founder checkbox */}
         <CollapsibleSection title="Statut" icon="📋" defaultOpen={false}>
           <div className="mb-4">
-            <label className="flex items-center gap-2 cursor-pointer">
+            <label htmlFor={`is-founder-${idx}`} className="flex items-center gap-2 cursor-pointer">
               <input
+                id={`is-founder-${idx}`}
+                name={`is-founder-${idx}`}
                 type="checkbox"
                 checked={participant.isFounder || false}
                 onChange={(e) => {
@@ -325,10 +319,12 @@ export default function ParticipantDetailModal({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor={`entry-date-${idx}`} className="block text-sm font-medium text-gray-700 mb-2">
               Date d'entrée dans le projet
             </label>
             <input
+              id={`entry-date-${idx}`}
+              name={`entry-date-${idx}`}
               type="date"
               value={formatDateForInput(participant.entryDate, deedDate)}
               onChange={(e) => {

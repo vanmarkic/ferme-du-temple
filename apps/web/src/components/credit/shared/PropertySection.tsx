@@ -74,17 +74,19 @@ export function PropertySection({
       </button>
 
       {isExpanded && (
-        <div className="p-4 pt-0 border-t border-gray-200 space-y-4">
+        <div className="p-4 border-t border-gray-200 space-y-4">
           {/* Surface and Quantity - Top row */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs text-gray-600 mb-1">
+              <label htmlFor={`surface-totale-${p.unitId}`} className="block text-xs text-gray-600 mb-1">
                 Surface totale (m²)
                 {isLocked && (
                   <span className="ml-2 text-orange-600 font-semibold">🔒 Portage</span>
                 )}
               </label>
               <input
+                id={`surface-totale-${p.unitId}`}
+                name={`surface-totale-${p.unitId}`}
                 type="number"
                 step="1"
                 value={p.surface}
@@ -98,8 +100,10 @@ export function PropertySection({
               />
             </div>
             <div>
-              <label className="block text-xs text-gray-600 mb-1">Quantité d'unités</label>
+              <label htmlFor={`quantite-unites-${p.unitId}`} className="block text-xs text-gray-600 mb-1">Quantité d'unités</label>
               <input
+                id={`quantite-unites-${p.unitId}`}
+                name={`quantite-unites-${p.unitId}`}
                 type="number"
                 step="1"
                 min="1"
@@ -128,10 +132,12 @@ export function PropertySection({
 
               {/* Parachèvements - Editable */}
               <div className="bg-white p-3 rounded-lg border border-gray-200">
-                <label className="block text-xs text-gray-500 mb-1">
+                <label htmlFor={`parachevements-perm2-${p.unitId}`} className="block text-xs text-gray-500 mb-1">
                   Parachèvements (€/m²)
                 </label>
                 <input
+                  id={`parachevements-perm2-${p.unitId}`}
+                  name={`parachevements-perm2-${p.unitId}`}
                   type="number"
                   step="10"
                   value={parachevementsPerM2}
@@ -154,10 +160,12 @@ export function PropertySection({
               </p>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs text-gray-600 mb-1">
+                  <label htmlFor={`surface-casco-${p.unitId}`} className="block text-xs text-gray-600 mb-1">
                     Surface CASCO (m²)
                   </label>
                   <input
+                    id={`surface-casco-${p.unitId}`}
+                    name={`surface-casco-${p.unitId}`}
                     type="number"
                     step="1"
                     min="0"
@@ -172,10 +180,12 @@ export function PropertySection({
                   />
                 </div>
                 <div>
-                  <label className="block text-xs text-gray-600 mb-1">
+                  <label htmlFor={`surface-parach-${p.unitId}`} className="block text-xs text-gray-600 mb-1">
                     Surface parachèvements (m²)
                   </label>
                   <input
+                    id={`surface-parach-${p.unitId}`}
+                    name={`surface-parach-${p.unitId}`}
                     type="number"
                     step="1"
                     min="0"

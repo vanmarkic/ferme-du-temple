@@ -42,8 +42,10 @@ export function ConstructionDetailSection({
 
         {/* Parachèvements Editable */}
         <div className="bg-white p-3 rounded-lg border border-gray-200">
-          <label className="block text-xs text-gray-500 mb-1">Parachèvements - Prix/m²</label>
+          <label htmlFor={`parachevements-prix-${p.unitId}`} className="block text-xs text-gray-500 mb-1">Parachèvements - Prix/m²</label>
           <input
+            id={`parachevements-prix-${p.unitId}`}
+            name={`parachevements-prix-${p.unitId}`}
             type="number"
             step="10"
             value={participant.parachevementsPerM2}
@@ -62,10 +64,12 @@ export function ConstructionDetailSection({
       {/* Surface Inputs */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
         <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
-          <label className="block text-xs text-blue-700 font-medium mb-1">
+          <label htmlFor={`surface-casco-renov-${p.unitId}`} className="block text-xs text-blue-700 font-medium mb-1">
             Surface à rénover CASCO (m²)
           </label>
           <input
+            id={`surface-casco-renov-${p.unitId}`}
+            name={`surface-casco-renov-${p.unitId}`}
             type="number"
             step="1"
             min="0"
@@ -79,10 +83,12 @@ export function ConstructionDetailSection({
         </div>
 
         <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
-          <label className="block text-xs text-blue-700 font-medium mb-1">
+          <label htmlFor={`surface-parach-renov-${p.unitId}`} className="block text-xs text-blue-700 font-medium mb-1">
             Surface à rénover Parachèvements (m²)
           </label>
           <input
+            id={`surface-parach-renov-${p.unitId}`}
+            name={`surface-parach-renov-${p.unitId}`}
             type="number"
             step="1"
             min="0"

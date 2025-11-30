@@ -44,6 +44,23 @@ export interface LoadResult {
 export interface SaveResult {
   success: boolean;
   error?: string;
+  /** Details about what was saved (only present on success) */
+  details?: {
+    /** For project saves: which fields were updated */
+    projectChanges?: {
+      deedDateUpdated: boolean;
+      projectParamsUpdated: boolean;
+      portageFormulaUpdated: boolean;
+    };
+    /** For participant saves: counts of operations */
+    participantChanges?: {
+      added: number;
+      updated: number;
+      removed: number;
+    };
+    /** True if no changes were detected (nothing saved) */
+    noChanges?: boolean;
+  };
 }
 
 export interface ParticipantChanges {
@@ -517,8 +534,20 @@ export async function saveProjectData(
         }
 
         console.log(`✅ Granular project save: deedDate=${projectChanges.deedDateChanged}, projectParams=${projectChanges.projectParamsChanged}, portageFormula=${projectChanges.portageFormulaChanged}`);
+
+        return {
+          success: true,
+          details: {
+            projectChanges: {
+              deedDateUpdated: projectChanges.deedDateChanged,
+              projectParamsUpdated: projectChanges.projectParamsChanged,
+              portageFormulaUpdated: projectChanges.portageFormulaChanged,
+            },
+          },
+        };
       } else {
         console.log('✅ No project-level changes detected, skipping project update');
+        return { success: true, details: { noChanges: true } };
       }
     } else {
       const { error: projectError } = await supabase
@@ -534,9 +563,18 @@ export async function saveProjectData(
       if (projectError) {
         return { success: false, error: 'Failed to save project: ' + projectError.message };
       }
-    }
 
-    return { success: true };
+      return {
+        success: true,
+        details: {
+          projectChanges: {
+            deedDateUpdated: true,
+            projectParamsUpdated: true,
+            portageFormulaUpdated: true,
+          },
+        },
+      };
+    }
   } catch (err) {
     console.error('Error saving project data:', err);
     return { success: false, error: String(err) };
@@ -565,6 +603,12 @@ export async function saveParticipantData(
   try {
     if (originalParticipants) {
       const changes = detectParticipantChanges(originalParticipants, participants);
+
+      // Check if no changes
+      if (changes.added.length === 0 && changes.updated.length === 0 && changes.removed.length === 0) {
+        console.log('✅ No participant changes detected, skipping participant update');
+        return { success: true, details: { noChanges: true } };
+      }
 
       // Delete removed participants
       if (changes.removed.length > 0) {
@@ -618,6 +662,17 @@ export async function saveParticipantData(
       }
 
       console.log(`✅ Granular participant save: ${changes.added.length} added, ${changes.updated.length} updated, ${changes.removed.length} removed`);
+
+      return {
+        success: true,
+        details: {
+          participantChanges: {
+            added: changes.added.length,
+            updated: changes.updated.length,
+            removed: changes.removed.length,
+          },
+        },
+      };
     } else {
       // Legacy behavior: delete all and re-insert
       const { error: deleteError } = await supabase
@@ -642,52 +697,22 @@ export async function saveParticipantData(
           return { success: false, error: 'Failed to save participants: ' + insertError.message };
         }
       }
-    }
 
-    return { success: true };
+      return {
+        success: true,
+        details: {
+          participantChanges: {
+            added: participants.length,
+            updated: 0,
+            removed: 0, // Unknown - we deleted all
+          },
+        },
+      };
+    }
   } catch (err) {
     console.error('Error saving participant data:', err);
     return { success: false, error: String(err) };
   }
-}
-
-/**
- * Save all project data (convenience function that calls both saveProjectData and saveParticipantData).
- * @deprecated Use saveProjectData and saveParticipantData separately for better granularity.
- */
-export async function saveProject(
-  projectId: string,
-  data: ProjectData,
-  originalData?: {
-    participants?: Participant[];
-    deedDate?: string;
-    projectParams?: ProjectParams;
-    portageFormula?: PortageFormulaParams;
-  }
-): Promise<SaveResult> {
-  // Save project data
-  const originalProjectData = originalData?.deedDate && originalData?.projectParams && originalData?.portageFormula
-    ? { deedDate: originalData.deedDate, projectParams: originalData.projectParams, portageFormula: originalData.portageFormula }
-    : undefined;
-
-  const projectResult = await saveProjectData(
-    projectId,
-    { deedDate: data.deedDate, projectParams: data.projectParams, portageFormula: data.portageFormula },
-    originalProjectData
-  );
-
-  if (!projectResult.success) {
-    return projectResult;
-  }
-
-  // Save participant data
-  const participantResult = await saveParticipantData(
-    projectId,
-    data.participants,
-    originalData?.participants
-  );
-
-  return participantResult;
 }
 
 // ============================================

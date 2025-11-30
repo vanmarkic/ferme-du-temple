@@ -1,7 +1,7 @@
 {
-  "buildCommand": "npm run build",
-  "outputDirectory": "apps/web/dist",
-  "framework": "astro",
+  "buildCommand": "npm run build && cp -r apps/web/.vercel/output .vercel/output",
+  "installCommand": "pnpm install",
+  "framework": null,
   "regions": ["cdg1"],
   "headers": [
     {

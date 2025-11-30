@@ -281,47 +281,49 @@ export function CalculatorProvider({ children, projectId = 'default' }: Calculat
     setIsSaving(true);
     setSyncError(null);
 
-    // Save project data (deedDate, projectParams, portageFormula)
-    const projectResult = await saveProjectData(
-      projectId,
-      { deedDate, projectParams, portageFormula },
-      originalDataRef.current ? {
-        deedDate: originalDataRef.current.deedDate,
-        projectParams: originalDataRef.current.projectParams,
-        portageFormula: originalDataRef.current.portageFormula,
-      } : undefined
-    );
-
-    if (!projectResult.success) {
-      setIsSaving(false);
-      setSyncError(projectResult.error || 'Save failed');
-      toast.custom(() => <SimpleToast message={`Erreur: ${projectResult.error}`} type="error" />);
-      console.error('❌ Project save failed:', projectResult.error);
-      return false;
-    }
-
-    // Save participant data
-    const participantResult = await saveParticipantData(
-      projectId,
-      participants,
-      originalDataRef.current?.participants
-    );
+    // Save project data and participant data in parallel (independent operations)
+    const [projectResult, participantResult] = await Promise.all([
+      saveProjectData(
+        projectId,
+        { deedDate, projectParams, portageFormula },
+        originalDataRef.current ? {
+          deedDate: originalDataRef.current.deedDate,
+          projectParams: originalDataRef.current.projectParams,
+          portageFormula: originalDataRef.current.portageFormula,
+        } : undefined
+      ),
+      saveParticipantData(
+        projectId,
+        participants,
+        originalDataRef.current?.participants
+      ),
+    ]);
 
     setIsSaving(false);
 
-    if (participantResult.success) {
-      setIsDirty(false);
-      setLastSyncedAt(new Date());
-      originalDataRef.current = { participants, projectParams, deedDate, portageFormula };
-      toast.custom(() => <SimpleToast message="Sauvegardé!" type="success" />);
-      console.log('✅ Saved to Supabase');
-      return true;
-    } else {
-      setSyncError(participantResult.error || 'Save failed');
-      toast.custom(() => <SimpleToast message={`Erreur: ${participantResult.error}`} type="error" />);
-      console.error('❌ Participant save failed:', participantResult.error);
+    // Check for errors
+    const errors: string[] = [];
+    if (!projectResult.success) {
+      errors.push(`Project: ${projectResult.error}`);
+    }
+    if (!participantResult.success) {
+      errors.push(`Participants: ${participantResult.error}`);
+    }
+
+    if (errors.length > 0) {
+      const errorMsg = errors.join('; ');
+      setSyncError(errorMsg);
+      toast.custom(() => <SimpleToast message={`Erreur: ${errorMsg}`} type="error" />);
+      console.error('❌ Save failed:', errorMsg);
       return false;
     }
+
+    setIsDirty(false);
+    setLastSyncedAt(new Date());
+    originalDataRef.current = { participants, projectParams, deedDate, portageFormula };
+    toast.custom(() => <SimpleToast message="Sauvegardé!" type="success" />);
+    console.log('✅ Saved to Supabase');
+    return true;
   }, [participants, projectParams, deedDate, portageFormula, projectId]);
 
   // === DISCARD ===

@@ -48,8 +48,10 @@ export function TwoLoanFinancingSection({
   return (
     <div className="border-t pt-4 mt-4">
       {/* Toggle */}
-      <label className="flex items-center gap-2 mb-4 cursor-pointer">
+      <label htmlFor={`use-two-loans-${participant.unitId}`} className="flex items-center gap-2 mb-4 cursor-pointer">
         <input
+          id={`use-two-loans-${participant.unitId}`}
+          name={`use-two-loans-${participant.unitId}`}
           type="checkbox"
           checked={participant.useTwoLoans || false}
           onChange={(e) => {
