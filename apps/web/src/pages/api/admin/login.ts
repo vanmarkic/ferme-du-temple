@@ -5,6 +5,14 @@ export const prerender = false;
 
 export const POST: APIRoute = async ({ request, cookies }) => {
   try {
+    if (!supabase) {
+      console.error('Login error: Supabase client not initialized - check SUPABASE_URL and SUPABASE_ANON_KEY env vars');
+      return new Response(
+        JSON.stringify({ error: 'Erreur de configuration serveur' }),
+        { status: 500, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
     const body = await request.json();
     const { email, password } = body;
 

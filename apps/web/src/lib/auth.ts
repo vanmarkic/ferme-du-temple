@@ -10,8 +10,9 @@ import {
   type AuthConfig,
 } from '@repo/auth';
 
-const supabaseUrl = import.meta.env.SUPABASE_URL || '';
-const supabaseAnonKey = import.meta.env.SUPABASE_ANON_KEY || '';
+// Server-side env vars in Astro/Vercel must use process.env for non-PUBLIC vars
+const supabaseUrl = import.meta.env.SUPABASE_URL || process.env.SUPABASE_URL || '';
+const supabaseAnonKey = import.meta.env.SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY || '';
 
 const authConfig: AuthConfig = {
   supabaseUrl,
