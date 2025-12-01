@@ -11,6 +11,7 @@ import EnDivisionCorrect from './EnDivisionCorrect';
 import { UnlockProvider } from './contexts/UnlockContext';
 import { CalculatorProvider } from './calculator/CalculatorProvider';
 import { supabase } from './services/supabase';
+import { AdminSidebar } from '../AdminSidebar';
 
 export default function CreditCastorApp() {
   const [authState, setAuthState] = useState<'loading' | 'authenticated' | 'unauthenticated'>('loading');
@@ -50,10 +51,15 @@ export default function CreditCastorApp() {
   // Both authenticated and unauthenticated users can access the app
   // Unauthenticated users will be in readonly mode (enforced by UnlockProvider)
   return (
-    <UnlockProvider forceReadonly={authState === 'unauthenticated'}>
-      <CalculatorProvider>
-        <EnDivisionCorrect />
-      </CalculatorProvider>
-    </UnlockProvider>
+    <div className="min-h-screen bg-gradient-to-br from-magenta/5 to-butter-yellow/5 flex flex-col md:flex-row">
+      <AdminSidebar currentPage="credit" />
+      <div className="flex-1 pt-14 md:pt-0 overflow-auto">
+        <UnlockProvider forceReadonly={authState === 'unauthenticated'}>
+          <CalculatorProvider>
+            <EnDivisionCorrect />
+          </CalculatorProvider>
+        </UnlockProvider>
+      </div>
+    </div>
   );
 }

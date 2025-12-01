@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { Users, FolderOpen, UserCog, LogOut, Menu, X, Calculator } from 'lucide-react';
+import { Users, FolderOpen, UserCog, LogOut, Menu, X, Calculator, FileText } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 interface AdminSidebarProps {
-  currentPage: 'inscriptions' | 'guide' | 'users' | 'credit';
+  currentPage: 'inscriptions' | 'guide' | 'users' | 'credit' | 'compromis';
 }
 
 const navItems = [
@@ -18,6 +18,12 @@ const navItems = [
     label: 'Credit Castor',
     href: '/admin/credit',
     icon: Calculator,
+  },
+  {
+    id: 'compromis' as const,
+    label: 'Compromis',
+    href: '/admin/compromis',
+    icon: FileText,
   },
   {
     id: 'guide' as const,
@@ -116,7 +122,7 @@ export function AdminSidebar({ currentPage }: AdminSidebarProps) {
       </aside>
 
       {/* Desktop sidebar */}
-      <aside className="hidden md:flex w-48 shrink-0 bg-rich-black text-white min-h-screen p-4 flex-col">
+      <aside className="hidden md:flex w-48 shrink-0 bg-rich-black text-white h-screen sticky top-0 p-4 flex-col">
         <NavContent />
       </aside>
     </>

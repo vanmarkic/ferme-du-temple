@@ -26,7 +26,7 @@ export function setAuthCookies(
     httpOnly: true,
     secure: isProduction,
     sameSite: 'lax',
-    maxAge: 60 * 60 * 24 * 30, // 30 days
+    maxAge: 60 * 60 * 24 * 180, // 6 months
   });
 }
 

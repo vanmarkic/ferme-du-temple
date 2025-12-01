@@ -1,0 +1,544 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { CompromisWrapper } from '../../components/CompromisWrapper';
+
+export const prerender = false;
+---
+
+<BaseLayout title="Comparaison Compromis - Ferme du Temple">
+  <CompromisWrapper client:load>
+    <div class="compromis-content">
+      <style>
+        .compromis-content {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            box-sizing: border-box;
+        }
+        .compromis-content * { box-sizing: border-box; }
+        .compromis-content h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .compromis-content h2 {
+            color: #2980b9;
+            margin-top: 30px;
+            background: #ecf0f1;
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+        .compromis-content h3 {
+            color: #16a085;
+            margin-top: 20px;
+        }
+        .compromis-content .summary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        .compromis-content .summary h2 {
+            color: white;
+            background: none;
+            margin-top: 0;
+        }
+        .compromis-content .summary ul { margin: 0; padding-left: 20px; }
+        .compromis-content .change-block {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .compromis-content .old {
+            background: #ffebee;
+            border-left: 4px solid #e74c3c;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .compromis-content .new {
+            background: #e8f5e9;
+            border-left: 4px solid #27ae60;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .compromis-content .label {
+            font-weight: bold;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .compromis-content .label-old { color: #c0392b; }
+        .compromis-content .label-new { color: #27ae60; }
+        .compromis-content .impact {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 12px 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .compromis-content .impact strong { color: #856404; }
+        .compromis-content .critical {
+            background: #f8d7da;
+            border: 2px solid #dc3545;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .compromis-content .critical h3 { color: #721c24; margin-top: 0; }
+        .compromis-content .positive {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .compromis-content .positive h3 { color: #155724; margin-top: 0; }
+        .compromis-content del {
+            background: #ffd7d5;
+            text-decoration: line-through;
+            color: #a94442;
+        }
+        .compromis-content ins {
+            background: #d4fcbc;
+            text-decoration: none;
+            color: #2e7d32;
+        }
+        .compromis-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        .compromis-content th, .compromis-content td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        .compromis-content th {
+            background: #3498db;
+            color: white;
+        }
+        .compromis-content tr:nth-child(even) { background: #f9f9f9; }
+        .compromis-content .toc {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .compromis-content .toc ul {
+            list-style: none;
+            padding: 0;
+            columns: 2;
+        }
+        .compromis-content .toc li {
+            padding: 5px 0;
+            border-bottom: 1px dotted #ddd;
+        }
+        .compromis-content .toc a {
+            color: #2980b9;
+            text-decoration: none;
+        }
+        .compromis-content .toc a:hover { text-decoration: underline; }
+        .compromis-content code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+      </style>
+
+<h1>🔍 Comparaison des Compromis de Vente<br>Ferme du Temple - Frameries</h1>
+
+<div class="summary">
+    <h2>📋 Résumé des changements majeurs</h2>
+    <ul>
+        <li><strong>Version ancienne :</strong> 04 juillet 2025</li>
+        <li><strong>Version nouvelle :</strong> 01 décembre 2025</li>
+        <li><strong>Changement principal :</strong> Passage d'un bail à ferme (Durez) à une convention d'occupation précaire</li>
+        <li><strong>Structure d'achat :</strong> Achat "en état de future division" avec projet d'habitat groupé</li>
+        <li><strong>Notaire consignataire :</strong> Changement de MyNot vers Erneux & Annet</li>
+    </ul>
+</div>
+
+<div class="toc">
+    <h3>📑 Table des matières</h3>
+    <ul>
+        <li><a href="#vendeur">1. Informations vendeur</a></li>
+        <li><a href="#acquereurs">2. Structure d'acquisition</a></li>
+        <li><a href="#bien">3. Description du bien</a></li>
+        <li><a href="#prix">4. Prix et paiement</a></li>
+        <li><a href="#occupation">5. Occupation (Durez) ⚠️</a></li>
+        <li><a href="#etat">6. État du bien</a></li>
+        <li><a href="#division">7. Division & urbanisme</a></li>
+        <li><a href="#citerne">8. Citerne à mazout</a></li>
+        <li><a href="#annexes">9. Nouvelles annexes</a></li>
+    </ul>
+</div>
+
+<h2 id="vendeur">1. Informations sur le Vendeur (FRB)</h2>
+
+<div class="change-block">
+    <h3>Mise à jour des statuts</h3>
+    <div class="old">
+        <span class="label label-old">Ancien :</span><br>
+        Statuts modifiés "aux termes d'une réunion du Conseil d'Administration dont le procès-verbal a été rédigé par le notaire Géraldine Rolin Jacquemyns, en date du <strong>22 décembre 2023</strong>, en cours de publication."
+    </div>
+    <div class="new">
+        <span class="label label-new">Nouveau :</span><br>
+        Statuts modifiés "aux termes d'une réunion du Conseil d'Administration tenue en date du <strong>27 septembre 2024</strong>, publié aux annexes au Moniteur Belge le <strong>17 mars 2025</strong>, sous les références 20250317_036681."
+    </div>
+</div>
+
+<div class="change-block">
+    <h3>Mandat de représentation</h3>
+    <div class="old">
+        <span class="label label-old">Ancien :</span><br>
+        Mandat reçu par le notaire <strong>Géraldine Rolin Jacquemyns</strong> à Bruxelles, le <strong>6 décembre 2023</strong>
+    </div>
+    <div class="new">
+        <span class="label label-new">Nouveau :</span><br>
+        Mandat reçu par le notaire <strong>Catherine GILLARDIN</strong> à Bruxelles, le <strong>21 mai 2025</strong>
+    </div>
+</div>
+
+<h2 id="acquereurs">2. Structure d'Acquisition</h2>
+
+<div class="critical">
+    <h3>⚠️ Changement majeur : Structure juridique</h3>
+    <div class="old">
+        <span class="label label-old">Ancien :</span><br>
+        "Déclarant acquéreur en leur nom et pour le compte ainsi qu'au nom et pour compte d'une <strong>Fondation privée ou société coopérative en formation</strong>."
+    </div>
+    <div class="new">
+        <span class="label label-new">Nouveau :</span><br>
+        "Déclarant acquérir <strong>solidairement et indivisiblement en état de future division</strong> dans le contexte d'un <strong>projet d'habitat groupé</strong>, partant de ce qu'à la copropriété forcée se superposera un projet associatif désintéressé traduit les statuts de leur copropriété forcée et dans la <strong>Charte de l'Habitat groupé</strong>."
+    </div>
+    <div class="impact">
+        <strong>→ Impact :</strong> L'achat se fait maintenant en nom propre avec projet de division, et non plus au nom d'une fondation en formation. La structure juridique est clarifiée autour de l'habitat groupé avec copropriété forcée.
+    </div>
+</div>
+
+<div class="change-block">
+    <h3>Régime matrimonial Malaud-Luyten</h3>
+    <div class="old">
+        <span class="label label-old">Ancien :</span><br>
+        "Mariés à Bruxelles le 25 février 2017 sous le <strong>régime légal de la communauté d'acquêts</strong>, à défaut d'avoir fait précéder leur union de conventions matrimoniales."
+    </div>
+    <div class="new">
+        <span class="label label-new">Nouveau :</span><br>
+        "Mariés à Bruxelles le 25 février 2017 sous le régime <strong>***</strong>" <em>(à compléter)</em>
+    </div>
+</div>
+
+<h2 id="bien">3. Description du Bien</h2>
+
+<div class="change-block">
+    <h3>Titre de la section</h3>
+    <div class="old">
+        <span class="label label-old">Ancien :</span> "Bien vendu"
+    </div>
+    <div class="new">
+        <span class="label label-new">Nouveau :</span> "Bien vendu <strong>à diviser d'ici à l'acte authentique sous la responsabilité des acquéreurs</strong>"
+    </div>
+</div>
+
+<div class="change-block">
+    <h3>Accessoires inclus</h3>
+    <div class="new">
+        <span class="label label-new">Ajout :</span><br>
+        "les <strong>accessoires immobiliers</strong> au sens de l'article 3.9 du Code civil"
+    </div>
+</div>
+
+<h2 id="prix">4. Prix et Modalités de Paiement</h2>
+
+<div class="change-block">
+    <h3>Ventilation du prix</h3>
+    <div class="old">
+        <span class="label label-old">Ancien :</span><br>
+        "La vente est consentie et acceptée pour le prix de six cent cinquante mille euros (650.000,00 €)."
+    </div>
+    <div class="new">
+        <span class="label label-new">Nouveau :</span><br>
+        "La vente est consentie et acceptée pour le prix de six cent cinquante mille euros (650.000,00 €), <strong>dont la ventilation entre acquéreurs sera de l'unique responsabilité de ceux-ci, sur base d'un rapport de géomètre-expert immobilier</strong>."
+    </div>
+</div>
+
+<div class="change-block">
+    <h3>Compte de consignation</h3>
+    <div class="old">
+        <span class="label label-old">Ancien :</span><br>
+        Versement sur un compte de l'étude <strong>My Not - société notariale à Grez-Doiceau</strong>
+    </div>
+    <div class="new">
+        <span class="label label-new">Nouveau :</span><br>
+        Versement sur un compte de l'étude des notaires <strong>Erneux et Annet, à Namur (actanciel)</strong>
+    </div>
+</div>
+
+<h2 id="occupation">5. Occupation - Monsieur Durez</h2>
+
+<div class="critical">
+    <h3>⚠️ Changement MAJEUR : Statut de l'occupation</h3>
+    
+    <h4>Parcelles concernées</h4>
+    <table>
+        <tr>
+            <th>Version</th>
+            <th>Parcelles occupées</th>
+            <th>Type de contrat</th>
+        </tr>
+        <tr>
+            <td><strong>Ancienne</strong></td>
+            <td>197G, 197F, 197L, 200R, 209G2, 206L</td>
+            <td>Bail à ferme</td>
+        </tr>
+        <tr>
+            <td><strong>Nouvelle</strong></td>
+            <td>197G, 197F, 206L</td>
+            <td>Occupation précaire et gratuite</td>
+        </tr>
+    </table>
+    
+    <div class="old">
+        <span class="label label-old">Ancien (supprimé intégralement) :</span><br>
+        <ul>
+            <li>Parcelles 197G, 197F, 197L, 200R, 209G2, 206L occupées en vertu d'un <strong>bail à ferme</strong></li>
+            <li>Intervention de M. Durez avec :
+                <ul>
+                    <li>Renonciation au droit de préemption</li>
+                    <li>Dispense de notification</li>
+                    <li>Renonciation au bail à ferme sans indemnité</li>
+                    <li>Renonciation au droit de cession du bail</li>
+                </ul>
+            </li>
+            <li>En échange : occupation gratuite pendant <strong>5 ans</strong> de la partie de la parcelle 206L (sous liseré pointillé bleu)</li>
+        </ul>
+    </div>
+    
+    <div class="new">
+        <span class="label label-new">Nouveau :</span><br>
+        "Le bien vendu est actuellement libre de toute occupation, excepté les parcelles <strong>197G, 197F et 206L</strong> qui font l'objet d'un <strong>contrat d'occupation précaire et gratuite</strong> par Monsieur Georges DUREZ. <em>(copie du contrat ci-annexé)</em>"<br><br>
+        "L'acquéreur déclare avoir pris connaissance du contrat d'occupation précaire ci-annexé, et déclare acquérir le bien en l'état, avec l'occupation mentionnée ci-dessus."
+    </div>
+    
+    <div class="impact">
+        <strong>→ Implications majeures :</strong>
+        <ul>
+            <li>Le bail à ferme est transformé en <strong>occupation précaire et gratuite</strong> (commodat)</li>
+            <li><strong>3 parcelles libérées</strong> : 197L, 200R, 209G2 ne sont plus occupées</li>
+            <li>Plus de clause de renonciation au droit de préemption (car plus de bail à ferme)</li>
+            <li>La convention d'occupation est annexée au compromis</li>
+        </ul>
+    </div>
+</div>
+
+<div class="change-block">
+    <h3>Remise des clés</h3>
+    <div class="old">
+        <span class="label label-old">Ancien :</span><br>
+        "remettre à l'acquéreur l'ensemble des clés <strong>(télécommandes, code de l'alarme, etc.)</strong>"
+    </div>
+    <div class="new">
+        <span class="label label-new">Nouveau :</span><br>
+        "remettre à l'acquéreur l'ensemble des clés"
+    </div>
+</div>
+
+<h2 id="etat">6. État du Bien</h2>
+
+<div class="change-block">
+    <h3>Mérule - Obligation de l'acquéreur</h3>
+    <div class="old">
+        <span class="label label-old">Ancien :</span><br>
+        "L'acquéreur est bien au courant de cette situation et en fera son affaire personnelle sans recours possible contre le vendeur."
+    </div>
+    <div class="new">
+        <span class="label label-new">Nouveau :</span><br>
+        "L'acquéreur est bien au courant de cette situation et en fera son affaire personnelle sans recours possible contre le vendeur, <strong>à charge de prendre sans délai toutes mesures conservatoires utiles</strong>."
+    </div>
+</div>
+
+<div class="change-block">
+    <h3>Clause FRB vendeur non-professionnel</h3>
+    <div class="old">
+        <span class="label label-old">Ancien :</span><br>
+        "La Fondation Roi Baudouin n'est pas un vendeur professionnel de l'immobilier. <strong>Il</strong> déclare avoir reçu les biens..."
+    </div>
+    <div class="new">
+        <span class="label label-new">Nouveau :</span><br>
+        "La Fondation Roi Baudouin <strong>déclare qu'elle</strong> n'est pas un vendeur professionnel de l'immobilier. <strong>Elle</strong> déclare avoir reçu les biens..."
+    </div>
+</div>
+
+<div class="positive">
+    <h3>✓ Suppression de la condition suspensive pollution</h3>
+    <div class="old">
+        <span class="label label-old">Supprimé :</span><br>
+        "La vente est soumise à la condition suspensive d'absence de citerne à purin non vidée ou plus généralement, de pollution incompatible avec la fonction d'habitat, selon la procédure prévue par l'ordonnance « sol »"
+    </div>
+    <div class="impact">
+        <strong>→ Impact :</strong> Cette condition suspensive a été supprimée, simplifiant le processus.
+    </div>
+</div>
+
+<h2 id="division">7. Division et Urbanisme</h2>
+
+<div class="change-block">
+    <h3>Revenu cadastral - Précision ajoutée</h3>
+    <div class="old">
+        <span class="label label-old">Ancien :</span><br>
+        "Le vendeur déclare qu'il n'existe pas de procédure de révision en cours."
+    </div>
+    <div class="new">
+        <span class="label label-new">Nouveau :</span><br>
+        "Le vendeur déclare qu'il n'existe pas de procédure de révision en cours, <strong>sans préjudice de ce qui découlera de la division de l'ensemble immobilier</strong>."
+    </div>
+</div>
+
+<div class="change-block">
+    <h3>Source du certificat urbanistique</h3>
+    <div class="old">
+        <span class="label label-old">Ancien :</span><br>
+        "Le vendeur déclare sur base d'une <strong>lettre</strong> adressée par la Commune de Frameries..."
+    </div>
+    <div class="new">
+        <span class="label label-new">Nouveau :</span><br>
+        "Le vendeur déclare sur base du <strong>CU n°1</strong> adressé par la Commune de Frameries..."
+    </div>
+</div>
+
+<div class="positive">
+    <h3>✓ Nouvelle clause sur la division</h3>
+    <div class="new">
+        <span class="label label-new">Ajout important :</span><br>
+        "S'agissant de la <strong>division de l'ensemble en lots</strong> – non qualifiés de résidentiels, hormis le corps de logis – elle sera <strong>la seule responsabilité des acquéreurs</strong> et ce, à l'entière décharge des vendeurs.<br><br>
+        Pour autant, les acquéreurs ayant posé comme exigence substantielle l'obtention de lot, susceptible de <strong>réduction de droits d'enregistrement</strong>, les vendeurs consentiront à la <strong>signature de l'acte de base avant la passation des actes d'acquisition</strong> relatifs à l'ENSEMBLE DU BIEN."
+    </div>
+    <div class="impact">
+        <strong>→ Impact positif :</strong> Cette clause garantit que les vendeurs signeront l'acte de base avant les actes d'acquisition, permettant la division en lots et l'accès aux réductions de droits d'enregistrement.
+    </div>
+</div>
+
+<div class="positive">
+    <h3>✓ Suppression de la condition suspensive préemption</h3>
+    <div class="old">
+        <span class="label label-old">Supprimé :</span><br>
+        "La vente est faite sous la condition suspensive du non exercice des droits de préemption et de préférence."
+    </div>
+    <div class="impact">
+        <strong>→ Impact :</strong> Cohérent avec la disparition du bail à ferme - plus de droit de préemption applicable.
+    </div>
+</div>
+
+<h2 id="citerne">8. Citerne à Mazout</h2>
+
+<div class="change-block">
+    <h3>Précisions sur la citerne</h3>
+    <div class="old">
+        <span class="label label-old">Ancien :</span><br>
+        "Le vendeur déclare que la cuve à mazout n'a pas été mise en conformité. L'acquéreur déclare qu'il en fera son affaire personnelle."
+    </div>
+    <div class="new">
+        <span class="label label-new">Nouveau :</span><br>
+        "Le vendeur déclare que la cuve à mazout n'a pas été mise en conformité <strong>mais ne présente aucune fuite</strong>. L'acquéreur déclare qu'il en fera son affaire personnelle de <strong>l'inertion ou du remplacement de la citerne</strong>. Le vendeur veillera à l'introduction d'une <strong>déclaration environnementale de classe III à céder</strong> dès l'acte authentique d'achat (art. 60 du décret permis d'environnement)."
+    </div>
+</div>
+
+<h2 id="annexes">9. Nouvelles Annexes</h2>
+
+<div class="positive">
+    <h3>✓ Annexes ajoutées</h3>
+    <div class="new">
+        <span class="label label-new">Nouveautés :</span>
+        <ul>
+            <li><strong>Annexe 1 :</strong> Octroi d'un abattement (Région wallonne)</li>
+            <li><strong>Annexe 2 :</strong> Octroi d'une réduction des droits d'enregistrement (Région wallonne)</li>
+            <li><strong>Contrat d'occupation précaire</strong> de M. Durez (référencé dans le texte)</li>
+        </ul>
+    </div>
+</div>
+
+<h2>📊 Récapitulatif des Changements</h2>
+
+<table>
+    <tr>
+        <th>Élément</th>
+        <th>Ancienne version</th>
+        <th>Nouvelle version</th>
+        <th>Impact</th>
+    </tr>
+    <tr>
+        <td><strong>Structure juridique</strong></td>
+        <td>Fondation privée/coopérative en formation</td>
+        <td>Achat solidaire en future division + habitat groupé</td>
+        <td>⚠️ Majeur</td>
+    </tr>
+    <tr>
+        <td><strong>Occupation Durez</strong></td>
+        <td>Bail à ferme (6 parcelles)</td>
+        <td>Occupation précaire (3 parcelles)</td>
+        <td>⚠️ Majeur</td>
+    </tr>
+    <tr>
+        <td><strong>Notaire consignataire</strong></td>
+        <td>MyNot (Grez-Doiceau)</td>
+        <td>Erneux & Annet (Namur)</td>
+        <td>✓ Administratif</td>
+    </tr>
+    <tr>
+        <td><strong>Division</strong></td>
+        <td>Non mentionnée</td>
+        <td>Responsabilité acquéreurs + acte de base garanti</td>
+        <td>✓ Positif</td>
+    </tr>
+    <tr>
+        <td><strong>Condition préemption</strong></td>
+        <td>Présente</td>
+        <td>Supprimée</td>
+        <td>✓ Simplifié</td>
+    </tr>
+    <tr>
+        <td><strong>Condition pollution</strong></td>
+        <td>Présente</td>
+        <td>Supprimée</td>
+        <td>✓ Simplifié</td>
+    </tr>
+    <tr>
+        <td><strong>Mérule</strong></td>
+        <td>À charge acquéreur</td>
+        <td>À charge acquéreur + mesures conservatoires</td>
+        <td>→ Précisé</td>
+    </tr>
+    <tr>
+        <td><strong>Citerne mazout</strong></td>
+        <td>Non conforme</td>
+        <td>Non conforme mais sans fuite + déclaration env.</td>
+        <td>→ Précisé</td>
+    </tr>
+</table>
+
+<div class="summary" style="margin-top: 30px;">
+    <h2>🎯 Points d'attention pour la signature</h2>
+    <ul>
+        <li>Vérifier que la <strong>convention d'occupation précaire</strong> de M. Durez est bien annexée et conforme aux accords</li>
+        <li>S'assurer que le <strong>régime matrimonial</strong> de Malaud-Luyten est complété (***)</li>
+        <li>Confirmer les <strong>modalités de la division</strong> et le calendrier de l'acte de base</li>
+        <li>Vérifier les <strong>annexes fiscales</strong> (abattement et réduction droits d'enregistrement)</li>
+    </ul>
+</div>
+
+<p style="text-align: center; color: #7f8c8d; margin-top: 40px;">
+    <em>Document généré le 1er décembre 2025 - Comparaison automatisée</em>
+</p>
+    </div>
+  </CompromisWrapper>
+</BaseLayout>
