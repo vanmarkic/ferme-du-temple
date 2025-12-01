@@ -26,7 +26,7 @@ This is an Astro-based website with React components, featuring:
 ### Prerequisites
 
 - Node.js 18+
-- npm or yarn
+- pnpm
 - Supabase account
 - Resend account (for emails)
 
@@ -40,7 +40,7 @@ cd ferme-du-temple
 
 2. **Install dependencies**
 ```bash
-npm install
+pnpm install
 ```
 
 3. **Set up environment variables**
@@ -62,7 +62,7 @@ Required variables:
 
 4. **Run database migrations**
 ```bash
-npm run migrate
+pnpm migrate
 ```
 
 This creates:
@@ -71,14 +71,14 @@ This creates:
 
 5. **Create your first admin user**
 ```bash
-npm run create-admin
+pnpm create-admin
 ```
 
 Follow the prompts to set up your admin email and password.
 
 6. **Start development server**
 ```bash
-npm run dev
+pnpm dev
 ```
 
 Visit http://localhost:4321
@@ -106,16 +106,16 @@ For detailed documentation, see [docs/ADMIN_SYSTEM.md](docs/ADMIN_SYSTEM.md)
 
 ## Available Scripts
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run test` - Run unit tests
-- `npm run test:watch` - Run tests in watch mode
-- `npm run test:e2e` - Run Playwright E2E tests
-- `npm run test:e2e:ui` - Run E2E tests with UI
-- `npm run migrate` - Run database migrations
-- `npm run create-admin` - Create admin user interactively
-- `npm run lint` - Run ESLint
+- `pnpm dev` - Start development server
+- `pnpm build` - Build for production
+- `pnpm preview` - Preview production build
+- `pnpm test` - Run unit tests
+- `pnpm test:watch` - Run tests in watch mode
+- `pnpm test:e2e` - Run Playwright E2E tests
+- `pnpm test:e2e:ui` - Run E2E tests with UI
+- `pnpm migrate` - Run database migrations
+- `pnpm create-admin` - Create admin user interactively
+- `pnpm lint` - Run ESLint
 
 ## Project Structure
 

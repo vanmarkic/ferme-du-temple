@@ -24,7 +24,7 @@
 - write tests for new features before implementing them
 - everytime you want to write a test script, try to write a proper test runnable with vitest instead
 - use vitest instead of jest
-- use "npm run test" rather than "npm test" to run tests
+- use "pnpm test" to run tests
 - try to run and test whatever you write and automatically continue to solve errors until it works
 - very important: when test breaks after refactoring, investigate and ask before making any changes
 
