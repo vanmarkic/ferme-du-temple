@@ -9,8 +9,8 @@ async function isSuperAdmin(cookies: Parameters<typeof isAdmin>[0]): Promise<boo
   const { session } = await getSession(cookies);
   if (!session) return false;
 
-  const supabaseUrl = import.meta.env.SUPABASE_URL;
-  const supabaseServiceKey = import.meta.env.SUPABASE_SERVICE_ROLE_KEY;
+  const supabaseUrl = import.meta.env.SUPABASE_URL || process.env.SUPABASE_URL || '';
+  const supabaseServiceKey = import.meta.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY || '';
   const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
   const { data } = await supabase
@@ -111,8 +111,8 @@ export const GET: APIRoute = async ({ request, cookies }) => {
     }
 
     // Create authenticated Supabase client
-    const supabaseUrl = import.meta.env.SUPABASE_URL;
-    const supabaseAnonKey = import.meta.env.SUPABASE_ANON_KEY;
+    const supabaseUrl = import.meta.env.SUPABASE_URL || process.env.SUPABASE_URL || '';
+    const supabaseAnonKey = import.meta.env.SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY || '';
 
     const supabase = createClient(supabaseUrl, supabaseAnonKey);
     await supabase.auth.setSession({
@@ -213,8 +213,8 @@ export const DELETE: APIRoute = async ({ url, cookies }) => {
       );
     }
 
-    const supabaseUrl = import.meta.env.SUPABASE_URL;
-    const supabaseServiceKey = import.meta.env.SUPABASE_SERVICE_ROLE_KEY;
+    const supabaseUrl = import.meta.env.SUPABASE_URL || process.env.SUPABASE_URL || '';
+    const supabaseServiceKey = import.meta.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY || '';
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
     const { error } = await supabase
