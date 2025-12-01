@@ -1,159 +1,156 @@
----
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { CompromisWrapper } from '../../components/CompromisWrapper';
-
-export const prerender = false;
----
-
-<BaseLayout title="Comparaison Compromis - Ferme du Temple">
-  <CompromisWrapper client:load>
-    <div class="compromis-content">
-      <style>
-        .compromis-content {
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparaison Compromis - Ferme du Temple</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { 
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            max-width: 1200px;
-            margin: 0 auto;
+            max-width: 1200px; 
+            margin: 0 auto; 
             padding: 20px;
             background: #f5f5f5;
             color: #333;
             line-height: 1.6;
-            box-sizing: border-box;
         }
-        .compromis-content * { box-sizing: border-box; }
-        .compromis-content h1 {
-            color: #2c3e50;
+        h1 { 
+            color: #2c3e50; 
             border-bottom: 3px solid #3498db;
             padding-bottom: 10px;
         }
-        .compromis-content h2 {
-            color: #2980b9;
+        h2 { 
+            color: #2980b9; 
             margin-top: 30px;
             background: #ecf0f1;
             padding: 10px 15px;
             border-radius: 5px;
         }
-        .compromis-content h3 {
+        h3 {
             color: #16a085;
             margin-top: 20px;
         }
-        .compromis-content .summary {
+        .summary {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             padding: 20px;
             border-radius: 10px;
             margin-bottom: 30px;
         }
-        .compromis-content .summary h2 {
-            color: white;
+        .summary h2 { 
+            color: white; 
             background: none;
             margin-top: 0;
         }
-        .compromis-content .summary ul { margin: 0; padding-left: 20px; }
-        .compromis-content .change-block {
+        .summary ul { margin: 0; padding-left: 20px; }
+        .change-block {
             background: white;
             border-radius: 8px;
             padding: 20px;
             margin: 15px 0;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-        .compromis-content .old {
-            background: #ffebee;
+        .old { 
+            background: #ffebee; 
             border-left: 4px solid #e74c3c;
             padding: 10px 15px;
             margin: 10px 0;
             border-radius: 0 5px 5px 0;
         }
-        .compromis-content .new {
-            background: #e8f5e9;
+        .new { 
+            background: #e8f5e9; 
             border-left: 4px solid #27ae60;
             padding: 10px 15px;
             margin: 10px 0;
             border-radius: 0 5px 5px 0;
         }
-        .compromis-content .label {
+        .label {
             font-weight: bold;
             font-size: 0.85em;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-        .compromis-content .label-old { color: #c0392b; }
-        .compromis-content .label-new { color: #27ae60; }
-        .compromis-content .impact {
+        .label-old { color: #c0392b; }
+        .label-new { color: #27ae60; }
+        .impact {
             background: #fff3cd;
             border: 1px solid #ffc107;
             padding: 12px 15px;
             border-radius: 5px;
             margin-top: 10px;
         }
-        .compromis-content .impact strong { color: #856404; }
-        .compromis-content .critical {
+        .impact strong { color: #856404; }
+        .critical {
             background: #f8d7da;
             border: 2px solid #dc3545;
             padding: 15px;
             border-radius: 8px;
             margin: 20px 0;
         }
-        .compromis-content .critical h3 { color: #721c24; margin-top: 0; }
-        .compromis-content .positive {
+        .critical h3 { color: #721c24; margin-top: 0; }
+        .positive {
             background: #d4edda;
             border: 2px solid #28a745;
             padding: 15px;
             border-radius: 8px;
             margin: 20px 0;
         }
-        .compromis-content .positive h3 { color: #155724; margin-top: 0; }
-        .compromis-content del {
-            background: #ffd7d5;
+        .positive h3 { color: #155724; margin-top: 0; }
+        del { 
+            background: #ffd7d5; 
             text-decoration: line-through;
             color: #a94442;
         }
-        .compromis-content ins {
-            background: #d4fcbc;
+        ins { 
+            background: #d4fcbc; 
             text-decoration: none;
             color: #2e7d32;
         }
-        .compromis-content table {
+        table {
             width: 100%;
             border-collapse: collapse;
             margin: 15px 0;
         }
-        .compromis-content th, .compromis-content td {
+        th, td {
             border: 1px solid #ddd;
             padding: 12px;
             text-align: left;
         }
-        .compromis-content th {
+        th {
             background: #3498db;
             color: white;
         }
-        .compromis-content tr:nth-child(even) { background: #f9f9f9; }
-        .compromis-content .toc {
+        tr:nth-child(even) { background: #f9f9f9; }
+        .toc {
             background: white;
             padding: 20px;
             border-radius: 8px;
             margin-bottom: 30px;
         }
-        .compromis-content .toc ul {
-            list-style: none;
+        .toc ul { 
+            list-style: none; 
             padding: 0;
             columns: 2;
         }
-        .compromis-content .toc li {
+        .toc li { 
             padding: 5px 0;
             border-bottom: 1px dotted #ddd;
         }
-        .compromis-content .toc a {
-            color: #2980b9;
+        .toc a { 
+            color: #2980b9; 
             text-decoration: none;
         }
-        .compromis-content .toc a:hover { text-decoration: underline; }
-        .compromis-content code {
+        .toc a:hover { text-decoration: underline; }
+        code {
             background: #f4f4f4;
             padding: 2px 6px;
             border-radius: 3px;
             font-size: 0.9em;
         }
-      </style>
+    </style>
+</head>
+<body>
 
 <h1>🔍 Comparaison des Compromis de Vente<br>Ferme du Temple - Frameries</h1>
 
@@ -162,7 +159,7 @@ export const prerender = false;
     <ul>
         <li><strong>Version ancienne :</strong> 04 juillet 2025</li>
         <li><strong>Version nouvelle :</strong> 01 décembre 2025</li>
-        <li><strong>Changement principal :</strong> Passage d'un bail à ferme (Durez) à une convention d'occupation précaire</li>
+        <li><strong style="color: #ffcccc;">⚠️ Recul occupation Durez :</strong> Dans l'ancienne version, Durez renonçait au bail sur toutes les parcelles (accès quasi total). Dans la nouvelle, il garde 3 parcelles entières (197G, 197F, 206L) en occupation précaire.</li>
         <li><strong>Structure d'achat :</strong> Achat "en état de future division" avec projet d'habitat groupé</li>
         <li><strong>Notaire consignataire :</strong> Changement de MyNot vers Erneux & Annet</li>
     </ul>
@@ -175,7 +172,7 @@ export const prerender = false;
         <li><a href="#acquereurs">2. Structure d'acquisition</a></li>
         <li><a href="#bien">3. Description du bien</a></li>
         <li><a href="#prix">4. Prix et paiement</a></li>
-        <li><a href="#occupation">5. Occupation (Durez) ⚠️</a></li>
+        <li><a href="#occupation" style="color: #dc3545; font-weight: bold;">5. Occupation (Durez) ❌ RECUL</a></li>
         <li><a href="#etat">6. État du bien</a></li>
         <li><a href="#division">7. Division & urbanisme</a></li>
         <li><a href="#citerne">8. Citerne à mazout</a></li>
@@ -287,57 +284,84 @@ export const prerender = false;
 <h2 id="occupation">5. Occupation - Monsieur Durez</h2>
 
 <div class="critical">
-    <h3>⚠️ Changement MAJEUR : Statut de l'occupation</h3>
+    <h3>⚠️ Changement MAJEUR : Perte d'accès à des terrains pour les acquéreurs</h3>
     
-    <h4>Parcelles concernées</h4>
+    <h4>Comparaison de l'accès effectif aux terrains</h4>
     <table>
         <tr>
             <th>Version</th>
-            <th>Parcelles occupées</th>
-            <th>Type de contrat</th>
+            <th style="background: #27ae60;">Terrains accessibles immédiatement</th>
+            <th style="background: #e74c3c;">Terrains occupés par M. Durez</th>
         </tr>
         <tr>
-            <td><strong>Ancienne</strong></td>
-            <td>197G, 197F, 197L, 200R, 209G2, 206L</td>
-            <td>Bail à ferme</td>
+            <td><strong>Ancienne (juillet 2025)</strong></td>
+            <td style="background: #d4edda;">197G, 197F, 197L, 200R, 209G2 + majeure partie de 206L</td>
+            <td style="background: #f8d7da;">Seulement une <strong>partie</strong> de 206L (5 ans)</td>
         </tr>
         <tr>
-            <td><strong>Nouvelle</strong></td>
-            <td>197G, 197F, 206L</td>
-            <td>Occupation précaire et gratuite</td>
+            <td><strong>Nouvelle (décembre 2025)</strong></td>
+            <td style="background: #d4edda;">197L, 200R, 209G2</td>
+            <td style="background: #f8d7da;"><strong>197G, 197F, 206L entières</strong></td>
         </tr>
     </table>
     
+    <div style="background: #f8d7da; border: 2px solid #dc3545; padding: 15px; border-radius: 8px; margin: 15px 0;">
+        <h4 style="color: #721c24; margin-top: 0;">❌ Ce que les acquéreurs ont perdu :</h4>
+        <ul style="color: #721c24; margin-bottom: 0;">
+            <li>Parcelle <strong>197G entière</strong> → maintenant occupée</li>
+            <li>Parcelle <strong>197F entière</strong> → maintenant occupée</li>
+            <li>La <strong>majeure partie de 206L</strong> → toute la parcelle maintenant occupée (au lieu de juste une partie sous liseré pointillé)</li>
+        </ul>
+    </div>
+    
     <div class="old">
-        <span class="label label-old">Ancien (supprimé intégralement) :</span><br>
+        <span class="label label-old">Ancienne version (plus favorable aux acquéreurs) :</span><br>
         <ul>
             <li>Parcelles 197G, 197F, 197L, 200R, 209G2, 206L occupées en vertu d'un <strong>bail à ferme</strong></li>
-            <li>Intervention de M. Durez avec :
+            <li><strong>Intervention de M. Durez</strong> qui s'engageait à :
                 <ul>
-                    <li>Renonciation au droit de préemption</li>
-                    <li>Dispense de notification</li>
-                    <li>Renonciation au bail à ferme sans indemnité</li>
-                    <li>Renonciation au droit de cession du bail</li>
+                    <li>✓ Renoncer au droit de préemption</li>
+                    <li>✓ Dispenser de notification</li>
+                    <li>✓ Renoncer au bail à ferme <strong>sans indemnité</strong></li>
+                    <li>✓ Renoncer au droit de cession du bail</li>
                 </ul>
             </li>
-            <li>En échange : occupation gratuite pendant <strong>5 ans</strong> de la partie de la parcelle 206L (sous liseré pointillé bleu)</li>
+            <li>En échange : occupation gratuite pendant 5 ans d'une <strong>partie seulement</strong> de la parcelle 206L (sous liseré pointillé bleu)</li>
         </ul>
+        <p><strong>→ Résultat : quasi toutes les terres accessibles dès l'achat</strong></p>
     </div>
     
     <div class="new">
-        <span class="label label-new">Nouveau :</span><br>
+        <span class="label label-new">Nouvelle version (moins favorable aux acquéreurs) :</span><br>
         "Le bien vendu est actuellement libre de toute occupation, excepté les parcelles <strong>197G, 197F et 206L</strong> qui font l'objet d'un <strong>contrat d'occupation précaire et gratuite</strong> par Monsieur Georges DUREZ. <em>(copie du contrat ci-annexé)</em>"<br><br>
         "L'acquéreur déclare avoir pris connaissance du contrat d'occupation précaire ci-annexé, et déclare acquérir le bien en l'état, avec l'occupation mentionnée ci-dessus."
+        <p><strong>→ Résultat : 3 parcelles entières restent inaccessibles</strong></p>
     </div>
     
     <div class="impact">
-        <strong>→ Implications majeures :</strong>
+        <strong>→ Points d'attention :</strong>
         <ul>
-            <li>Le bail à ferme est transformé en <strong>occupation précaire et gratuite</strong> (commodat)</li>
-            <li><strong>3 parcelles libérées</strong> : 197L, 200R, 209G2 ne sont plus occupées</li>
-            <li>Plus de clause de renonciation au droit de préemption (car plus de bail à ferme)</li>
-            <li>La convention d'occupation est annexée au compromis</li>
+            <li>⚠️ <strong>Recul significatif</strong> : Dans l'ancienne version, Durez renonçait au bail sur TOUTES les parcelles</li>
+            <li>⚠️ <strong>Durée de l'occupation précaire</strong> : À vérifier dans le contrat annexé (quelle échéance ?)</li>
+            <li>⚠️ <strong>Conditions de sortie</strong> : Quelles sont les modalités pour récupérer ces terrains ?</li>
+            <li>Le bail à ferme est transformé en occupation précaire (commodat) - juridiquement plus facile à résilier, mais actuellement en place</li>
         </ul>
+    </div>
+    
+    <h4>🗺️ Plan cadastral des parcelles</h4>
+    <div style="background: white; padding: 15px; border-radius: 8px; margin-top: 15px;">
+        <iframe 
+            width="100%" 
+            height="500" 
+            style="border: 1px solid #ddd; border-radius: 5px;"
+            src="https://geoportail.wallonie.be/files/GeoViewer/WOMLIGHT-5/index.html#SHARE=1A81963F3A964AE4826A18302D06E9F9"
+            title="Plan cadastral - Ferme du Temple - Parcelles concernées">
+        </iframe>
+        <p style="font-size: 0.85em; color: #666; margin-top: 10px; text-align: center;">
+            <em>Source : Géoportail de la Wallonie - Parcellaire cadastral</em><br>
+            <span style="color: #27ae60;">✓ <strong>Parcelles accessibles :</strong> 197L, 200R, 209G2</span> → 
+            <span style="color: #dc3545;">✗ <strong>Parcelles occupées :</strong> 197F, 197G, 206L</span>
+        </p>
     </div>
 </div>
 
@@ -484,9 +508,9 @@ export const prerender = false;
     </tr>
     <tr>
         <td><strong>Occupation Durez</strong></td>
-        <td>Bail à ferme (6 parcelles)</td>
-        <td>Occupation précaire (3 parcelles)</td>
-        <td>⚠️ Majeur</td>
+        <td>Renonciation bail sur 6 parcelles → accès quasi total</td>
+        <td>Occupation précaire sur 3 parcelles entières (197G, 197F, 206L)</td>
+        <td style="background: #f8d7da; color: #721c24;">❌ Recul</td>
     </tr>
     <tr>
         <td><strong>Notaire consignataire</strong></td>
@@ -526,9 +550,20 @@ export const prerender = false;
     </tr>
 </table>
 
+<div class="critical" style="margin-top: 30px;">
+    <h2 style="color: #721c24;">❌ Point de vigilance majeur</h2>
+    <p><strong>Perte d'accès aux terrains :</strong> La nouvelle version vous fait perdre l'accès immédiat aux parcelles 197G, 197F et 206L entières. Dans l'ancienne version, M. Durez renonçait au bail sur toutes les parcelles et ne gardait qu'une partie de 206L.</p>
+    <ul>
+        <li>Quelle est la <strong>durée</strong> de l'occupation précaire dans le contrat annexé ?</li>
+        <li>Quelles sont les <strong>conditions de sortie</strong> pour récupérer ces terrains ?</li>
+        <li>Cette perte d'accès est-elle compensée d'une autre manière ?</li>
+    </ul>
+</div>
+
 <div class="summary" style="margin-top: 30px;">
     <h2>🎯 Points d'attention pour la signature</h2>
     <ul>
+        <li>⚠️ <strong>Lire attentivement le contrat d'occupation précaire</strong> de M. Durez annexé : durée, conditions, parcelles exactes</li>
         <li>Vérifier que la <strong>convention d'occupation précaire</strong> de M. Durez est bien annexée et conforme aux accords</li>
         <li>S'assurer que le <strong>régime matrimonial</strong> de Malaud-Luyten est complété (***)</li>
         <li>Confirmer les <strong>modalités de la division</strong> et le calendrier de l'acte de base</li>
@@ -539,6 +574,6 @@ export const prerender = false;
 <p style="text-align: center; color: #7f8c8d; margin-top: 40px;">
     <em>Document généré le 1er décembre 2025 - Comparaison automatisée</em>
 </p>
-    </div>
-  </CompromisWrapper>
-</BaseLayout>
+
+</body>
+</html>
