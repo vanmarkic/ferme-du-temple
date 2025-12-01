@@ -28,9 +28,7 @@ import { VersionMismatchWarning } from './VersionMismatchWarning';
 import { useOrderedParticipantBreakdown } from './hooks/useCalculatorState';
 import HorizontalSwimLaneTimeline from './HorizontalSwimLaneTimeline';
 import { UnlockProvider, useUnlock } from './contexts/UnlockContext';
-import { UnlockButton } from './shared/UnlockButton';
-import { ReadonlyModeSwitch } from './shared/ReadonlyModeSwitch';
-import { SaveBar } from './shared/SaveBar';
+import { EditModeToolbar } from './shared/EditModeToolbar';
 import toast, { Toaster } from 'react-hot-toast';
 import { useCalculator } from './contexts/CalculatorContext';
 
@@ -321,22 +319,14 @@ export default function EnDivisionCorrect() {
 
 
         <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-100 p-6">
-          {/* Floating Mode Controls */}
-          <div className="fixed top-6 left-6 z-40 no-print flex flex-col gap-2">
-            <ReadonlyModeSwitch />
-            <UnlockButton />
-          </div>
-
-          {/* Save/Discard Bar - hidden for unauthenticated (readonly) users */}
-          {!isForceReadonly && (
-            <SaveBar
-              isDirty={isDirty}
-              isSaving={isSyncing}
-              error={syncError}
-              onSave={save}
-              onDiscard={discard}
-            />
-          )}
+          {/* Unified Edit Mode Toolbar */}
+          <EditModeToolbar
+            isDirty={isDirty}
+            isSaving={isSyncing}
+            error={syncError}
+            onSave={save}
+            onDiscard={discard}
+          />
 
           <div className="max-w-7xl mx-auto">
             {/* Print-only header */}

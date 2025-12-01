@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Download, Upload, Save, ChevronLeft, Printer } from 'lucide-react';
+import { Download, Upload, FolderOpen, ChevronLeft, Printer, FileSpreadsheet } from 'lucide-react';
 
 interface VerticalToolbarProps {
   onDownloadScenario: () => void;
@@ -60,7 +60,7 @@ export function VerticalToolbar({
             className="bg-blue-600 hover:bg-blue-700 text-white font-medium p-2.5 rounded-lg transition-colors flex flex-col items-center justify-center gap-1 border border-blue-600"
             title="Excel"
           >
-            <Download className="w-5 h-5" />
+            <FileSpreadsheet className="w-5 h-5" />
             <span className="text-[10px]">Excel</span>
           </button>
 
@@ -91,13 +91,13 @@ export function VerticalToolbar({
         </div>
       </div>
 
-      {/* Floppy disk button - always visible */}
+      {/* Folder button - always visible */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="absolute right-0 top-0 bg-white hover:bg-gray-50 rounded-l-lg shadow-lg border border-gray-200 p-3 transition-all"
         title={isOpen ? "Fermer" : "Gestion des Scénarios"}
       >
-        <Save className="w-6 h-6 text-gray-600" />
+        <FolderOpen className="w-6 h-6 text-gray-600" />
       </button>
     </div>
   );

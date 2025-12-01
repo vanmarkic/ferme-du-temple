@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { X } from 'lucide-react';
 import type {
   FraisGenerauxYearlyEvent,
@@ -21,6 +22,15 @@ export default function FraisGenerauxDetailModal({
   onClose
 }: FraisGenerauxDetailModalProps) {
   const isReimbursement = event.type === 'NEWCOMER_FRAIS_GENERAUX_REIMBURSEMENT';
+
+  // Lock body scroll when modal is mounted
+  useEffect(() => {
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, []);
 
   return (
     <div className="fixed inset-0 bg-white z-50 overflow-y-auto">

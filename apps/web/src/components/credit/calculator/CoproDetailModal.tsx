@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { X } from 'lucide-react';
 import { formatCurrency, type Participant } from '@repo/credit-calculator/utils';
 import { useCoproExpectedSales } from '../hooks/useCoproExpectedSales';
@@ -33,6 +34,17 @@ export default function CoproDetailModal({
     deedDate,
     coproReservesShare
   );
+
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = originalOverflow;
+      };
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
