@@ -1,10 +1,14 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comparaison Compromis - Ferme du Temple</title>
-    <style>
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { CompromisWrapper } from '../../components/CompromisWrapper';
+
+export const prerender = false;
+---
+
+<BaseLayout title="Comparaison Compromis - Ferme du Temple">
+  <CompromisWrapper client:load>
+    <div class="compromis-content">
+      <style>
         * { box-sizing: border-box; }
         body { 
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -149,8 +153,6 @@
             font-size: 0.9em;
         }
     </style>
-</head>
-<body>
 
 <h1>🔍 Comparaison des Compromis de Vente<br>Ferme du Temple - Frameries</h1>
 
@@ -574,6 +576,6 @@
 <p style="text-align: center; color: #7f8c8d; margin-top: 40px;">
     <em>Document généré le 1er décembre 2025 - Comparaison automatisée</em>
 </p>
-
-</body>
-</html>
+    </div>
+  </CompromisWrapper>
+</BaseLayout>
