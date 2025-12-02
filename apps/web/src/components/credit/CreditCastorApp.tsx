@@ -50,11 +50,14 @@ export default function CreditCastorApp() {
 
   // Both authenticated and unauthenticated users can access the app
   // Unauthenticated users will be in readonly mode (enforced by UnlockProvider)
+  const isAuthenticated = authState === 'authenticated';
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-magenta/5 to-butter-yellow/5 flex flex-col md:flex-row">
-      <AdminSidebar currentPage="credit" />
+      {/* Only show AdminSidebar for authenticated users */}
+      {isAuthenticated && <AdminSidebar currentPage="credit" />}
       <div className="flex-1 pt-14 md:pt-0 overflow-auto">
-        <UnlockProvider forceReadonly={authState === 'unauthenticated'}>
+        <UnlockProvider forceReadonly={!isAuthenticated}>
           <CalculatorProvider>
             <EnDivisionCorrect />
           </CalculatorProvider>
