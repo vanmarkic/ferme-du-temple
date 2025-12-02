@@ -19,7 +19,7 @@ describe('validateTwoLoanFinancing', () => {
     expect(Object.keys(errors)).toHaveLength(0);
   });
 
-  it('should error when renovation amount override exceeds total renovation', () => {
+  it('should allow renovation amount override to exceed calculated value', () => {
     const participant: Participant = {
       name: 'Test',
       capitalApporte: 100000,
@@ -27,12 +27,11 @@ describe('validateTwoLoanFinancing', () => {
       interestRate: 4.5,
       durationYears: 20,
       useTwoLoans: true,
-      loan2RenovationAmount: 150000, // Greater than 100k total
+      loan2RenovationAmount: 150000, // Greater than 100k calculated - this is now allowed
     };
 
     const errors = validateTwoLoanFinancing(participant, 100000);
-    expect(errors.renovationAmount).toBeDefined();
-    expect(errors.renovationAmount).toContain('dépasse le coût calculé');
+    expect(errors.renovationAmount).toBeUndefined(); // No error - user can override to any positive value
   });
 
   it('should not error when renovation amount override is not set (uses default)', () => {
@@ -48,6 +47,22 @@ describe('validateTwoLoanFinancing', () => {
 
     const errors = validateTwoLoanFinancing(participant, 100000);
     expect(errors.renovationAmount).toBeUndefined();
+  });
+
+  it('should error when renovation amount is negative', () => {
+    const participant: Participant = {
+      name: 'Test',
+      capitalApporte: 100000,
+      registrationFeesRate: 12.5,
+      interestRate: 4.5,
+      durationYears: 20,
+      useTwoLoans: true,
+      loan2RenovationAmount: -1000, // Negative value
+    };
+
+    const errors = validateTwoLoanFinancing(participant, 100000);
+    expect(errors.renovationAmount).toBeDefined();
+    expect(errors.renovationAmount).toContain('négatif');
   });
 
   it('should error when loan delay >= total duration', () => {

@@ -10,14 +10,17 @@ export interface TwoLoanValidationErrors {
  *
  * Removed validations:
  * - capitalAllocation: No longer needed (capitalForLoan1 merged into capitalApporte)
+ * - renovationAmount max limit: Users can override to any positive value
  *
  * Remaining validations:
- * - renovationAmount: Optional override can't exceed total renovation cost
+ * - renovationAmount: Must be non-negative if set
  * - loanDelay: Loan 2 must have at least 1 year duration
+ *
+ * @param personalRenovationCost - Kept for backward compatibility, not currently used
  */
 export function validateTwoLoanFinancing(
   participant: Participant,
-  personalRenovationCost: number
+  personalRenovationCost: number // eslint-disable-line @typescript-eslint/no-unused-vars
 ): TwoLoanValidationErrors {
   const errors: TwoLoanValidationErrors = {};
 
@@ -27,9 +30,7 @@ export function validateTwoLoanFinancing(
 
   // Validate renovation amount override (if set)
   if (participant.loan2RenovationAmount !== undefined) {
-    if (participant.loan2RenovationAmount > personalRenovationCost) {
-      errors.renovationAmount = `Montant construction (${participant.loan2RenovationAmount.toLocaleString()} €) dépasse le coût calculé (${personalRenovationCost.toLocaleString()} €)`;
-    }
+    // Allow any positive value - user may want to override higher than calculated
     if (participant.loan2RenovationAmount < 0) {
       errors.renovationAmount = `Montant construction ne peut pas être négatif`;
     }
