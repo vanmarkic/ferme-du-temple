@@ -56,12 +56,37 @@ export default function CreditCastorApp() {
     <div className="min-h-screen bg-gradient-to-br from-magenta/5 to-butter-yellow/5 flex flex-col md:flex-row">
       {/* Only show AdminSidebar for authenticated users */}
       {isAuthenticated && <AdminSidebar currentPage="credit" />}
-      <div className="flex-1 pt-14 md:pt-0 overflow-auto">
+      <div className="flex-1 pt-14 md:pt-0 overflow-auto relative">
         <UnlockProvider forceReadonly={!isAuthenticated}>
           <CalculatorProvider>
             <EnDivisionCorrect />
           </CalculatorProvider>
         </UnlockProvider>
+
+        {/* Login button for unauthenticated users - bottom left */}
+        {!isAuthenticated && (
+          <a
+            href="/admin/login"
+            className="fixed bottom-6 left-6 z-50 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg shadow-lg transition-colors flex items-center gap-2 no-print"
+            title="Se connecter en tant qu'administrateur"
+          >
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
+              />
+            </svg>
+            Se connecter
+          </a>
+        )}
       </div>
     </div>
   );
