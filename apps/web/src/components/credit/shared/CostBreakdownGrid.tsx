@@ -386,7 +386,10 @@ export function CostBreakdownGrid({ participant, participantCalc: p, projectPara
         </div>
 
         {/* Parachèvements - Principle: Similarity (same orange border) + Continuity (next to CASCO) */}
-        <div className="bg-white rounded-lg p-3 border border-orange-200">
+        <div className="bg-white rounded-lg p-3 border border-orange-200 relative overflow-hidden">
+          <div className="absolute top-0 right-0 bg-yellow-100 text-yellow-800 text-[10px] font-semibold px-2 py-0.5 rounded-bl">
+            En construction
+          </div>
           <p className="text-xs text-gray-500 mb-1.5">Parachèvements</p>
           <p className="text-lg font-bold text-orange-700">{formatCurrency(p.parachevements ?? 0)}</p>
           {((participant.parachevementsSqm ?? p.surface ?? 0) > 0) && (
