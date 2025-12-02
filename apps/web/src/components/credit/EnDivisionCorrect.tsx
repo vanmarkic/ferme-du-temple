@@ -27,7 +27,7 @@ import AvailableLotsView from './AvailableLotsView';
 import { VersionMismatchWarning } from './VersionMismatchWarning';
 import { useOrderedParticipantBreakdown } from './hooks/useCalculatorState';
 import HorizontalSwimLaneTimeline from './HorizontalSwimLaneTimeline';
-import { UnlockProvider, useUnlock } from './contexts/UnlockContext';
+import { useUnlock } from './contexts/UnlockContext';
 import { EditModeToolbar } from './shared/EditModeToolbar';
 import toast, { Toaster } from 'react-hot-toast';
 import { useCalculator } from './contexts/CalculatorContext';
@@ -302,10 +302,9 @@ export default function EnDivisionCorrect() {
   };
 
   return (
-    <UnlockProvider>
-      <Tooltip.Provider>
-        {/* Toast Notifications */}
-        <Toaster />
+    <Tooltip.Provider>
+      {/* Toast Notifications */}
+      <Toaster />
 
         {/* Version Mismatch Warning Modal */}
         {versionMismatch.show && (
@@ -652,6 +651,5 @@ export default function EnDivisionCorrect() {
         </div>
         </div>
       </Tooltip.Provider>
-    </UnlockProvider>
   );
 }
