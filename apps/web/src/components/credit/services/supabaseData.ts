@@ -503,6 +503,12 @@ export async function saveProjectData(
   }
 
   const user = await getCurrentUser();
+
+  // Security: Block write operations when user is not authenticated
+  if (!user) {
+    return { success: false, error: 'User not authenticated - read only mode' };
+  }
+
   const userId = user?.id;
 
   try {
@@ -598,6 +604,12 @@ export async function saveParticipantData(
   }
 
   const user = await getCurrentUser();
+
+  // Security: Block write operations when user is not authenticated
+  if (!user) {
+    return { success: false, error: 'User not authenticated - read only mode' };
+  }
+
   const userId = user?.id;
 
   try {
@@ -730,6 +742,11 @@ export async function createProject(
 
   const user = await getCurrentUser();
 
+  // Security: Block write operations when user is not authenticated
+  if (!user) {
+    return { success: false, error: 'User not authenticated - read only mode' };
+  }
+
   const { data, error } = await supabase
     .from('projects')
     .insert({
@@ -760,6 +777,13 @@ export async function createProject(
 export async function deleteProject(projectId: string): Promise<SaveResult> {
   if (!isSupabaseConfigured()) {
     return { success: false, error: 'Supabase not configured' };
+  }
+
+  const user = await getCurrentUser();
+
+  // Security: Block write operations when user is not authenticated
+  if (!user) {
+    return { success: false, error: 'User not authenticated - read only mode' };
   }
 
   const { error } = await supabase
