@@ -24,10 +24,15 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
+      - name: Prepare deploy folder
+        run: |
+          mkdir -p deploy/architect-fees
+          cp -r packages/architect-fees/widget/* deploy/architect-fees/
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: packages/architect-fees/widget
+          path: deploy
 
   deploy:
     environment:
