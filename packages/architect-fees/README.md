@@ -235,4 +235,4 @@ The coefficients used in this package are derived from regression analysis of re
 ## Credits
 
 - Formula and coefficients: BRADA study / ArchiMath by Systeme-D
-- TypeScript implementation: This package
+- TypeScript implementation: [La Ferme du Temple](https://lafermedutemple.be/architect-fees)

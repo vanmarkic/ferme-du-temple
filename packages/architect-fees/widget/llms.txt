@@ -1,0 +1,60 @@
+# architect-fees-be
+
+Belgian architect fee calculator based on official BRADA methodology.
+
+## Purpose
+Calculate professional architect fees (honoraires) from surface area and construction costs using the formula from the BRADA study (Belgian Research on Architects' Design Activities).
+
+## Core Function
+calculateHonoraires(surface, constructionCost, options?)
+
+Parameters:
+- surface: Building surface in m²
+- constructionCost: Net construction cost in € (excluding VAT)
+- options.costPerHour: Hourly rate (default: 60€)
+- options.projectType: EW|MW|SH|IL|PG|BU|ON (default: MW)
+- options.buildingType: NB|VB (default: VB)
+
+Returns:
+- hoursPerM2: Hours per m² coefficient
+- hoursFromSurface: Total hours from surface calculation
+- hoursPer10000Euro: Hours per €10,000 coefficient
+- hoursFromCost: Total hours from cost calculation
+- averageHours: Average of both approaches
+- honoraireMoyen: Final fee in euros
+
+## Project Types
+- EW: Single-family home (Eénsgezinswoning / Maison unifamiliale)
+- MW: Multi-family building (Meergezinswoning / Immeuble à appartements)
+- SH: Social housing (Sociale Huisvesting / Logement social)
+- IL: Industrial/Logistics (Industrieel/Logistiek / Industriel/Logistique)
+- PG: Public building (Publiek Gebouw / Bâtiment public)
+- BU: Exceptional/Special (Buitengewoon / Exceptionnel)
+- ON: Research/Other (Onderzoek/Overig / Recherche/Autre)
+
+## Building Types
+- NB: New construction (Nieuwbouw / Construction neuve)
+- VB: Renovation (Verbouwing / Rénovation)
+
+## Formula
+Hours per m² = c × surface^d
+Hours from surface = surface × hoursPerM²
+Hours per €10,000 = e × cost^f (or linear for MW+VB)
+Hours from cost = cost × hoursPer10000 / 10,000
+Average hours = (hoursFromSurface + hoursFromCost) / 2
+Honoraire = averageHours × costPerHour
+
+## Example
+For 2300m² renovation at €3,000,000:
+- hoursPerM2 ≈ 1.60
+- hoursFromSurface = 3682
+- hoursFromCost = 3480
+- averageHours = 3581
+- honoraireMoyen ≈ €214,860 (at 60€/hour)
+
+## Links
+- npm: https://www.npmjs.com/package/architect-fees-be
+- GitHub: https://github.com/vanmarkic/ferme-du-temple/tree/main/packages/architect-fees
+- Homepage: https://lafermedutemple.be/architect-fees
+- Original study: https://archimath.systeme-d.com/BRADA_HET_RAPPORT_20160126_JR.pdf
+- Original calculator: https://archimath.systeme-d.com/

@@ -1,0 +1,250 @@
+---
+export const prerender = true;
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const iframeSrc = 'https://vanmarkic.github.io/ferme-du-temple/packages/architect-fees/widget/';
+const npmUrl = 'https://www.npmjs.com/package/architect-fees-be';
+const githubUrl = 'https://github.com/vanmarkic/ferme-du-temple/tree/main/packages/architect-fees';
+
+const embedCode = `<iframe
+  src="${iframeSrc}"
+  width="100%"
+  height="550"
+  frameborder="0"
+  style="max-width: 500px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+  title="Belgian Architect Fee Calculator"
+></iframe>`;
+---
+
+<BaseLayout
+  title="Calculateur Honoraires Architecte Belgique | architect-fees-be"
+  description="Calculateur d'honoraires d'architecte belge basé sur la méthodologie BRADA. Widget gratuit à intégrer et package npm pour calculer les honoraires professionnels."
+>
+  <article class="architect-fees-page">
+    <header class="page-header">
+      <h1>Calculateur d'Honoraires Architecte</h1>
+      <p class="subtitle">
+        Belgian Architect Fee Calculator based on BRADA methodology
+      </p>
+    </header>
+
+    <section class="calculator-section">
+      <iframe
+        src={iframeSrc}
+        width="100%"
+        height="550"
+        frameborder="0"
+        style="max-width: 500px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+        title="Belgian Architect Fee Calculator"
+        loading="lazy"
+      ></iframe>
+    </section>
+
+    <section class="info-section">
+      <h2>Comment ça fonctionne</h2>
+      <p>
+        Ce calculateur utilise la méthodologie double-approche de l'étude BRADA
+        (Belgian Research on Architects' Design Activities):
+      </p>
+      <ul>
+        <li><strong>Estimation basée sur la surface</strong>: calcule les heures en fonction de la surface du bâtiment</li>
+        <li><strong>Estimation basée sur le coût</strong>: calcule les heures en fonction du budget de construction</li>
+      </ul>
+      <p>
+        L'honoraire final est la moyenne des deux approches, multipliée par le taux horaire.
+      </p>
+    </section>
+
+    <section class="embed-section">
+      <h2>Intégrer le widget</h2>
+      <p>Copiez ce code pour intégrer le calculateur sur votre site:</p>
+      <pre><code>{embedCode}</code></pre>
+      <button class="copy-button" id="copyButton">Copier le code</button>
+    </section>
+
+    <section class="npm-section">
+      <h2>Package npm</h2>
+      <p>
+        Utilisez le package <code>architect-fees-be</code> dans vos projets TypeScript/JavaScript:
+      </p>
+      <pre><code>npm install architect-fees-be</code></pre>
+      <pre><code>{`import { calculateHonoraires } from 'architect-fees-be';
+
+const result = calculateHonoraires(2300, 3_000_000);
+console.log(result.honoraireMoyen); // ~214,860€`}</code></pre>
+      <div class="links">
+        <a href={npmUrl} target="_blank" rel="noopener" class="link-button">npm</a>
+        <a href={githubUrl} target="_blank" rel="noopener" class="link-button">GitHub</a>
+        <a href="https://archimath.systeme-d.com/" target="_blank" rel="noopener" class="link-button">ArchiMath (original)</a>
+      </div>
+    </section>
+
+    <section class="credits-section">
+      <h2>Crédits</h2>
+      <p>
+        Ce calculateur implémente la formule de l'étude <strong>BRADA</strong> (2016),
+        une recherche approfondie sur la charge de travail et les structures d'honoraires des architectes belges.
+      </p>
+      <ul>
+        <li>Formule et coefficients: étude BRADA / <a href="https://archimath.systeme-d.com/" target="_blank" rel="noopener">ArchiMath</a> par Systeme-D</li>
+        <li>Rapport original: <a href="https://archimath.systeme-d.com/BRADA_HET_RAPPORT_20160126_JR.pdf" target="_blank" rel="noopener">BRADA_HET_RAPPORT_20160126_JR.pdf</a></li>
+      </ul>
+    </section>
+  </article>
+
+  <script>
+    const copyButton = document.getElementById('copyButton');
+    if (copyButton) {
+      copyButton.addEventListener('click', async () => {
+        const code = document.querySelector('.embed-section code')?.textContent;
+        if (code) {
+          await navigator.clipboard.writeText(code);
+          copyButton.textContent = 'Copié!';
+          setTimeout(() => {
+            copyButton.textContent = 'Copier le code';
+          }, 2000);
+        }
+      });
+    }
+  </script>
+</BaseLayout>
+
+<style>
+  .architect-fees-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .page-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    color: #64748b;
+    font-size: 1.125rem;
+  }
+
+  .calculator-section {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
+  }
+
+  section {
+    margin-bottom: 2.5rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    color: #475569;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+
+  ul {
+    color: #475569;
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  li {
+    margin-bottom: 0.5rem;
+    line-height: 1.7;
+  }
+
+  pre {
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+  }
+
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+
+  p code {
+    background: #f1f5f9;
+    padding: 0.125rem 0.375rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    color: #1e293b;
+  }
+
+  .copy-button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 0.625rem 1.25rem;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .copy-button:hover {
+    background: #1d4ed8;
+  }
+
+  .links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+  }
+
+  .link-button {
+    display: inline-block;
+    background: #f1f5f9;
+    color: #1e293b;
+    padding: 0.625rem 1.25rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: background 0.2s;
+  }
+
+  .link-button:hover {
+    background: #e2e8f0;
+  }
+
+  .credits-section a {
+    color: #2563eb;
+    text-decoration: none;
+  }
+
+  .credits-section a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    .page-header h1 {
+      font-size: 1.5rem;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+    }
+  }
+</style>

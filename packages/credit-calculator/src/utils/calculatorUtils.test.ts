@@ -481,6 +481,61 @@ describe('Calculator Utils', () => {
       // Should return the same total
       expect(breakdown.total).toBeCloseTo(directCalculation, 2);
     });
+
+    it('should use surface as fallback when cascoSqm is null', () => {
+      // BUG: When cascoSqm is null (not undefined), it was being used as-is
+      // instead of falling back to surface. This caused null × globalCascoPerM2 = 0
+      const participants: Participant[] = [
+        {
+          name: 'A',
+          surface: 150,
+          cascoSqm: null as unknown as number, // Explicitly null (from database)
+          capitalApporte: 50000,
+          registrationFeesRate: 12.5,
+          unitId: 1,
+          interestRate: 4.5,
+          durationYears: 25,
+          quantity: 1
+        },
+        {
+          name: 'B',
+          surface: 100,
+          cascoSqm: 80, // Explicit value - should use this
+          capitalApporte: 50000,
+          registrationFeesRate: 12.5,
+          unitId: 1,
+          interestRate: 4.5,
+          durationYears: 25,
+          quantity: 1
+        },
+      ];
+
+      const projectParamsForTest: ProjectParams = {
+        totalPurchase: 650000,
+        mesuresConservatoires: 0,
+        demolition: 0,
+        infrastructures: 0,
+        etudesPreparatoires: 0,
+        fraisEtudesPreparatoires: 0,
+        fraisGeneraux3ans: 0,
+        batimentFondationConservatoire: 0,
+        batimentFondationComplete: 0,
+        batimentCoproConservatoire: 0,
+        globalCascoPerM2: 1590
+      };
+
+      const result = getFraisGenerauxBreakdown(participants, projectParamsForTest, unitDetails);
+
+      // Expected CASCO:
+      // Participant A: cascoSqm=null should use surface=150 → 150 × 1590 = 238,500
+      // Participant B: cascoSqm=80 → 80 × 1590 = 127,200
+      // Total = 238,500 + 127,200 = 365,700
+      const expectedTotalCasco = (150 * 1590) + (80 * 1590);
+      expect(result.totalCasco).toBe(expectedTotalCasco);
+
+      // Without the fix, result.totalCasco would be only 127,200 (participant A excluded)
+      expect(result.totalCasco).not.toBe(80 * 1590);
+    });
   });
 
   describe('calculateSharedCosts', () => {

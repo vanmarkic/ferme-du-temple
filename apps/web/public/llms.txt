@@ -49,6 +49,23 @@ Gouvernance partagée avec approche horizontale. Décisions par consensus et con
 - Site web: https://lafermedutemple.be
 - Inscription: https://lafermedutemple.be/#inscription
 
+## Outils / Tools
+
+### Calculateur Honoraires Architecte (architect-fees-be)
+
+Calculateur d'honoraires d'architecte belge basé sur la méthodologie officielle BRADA. Package npm gratuit et widget intégrable.
+
+- Page: https://lafermedutemple.be/architect-fees
+- npm: https://www.npmjs.com/package/architect-fees-be
+- GitHub: https://github.com/vanmarkic/ferme-du-temple/tree/main/packages/architect-fees
+
+Fonction: calculateHonoraires(surface, constructionCost, options?)
+Types de projets: EW (unifamiliale), MW (immeuble), SH (social), IL (industriel), PG (public), BU (exceptionnel), ON (autre)
+Types de bâtiment: NB (neuf), VB (rénovation)
+
+Formule basée sur l'étude BRADA (Belgian Research on Architects' Design Activities, 2016).
+Source originale: https://archimath.systeme-d.com/
+
 ## Disallow
 
 - /admin

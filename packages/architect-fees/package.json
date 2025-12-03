@@ -20,12 +20,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/anthropics/ferme-du-temple.git",
+    "url": "https://github.com/vanmarkic/ferme-du-temple.git",
     "directory": "packages/architect-fees"
   },
-  "homepage": "https://github.com/anthropics/ferme-du-temple/tree/main/packages/architect-fees#readme",
+  "homepage": "https://lafermedutemple.be/architect-fees",
   "bugs": {
-    "url": "https://github.com/anthropics/ferme-du-temple/issues"
+    "url": "https://github.com/vanmarkic/ferme-du-temple/issues"
   },
   "type": "module",
   "main": "./dist/index.cjs",
