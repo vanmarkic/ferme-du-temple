@@ -1,6 +1,6 @@
 {
   "name": "architect-fees-be",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Belgian architect fee calculator based on official methodology. Calculate professional fees (honoraires) from surface area and construction costs.",
   "keywords": [
     "architect",
