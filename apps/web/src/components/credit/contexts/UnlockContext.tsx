@@ -5,9 +5,8 @@ import { useUnlockState, type UnlockState } from '../hooks/useUnlockState';
  * Context value including the unlock state and control methods.
  */
 interface UnlockContextValue extends UnlockState {
-  unlock: (password: string, userEmail: string) => Promise<boolean>;
+  unlock: (userEmail: string) => void;
   lock: () => Promise<void>;
-  validatePassword: (password: string) => boolean;
   setReadonlyMode: (isReadonly: boolean) => void;
   isLoading: boolean;
   /** Whether readonly mode is forced (user cannot toggle) */
@@ -50,10 +49,8 @@ export function UnlockProvider({
  *   const { isUnlocked, unlock, lock } = useUnlock();
  *
  *   const handleUnlock = () => {
- *     const success = unlock('password123', 'user@example.com');
- *     if (success) {
- *       console.log('Unlocked!');
- *     }
+ *     unlock('user@example.com');
+ *     console.log('Unlocked!');
  *   };
  *
  *   return <div>{isUnlocked ? 'Unlocked' : 'Locked'}</div>;

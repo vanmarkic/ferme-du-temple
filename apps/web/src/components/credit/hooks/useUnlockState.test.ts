@@ -2,8 +2,6 @@ import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
 import { useUnlockState, getUnlockState } from './useUnlockState';
 
-// Use the default fallback password from the hook ('admin2025')
-
 describe('useUnlockState', () => {
   beforeEach(() => {
     // Clear localStorage before each test
@@ -23,32 +21,16 @@ describe('useUnlockState', () => {
     expect(result.current.unlockedBy).toBeNull();
   });
 
-  it('should unlock with correct password', async () => {
+  it('should unlock without requiring password (just user email)', async () => {
     const { result } = renderHook(() => useUnlockState());
 
-    let success: boolean;
     await act(async () => {
-      success = await result.current.unlock('admin2025', 'user@example.com');
+      result.current.unlock('user@example.com');
     });
 
-    expect(success!).toBe(true);
     expect(result.current.isUnlocked).toBe(true);
     expect(result.current.unlockedBy).toBe('user@example.com');
     expect(result.current.unlockedAt).toBeInstanceOf(Date);
-  });
-
-  it('should reject unlock with incorrect password', async () => {
-    const { result } = renderHook(() => useUnlockState());
-
-    let success: boolean;
-    await act(async () => {
-      success = await result.current.unlock('wrong-password', 'user@example.com');
-    });
-
-    expect(success!).toBe(false);
-    expect(result.current.isUnlocked).toBe(false);
-    expect(result.current.unlockedBy).toBeNull();
-    expect(result.current.unlockedAt).toBeNull();
   });
 
   it('should lock when already unlocked', async () => {
@@ -56,7 +38,7 @@ describe('useUnlockState', () => {
 
     // First unlock
     await act(async () => {
-      await result.current.unlock('admin2025', 'user@example.com');
+      result.current.unlock('user@example.com');
     });
 
     expect(result.current.isUnlocked).toBe(true);
@@ -75,7 +57,7 @@ describe('useUnlockState', () => {
     const { result } = renderHook(() => useUnlockState());
 
     await act(async () => {
-      await result.current.unlock('admin2025', 'user@example.com');
+      result.current.unlock('user@example.com');
     });
 
     // Check localStorage
@@ -120,16 +102,6 @@ describe('useUnlockState', () => {
     expect(result.current.unlockedBy).toBeNull();
   });
 
-  it('should validate password without unlocking', () => {
-    const { result } = renderHook(() => useUnlockState());
-
-    expect(result.current.validatePassword('admin2025')).toBe(true);
-    expect(result.current.validatePassword('wrong-password')).toBe(false);
-
-    // Should not have unlocked
-    expect(result.current.isUnlocked).toBe(false);
-  });
-
   describe('getUnlockState', () => {
     it('should return current unlock state without hook', () => {
       // Set state in localStorage
@@ -160,7 +132,7 @@ describe('useUnlockState', () => {
     const { result, rerender } = renderHook(() => useUnlockState());
 
     await act(async () => {
-      await result.current.unlock('admin2025', 'user@example.com');
+      result.current.unlock('user@example.com');
     });
 
     expect(result.current.isUnlocked).toBe(true);

@@ -24,7 +24,6 @@ vi.mock('../hooks/useUnlockState', () => ({
     unlockedBy: null,
     unlock: vi.fn(),
     lock: vi.fn(),
-    validatePassword: vi.fn(),
     setReadonlyMode: vi.fn(),
   }),
 }));

@@ -19,7 +19,6 @@ export interface UnlockState {
 
 const UNLOCK_STATE_KEY = 'credit-castor-unlock-state';
 const READONLY_MODE_KEY = 'credit-castor-readonly-mode';
-const ADMIN_PASSWORD = import.meta.env.PUBLIC_ADMIN_PASSWORD || 'admin2025';
 
 // Default readonly mode from env (true unless explicitly set to 'false')
 const DEFAULT_READONLY_MODE = import.meta.env.PUBLIC_READONLY_MODE !== 'false';
@@ -151,25 +150,16 @@ export function useUnlockState(
   }, [state.isUnlocked, state.isReadonlyMode]);
 
   /**
-   * Attempt to unlock collective fields with admin password.
-   * @param password Admin password
+   * Unlock collective fields for the authenticated admin user.
    * @param userEmail Email of the user requesting unlock
-   * @returns Promise<boolean> - true if unlock was successful
    */
-  const unlock = useCallback(async (password: string, userEmail: string): Promise<boolean> => {
-    // Validate password
-    if (password !== ADMIN_PASSWORD) {
-      return false;
-    }
-
-    // Update state
+  const unlock = useCallback((userEmail: string): void => {
     setState(prev => ({
       ...prev,
       isUnlocked: true,
       unlockedAt: new Date(),
       unlockedBy: userEmail,
     }));
-    return true;
   }, []);
 
   /**
@@ -196,18 +186,10 @@ export function useUnlockState(
     saveReadonlyMode(isReadonly);
   }, []);
 
-  /**
-   * Check if a password is correct (without unlocking).
-   */
-  const validatePassword = useCallback((password: string): boolean => {
-    return password === ADMIN_PASSWORD;
-  }, []);
-
   return {
     ...state,
     unlock,
     lock,
-    validatePassword,
     setReadonlyMode,
     isLoading: false,
   };

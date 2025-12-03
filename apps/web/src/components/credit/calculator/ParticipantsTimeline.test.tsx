@@ -14,7 +14,6 @@ vi.mock('../contexts/UnlockContext', () => ({
     unlockedBy: null,
     unlock: vi.fn(),
     lock: vi.fn(),
-    validatePassword: vi.fn(),
     setReadonlyMode: vi.fn(),
     isLoading: false,
   }),

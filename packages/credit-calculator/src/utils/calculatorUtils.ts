@@ -1594,12 +1594,26 @@ export function calculateExpectedPaybacks(
       }));
 
     // Calculate redistribution for this sale
-    // Pass buyer's surface to include in quotité denominator (buyer is in denominator but doesn't receive)
+    // IMPORTANT: Buyer surface is included in denominator ONLY if this is the ONLY buyer on this date
+    // When multiple non-founders buy on the same day, they are ALL excluded from the denominator
+    // This prevents circular redistribution among same-day buyers
+
+    // Count how many OTHER non-founders are buying on the same day as this buyer
+    const otherSameDayBuyers = sortedCoproSales.filter(otherBuyer => {
+      if (otherBuyer.name === buyerName) return false; // Exclude self
+      if (otherBuyer.isFounder) return false; // Only count non-founders
+      const otherBuyerEntryDate = ensureDate(otherBuyer.entryDate || deedDateObj, deedDateObj);
+      return isSameDay(saleDate, otherBuyerEntryDate);
+    });
+
+    // Include buyer surface in denominator ONLY if they're buying alone (no other same-day buyers)
+    const buyerSurfaceForQuotite = (otherSameDayBuyers.length > 0) ? 0 : surfacePurchased;
+
     const redistribution = calculateCoproRedistribution(
       amountToParticipants,
       existingParticipants,
       saleDate,
-      surfacePurchased // Buyer's surface included in denominator per business rules
+      buyerSurfaceForQuotite // 0 for same-day buyers, buyer's surface otherwise
     );
 
     // Find this participant's share
