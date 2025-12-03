@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Users, FolderOpen, UserCog, LogOut, Menu, X, Calculator, FileText, Building2 } from 'lucide-react';
+import { Users, FolderOpen, UserCog, LogOut, Menu, X, Calculator, FileText, Building2, ExternalLink } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 interface AdminSidebarProps {
@@ -66,10 +66,14 @@ export function AdminSidebar({ currentPage }: AdminSidebarProps) {
           const Icon = item.icon;
           const isActive = item.id === currentPage;
 
+          const isExternal = 'external' in item && item.external;
+
           return (
             <a
               key={item.id}
               href={item.href}
+              target={isExternal ? '_blank' : undefined}
+              rel={isExternal ? 'noopener noreferrer' : undefined}
               className={cn(
                 'flex items-center gap-3 px-3 py-2 rounded-md transition-colors',
                 isActive
@@ -80,6 +84,7 @@ export function AdminSidebar({ currentPage }: AdminSidebarProps) {
             >
               <Icon className="w-5 h-5" />
               <span className="font-medium">{item.label}</span>
+              {isExternal && <ExternalLink className="w-3 h-3 ml-auto opacity-50" />}
             </a>
           );
         })}
