@@ -189,34 +189,76 @@ export function calculateCooproTransaction(
     distributionAmount = purchasePrice * participantsShare;
   }
 
-  // Calculate surface-based redistribution among founders (excluding the buyer)
-  const founders = allParticipants.filter(p =>
-    p.isFounder === true && p.name !== coproBuyer.name
-  )
+  // Calculate surface-based redistribution among ALL existing participants (not just founders)
+  // Exclusion rules:
+  // 1. Exclude the buyer from their own purchase
+  // 2. Exclude same-day buyers (non-founders who entered on the same day as the buyer)
 
-  // Calculate total founder surface (founders only, excluding the buyer)
-  const totalFounderSurface = founders.reduce((sum, p) => sum + (p.surface || 0), 0)
+  // Ensure dates for comparison
+  const deedDateObj = deedDate instanceof Date ? deedDate : new Date(deedDate || '1970-01-01');
+  const saleDateObj = saleDate instanceof Date ? saleDate : new Date(saleDate || '1970-01-01');
 
-  if (totalFounderSurface === 0) {
-    // No surface - equal distribution among founders
-    const founderCount = founders.length
-    const participantShare = founderCount > 0 ? distributionAmount / founderCount : 0
-    const cashReceived = -participantShare
+  // Normalize dates to midnight for day-level comparison
+  const saleDateNormalized = new Date(saleDateObj.getFullYear(), saleDateObj.getMonth(), saleDateObj.getDate());
 
+  // Filter to participants who existed before this sale and should receive redistribution
+  const existingParticipants = allParticipants.filter(p => {
+    // Normalize participant entry date
+    let pEntryDate: Date;
+    if (p.entryDate) {
+      pEntryDate = p.entryDate instanceof Date ? p.entryDate : new Date(p.entryDate);
+    } else if (p.isFounder) {
+      pEntryDate = deedDateObj;
+    } else {
+      return false; // Non-founder without entryDate shouldn't exist
+    }
+
+    const pEntryDateNormalized = new Date(pEntryDate.getFullYear(), pEntryDate.getMonth(), pEntryDate.getDate());
+    const pSurface = p.surface || 0;
+
+    // Must have surface
+    if (pSurface <= 0) {
+      return false;
+    }
+
+    // Must exist before the sale
+    if (pEntryDateNormalized > saleDateNormalized) {
+      return false;
+    }
+
+    // Exclusion Rule 1: Exclude the buyer from their own purchase
+    if (p.name === coproBuyer.name) {
+      return false;
+    }
+
+    // Exclusion Rule 2: Exclude same-day buyers (non-founders who entered on the same day as the buyer)
+    // If this participant is a non-founder who entered on the same day as the sale, exclude them
+    if (!p.isFounder && pEntryDateNormalized.getTime() === saleDateNormalized.getTime()) {
+      return false;
+    }
+
+    return true;
+  });
+
+  // Calculate total surface of eligible participants
+  const totalEligibleSurface = existingParticipants.reduce((sum, p) => sum + (p.surface || 0), 0);
+
+  if (totalEligibleSurface === 0) {
+    // No eligible participants - return 0 delta
     return {
       type: 'copro_sale',
       delta: {
-        totalCost: cashReceived,
-        loanNeeded: cashReceived,
+        totalCost: 0,
+        loanNeeded: 0,
         reason: `${coproBuyer.name} joined (copro sale)`
       }
     }
   }
 
   // Calculate affected participant's surface-based share (quotité)
-  const participantSurface = affectedParticipant.surface || 0
-  const quotite = totalFounderSurface > 0 ? participantSurface / totalFounderSurface : 0
-  const participantShare = distributionAmount * quotite
+  const participantSurface = affectedParticipant.surface || 0;
+  const quotite = totalEligibleSurface > 0 ? participantSurface / totalEligibleSurface : 0;
+  const participantShare = distributionAmount * quotite;
 
   // Negative delta = cash received (reduces participant's net position)
   const cashReceived = -participantShare
