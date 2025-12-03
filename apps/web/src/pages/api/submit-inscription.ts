@@ -149,19 +149,55 @@ export const POST: APIRoute = async ({ request }) => {
           infosPrioritaires: data.infosPrioritaires?.trim() || null,
         };
 
-    // Insert into Supabase
-    const { error: insertError } = await supabase.from('inscriptions').insert({
-      nom: inscriptionData.nom,
-      prenom: inscriptionData.prenom,
-      email: inscriptionData.email,
-      telephone: inscriptionData.telephone,
-      motivation: inscriptionData.motivation,
-      besoins_specifiques: inscriptionData.besoinsSpecifiques,
-      infos_prioritaires: inscriptionData.infosPrioritaires,
-    });
+    // Check if email already exists
+    const { data: existingRow } = await supabase
+      .from('inscriptions')
+      .select('id, newsletter_only')
+      .eq('email', inscriptionData.email)
+      .single();
 
-    if (insertError) {
-      console.error('Supabase insert error:', insertError);
+    let dbError = null;
+
+    if (existingRow) {
+      // Email exists - only update if upgrading from newsletter to full candidature
+      // or if it's a full candidature updating another full candidature
+      if (isNewsletterOnly && !existingRow.newsletter_only) {
+        // Newsletter subscription for existing full candidate - do nothing, already subscribed
+        // (they'll keep receiving newsletters as a candidate)
+      } else {
+        // Either: newsletter updating newsletter, or full candidature updating anything
+        const { error } = await supabase
+          .from('inscriptions')
+          .update({
+            nom: inscriptionData.nom,
+            prenom: inscriptionData.prenom,
+            telephone: inscriptionData.telephone,
+            motivation: inscriptionData.motivation,
+            besoins_specifiques: inscriptionData.besoinsSpecifiques,
+            infos_prioritaires: inscriptionData.infosPrioritaires,
+            newsletter_only: isNewsletterOnly,
+            updated_at: new Date().toISOString(),
+          })
+          .eq('id', existingRow.id);
+        dbError = error;
+      }
+    } else {
+      // New email - insert
+      const { error } = await supabase.from('inscriptions').insert({
+        nom: inscriptionData.nom,
+        prenom: inscriptionData.prenom,
+        email: inscriptionData.email,
+        telephone: inscriptionData.telephone,
+        motivation: inscriptionData.motivation,
+        besoins_specifiques: inscriptionData.besoinsSpecifiques,
+        infos_prioritaires: inscriptionData.infosPrioritaires,
+        newsletter_only: isNewsletterOnly,
+      });
+      dbError = error;
+    }
+
+    if (dbError) {
+      console.error('Supabase error:', dbError);
       return new Response(
         JSON.stringify({
           error: "Erreur lors de l'enregistrement. Veuillez réessayer.",
