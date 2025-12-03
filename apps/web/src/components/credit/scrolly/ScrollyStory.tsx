@@ -1,18 +1,11 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import IntroSection from './sections/IntroSection';
-import FoundersSection from './sections/FoundersSection';
-import FoundersToQuotiteTransition from './sections/FoundersToQuotiteTransition';
-import QuotiteSection from './sections/QuotiteSection';
-import PurchasePriceSection from './sections/PurchasePriceSection';
-import PortageSection from './sections/PortageSection';
-import PortageFormulaSection from './sections/PortageFormulaSection';
-import RedistributionSection from './sections/RedistributionSection';
-import RedistributionFormulaSection from './sections/RedistributionFormulaSection';
-import SharedSpacesSection from './sections/SharedSpacesSection';
-import QuotaFormulaSection from './sections/QuotaFormulaSection';
-import FinaleSection from './sections/FinaleSection';
+import StepsSection from './sections/StepsSection';
+import CostBreakdownSection from './sections/CostBreakdownSection';
+import CoupleExampleSection from './sections/CoupleExampleSection';
+import MamanExampleSection from './sections/MamanExampleSection';
+import PaymentTimelineSection from './sections/PaymentTimelineSection';
 
 export default function ScrollyStory() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -53,11 +46,11 @@ export default function ScrollyStory() {
   }, []);
 
   return (
-    <div ref={containerRef} className="relative w-full overflow-x-hidden">
+    <div ref={containerRef} className="relative w-full overflow-x-hidden bg-slate-900">
       {/* Progress indicator */}
       <div className="fixed top-0 left-0 w-full h-1 bg-slate-800 z-50">
         <div
-          className="h-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"
+          className="h-full bg-gradient-to-r from-blue-500 via-amber-500 to-green-500"
           style={{
             width: '0%',
             transition: 'width 0.1s ease-out'
@@ -66,19 +59,12 @@ export default function ScrollyStory() {
         />
       </div>
 
-      {/* Story sections */}
-      <IntroSection />
-      <FoundersSection />
-      <FoundersToQuotiteTransition />
-      <QuotiteSection />
-      <PurchasePriceSection />
-      <PortageSection />
-      <PortageFormulaSection />
-      <RedistributionSection />
-      <RedistributionFormulaSection />
-      <SharedSpacesSection />
-      <QuotaFormulaSection />
-      <FinaleSection />
+      {/* Story sections - Buyer-centered journey */}
+      <StepsSection />
+      <CostBreakdownSection />
+      <CoupleExampleSection />
+      <MamanExampleSection />
+      <PaymentTimelineSection />
     </div>
   );
 }

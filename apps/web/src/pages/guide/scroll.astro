@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ScrollyStory from '../../components/credit/scrolly/ScrollyStory';
+import '../../components/credit/index.css';
+
+export const prerender = true;
+---
+
+<BaseLayout title="Guide Interactif - La Ferme du Temple">
+  <ScrollyStory client:load />
+</BaseLayout>
