@@ -1,0 +1,72 @@
+{
+  "name": "architect-fees-be",
+  "version": "1.0.0",
+  "description": "Belgian architect fee calculator based on official methodology. Calculate professional fees (honoraires) from surface area and construction costs.",
+  "keywords": [
+    "architect",
+    "fees",
+    "honoraires",
+    "belgium",
+    "belgian",
+    "construction",
+    "calculator",
+    "architecture",
+    "building",
+    "renovation",
+    "nieuwbouw",
+    "verbouwing"
+  ],
+  "author": "Dragan Espenschied",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anthropics/ferme-du-temple.git",
+    "directory": "packages/architect-fees"
+  },
+  "homepage": "https://github.com/anthropics/ferme-du-temple/tree/main/packages/architect-fees#readme",
+  "bugs": {
+    "url": "https://github.com/anthropics/ferme-du-temple/issues"
+  },
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "widget",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts --clean",
+    "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "tsc --noEmit",
+    "prepublishOnly": "pnpm run build",
+    "widget:serve": "npx serve widget -p 3333"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

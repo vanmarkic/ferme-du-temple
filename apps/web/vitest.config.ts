@@ -12,7 +12,7 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
-    include: ['src/**/*.test.ts', 'src/**/*.test.tsx'],
+    include: ['src/**/*.test.ts', 'src/**/*.test.tsx', '../../packages/credit-calculator/src/**/*.test.ts'],
     setupFiles: ['./src/test/setup.ts'],
   },
 });

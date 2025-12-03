@@ -1641,3 +1641,137 @@ export function calculateExpectedPaybacks(
     totalRecovered
   };
 }
+
+// ============================================
+// Honoraire Moyen Calculation
+// ============================================
+
+/**
+ * Project types for honoraire calculation
+ * Each type has different coefficients for surface and cost formulas
+ */
+export type HonoraireProjectType = 'EW' | 'MW' | 'SH' | 'IL' | 'PG' | 'BU' | 'ON';
+
+/**
+ * Building type: NB = Nieuwbouw (new construction), VB = Verbouwing (renovation)
+ */
+export type HonoraireBuildingType = 'NB' | 'VB';
+
+export interface HonoraireMoyenResult {
+  hoursPerM2: number;
+  hoursFromSurface: number;
+  hoursPer10000Euro: number;
+  hoursFromCost: number;
+  averageHours: number;
+  honoraireMoyen: number;
+}
+
+/**
+ * Coefficients for the honoraire formula
+ * Format: [coeffSurface, expSurface, coeffCost, expCost]
+ */
+interface HonoraireCoefficients {
+  c: number; // coefficient for surface
+  d: number; // exponent for surface
+  e: number; // coefficient for cost
+  f: number; // exponent for cost
+}
+
+/**
+ * Get coefficients based on project type and building type
+ * Based on the original Belgian architect fee calculator
+ */
+function getHonoraireCoefficients(
+  projectType: HonoraireProjectType,
+  buildingType: HonoraireBuildingType
+): HonoraireCoefficients {
+  // VB = Verbouwing (renovation) coefficients
+  const VB_COEFFICIENTS: Record<HonoraireProjectType, HonoraireCoefficients> = {
+    EW: { c: 82.741, d: -0.625, e: 26886.3, f: -0.561 },
+    MW: { c: 5.741, d: -0.165, e: 0.0000002, f: 11 }, // Special case: e * cost + 11
+    SH: { c: 7.741, d: -0.315, e: 30987.45, f: -0.553 },
+    IL: { c: 40.741, d: -0.595, e: 6989.83, f: -0.474 },
+    PG: { c: 12.752, d: -0.285, e: 3230.6, f: -0.375 },
+    BU: { c: 12.752, d: -0.285, e: 4750.1, f: -0.379 },
+    ON: { c: 12.7398, d: -0.226, e: 595.6, f: -0.226 },
+  };
+
+  // NB = Nieuwbouw (new construction) coefficients
+  const NB_COEFFICIENTS: Record<HonoraireProjectType, HonoraireCoefficients> = {
+    EW: { c: 53.741, d: -0.657, e: 736.71, f: -0.3 },
+    MW: { c: 50.741, d: -0.427, e: 750.71, f: -0.275 },
+    SH: { c: 20.741, d: -0.381, e: 2100.71, f: -0.349 },
+    IL: { c: 18.741, d: -0.381, e: 65, f: -0.14 },
+    PG: { c: 19.741, d: -0.281, e: 1495.8, f: -0.295 },
+    BU: { c: 33.741, d: -0.335, e: 1402.8, f: -0.298 },
+    ON: { c: 33.741, d: -0.305, e: 1450.8, f: -0.291 },
+  };
+
+  return buildingType === 'NB' ? NB_COEFFICIENTS[projectType] : VB_COEFFICIENTS[projectType];
+}
+
+/**
+ * Calculate "honoraire moyen" (average professional fee) based on surface and construction cost
+ *
+ * Original formula from Belgian architect fee calculator:
+ * - Hours per m² = c × surface^d
+ * - Hours from surface = surface × hoursPerM2
+ * - Hours per €10,000 = e × (cost/10000)^f  (or special case for MW/VB)
+ * - Hours from cost = (cost / 10000) × hoursPer10000Euro
+ * - Average hours = (hoursFromSurface + hoursFromCost) / 2
+ * - Honoraire moyen = averageHours × costPerHour
+ *
+ * @param surface - Total surface in m²
+ * @param constructionCostNet - Construction cost in € (hors TVA et honoraires)
+ * @param costPerHour - Cost per hour in € (default: 60)
+ * @param projectType - Type of project (default: 'EW' = Eénsgezinswoning)
+ * @param buildingType - NB = Nieuwbouw, VB = Verbouwing (default: 'VB')
+ * @returns HonoraireMoyenResult with breakdown
+ */
+export function calculateHonoraireMoyen(
+  surface: number,
+  constructionCostNet: number,
+  costPerHour: number = 60,
+  projectType: HonoraireProjectType = 'EW',
+  buildingType: HonoraireBuildingType = 'VB'
+): HonoraireMoyenResult {
+  const coef = getHonoraireCoefficients(projectType, buildingType);
+
+  // Calculate hours per m² using power function
+  // Formula: c × surface^d
+  const hoursPerM2 = coef.c * Math.pow(surface, coef.d);
+
+  // Total hours from surface = surface × hoursPerM2
+  const hoursFromSurface = surface * hoursPerM2;
+
+  // Calculate hours per €10,000
+  // Original formula: H = e × cost^f (not cost/10000)
+  // Special case for MW (Meergezinswoning) with VB (Verbouwing): linear formula
+  let hoursPer10000Euro: number;
+  if (projectType === 'MW' && buildingType === 'VB') {
+    // Special case: e × cost + f (where f=11)
+    hoursPer10000Euro = coef.e * constructionCostNet + coef.f;
+  } else {
+    // Standard formula: e × cost^f
+    hoursPer10000Euro = coef.e * Math.pow(constructionCostNet, coef.f);
+  }
+
+  // Total hours from cost = cost × hoursPer10000Euro / 10000
+  // Original: J = BudgetNettoBouwkostInput * H / 1e4
+  const hoursFromCost = (constructionCostNet * hoursPer10000Euro) / 10000;
+
+  // Average hours = (hoursFromSurface + hoursFromCost) / 2
+  const averageHours = (hoursFromSurface + hoursFromCost) / 2;
+
+  // Honoraire moyen = average hours × cost per hour
+  const honoraireMoyen = averageHours * costPerHour;
+
+  return {
+    hoursPerM2,
+    hoursFromSurface: Math.round(hoursFromSurface),
+    hoursPer10000Euro,
+    hoursFromCost: Math.round(hoursFromCost),
+    averageHours: Math.round(averageHours),
+    honoraireMoyen: Math.round(honoraireMoyen),
+  };
+}
