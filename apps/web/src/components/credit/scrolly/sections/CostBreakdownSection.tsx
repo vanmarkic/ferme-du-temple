@@ -8,9 +8,8 @@ const costComponents = [
     title: 'Prix d\'achat',
     description: 'Votre part du bâtiment (650 000€ total ÷ quotités)',
     icon: '🏠',
-    color: 'from-blue-500 to-blue-600',
-    bgColor: 'bg-blue-500/20',
-    borderColor: 'border-blue-500/30'
+    bgColor: 'bg-butter-yellow',
+    textColor: 'text-rich-black'
   },
   {
     id: 'droits',
@@ -18,9 +17,8 @@ const costComponents = [
     description: '3% ou 12,5% selon votre situation',
     subtext: 'Récupération possible de 60% si revente du 1er bien dans les 2 ans',
     icon: '📋',
-    color: 'from-purple-500 to-purple-600',
-    bgColor: 'bg-purple-500/20',
-    borderColor: 'border-purple-500/30'
+    bgColor: 'bg-magenta',
+    textColor: 'text-white'
   },
   {
     id: 'travaux',
@@ -28,9 +26,8 @@ const costComponents = [
     description: 'CASCO : 1 400 - 1 700€/m² HTVA',
     subtext: 'Isolation chanvre, peinture argile, géothermie...',
     icon: '🔨',
-    color: 'from-amber-500 to-orange-500',
-    bgColor: 'bg-amber-500/20',
-    borderColor: 'border-amber-500/30'
+    bgColor: 'bg-nature-leaf',
+    textColor: 'text-rich-black'
   },
   {
     id: 'partages',
@@ -38,9 +35,8 @@ const costComponents = [
     description: 'Frais généraux, honoraires architectes',
     subtext: 'Répartis équitablement entre tous',
     icon: '🤝',
-    color: 'from-green-500 to-emerald-500',
-    bgColor: 'bg-green-500/20',
-    borderColor: 'border-green-500/30'
+    bgColor: 'bg-butter-yellow',
+    textColor: 'text-rich-black'
   }
 ];
 
@@ -88,7 +84,7 @@ export default function CostBreakdownSection() {
     }
 
     // Cards stack up one by one
-    cardsRef.current.forEach((card, index) => {
+    cardsRef.current.forEach((card) => {
       if (!card) return;
 
       gsap.from(card, {
@@ -124,32 +120,30 @@ export default function CostBreakdownSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen flex flex-col items-center justify-center px-6 py-20 bg-gradient-to-b from-slate-800 to-slate-900"
+      className="relative min-h-screen flex flex-col items-center justify-center px-6 py-20 bg-rich-black"
     >
       <div className="max-w-4xl mx-auto">
         <h2
           ref={titleRef}
-          className="text-4xl md:text-6xl font-bold text-center mb-6"
+          className="text-4xl md:text-6xl font-display font-bold text-center mb-6 text-butter-yellow"
         >
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-amber-400 to-orange-400">
-            Combien ça coûte ?
-          </span>
+          Combien ça coûte ?
         </h2>
 
         <p
           ref={subtitleRef}
-          className="text-xl md:text-2xl text-slate-300 text-center max-w-3xl mx-auto mb-12"
+          className="text-xl md:text-2xl text-white/80 text-center max-w-3xl mx-auto mb-12"
         >
           Pas de surprise : voici ce qui compose le prix.
           <br />
-          <span className="text-slate-400">Chaque euro est traçable.</span>
+          <span className="text-white/60">Chaque euro est traçable.</span>
         </p>
 
         {/* Formula header */}
         <div className="text-center mb-8">
-          <div className="inline-block px-6 py-3 bg-slate-800/80 rounded-xl border border-slate-700">
-            <p className="text-lg text-white font-mono">
-              <span className="text-slate-400">VOTRE COÛT TOTAL</span> = <span className="text-amber-400">4 composantes</span>
+          <div className="inline-block px-6 py-3 bg-white/10 border-2 border-butter-yellow">
+            <p className="text-lg text-white font-display">
+              <span className="text-white/70">VOTRE COÛT TOTAL</span> = <span className="text-butter-yellow">4 composantes</span>
             </p>
           </div>
         </div>
@@ -164,33 +158,33 @@ export default function CostBreakdownSection() {
                   ref={(el) => { plusSignsRef.current[index - 1] = el; }}
                   className="flex justify-center my-3"
                 >
-                  <div className="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center">
-                    <span className="text-2xl text-slate-300">+</span>
+                  <div className="w-10 h-10 bg-butter-yellow flex items-center justify-center">
+                    <span className="text-2xl text-rich-black font-bold">+</span>
                   </div>
                 </div>
               )}
 
-              {/* Card */}
+              {/* Card - Bauhaus style */}
               <div
                 ref={(el) => { cardsRef.current[index] = el; }}
-                className={`${cost.bgColor} rounded-2xl p-6 border ${cost.borderColor}`}
+                className={`${cost.bgColor} p-6`}
               >
                 <div className="flex items-start gap-4">
                   {/* Icon */}
-                  <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${cost.color} flex items-center justify-center flex-shrink-0`}>
+                  <div className={`w-14 h-14 ${cost.textColor === 'text-white' ? 'bg-white/20' : 'bg-rich-black/10'} flex items-center justify-center flex-shrink-0`}>
                     <span className="text-2xl">{cost.icon}</span>
                   </div>
 
                   {/* Content */}
                   <div className="flex-1">
-                    <h3 className="text-xl font-bold text-white mb-1">
+                    <h3 className={`text-xl font-display font-bold ${cost.textColor} mb-1`}>
                       {cost.title}
                     </h3>
-                    <p className="text-slate-300">
+                    <p className={`${cost.textColor} opacity-90`}>
                       {cost.description}
                     </p>
                     {cost.subtext && (
-                      <p className="text-sm text-slate-400 mt-1">
+                      <p className={`text-sm ${cost.textColor} opacity-70 mt-1`}>
                         {cost.subtext}
                       </p>
                     )}
@@ -202,9 +196,9 @@ export default function CostBreakdownSection() {
         </div>
 
         {/* Note about droits */}
-        <div className="mt-8 p-4 bg-purple-500/10 rounded-xl border border-purple-500/20">
-          <p className="text-sm text-purple-300 text-center">
-            <strong>💡 Bon à savoir :</strong> Les droits d'enregistrement sont de 12,5% en Wallonie,
+        <div className="mt-8 p-4 bg-magenta/20 border-2 border-magenta">
+          <p className="text-sm text-white text-center">
+            <strong className="text-magenta">💡 Bon à savoir :</strong> Les droits d'enregistrement sont de 12,5% en Wallonie,
             mais vous pouvez récupérer 60% si vous revendez votre premier bien dans les 2 ans.
           </p>
         </div>

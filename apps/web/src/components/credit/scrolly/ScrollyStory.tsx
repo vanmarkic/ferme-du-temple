@@ -3,8 +3,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import StepsSection from './sections/StepsSection';
 import CostBreakdownSection from './sections/CostBreakdownSection';
-import CoupleExampleSection from './sections/CoupleExampleSection';
-import MamanExampleSection from './sections/MamanExampleSection';
+import ComparativeExamplesSection from './sections/ComparativeExamplesSection';
 import PaymentTimelineSection from './sections/PaymentTimelineSection';
 
 export default function ScrollyStory() {
@@ -46,11 +45,11 @@ export default function ScrollyStory() {
   }, []);
 
   return (
-    <div ref={containerRef} className="relative w-full overflow-x-hidden bg-slate-900">
-      {/* Progress indicator */}
-      <div className="fixed top-0 left-0 w-full h-1 bg-slate-800 z-50">
+    <div ref={containerRef} className="relative w-full overflow-x-hidden bg-background">
+      {/* Progress indicator - Bauhaus style */}
+      <div className="fixed top-0 left-0 w-full h-2 bg-rich-black/10 z-50">
         <div
-          className="h-full bg-gradient-to-r from-blue-500 via-amber-500 to-green-500"
+          className="h-full bg-magenta"
           style={{
             width: '0%',
             transition: 'width 0.1s ease-out'
@@ -62,8 +61,7 @@ export default function ScrollyStory() {
       {/* Story sections - Buyer-centered journey */}
       <StepsSection />
       <CostBreakdownSection />
-      <CoupleExampleSection />
-      <MamanExampleSection />
+      <ComparativeExamplesSection />
       <PaymentTimelineSection />
     </div>
   );

@@ -10,9 +10,8 @@ const paymentSteps = [
     date: 'Maintenant',
     description: 'Participation aux frais courants',
     detail: 'Quelques centaines €/mois',
-    color: 'from-blue-500 to-cyan-500',
-    bgColor: 'bg-blue-500/20',
-    borderColor: 'border-blue-500/30'
+    bgColor: 'bg-butter-yellow',
+    textColor: 'text-rich-black'
   },
   {
     id: 'acte',
@@ -21,9 +20,8 @@ const paymentSteps = [
     date: 'Mars 2026 — Janvier 2027',
     description: 'Prix d\'achat + droits d\'enregistrement',
     detail: 'Acte collectif (mars 2026) ou révélation de lot (jusqu\'à janvier 2027)',
-    color: 'from-purple-500 to-violet-500',
-    bgColor: 'bg-purple-500/20',
-    borderColor: 'border-purple-500/30'
+    bgColor: 'bg-magenta',
+    textColor: 'text-white'
   },
   {
     id: 'tranche1',
@@ -32,9 +30,8 @@ const paymentSteps = [
     date: 'Janvier 2027',
     description: 'Gros œuvre, isolation, techniques',
     detail: 'Démarrage des travaux par zones',
-    color: 'from-amber-500 to-orange-500',
-    bgColor: 'bg-amber-500/20',
-    borderColor: 'border-amber-500/30'
+    bgColor: 'bg-nature-leaf',
+    textColor: 'text-rich-black'
   },
   {
     id: 'tranche2',
@@ -43,9 +40,8 @@ const paymentSteps = [
     date: '2027 — 2028',
     description: 'Finitions (à votre rythme)',
     detail: 'Certaines zones habitables avant la fin',
-    color: 'from-green-500 to-emerald-500',
-    bgColor: 'bg-green-500/20',
-    borderColor: 'border-green-500/30'
+    bgColor: 'bg-butter-yellow',
+    textColor: 'text-rich-black'
   },
   {
     id: 'emmenagement',
@@ -54,9 +50,8 @@ const paymentSteps = [
     date: 'Fin 2028',
     description: 'Frais courants partagés',
     detail: 'Toutes les zones terminées',
-    color: 'from-pink-500 to-rose-500',
-    bgColor: 'bg-pink-500/20',
-    borderColor: 'border-pink-500/30'
+    bgColor: 'bg-magenta',
+    textColor: 'text-white'
   }
 ];
 
@@ -136,33 +131,31 @@ export default function PaymentTimelineSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen flex flex-col items-center justify-center px-6 py-20 bg-gradient-to-b from-slate-900 to-slate-800"
+      className="relative min-h-screen flex flex-col items-center justify-center px-6 py-20 bg-rich-black"
     >
       <div className="max-w-4xl mx-auto w-full">
         <h2
           ref={titleRef}
-          className="text-4xl md:text-6xl font-bold text-center mb-6"
+          className="text-4xl md:text-6xl font-display font-bold text-center mb-6 text-butter-yellow"
         >
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-emerald-400">
-            Les paiements dans le temps
-          </span>
+          Les paiements dans le temps
         </h2>
 
         <p
           ref={subtitleRef}
-          className="text-xl md:text-2xl text-slate-300 text-center max-w-3xl mx-auto mb-16"
+          className="text-xl md:text-2xl text-white/80 text-center max-w-3xl mx-auto mb-16"
         >
           <span className="text-white font-bold">Vous ne payez pas tout d'un coup !</span>
           <br />
-          <span className="text-slate-400">L'investissement s'étale sur plusieurs mois.</span>
+          <span className="text-white/60">L'investissement s'étale sur plusieurs mois.</span>
         </p>
 
-        {/* Timeline vertical */}
+        {/* Timeline vertical - Bauhaus style */}
         <div className="relative">
           {/* Vertical line */}
           <div
             ref={lineRef}
-            className="absolute left-6 md:left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500 via-amber-500 to-pink-500 rounded-full transform md:-translate-x-1/2"
+            className="absolute left-6 md:left-1/2 top-0 bottom-0 w-1 bg-butter-yellow transform md:-translate-x-1/2"
           />
 
           {/* Steps */}
@@ -174,22 +167,22 @@ export default function PaymentTimelineSection() {
                 className={`relative flex items-center ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}
               >
                 {/* Dot on timeline */}
-                <div className="absolute left-6 md:left-1/2 w-4 h-4 rounded-full bg-white border-4 border-slate-900 transform -translate-x-1/2 z-10" />
+                <div className="absolute left-6 md:left-1/2 w-4 h-4 bg-butter-yellow transform -translate-x-1/2 z-10" />
 
                 {/* Content card */}
                 <div className={`ml-16 md:ml-0 md:w-5/12 ${index % 2 === 0 ? 'md:pr-12' : 'md:pl-12'}`}>
-                  <div className={`${step.bgColor} rounded-2xl p-5 border ${step.borderColor}`}>
+                  <div className={`${step.bgColor} p-5`}>
                     <div className="flex items-center gap-3 mb-2">
-                      <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${step.color} flex items-center justify-center`}>
+                      <div className={`w-10 h-10 ${step.textColor === 'text-white' ? 'bg-white/20' : 'bg-rich-black/10'} flex items-center justify-center`}>
                         <span className="text-xl">{step.icon}</span>
                       </div>
                       <div>
-                        <h3 className="text-lg font-bold text-white">{step.title}</h3>
-                        <p className="text-xs font-semibold text-amber-400">{step.date}</p>
+                        <h3 className={`text-lg font-display font-bold ${step.textColor}`}>{step.title}</h3>
+                        <p className={`text-xs font-semibold ${step.textColor === 'text-white' ? 'text-butter-yellow' : 'text-magenta'}`}>{step.date}</p>
                       </div>
                     </div>
-                    <p className="text-slate-300 mb-1">{step.description}</p>
-                    <p className="text-sm text-slate-400">→ {step.detail}</p>
+                    <p className={`${step.textColor} opacity-90 mb-1`}>{step.description}</p>
+                    <p className={`text-sm ${step.textColor} opacity-70`}>→ {step.detail}</p>
                   </div>
                 </div>
 
@@ -202,8 +195,8 @@ export default function PaymentTimelineSection() {
 
         {/* Bottom message */}
         <div className="mt-16 text-center">
-          <div className="inline-block px-8 py-4 bg-gradient-to-r from-green-900/30 to-emerald-900/30 rounded-2xl border border-green-500/20">
-            <p className="text-lg text-green-300">
+          <div className="inline-block px-8 py-4 bg-nature-leaf">
+            <p className="text-lg text-rich-black">
               <span className="font-bold">💡 Pour les finitions,</span> vous pouvez même mettre la main à la pâte !
             </p>
           </div>
