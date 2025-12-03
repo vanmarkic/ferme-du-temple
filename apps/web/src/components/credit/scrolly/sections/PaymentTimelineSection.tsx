@@ -58,7 +58,6 @@ const paymentSteps = [
 export default function PaymentTimelineSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
-  const subtitleRef = useRef<HTMLParagraphElement>(null);
   const stepsRef = useRef<(HTMLDivElement | null)[]>([]);
   const lineRef = useRef<HTMLDivElement>(null);
 
@@ -77,20 +76,6 @@ export default function PaymentTimelineSection() {
           trigger: section,
           start: 'top 80%',
           end: 'top 50%',
-          scrub: 1
-        }
-      });
-    }
-
-    // Subtitle
-    if (subtitleRef.current) {
-      gsap.from(subtitleRef.current, {
-        opacity: 0,
-        y: 30,
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 70%',
-          end: 'top 40%',
           scrub: 1
         }
       });
@@ -131,31 +116,22 @@ export default function PaymentTimelineSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen flex flex-col items-center justify-center px-6 py-20 bg-rich-black"
+      className="relative min-h-screen flex flex-col items-center justify-center px-6 py-20 bg-background"
     >
       <div className="max-w-4xl mx-auto w-full">
         <h2
           ref={titleRef}
-          className="text-4xl md:text-6xl font-display font-bold text-center mb-6 text-butter-yellow"
+          className="text-4xl md:text-6xl font-display font-bold text-center mb-16 text-rich-black"
         >
-          Les paiements dans le temps
+          Échelonnement des paiements
         </h2>
-
-        <p
-          ref={subtitleRef}
-          className="text-xl md:text-2xl text-white/80 text-center max-w-3xl mx-auto mb-16"
-        >
-          <span className="text-white font-bold">Vous ne payez pas tout d'un coup !</span>
-          <br />
-          <span className="text-white/60">L'investissement s'étale sur plusieurs mois.</span>
-        </p>
 
         {/* Timeline vertical - Bauhaus style */}
         <div className="relative">
           {/* Vertical line */}
           <div
             ref={lineRef}
-            className="absolute left-6 md:left-1/2 top-0 bottom-0 w-1 bg-butter-yellow transform md:-translate-x-1/2"
+            className="absolute left-6 md:left-1/2 top-0 bottom-0 w-1 bg-rich-black/20 transform md:-translate-x-1/2"
           />
 
           {/* Steps */}
@@ -167,7 +143,7 @@ export default function PaymentTimelineSection() {
                 className={`relative flex items-center ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}
               >
                 {/* Dot on timeline */}
-                <div className="absolute left-6 md:left-1/2 w-4 h-4 bg-butter-yellow transform -translate-x-1/2 z-10" />
+                <div className="absolute left-6 md:left-1/2 w-4 h-4 bg-magenta transform -translate-x-1/2 z-10" />
 
                 {/* Content card */}
                 <div className={`ml-16 md:ml-0 md:w-5/12 ${index % 2 === 0 ? 'md:pr-12' : 'md:pl-12'}`}>
@@ -194,12 +170,10 @@ export default function PaymentTimelineSection() {
         </div>
 
         {/* Bottom message */}
-        <div className="mt-16 text-center">
-          <div className="inline-block px-8 py-4 bg-nature-leaf">
-            <p className="text-lg text-rich-black">
-              <span className="font-bold">💡 Pour les finitions,</span> vous pouvez même mettre la main à la pâte !
-            </p>
-          </div>
+        <div className="mt-16 p-4 bg-nature-leaf/20 border-l-4 border-nature-leaf">
+          <p className="text-sm text-rich-black">
+            Pour les finitions, possibilité de participer aux travaux.
+          </p>
         </div>
       </div>
     </section>

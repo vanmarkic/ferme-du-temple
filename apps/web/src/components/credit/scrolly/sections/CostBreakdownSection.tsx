@@ -43,7 +43,6 @@ const costComponents = [
 export default function CostBreakdownSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
-  const subtitleRef = useRef<HTMLParagraphElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
   const plusSignsRef = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -63,21 +62,6 @@ export default function CostBreakdownSection() {
           trigger: section,
           start: 'top 80%',
           end: 'top 50%',
-          scrub: 1
-        }
-      });
-    }
-
-    // Subtitle animation
-    if (subtitleRef.current) {
-      gsap.from(subtitleRef.current, {
-        opacity: 0,
-        y: 30,
-        duration: 1,
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 70%',
-          end: 'top 40%',
           scrub: 1
         }
       });
@@ -120,33 +104,15 @@ export default function CostBreakdownSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen flex flex-col items-center justify-center px-6 py-20 bg-rich-black"
+      className="relative min-h-screen flex flex-col items-center justify-center px-6 py-20 bg-background"
     >
       <div className="max-w-4xl mx-auto">
         <h2
           ref={titleRef}
-          className="text-4xl md:text-6xl font-display font-bold text-center mb-6 text-butter-yellow"
+          className="text-4xl md:text-6xl font-display font-bold text-center mb-12 text-rich-black"
         >
-          Combien ça coûte ?
+          Les 4 composantes du coût
         </h2>
-
-        <p
-          ref={subtitleRef}
-          className="text-xl md:text-2xl text-white/80 text-center max-w-3xl mx-auto mb-12"
-        >
-          Pas de surprise : voici ce qui compose le prix.
-          <br />
-          <span className="text-white/60">Chaque euro est traçable.</span>
-        </p>
-
-        {/* Formula header */}
-        <div className="text-center mb-8">
-          <div className="inline-block px-6 py-3 bg-white/10 border-2 border-butter-yellow">
-            <p className="text-lg text-white font-display">
-              <span className="text-white/70">VOTRE COÛT TOTAL</span> = <span className="text-butter-yellow">4 composantes</span>
-            </p>
-          </div>
-        </div>
 
         {/* Cost cards */}
         <div className="space-y-4">
@@ -196,10 +162,10 @@ export default function CostBreakdownSection() {
         </div>
 
         {/* Note about droits */}
-        <div className="mt-8 p-4 bg-magenta/20 border-2 border-magenta">
-          <p className="text-sm text-white text-center">
-            <strong className="text-magenta">💡 Bon à savoir :</strong> Les droits d'enregistrement sont de 12,5% en Wallonie,
-            mais vous pouvez récupérer 60% si vous revendez votre premier bien dans les 2 ans.
+        <div className="mt-8 p-4 bg-magenta/10 border-l-4 border-magenta">
+          <p className="text-sm text-rich-black">
+            <strong>Note :</strong> Droits d'enregistrement de 12,5% en Wallonie.
+            Récupération possible de 60% si revente du 1er bien dans les 2 ans.
           </p>
         </div>
       </div>
