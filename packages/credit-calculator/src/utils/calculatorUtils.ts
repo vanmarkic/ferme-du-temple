@@ -372,7 +372,8 @@ export function getFraisGenerauxBreakdown(
     if (!participant.unitId || !participant.surface || !participant.quantity) continue;
 
     // Calculate CASCO without TVA for honoraires calculation
-    const actualCascoSqm = participant.cascoSqm !== undefined ? participant.cascoSqm : participant.surface;
+    // Use nullish coalescing (??) to handle both null and undefined from database
+    const actualCascoSqm = participant.cascoSqm ?? participant.surface;
     const cascoHorsTva = actualCascoSqm * projectParams.globalCascoPerM2;
     totalCascoHorsTva += cascoHorsTva * participant.quantity;
   }
