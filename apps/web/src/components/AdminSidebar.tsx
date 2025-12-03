@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { Users, FolderOpen, UserCog, LogOut, Menu, X, Calculator, FileText } from 'lucide-react';
+import { Users, FolderOpen, UserCog, LogOut, Menu, X, Calculator, FileText, Building2 } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 interface AdminSidebarProps {
-  currentPage: 'inscriptions' | 'guide' | 'users' | 'credit' | 'compromis';
+  currentPage: 'inscriptions' | 'guide' | 'users' | 'credit' | 'compromis' | 'architect-fees';
 }
 
 const navItems = [
@@ -36,6 +36,13 @@ const navItems = [
     label: 'Utilisateurs',
     href: '/admin/users',
     icon: UserCog,
+  },
+  {
+    id: 'architect-fees' as const,
+    label: 'Honoraires Archi',
+    href: '/architect-fees',
+    icon: Building2,
+    external: true,
   },
 ];
 
