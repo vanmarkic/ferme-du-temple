@@ -2,66 +2,91 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-// Couple avec enfant - 80m²
-const coupleBreakdown = [
-  { label: 'Prix d\'achat', amount: 85000 },
-  { label: 'Droits enregistrement', amount: 10600 },
-  { label: 'Travaux CASCO', amount: 132000, subtext: '80m² × 1 550€ × 1.06 TVA' },
-  { label: 'Frais partagés', amount: 15000 }
-];
+// Données basées sur le simulateur de crédit
+// Couple avec enfant - 80m² - Entrée 01/02/2027
+const coupleData = {
+  id: 'couple',
+  title: 'Couple avec enfant',
+  icon: '👨‍👩‍👧',
+  surface: '80m²',
+  unite: 'Unité 7',
+  entree: '01/02/2027',
+  bgColor: 'bg-magenta',
+  textColor: 'text-white',
+  // Parcours de paiement
+  signature: {
+    label: 'Signature',
+    subtitle: 'Je deviens propriétaire',
+    amount: 86647,
+    icon: '🔑'
+  },
+  construction: {
+    label: 'Construction',
+    subtitle: 'Mon logement prend forme',
+    amount: 164876,
+    icon: '🏗️'
+  },
+  emmenagement: {
+    label: 'Emménagement',
+    subtitle: 'J\'emménage chez moi',
+    amount: 40000,
+    icon: '🏠'
+  },
+  // Financement
+  coutTotal: 291523,
+  aEmprunter: 161479,
+  capitalPropre: 100000,
+  mensualite: 886,
+  tauxInteret: 4,
+  duree: 25
+};
 
 // Maman seule - 55m²
-const mamanBreakdown = [
-  { label: 'Prix d\'achat', amount: 58000 },
-  { label: 'Droits enregistrement', amount: 7300 },
-  { label: 'Travaux CASCO', amount: 90000, subtext: '55m² × 1 550€ × 1.06 TVA' },
-  { label: 'Frais partagés', amount: 15000 }
-];
-
-const coupleTotal = coupleBreakdown.reduce((sum, item) => sum + item.amount, 0);
-const mamanTotal = mamanBreakdown.reduce((sum, item) => sum + item.amount, 0);
-
-const coupleBudget = 300000;
-const mamanBudget = 200000;
-
-const coupleMarge = coupleBudget - coupleTotal;
-const mamanMarge = mamanBudget - mamanTotal;
-
-const profiles = [
-  {
-    id: 'couple',
-    title: 'Couple avec enfant',
-    icon: '👨‍👩‍👧',
-    surface: '80m²',
-    budget: coupleBudget,
-    breakdown: coupleBreakdown,
-    total: coupleTotal,
-    marge: coupleMarge,
-    bgColor: 'bg-magenta',
-    accentColor: 'butter-yellow'
+const mamanData = {
+  id: 'maman',
+  title: 'Maman seule',
+  icon: '👩‍👧',
+  surface: '55m²',
+  unite: 'Unité 4',
+  entree: '01/02/2027',
+  bgColor: 'bg-butter-yellow',
+  textColor: 'text-rich-black',
+  // Parcours de paiement (proportionnel)
+  signature: {
+    label: 'Signature',
+    subtitle: 'Je deviens propriétaire',
+    amount: 65300,
+    icon: '🔑'
   },
-  {
-    id: 'maman',
-    title: 'Maman seule',
-    icon: '👩‍👧',
-    surface: '55m²',
-    budget: mamanBudget,
-    breakdown: mamanBreakdown,
-    total: mamanTotal,
-    marge: mamanMarge,
-    bgColor: 'bg-butter-yellow',
-    accentColor: 'magenta'
-  }
-];
+  construction: {
+    label: 'Construction',
+    subtitle: 'Mon logement prend forme',
+    amount: 105000,
+    icon: '🏗️'
+  },
+  emmenagement: {
+    label: 'Emménagement',
+    subtitle: 'J\'emménage chez moi',
+    amount: 30000,
+    icon: '🏠'
+  },
+  // Financement
+  coutTotal: 200300,
+  aEmprunter: 120300,
+  capitalPropre: 80000,
+  mensualite: 635,
+  tauxInteret: 4,
+  duree: 25
+};
+
+const profiles = [coupleData, mamanData];
 
 export default function ComparativeExamplesSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const profilesRef = useRef<(HTMLDivElement | null)[]>([]);
-  const breakdownRowsRef = useRef<(HTMLDivElement | null)[]>([]);
-  const totalsRef = useRef<(HTMLDivElement | null)[]>([]);
-  const margesRef = useRef<(HTMLDivElement | null)[]>([]);
-  const messageRef = useRef<HTMLDivElement>(null);
+  const parcoursRef = useRef<(HTMLDivElement | null)[]>([]);
+  const financementRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -98,8 +123,8 @@ export default function ComparativeExamplesSection() {
       });
     });
 
-    // Breakdown rows appear together
-    breakdownRowsRef.current.forEach((row) => {
+    // Parcours rows
+    parcoursRef.current.forEach((row) => {
       if (!row) return;
       gsap.from(row, {
         opacity: 0,
@@ -113,54 +138,25 @@ export default function ComparativeExamplesSection() {
       });
     });
 
-    // Totals
-    totalsRef.current.forEach((total) => {
-      if (!total) return;
-      gsap.from(total, {
-        opacity: 0,
-        scale: 0.9,
-        scrollTrigger: {
-          trigger: total,
-          start: 'top 85%',
-          end: 'top 70%',
-          scrub: 1
-        }
-      });
-    });
-
-    // Marges
-    margesRef.current.forEach((marge) => {
-      if (!marge) return;
-      gsap.from(marge, {
+    // Financement rows
+    financementRef.current.forEach((row) => {
+      if (!row) return;
+      gsap.from(row, {
         opacity: 0,
         y: 20,
         scrollTrigger: {
-          trigger: marge,
+          trigger: row,
           start: 'top 90%',
           end: 'top 75%',
           scrub: 1
         }
       });
     });
-
-    // Message
-    if (messageRef.current) {
-      gsap.from(messageRef.current, {
-        opacity: 0,
-        y: 20,
-        scrollTrigger: {
-          trigger: messageRef.current,
-          start: 'top 90%',
-          end: 'top 75%',
-          scrub: 1
-        }
-      });
-    }
 
   }, []);
 
   const formatCurrency = (amount: number) => {
-    return amount.toLocaleString('fr-BE') + '€';
+    return amount.toLocaleString('fr-BE') + ' €';
   };
 
   return (
@@ -182,127 +178,155 @@ export default function ComparativeExamplesSection() {
             <div
               key={profile.id}
               ref={(el) => { profilesRef.current[index] = el; }}
-              className={`${profile.bgColor} p-6 text-center`}
+              className={`${profile.bgColor} p-6`}
             >
-              <div className="flex items-center justify-center gap-4">
-                <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center">
+              <div className="flex items-center gap-4">
+                <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center flex-shrink-0">
                   <span className="text-3xl">{profile.icon}</span>
                 </div>
-                <div className="text-left">
-                  <h3 className={`text-xl font-display font-bold ${profile.bgColor === 'bg-magenta' ? 'text-white' : 'text-rich-black'}`}>
+                <div>
+                  <h3 className={`text-xl font-display font-bold ${profile.textColor}`}>
                     {profile.title}
                   </h3>
-                  <p className={`text-sm ${profile.bgColor === 'bg-magenta' ? 'text-white/70' : 'text-rich-black/70'}`}>
-                    {profile.surface} • Budget {formatCurrency(profile.budget)}
+                  <p className={`text-sm ${profile.textColor} opacity-70`}>
+                    {profile.unite} • {profile.surface} • Entrée: {profile.entree}
                   </p>
                 </div>
               </div>
+
+              {/* Résumé financier */}
+              <div className="grid grid-cols-3 gap-2 mt-4">
+                <div className={`p-2 ${profile.textColor === 'text-white' ? 'bg-white/10' : 'bg-rich-black/5'}`}>
+                  <p className={`text-xs ${profile.textColor} opacity-60`}>Coût Total</p>
+                  <p className={`text-sm font-bold ${profile.textColor}`}>{formatCurrency(profile.coutTotal)}</p>
+                </div>
+                <div className={`p-2 ${profile.textColor === 'text-white' ? 'bg-white/10' : 'bg-rich-black/5'}`}>
+                  <p className={`text-xs ${profile.textColor} opacity-60`}>À emprunter</p>
+                  <p className={`text-sm font-bold ${profile.textColor}`}>{formatCurrency(profile.aEmprunter)}</p>
+                </div>
+                <div className={`p-2 ${profile.textColor === 'text-white' ? 'bg-white/10' : 'bg-rich-black/5'}`}>
+                  <p className={`text-xs ${profile.textColor} opacity-60`}>Mensualité</p>
+                  <p className={`text-sm font-bold ${profile.textColor}`}>{profile.mensualite} €/mois</p>
+                </div>
+              </div>
             </div>
           ))}
         </div>
 
-        {/* Breakdown comparison - row by row */}
-        <div className="space-y-3">
-          {/* Header row */}
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="text-center">
-              <span className="text-sm font-display font-bold text-muted-foreground uppercase tracking-wide">
-                Couple avec enfant
-              </span>
-            </div>
-            <div className="text-center">
-              <span className="text-sm font-display font-bold text-muted-foreground uppercase tracking-wide">
-                Maman seule
-              </span>
-            </div>
-          </div>
+        {/* Parcours de paiement - Timeline */}
+        <div
+          ref={(el) => { parcoursRef.current[0] = el; }}
+          className="mb-8"
+        >
+          <h3 className="text-lg font-display font-bold text-rich-black mb-4 text-center">
+            Parcours de paiement
+          </h3>
 
-          {/* Cost rows */}
-          {coupleBreakdown.map((item, rowIndex) => (
-            <div
-              key={item.label}
-              ref={(el) => { breakdownRowsRef.current[rowIndex] = el; }}
-              className="grid md:grid-cols-2 gap-6"
-            >
-              {/* Couple column */}
-              <div className="bg-white border-2 border-rich-black/10 p-4">
-                <div className="flex justify-between items-center">
-                  <span className="text-rich-black text-sm">{item.label}</span>
-                  <span className="text-lg font-mono text-rich-black font-bold">
-                    {formatCurrency(coupleBreakdown[rowIndex].amount)}
-                  </span>
+          {/* Timeline progress bar */}
+          <div className="grid md:grid-cols-2 gap-6 mb-4">
+            {profiles.map((profile) => (
+              <div key={`timeline-${profile.id}`} className="flex items-center justify-between px-4">
+                <div className="flex items-center gap-1">
+                  <div className="w-3 h-3 rounded-full bg-blue-500" />
+                  <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-amber-500" />
                 </div>
-                {coupleBreakdown[rowIndex].subtext && (
-                  <p className="text-xs text-muted-foreground mt-1">{coupleBreakdown[rowIndex].subtext}</p>
-                )}
-              </div>
-
-              {/* Maman column */}
-              <div className="bg-white border-2 border-rich-black/10 p-4">
-                <div className="flex justify-between items-center">
-                  <span className="text-rich-black text-sm">{item.label}</span>
-                  <span className="text-lg font-mono text-rich-black font-bold">
-                    {formatCurrency(mamanBreakdown[rowIndex].amount)}
-                  </span>
+                <div className="flex items-center gap-1">
+                  <div className="w-3 h-3 rounded-full bg-amber-500" />
+                  <div className="w-24 h-1 bg-gradient-to-r from-amber-500 to-green-500" />
                 </div>
-                {mamanBreakdown[rowIndex].subtext && (
-                  <p className="text-xs text-muted-foreground mt-1">{mamanBreakdown[rowIndex].subtext}</p>
-                )}
-              </div>
-            </div>
-          ))}
-
-          {/* Totals row */}
-          <div className="grid md:grid-cols-2 gap-6 pt-4">
-            {profiles.map((profile, index) => (
-              <div
-                key={`total-${profile.id}`}
-                ref={(el) => { totalsRef.current[index] = el; }}
-                className="bg-rich-black p-4"
-              >
-                <div className="flex justify-between items-center">
-                  <span className="text-white font-display font-bold">TOTAL</span>
-                  <span className="text-2xl font-bold font-mono text-butter-yellow">
-                    {formatCurrency(profile.total)}
-                  </span>
-                </div>
+                <div className="w-3 h-3 rounded-full bg-green-500" />
               </div>
             ))}
           </div>
 
-          {/* Marge row */}
+          {/* Phase cards */}
           <div className="grid md:grid-cols-2 gap-6">
-            {profiles.map((profile, index) => (
-              <div
-                key={`marge-${profile.id}`}
-                ref={(el) => { margesRef.current[index] = el; }}
-                className="bg-nature-leaf p-4"
-              >
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl">✓</span>
-                  <div>
-                    <p className="text-rich-black font-bold">
-                      Marge de {formatCurrency(profile.marge)}
-                    </p>
-                    <p className="text-sm text-rich-black/70">
-                      Pour finitions et imprévus
-                    </p>
+            {profiles.map((profile) => (
+              <div key={`phases-${profile.id}`} className="space-y-3">
+                {/* Signature */}
+                <div className="bg-blue-50 border-l-4 border-blue-500 p-4">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span>{profile.signature.icon}</span>
+                    <span className="font-display font-bold text-rich-black">{profile.signature.label}</span>
+                  </div>
+                  <p className="text-xs text-muted-foreground">{profile.signature.subtitle}</p>
+                  <p className="text-xl font-mono font-bold text-rich-black mt-2">
+                    {formatCurrency(profile.signature.amount)}
+                  </p>
+                </div>
+
+                {/* Construction */}
+                <div className="bg-amber-50 border-l-4 border-amber-500 p-4">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span>{profile.construction.icon}</span>
+                    <span className="font-display font-bold text-rich-black">{profile.construction.label}</span>
+                  </div>
+                  <p className="text-xs text-muted-foreground">{profile.construction.subtitle}</p>
+                  <p className="text-xl font-mono font-bold text-rich-black mt-2">
+                    {formatCurrency(profile.construction.amount)}
+                  </p>
+                </div>
+
+                {/* Emménagement */}
+                <div className="bg-green-50 border-l-4 border-green-500 p-4">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span>{profile.emmenagement.icon}</span>
+                    <span className="font-display font-bold text-rich-black">{profile.emmenagement.label}</span>
+                  </div>
+                  <p className="text-xs text-muted-foreground">{profile.emmenagement.subtitle}</p>
+                  <p className="text-xl font-mono font-bold text-rich-black mt-2">
+                    {formatCurrency(profile.emmenagement.amount)}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Financement détaillé */}
+        <div
+          ref={(el) => { financementRef.current[0] = el; }}
+          className="grid md:grid-cols-2 gap-6"
+        >
+          {profiles.map((profile, index) => (
+            <div
+              key={`financement-${profile.id}`}
+              ref={(el) => { financementRef.current[index + 1] = el; }}
+              className="bg-white border-2 border-rich-black/10 p-4"
+            >
+              <h4 className="font-display font-bold text-rich-black mb-3">
+                Financement
+              </h4>
+
+              <div className="space-y-2 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Capital propre</span>
+                  <span className="font-mono font-bold">{formatCurrency(profile.capitalPropre)}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">À emprunter</span>
+                  <span className="font-mono font-bold text-magenta">{formatCurrency(profile.aEmprunter)}</span>
+                </div>
+                <div className="border-t border-rich-black/10 pt-2 mt-2">
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Taux • Durée</span>
+                    <span className="font-mono">{profile.tauxInteret}% • {profile.duree} ans</span>
+                  </div>
+                  <div className="flex justify-between mt-1">
+                    <span className="text-muted-foreground">Mensualité</span>
+                    <span className="font-mono font-bold text-lg text-magenta">{profile.mensualite} €/mois</span>
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
 
-        {/* Message collectif */}
-        <div
-          ref={messageRef}
-          className="mt-12 p-6 bg-magenta/10 border-2 border-magenta text-center"
-        >
-          <p className="text-lg text-rich-black">
-            <span className="text-magenta font-bold">La vie en collectif permet de mutualiser :</span>
-            <br />
-            <span className="text-rich-black">buanderie, jardin, salle de jeux pour les enfants...</span>
+        {/* Note */}
+        <div className="mt-8 p-4 bg-rich-black/5 border-l-4 border-rich-black/20">
+          <p className="text-sm text-muted-foreground">
+            Hypothèses : taux 4%, durée 25 ans, 2 prêts (signature + construction).
+            Le simulateur complet permet d'ajuster tous les paramètres.
           </p>
         </div>
       </div>
