@@ -173,15 +173,16 @@ A ready-to-use HTML widget is included for embedding in any website.
 
 ### Option 1: Embed via iframe (Recommended)
 
-Host the widget on GitHub Pages or any static hosting, then embed:
+Use the hosted widget on GitHub Pages:
 
 ```html
 <iframe
-  src="https://your-username.github.io/architect-fees-be/widget/"
+  src="https://vanmarkic.github.io/ferme-du-temple/architect-fees/"
   width="100%"
   height="550"
   frameborder="0"
   style="max-width: 500px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+  title="Belgian Architect Fee Calculator"
 ></iframe>
 ```
 

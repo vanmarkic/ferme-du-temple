@@ -15,18 +15,88 @@ const embedCode = `<iframe
   style="max-width: 500px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
   title="Belgian Architect Fee Calculator"
 ></iframe>`;
+
+const i18n = {
+  fr: {
+    title: "Calculateur d'Honoraires Architecte",
+    subtitle: "Basé sur la méthodologie BRADA",
+    howItWorks: "Comment ça fonctionne",
+    howItWorksText: "Ce calculateur utilise la méthodologie double-approche de l'étude BRADA (Belgian Research on Architects' Design Activities):",
+    surfaceEstimate: "Estimation basée sur la surface",
+    surfaceEstimateDesc: "calcule les heures en fonction de la surface du bâtiment",
+    costEstimate: "Estimation basée sur le coût",
+    costEstimateDesc: "calcule les heures en fonction du budget de construction",
+    finalFee: "L'honoraire final est la moyenne des deux approches, multipliée par le taux horaire.",
+    embedWidget: "Intégrer le widget",
+    embedText: "Copiez ce code pour intégrer le calculateur sur votre site:",
+    copyCode: "Copier le code",
+    copied: "Copié!",
+    npmPackage: "Package npm",
+    npmText: "Utilisez le package architect-fees-be dans vos projets TypeScript/JavaScript:",
+    credits: "Crédits",
+    creditsText: "Ce calculateur implémente la formule de l'étude BRADA (2016), une recherche approfondie sur la charge de travail et les structures d'honoraires des architectes belges.",
+    formulaCredits: "Formule et coefficients: étude BRADA /",
+    originalReport: "Rapport original:",
+  },
+  nl: {
+    title: "Architect Honorarium Calculator",
+    subtitle: "Gebaseerd op de BRADA-methodologie",
+    howItWorks: "Hoe het werkt",
+    howItWorksText: "Deze calculator gebruikt de dubbele-benadering methodologie van de BRADA-studie (Belgian Research on Architects' Design Activities):",
+    surfaceEstimate: "Schatting op basis van oppervlakte",
+    surfaceEstimateDesc: "berekent uren op basis van de gebouwoppervlakte",
+    costEstimate: "Schatting op basis van kosten",
+    costEstimateDesc: "berekent uren op basis van het bouwbudget",
+    finalFee: "Het uiteindelijke honorarium is het gemiddelde van beide benaderingen, vermenigvuldigd met het uurtarief.",
+    embedWidget: "Widget integreren",
+    embedText: "Kopieer deze code om de calculator op uw website te integreren:",
+    copyCode: "Code kopiëren",
+    copied: "Gekopieerd!",
+    npmPackage: "npm-pakket",
+    npmText: "Gebruik het architect-fees-be pakket in uw TypeScript/JavaScript projecten:",
+    credits: "Credits",
+    creditsText: "Deze calculator implementeert de formule van de BRADA-studie (2016), een uitgebreid onderzoek naar de werklast en honorariumstructuren van Belgische architecten.",
+    formulaCredits: "Formule en coëfficiënten: BRADA-studie /",
+    originalReport: "Origineel rapport:",
+  },
+  en: {
+    title: "Architect Fee Calculator",
+    subtitle: "Based on BRADA methodology",
+    howItWorks: "How it works",
+    howItWorksText: "This calculator uses the dual-approach methodology from the BRADA study (Belgian Research on Architects' Design Activities):",
+    surfaceEstimate: "Surface-based estimation",
+    surfaceEstimateDesc: "calculates hours based on building surface area",
+    costEstimate: "Cost-based estimation",
+    costEstimateDesc: "calculates hours based on construction budget",
+    finalFee: "The final fee is the average of both approaches, multiplied by the hourly rate.",
+    embedWidget: "Embed widget",
+    embedText: "Copy this code to embed the calculator on your website:",
+    copyCode: "Copy code",
+    copied: "Copied!",
+    npmPackage: "npm package",
+    npmText: "Use the architect-fees-be package in your TypeScript/JavaScript projects:",
+    credits: "Credits",
+    creditsText: "This calculator implements the formula from the BRADA study (2016), comprehensive research on workload and fee structures for Belgian architects.",
+    formulaCredits: "Formula and coefficients: BRADA study /",
+    originalReport: "Original report:",
+  }
+};
 ---
 
 <BaseLayout
-  title="Calculateur Honoraires Architecte Belgique | architect-fees-be"
-  description="Calculateur d'honoraires d'architecte belge basé sur la méthodologie BRADA. Widget gratuit à intégrer et package npm pour calculer les honoraires professionnels."
+  title="Calculateur Honoraires Architecte Belgique | Belgian Architect Fee Calculator"
+  description="Calculateur d'honoraires d'architecte belge basé sur la méthodologie BRADA. Free Belgian architect fee calculator. Widget gratuit et package npm."
 >
   <article class="architect-fees-page">
+    <nav class="lang-switcher">
+      <button class="lang-btn active" data-lang="fr">FR</button>
+      <button class="lang-btn" data-lang="nl">NL</button>
+      <button class="lang-btn" data-lang="en">EN</button>
+    </nav>
+
     <header class="page-header">
-      <h1>Calculateur d'Honoraires Architecte</h1>
-      <p class="subtitle">
-        Belgian Architect Fee Calculator based on BRADA methodology
-      </p>
+      <h1 id="pageTitle">{i18n.fr.title}</h1>
+      <p class="subtitle" id="pageSubtitle">{i18n.fr.subtitle}</p>
     </header>
 
     <section class="calculator-section">
@@ -42,32 +112,25 @@ const embedCode = `<iframe
     </section>
 
     <section class="info-section">
-      <h2>Comment ça fonctionne</h2>
-      <p>
-        Ce calculateur utilise la méthodologie double-approche de l'étude BRADA
-        (Belgian Research on Architects' Design Activities):
-      </p>
+      <h2 id="howItWorksTitle">{i18n.fr.howItWorks}</h2>
+      <p id="howItWorksText">{i18n.fr.howItWorksText}</p>
       <ul>
-        <li><strong>Estimation basée sur la surface</strong>: calcule les heures en fonction de la surface du bâtiment</li>
-        <li><strong>Estimation basée sur le coût</strong>: calcule les heures en fonction du budget de construction</li>
+        <li><strong id="surfaceLabel">{i18n.fr.surfaceEstimate}</strong>: <span id="surfaceDesc">{i18n.fr.surfaceEstimateDesc}</span></li>
+        <li><strong id="costLabel">{i18n.fr.costEstimate}</strong>: <span id="costDesc">{i18n.fr.costEstimateDesc}</span></li>
       </ul>
-      <p>
-        L'honoraire final est la moyenne des deux approches, multipliée par le taux horaire.
-      </p>
+      <p id="finalFeeText">{i18n.fr.finalFee}</p>
     </section>
 
     <section class="embed-section">
-      <h2>Intégrer le widget</h2>
-      <p>Copiez ce code pour intégrer le calculateur sur votre site:</p>
+      <h2 id="embedTitle">{i18n.fr.embedWidget}</h2>
+      <p id="embedText">{i18n.fr.embedText}</p>
       <pre><code>{embedCode}</code></pre>
-      <button class="copy-button" id="copyButton">Copier le code</button>
+      <button class="copy-button" id="copyButton" data-copy="{i18n.fr.copyCode}" data-copied="{i18n.fr.copied}">{i18n.fr.copyCode}</button>
     </section>
 
     <section class="npm-section">
-      <h2>Package npm</h2>
-      <p>
-        Utilisez le package <code>architect-fees-be</code> dans vos projets TypeScript/JavaScript:
-      </p>
+      <h2 id="npmTitle">{i18n.fr.npmPackage}</h2>
+      <p id="npmText">{i18n.fr.npmText}</p>
       <pre><code>npm install architect-fees-be</code></pre>
       <pre><code>{`import { calculateHonoraires } from 'architect-fees-be';
 
@@ -81,31 +144,76 @@ console.log(result.honoraireMoyen); // ~214,860€`}</code></pre>
     </section>
 
     <section class="credits-section">
-      <h2>Crédits</h2>
-      <p>
-        Ce calculateur implémente la formule de l'étude <strong>BRADA</strong> (2016),
-        une recherche approfondie sur la charge de travail et les structures d'honoraires des architectes belges.
-      </p>
+      <h2 id="creditsTitle">{i18n.fr.credits}</h2>
+      <p id="creditsText">{i18n.fr.creditsText}</p>
       <ul>
-        <li>Formule et coefficients: étude BRADA / <a href="https://archimath.systeme-d.com/" target="_blank" rel="noopener">ArchiMath</a> par Systeme-D</li>
-        <li>Rapport original: <a href="https://archimath.systeme-d.com/BRADA_HET_RAPPORT_20160126_JR.pdf" target="_blank" rel="noopener">BRADA_HET_RAPPORT_20160126_JR.pdf</a></li>
+        <li><span id="formulaCredits">{i18n.fr.formulaCredits}</span> <a href="https://archimath.systeme-d.com/" target="_blank" rel="noopener">ArchiMath</a> par Systeme-D</li>
+        <li><span id="originalReport">{i18n.fr.originalReport}</span> <a href="https://archimath.systeme-d.com/BRADA_HET_RAPPORT_20160126_JR.pdf" target="_blank" rel="noopener">BRADA_HET_RAPPORT_20160126_JR.pdf</a></li>
       </ul>
     </section>
   </article>
 
-  <script>
+  <script is:inline define:vars={{ i18n }}>
+    const langButtons = document.querySelectorAll('.lang-btn');
     const copyButton = document.getElementById('copyButton');
+
+    function setLanguage(lang) {
+      const t = i18n[lang];
+
+      document.getElementById('pageTitle').textContent = t.title;
+      document.getElementById('pageSubtitle').textContent = t.subtitle;
+      document.getElementById('howItWorksTitle').textContent = t.howItWorks;
+      document.getElementById('howItWorksText').textContent = t.howItWorksText;
+      document.getElementById('surfaceLabel').textContent = t.surfaceEstimate;
+      document.getElementById('surfaceDesc').textContent = t.surfaceEstimateDesc;
+      document.getElementById('costLabel').textContent = t.costEstimate;
+      document.getElementById('costDesc').textContent = t.costEstimateDesc;
+      document.getElementById('finalFeeText').textContent = t.finalFee;
+      document.getElementById('embedTitle').textContent = t.embedWidget;
+      document.getElementById('embedText').textContent = t.embedText;
+      document.getElementById('npmTitle').textContent = t.npmPackage;
+      document.getElementById('npmText').textContent = t.npmText;
+      document.getElementById('creditsTitle').textContent = t.credits;
+      document.getElementById('creditsText').textContent = t.creditsText;
+      document.getElementById('formulaCredits').textContent = t.formulaCredits;
+      document.getElementById('originalReport').textContent = t.originalReport;
+
+      if (copyButton) {
+        copyButton.textContent = t.copyCode;
+        copyButton.dataset.copy = t.copyCode;
+        copyButton.dataset.copied = t.copied;
+      }
+
+      langButtons.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
+
+      localStorage.setItem('architect-fees-lang', lang);
+    }
+
+    langButtons.forEach(btn => {
+      btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+    });
+
     if (copyButton) {
       copyButton.addEventListener('click', async () => {
         const code = document.querySelector('.embed-section code')?.textContent;
         if (code) {
           await navigator.clipboard.writeText(code);
-          copyButton.textContent = 'Copié!';
+          const copiedText = copyButton.dataset.copied;
+          const copyText = copyButton.dataset.copy;
+          copyButton.textContent = copiedText;
           setTimeout(() => {
-            copyButton.textContent = 'Copier le code';
+            copyButton.textContent = copyText;
           }, 2000);
         }
       });
+    }
+
+    // Restore saved language
+    const savedLang = localStorage.getItem('architect-fees-lang');
+    if (savedLang && i18n[savedLang]) {
+      setLanguage(savedLang);
     }
   </script>
 </BaseLayout>
@@ -115,6 +223,34 @@ console.log(result.honoraireMoyen); // ~214,860€`}</code></pre>
     max-width: 800px;
     margin: 0 auto;
     padding: 2rem 1rem;
+  }
+
+  .lang-switcher {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .lang-btn {
+    background: #f1f5f9;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #64748b;
+  }
+
+  .lang-btn:hover {
+    background: #e2e8f0;
+  }
+
+  .lang-btn.active {
+    background: #2563eb;
+    color: white;
   }
 
   .page-header {
