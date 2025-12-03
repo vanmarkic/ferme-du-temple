@@ -7,6 +7,7 @@ const paymentSteps = [
     id: 'adhesion',
     title: 'Adhésion',
     icon: '📝',
+    date: 'Maintenant',
     description: 'Participation aux frais courants',
     detail: 'Quelques centaines €/mois',
     color: 'from-blue-500 to-cyan-500',
@@ -17,28 +18,31 @@ const paymentSteps = [
     id: 'acte',
     title: 'Acte notarié',
     icon: '🏛️',
+    date: 'Mars 2026 — Janvier 2027',
     description: 'Prix d\'achat + droits d\'enregistrement',
-    detail: 'Votre emprunt démarre ici',
+    detail: 'Acte collectif (mars 2026) ou révélation de lot (jusqu\'à janvier 2027)',
     color: 'from-purple-500 to-violet-500',
     bgColor: 'bg-purple-500/20',
     borderColor: 'border-purple-500/30'
   },
   {
     id: 'tranche1',
-    title: 'Travaux — Tranche 1',
+    title: 'Travaux — Phase 1',
     icon: '🔨',
+    date: 'Janvier 2027',
     description: 'Gros œuvre, isolation, techniques',
-    detail: 'Paiement sur avancement',
+    detail: 'Démarrage des travaux par zones',
     color: 'from-amber-500 to-orange-500',
     bgColor: 'bg-amber-500/20',
     borderColor: 'border-amber-500/30'
   },
   {
     id: 'tranche2',
-    title: 'Travaux — Tranche 2',
+    title: 'Travaux — Phase 2',
     icon: '🎨',
+    date: '2027 — 2028',
     description: 'Finitions (à votre rythme)',
-    detail: 'Possibilité d\'auto-construction',
+    detail: 'Certaines zones habitables avant la fin',
     color: 'from-green-500 to-emerald-500',
     bgColor: 'bg-green-500/20',
     borderColor: 'border-green-500/30'
@@ -47,8 +51,9 @@ const paymentSteps = [
     id: 'emmenagement',
     title: 'Emménagement',
     icon: '🏠',
+    date: 'Fin 2028',
     description: 'Frais courants partagés',
-    detail: 'Charges communes',
+    detail: 'Toutes les zones terminées',
     color: 'from-pink-500 to-rose-500',
     bgColor: 'bg-pink-500/20',
     borderColor: 'border-pink-500/30'
@@ -178,7 +183,10 @@ export default function PaymentTimelineSection() {
                       <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${step.color} flex items-center justify-center`}>
                         <span className="text-xl">{step.icon}</span>
                       </div>
-                      <h3 className="text-lg font-bold text-white">{step.title}</h3>
+                      <div>
+                        <h3 className="text-lg font-bold text-white">{step.title}</h3>
+                        <p className="text-xs font-semibold text-amber-400">{step.date}</p>
+                      </div>
                     </div>
                     <p className="text-slate-300 mb-1">{step.description}</p>
                     <p className="text-sm text-slate-400">→ {step.detail}</p>
