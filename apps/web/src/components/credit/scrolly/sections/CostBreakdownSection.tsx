@@ -21,12 +21,23 @@ const costComponents = [
     textColor: 'text-white'
   },
   {
-    id: 'travaux',
-    title: 'Travaux rénovation',
-    description: 'CASCO : 1 400 - 1 700€/m² HTVA',
-    subtext: 'Isolation chanvre, peinture argile, géothermie...',
+    id: 'casco',
+    title: 'CASCO (gros œuvre)',
+    description: '1 590€/m² + TVA 6%',
+    subtext: 'Structure, isolation chanvre, techniques (géothermie, ventilation)',
+    example: '80m² → 134 832€',
     icon: '🔨',
     bgColor: 'bg-nature-leaf',
+    textColor: 'text-rich-black'
+  },
+  {
+    id: 'parachevement',
+    title: 'Parachèvements (finitions)',
+    description: '~500€/m²',
+    subtext: 'Peinture argile, sols, cuisine, salle de bain',
+    example: '80m² → 40 000€',
+    icon: '🎨',
+    bgColor: 'bg-butter-yellow',
     textColor: 'text-rich-black'
   },
   {
@@ -35,8 +46,8 @@ const costComponents = [
     description: 'Frais généraux, honoraires architectes',
     subtext: 'Répartis équitablement entre tous',
     icon: '🤝',
-    bgColor: 'bg-butter-yellow',
-    textColor: 'text-rich-black'
+    bgColor: 'bg-magenta',
+    textColor: 'text-white'
   }
 ];
 
@@ -111,7 +122,7 @@ export default function CostBreakdownSection() {
           ref={titleRef}
           className="text-4xl md:text-6xl font-display font-bold text-center mb-12 text-rich-black"
         >
-          Les 4 composantes du coût
+          Les 5 composantes du coût
         </h2>
 
         {/* Cost cards */}
@@ -152,6 +163,11 @@ export default function CostBreakdownSection() {
                     {cost.subtext && (
                       <p className={`text-sm ${cost.textColor} opacity-70 mt-1`}>
                         {cost.subtext}
+                      </p>
+                    )}
+                    {'example' in cost && cost.example && (
+                      <p className={`text-sm font-mono font-bold ${cost.textColor} mt-2`}>
+                        Ex: {cost.example}
                       </p>
                     )}
                   </div>
