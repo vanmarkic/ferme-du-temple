@@ -10,7 +10,7 @@
 
 import { Eye, Edit3, Lock, Unlock, Save, X, AlertCircle, ChevronUp, Settings } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import { useUnlock } from '../contexts/UnlockContext';
+import { useUnlock, useReadonlyMode } from '../contexts/UnlockContext';
 
 interface EditModeToolbarProps {
   isDirty: boolean;
@@ -23,9 +23,9 @@ interface EditModeToolbarProps {
 }
 
 export function EditModeToolbar({ isDirty, isSaving, error, onSave, onDiscard, userEmail = 'admin' }: EditModeToolbarProps) {
+  // Use separate hooks to prevent unnecessary re-renders
+  const { isReadonlyMode, setReadonlyMode } = useReadonlyMode();
   const {
-    isReadonlyMode,
-    setReadonlyMode,
     isForceReadonly,
     isUnlocked,
     unlockedBy,

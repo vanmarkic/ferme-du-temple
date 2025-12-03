@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 
 /**
  * Represents the unlock state for collective fields.
+ * Note: isReadonlyMode has been moved to ReadonlyModeContext for performance.
  */
 export interface UnlockState {
   /** Whether collective fields are currently unlocked */
@@ -12,42 +13,9 @@ export interface UnlockState {
 
   /** Email of the user who unlocked the fields */
   unlockedBy: string | null;
-
-  /** Whether readonly mode is enabled (all fields disabled) */
-  isReadonlyMode: boolean;
 }
 
 const UNLOCK_STATE_KEY = 'credit-castor-unlock-state';
-const READONLY_MODE_KEY = 'credit-castor-readonly-mode';
-
-// Default readonly mode from env (true unless explicitly set to 'false')
-const DEFAULT_READONLY_MODE = import.meta.env.PUBLIC_READONLY_MODE !== 'false';
-
-/**
- * Load readonly mode from localStorage (defaults to env setting).
- */
-function loadReadonlyMode(): boolean {
-  try {
-    const stored = localStorage.getItem(READONLY_MODE_KEY);
-    if (stored === null) {
-      return DEFAULT_READONLY_MODE;
-    }
-    return stored === 'true';
-  } catch {
-    return DEFAULT_READONLY_MODE;
-  }
-}
-
-/**
- * Save readonly mode to localStorage.
- */
-function saveReadonlyMode(isReadonly: boolean): void {
-  try {
-    localStorage.setItem(READONLY_MODE_KEY, String(isReadonly));
-  } catch (error) {
-    console.error('Failed to save readonly mode:', error);
-  }
-}
 
 /**
  * Load unlock state from localStorage.
@@ -55,14 +23,12 @@ function saveReadonlyMode(isReadonly: boolean): void {
 function loadUnlockState(): UnlockState {
   try {
     const stored = localStorage.getItem(UNLOCK_STATE_KEY);
-    const isReadonlyMode = loadReadonlyMode();
 
     if (!stored) {
       return {
         isUnlocked: false,
         unlockedAt: null,
         unlockedBy: null,
-        isReadonlyMode,
       };
     }
 
@@ -71,7 +37,6 @@ function loadUnlockState(): UnlockState {
       isUnlocked: parsed.isUnlocked || false,
       unlockedAt: parsed.unlockedAt ? new Date(parsed.unlockedAt) : null,
       unlockedBy: parsed.unlockedBy || null,
-      isReadonlyMode,
     };
   } catch (error) {
     console.error('Failed to load unlock state:', error);
@@ -79,7 +44,6 @@ function loadUnlockState(): UnlockState {
       isUnlocked: false,
       unlockedAt: null,
       unlockedBy: null,
-      isReadonlyMode: DEFAULT_READONLY_MODE,
     };
   }
 }
@@ -107,21 +71,10 @@ function saveUnlockState(state: UnlockState): void {
  * - Validates admin password before unlocking
  * - Tracks who unlocked and when
  *
- * @param projectId - Project ID (unused, kept for backwards compatibility)
- * @param forceReadonly - When true, forces readonly mode regardless of stored state
+ * Note: Readonly mode has been moved to ReadonlyModeContext for performance.
  */
-export function useUnlockState(
-  _projectId: string = 'default',
-  forceReadonly: boolean = false
-) {
-  const [state, setState] = useState<UnlockState>(() => {
-    const loaded = loadUnlockState();
-    // Force readonly mode if specified
-    if (forceReadonly) {
-      return { ...loaded, isReadonlyMode: true };
-    }
-    return loaded;
-  });
+export function useUnlockState() {
+  const [state, setState] = useState<UnlockState>(() => loadUnlockState());
 
   // Sync state to localStorage whenever it changes
   useEffect(() => {
@@ -136,7 +89,6 @@ export function useUnlockState(
           isUnlocked: false,
           unlockedAt: null,
           unlockedBy: null,
-          isReadonlyMode: state.isReadonlyMode,
         };
         saveUnlockState(lockedState);
       }
@@ -147,7 +99,7 @@ export function useUnlockState(
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
-  }, [state.isUnlocked, state.isReadonlyMode]);
+  }, [state.isUnlocked]);
 
   /**
    * Unlock collective fields for the authenticated admin user.
@@ -166,31 +118,17 @@ export function useUnlockState(
    * Lock collective fields.
    */
   const lock = useCallback(async (): Promise<void> => {
-    setState(prev => ({
-      ...prev,
+    setState({
       isUnlocked: false,
       unlockedAt: null,
       unlockedBy: null,
-    }));
-  }, []);
-
-  /**
-   * Set readonly mode.
-   * @param isReadonly Whether to enable readonly mode
-   */
-  const setReadonlyMode = useCallback((isReadonly: boolean): void => {
-    setState(prev => ({
-      ...prev,
-      isReadonlyMode: isReadonly,
-    }));
-    saveReadonlyMode(isReadonly);
+    });
   }, []);
 
   return {
     ...state,
     unlock,
     lock,
-    setReadonlyMode,
     isLoading: false,
   };
 }

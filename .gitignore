@@ -40,3 +40,6 @@ dist-ssr
 
 # Turbo
 .turbo
+
+# Google Apps Script with credentials
+scripts/google-apps-script-sync.gs

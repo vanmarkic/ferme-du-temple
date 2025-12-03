@@ -1,5 +1,5 @@
 import { Eye, Edit3 } from 'lucide-react';
-import { useUnlock } from '../contexts/UnlockContext';
+import { useUnlock, useReadonlyMode } from '../contexts/UnlockContext';
 
 /**
  * Toggle switch for readonly mode.
@@ -8,7 +8,8 @@ import { useUnlock } from '../contexts/UnlockContext';
  * Hidden when forceReadonly is true (unauthenticated users).
  */
 export function ReadonlyModeSwitch() {
-  const { isReadonlyMode, setReadonlyMode, isForceReadonly } = useUnlock();
+  const { isReadonlyMode, setReadonlyMode } = useReadonlyMode();
+  const { isForceReadonly } = useUnlock();
 
   // Hide toggle for unauthenticated users (forced readonly)
   if (isForceReadonly) {

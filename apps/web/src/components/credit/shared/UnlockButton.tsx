@@ -1,5 +1,5 @@
 import { Lock, Unlock } from 'lucide-react';
-import { useUnlock } from '../contexts/UnlockContext';
+import { useUnlock, useReadonlyMode } from '../contexts/UnlockContext';
 
 interface UnlockButtonProps {
   /** Email of the current authenticated admin user */
@@ -24,13 +24,13 @@ interface UnlockButtonProps {
  * ```
  */
 export function UnlockButton({ userEmail = 'admin' }: UnlockButtonProps) {
+  const { isReadonlyMode } = useReadonlyMode();
   const {
     isUnlocked,
     unlockedBy,
     unlockedAt,
     unlock,
     lock,
-    isReadonlyMode,
   } = useUnlock();
 
   const handleToggle = () => {
