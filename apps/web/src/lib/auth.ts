@@ -17,7 +17,7 @@ const supabaseAnonKey = import.meta.env.SUPABASE_ANON_KEY || process.env.SUPABAS
 const authConfig: AuthConfig = {
   supabaseUrl,
   supabaseAnonKey,
-  adminTableName: 'admin_users',
+  adminTableName: 'members',
   loginPath: '/admin/login',
 };
 

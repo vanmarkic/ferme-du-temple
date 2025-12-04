@@ -10,8 +10,9 @@ export type RoleType = 'president' | 'secretaire' | 'parole' | 'temps' | 'serpen
 // Member
 export interface Member {
   id: string;
+  email: string;
   name: string;
-  email: string | null;
+  role: 'admin' | 'super_admin';
   active: boolean;
   created_at: string;
 }

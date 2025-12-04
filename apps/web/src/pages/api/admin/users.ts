@@ -25,8 +25,8 @@ export const GET: APIRoute = async ({ cookies }) => {
 
     const supabase = getServiceClient();
     const { data, error } = await supabase
-      .from('admin_users')
-      .select('id, email, role, created_at')
+      .from('members')
+      .select('id, email, name, role, active, created_at')
       .order('created_at', { ascending: false });
 
     if (error) {
@@ -62,7 +62,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     }
 
     const body = await request.json();
-    const { email, password, role = 'admin' } = body;
+    const { email, password, role = 'admin', name } = body;
 
     if (!email || !password) {
       return new Response(
@@ -95,13 +95,15 @@ export const POST: APIRoute = async ({ request, cookies }) => {
       );
     }
 
-    // Add to admin_users table
+    // Add to members table
     const { error: adminError } = await supabase
-      .from('admin_users')
+      .from('members')
       .insert({
         id: authData.user.id,
         email,
+        name: name || email.split('@')[0],
         role,
+        active: true,
       });
 
     if (adminError) {
@@ -120,7 +122,9 @@ export const POST: APIRoute = async ({ request, cookies }) => {
         user: {
           id: authData.user.id,
           email,
+          name: name || email.split('@')[0],
           role,
+          active: true,
         },
       }),
       { status: 201, headers: { 'Content-Type': 'application/json' } }
@@ -155,9 +159,9 @@ export const DELETE: APIRoute = async ({ url, cookies }) => {
 
     const supabase = getServiceClient();
 
-    // Delete from admin_users table first
+    // Delete from members table first
     const { error: adminError } = await supabase
-      .from('admin_users')
+      .from('members')
       .delete()
       .eq('id', userId);
 

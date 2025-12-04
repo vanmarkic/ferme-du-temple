@@ -166,7 +166,7 @@ export async function getMembers() {
 
   const { data, error } = await supabase
     .from('members')
-    .select('*')
+    .select('id, email, name, role, active, created_at')
     .order('name', { ascending: true });
 
   if (error) throw error;
@@ -216,6 +216,19 @@ export async function updateMember(
 
   if (error) throw error;
   return data as Member;
+}
+
+export async function getActiveMembers() {
+  if (!supabase) throw new Error('Supabase not initialized');
+
+  const { data, error } = await supabase
+    .from('members')
+    .select('id, email, name, role, active, created_at')
+    .eq('active', true)
+    .order('name', { ascending: true });
+
+  if (error) throw error;
+  return data as Member[];
 }
 
 // ============================================================================

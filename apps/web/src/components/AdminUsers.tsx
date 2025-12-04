@@ -3,18 +3,21 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { AdminSidebar } from './AdminSidebar';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
-import { UserPlus, Trash2, Shield, ShieldCheck, Loader2 } from 'lucide-react';
+import { UserPlus, Trash2, Shield, ShieldCheck, Loader2, CheckCircle2, XCircle } from 'lucide-react';
 import { useToast } from '../hooks/use-toast';
 
 interface AdminUser {
   id: string;
   email: string;
+  name: string;
   role: 'admin' | 'super_admin';
+  active: boolean;
   created_at: string;
 }
 
 export function AdminUsers() {
   const [newEmail, setNewEmail] = useState('');
+  const [newName, setNewName] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -31,11 +34,11 @@ export function AdminUsers() {
   });
 
   const createUserMutation = useMutation({
-    mutationFn: async ({ email, password }: { email: string; password: string }) => {
+    mutationFn: async ({ email, name, password }: { email: string; name: string; password: string }) => {
       const response = await fetch('/api/admin/users', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, name, password }),
       });
       if (!response.ok) {
         const error = await response.json();
@@ -46,6 +49,7 @@ export function AdminUsers() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['admin-users'] });
       setNewEmail('');
+      setNewName('');
       setNewPassword('');
       toast({
         title: 'Utilisateur cree',
@@ -90,10 +94,10 @@ export function AdminUsers() {
 
   const handleCreateUser = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newEmail || !newPassword) {
+    if (!newEmail || !newName || !newPassword) {
       toast({
         title: 'Erreur',
-        description: 'Email et mot de passe requis',
+        description: 'Email, nom et mot de passe requis',
         variant: 'destructive',
       });
       return;
@@ -106,7 +110,7 @@ export function AdminUsers() {
       });
       return;
     }
-    createUserMutation.mutate({ email: newEmail, password: newPassword });
+    createUserMutation.mutate({ email: newEmail, name: newName, password: newPassword });
   };
 
   const handleDeleteUser = (userId: string, email: string) => {
@@ -142,6 +146,13 @@ export function AdminUsers() {
                 placeholder="Email"
                 value={newEmail}
                 onChange={(e) => setNewEmail(e.target.value)}
+                className="w-full text-sm md:text-base"
+              />
+              <Input
+                type="text"
+                placeholder="Nom"
+                value={newName}
+                onChange={(e) => setNewName(e.target.value)}
                 className="w-full text-sm md:text-base"
               />
               <Input
@@ -188,7 +199,8 @@ export function AdminUsers() {
                     <div key={user.id} className="p-4 space-y-2">
                       <div className="flex justify-between items-start">
                         <div className="min-w-0 flex-1">
-                          <p className="font-medium text-sm truncate">{user.email}</p>
+                          <p className="font-medium text-sm truncate">{user.name}</p>
+                          <p className="text-xs text-gray-600 truncate">{user.email}</p>
                           <p className="text-xs text-gray-500 mt-1">
                             {new Date(user.created_at).toLocaleDateString('fr-FR')}
                           </p>
@@ -203,18 +215,32 @@ export function AdminUsers() {
                           <Trash2 className="w-4 h-4" />
                         </Button>
                       </div>
-                      <span className={`inline-flex items-center gap-1 px-2 py-1 rounded text-xs ${
-                        user.role === 'super_admin'
-                          ? 'bg-magenta/10 text-magenta'
-                          : 'bg-gray-100 text-gray-600'
-                      }`}>
-                        {user.role === 'super_admin' ? (
-                          <ShieldCheck className="w-3 h-3" />
-                        ) : (
-                          <Shield className="w-3 h-3" />
-                        )}
-                        {user.role === 'super_admin' ? 'Super Admin' : 'Admin'}
-                      </span>
+                      <div className="flex gap-2 flex-wrap">
+                        <span className={`inline-flex items-center gap-1 px-2 py-1 rounded text-xs ${
+                          user.role === 'super_admin'
+                            ? 'bg-magenta/10 text-magenta'
+                            : 'bg-gray-100 text-gray-600'
+                        }`}>
+                          {user.role === 'super_admin' ? (
+                            <ShieldCheck className="w-3 h-3" />
+                          ) : (
+                            <Shield className="w-3 h-3" />
+                          )}
+                          {user.role === 'super_admin' ? 'Super Admin' : 'Admin'}
+                        </span>
+                        <span className={`inline-flex items-center gap-1 px-2 py-1 rounded text-xs ${
+                          user.active
+                            ? 'bg-green-50 text-green-700'
+                            : 'bg-gray-100 text-gray-500'
+                        }`}>
+                          {user.active ? (
+                            <CheckCircle2 className="w-3 h-3" />
+                          ) : (
+                            <XCircle className="w-3 h-3" />
+                          )}
+                          {user.active ? 'Actif' : 'Inactif'}
+                        </span>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -223,8 +249,10 @@ export function AdminUsers() {
                 <table className="hidden md:table w-full">
                   <thead>
                     <tr className="bg-rich-black text-white">
+                      <th className="px-4 py-3 text-left font-semibold">Nom</th>
                       <th className="px-4 py-3 text-left font-semibold">Email</th>
                       <th className="px-4 py-3 text-left font-semibold">Role</th>
+                      <th className="px-4 py-3 text-left font-semibold">Statut</th>
                       <th className="px-4 py-3 text-left font-semibold">Cree le</th>
                       <th className="px-4 py-3 text-right font-semibold">Actions</th>
                     </tr>
@@ -235,7 +263,8 @@ export function AdminUsers() {
                         key={user.id}
                         className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
                       >
-                        <td className="px-4 py-3 font-medium">{user.email}</td>
+                        <td className="px-4 py-3 font-medium">{user.name}</td>
+                        <td className="px-4 py-3 text-gray-600">{user.email}</td>
                         <td className="px-4 py-3">
                           <span className={`inline-flex items-center gap-1 px-2 py-1 rounded text-sm ${
                             user.role === 'super_admin'
@@ -248,6 +277,20 @@ export function AdminUsers() {
                               <Shield className="w-4 h-4" />
                             )}
                             {user.role === 'super_admin' ? 'Super Admin' : 'Admin'}
+                          </span>
+                        </td>
+                        <td className="px-4 py-3">
+                          <span className={`inline-flex items-center gap-1 px-2 py-1 rounded text-sm ${
+                            user.active
+                              ? 'bg-green-50 text-green-700'
+                              : 'bg-gray-100 text-gray-500'
+                          }`}>
+                            {user.active ? (
+                              <CheckCircle2 className="w-4 h-4" />
+                            ) : (
+                              <XCircle className="w-4 h-4" />
+                            )}
+                            {user.active ? 'Actif' : 'Inactif'}
                           </span>
                         </td>
                         <td className="px-4 py-3 text-gray-500">

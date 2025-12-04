@@ -42,7 +42,7 @@ export async function isAdmin(cookies: AstroCookies, config: AuthConfig): Promis
     refresh_token: session.refresh_token,
   });
 
-  const tableName = config.adminTableName || 'admin_users';
+  const tableName = config.adminTableName || 'members';
   const { data, error } = await supabase
     .from(tableName)
     .select('id')

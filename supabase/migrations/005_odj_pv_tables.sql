@@ -4,24 +4,40 @@
 -- Date: 2025-12-04
 
 -- ============================================
--- Members Table
+-- Rename admin_users to members and add fields
 -- ============================================
--- BEAVER members (active participants)
+-- Rename the table
+ALTER TABLE IF EXISTS public.admin_users RENAME TO members;
 
-CREATE TABLE IF NOT EXISTS members (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  name TEXT NOT NULL,
-  email TEXT,
-  active BOOLEAN DEFAULT true,
-  created_at TIMESTAMPTZ DEFAULT NOW()
-);
+-- Drop existing policies from admin_users
+DROP POLICY IF EXISTS "Users can read own record" ON public.members;
+DROP POLICY IF EXISTS "Super admins can insert" ON public.members;
+
+-- Drop existing triggers
+DROP TRIGGER IF EXISTS set_admin_users_updated_at ON public.members;
+
+-- Drop existing index (will be recreated if needed)
+DROP INDEX IF EXISTS public.idx_admin_users_email;
+
+-- Add new columns for BEAVER member management
+ALTER TABLE public.members ADD COLUMN IF NOT EXISTS name TEXT;
+ALTER TABLE public.members ADD COLUMN IF NOT EXISTS active BOOLEAN DEFAULT true;
+
+-- Update name from email if not set (extract name before @)
+UPDATE public.members SET name = split_part(email, '@', 1) WHERE name IS NULL;
+
+-- Make name NOT NULL after populating
+ALTER TABLE public.members ALTER COLUMN name SET NOT NULL;
+
+-- Keep role column for auth (admin vs super_admin)
+-- No changes needed - role column is preserved from admin_users
 
 -- ============================================
 -- Meetings Table
 -- ============================================
 -- Meeting events with status tracking
 
-CREATE TABLE IF NOT EXISTS meetings (
+CREATE TABLE IF NOT EXISTS public.meetings (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   title TEXT NOT NULL,
   date DATE NOT NULL,
@@ -39,10 +55,10 @@ CREATE TABLE IF NOT EXISTS meetings (
 -- ============================================
 -- Historical role assignments (for max gap rule)
 
-CREATE TABLE IF NOT EXISTS member_roles (
+CREATE TABLE IF NOT EXISTS public.member_roles (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  member_id UUID REFERENCES members(id) ON DELETE CASCADE,
-  meeting_id UUID REFERENCES meetings(id) ON DELETE CASCADE,
+  member_id UUID REFERENCES public.members(id) ON DELETE CASCADE,
+  meeting_id UUID REFERENCES public.meetings(id) ON DELETE CASCADE,
   role TEXT NOT NULL,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
@@ -52,9 +68,9 @@ CREATE TABLE IF NOT EXISTS member_roles (
 -- ============================================
 -- Items on the meeting agenda
 
-CREATE TABLE IF NOT EXISTS agenda_items (
+CREATE TABLE IF NOT EXISTS public.agenda_items (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  meeting_id UUID REFERENCES meetings(id) ON DELETE CASCADE,
+  meeting_id UUID REFERENCES public.meetings(id) ON DELETE CASCADE,
   position INTEGER NOT NULL,
   title TEXT NOT NULL,
   responsible TEXT,
@@ -69,9 +85,9 @@ CREATE TABLE IF NOT EXISTS agenda_items (
 -- ============================================
 -- Automatic snapshots for recovery
 
-CREATE TABLE IF NOT EXISTS meeting_versions (
+CREATE TABLE IF NOT EXISTS public.meeting_versions (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  meeting_id UUID REFERENCES meetings(id) ON DELETE CASCADE,
+  meeting_id UUID REFERENCES public.meetings(id) ON DELETE CASCADE,
   snapshot_json JSONB NOT NULL,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
@@ -81,10 +97,10 @@ CREATE TABLE IF NOT EXISTS meeting_versions (
 -- ============================================
 -- Decisions made during meetings
 
-CREATE TABLE IF NOT EXISTS decisions (
+CREATE TABLE IF NOT EXISTS public.decisions (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  meeting_id UUID REFERENCES meetings(id) ON DELETE CASCADE,
-  agenda_item_id UUID REFERENCES agenda_items(id) ON DELETE SET NULL,
+  meeting_id UUID REFERENCES public.meetings(id) ON DELETE CASCADE,
+  agenda_item_id UUID REFERENCES public.agenda_items(id) ON DELETE SET NULL,
   content TEXT NOT NULL,
   impact_level TEXT NOT NULL, -- long_term | medium_term | daily
   created_at TIMESTAMPTZ DEFAULT NOW()
@@ -95,11 +111,11 @@ CREATE TABLE IF NOT EXISTS decisions (
 -- ============================================
 -- Assigned missions/tasks
 
-CREATE TABLE IF NOT EXISTS missions (
+CREATE TABLE IF NOT EXISTS public.missions (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  meeting_id UUID REFERENCES meetings(id) ON DELETE CASCADE,
-  agenda_item_id UUID REFERENCES agenda_items(id) ON DELETE SET NULL,
-  member_id UUID REFERENCES members(id) ON DELETE SET NULL,
+  meeting_id UUID REFERENCES public.meetings(id) ON DELETE CASCADE,
+  agenda_item_id UUID REFERENCES public.agenda_items(id) ON DELETE SET NULL,
+  member_id UUID REFERENCES public.members(id) ON DELETE SET NULL,
   description TEXT NOT NULL,
   email_sent BOOLEAN DEFAULT false,
   email_sent_at TIMESTAMPTZ,
@@ -110,174 +126,175 @@ CREATE TABLE IF NOT EXISTS missions (
 -- Indexes
 -- ============================================
 
-CREATE INDEX IF NOT EXISTS idx_member_roles_member ON member_roles(member_id);
-CREATE INDEX IF NOT EXISTS idx_member_roles_meeting ON member_roles(meeting_id);
-CREATE INDEX IF NOT EXISTS idx_agenda_items_meeting ON agenda_items(meeting_id);
-CREATE INDEX IF NOT EXISTS idx_agenda_items_position ON agenda_items(meeting_id, position);
-CREATE INDEX IF NOT EXISTS idx_meeting_versions_meeting ON meeting_versions(meeting_id);
-CREATE INDEX IF NOT EXISTS idx_decisions_meeting ON decisions(meeting_id);
-CREATE INDEX IF NOT EXISTS idx_decisions_agenda_item ON decisions(agenda_item_id);
-CREATE INDEX IF NOT EXISTS idx_missions_meeting ON missions(meeting_id);
-CREATE INDEX IF NOT EXISTS idx_missions_member ON missions(member_id);
-CREATE INDEX IF NOT EXISTS idx_missions_agenda_item ON missions(agenda_item_id);
+CREATE INDEX IF NOT EXISTS idx_member_roles_member ON public.member_roles(member_id);
+CREATE INDEX IF NOT EXISTS idx_member_roles_meeting ON public.member_roles(meeting_id);
+CREATE INDEX IF NOT EXISTS idx_agenda_items_meeting ON public.agenda_items(meeting_id);
+CREATE INDEX IF NOT EXISTS idx_agenda_items_position ON public.agenda_items(meeting_id, position);
+CREATE INDEX IF NOT EXISTS idx_meeting_versions_meeting ON public.meeting_versions(meeting_id);
+CREATE INDEX IF NOT EXISTS idx_decisions_meeting ON public.decisions(meeting_id);
+CREATE INDEX IF NOT EXISTS idx_decisions_agenda_item ON public.decisions(agenda_item_id);
+CREATE INDEX IF NOT EXISTS idx_missions_meeting ON public.missions(meeting_id);
+CREATE INDEX IF NOT EXISTS idx_missions_member ON public.missions(member_id);
+CREATE INDEX IF NOT EXISTS idx_missions_agenda_item ON public.missions(agenda_item_id);
 
 -- ============================================
 -- Row Level Security (RLS)
 -- ============================================
 
-ALTER TABLE members ENABLE ROW LEVEL SECURITY;
-ALTER TABLE meetings ENABLE ROW LEVEL SECURITY;
-ALTER TABLE member_roles ENABLE ROW LEVEL SECURITY;
-ALTER TABLE agenda_items ENABLE ROW LEVEL SECURITY;
-ALTER TABLE meeting_versions ENABLE ROW LEVEL SECURITY;
-ALTER TABLE decisions ENABLE ROW LEVEL SECURITY;
-ALTER TABLE missions ENABLE ROW LEVEL SECURITY;
+-- Members table RLS is already enabled (inherited from admin_users)
+-- Enable RLS for new tables
+ALTER TABLE public.meetings ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.member_roles ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.agenda_items ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.meeting_versions ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.decisions ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.missions ENABLE ROW LEVEL SECURITY;
 
--- Members policies
+-- Members policies (replacing old admin_users policies)
 CREATE POLICY "Authenticated users can read members"
-  ON members FOR SELECT
+  ON public.members FOR SELECT
   TO authenticated
   USING (true);
 
 CREATE POLICY "Authenticated users can insert members"
-  ON members FOR INSERT
+  ON public.members FOR INSERT
   TO authenticated
   WITH CHECK (true);
 
 CREATE POLICY "Authenticated users can update members"
-  ON members FOR UPDATE
+  ON public.members FOR UPDATE
   TO authenticated
   USING (true)
   WITH CHECK (true);
 
 CREATE POLICY "Authenticated users can delete members"
-  ON members FOR DELETE
+  ON public.members FOR DELETE
   TO authenticated
   USING (true);
 
 -- Meetings policies
 CREATE POLICY "Authenticated users can read meetings"
-  ON meetings FOR SELECT
+  ON public.meetings FOR SELECT
   TO authenticated
   USING (true);
 
 CREATE POLICY "Authenticated users can insert meetings"
-  ON meetings FOR INSERT
+  ON public.meetings FOR INSERT
   TO authenticated
   WITH CHECK (true);
 
 CREATE POLICY "Authenticated users can update meetings"
-  ON meetings FOR UPDATE
+  ON public.meetings FOR UPDATE
   TO authenticated
   USING (true)
   WITH CHECK (true);
 
 CREATE POLICY "Authenticated users can delete meetings"
-  ON meetings FOR DELETE
+  ON public.meetings FOR DELETE
   TO authenticated
   USING (true);
 
 -- Member roles policies
 CREATE POLICY "Authenticated users can read member_roles"
-  ON member_roles FOR SELECT
+  ON public.member_roles FOR SELECT
   TO authenticated
   USING (true);
 
 CREATE POLICY "Authenticated users can insert member_roles"
-  ON member_roles FOR INSERT
+  ON public.member_roles FOR INSERT
   TO authenticated
   WITH CHECK (true);
 
 CREATE POLICY "Authenticated users can update member_roles"
-  ON member_roles FOR UPDATE
+  ON public.member_roles FOR UPDATE
   TO authenticated
   USING (true)
   WITH CHECK (true);
 
 CREATE POLICY "Authenticated users can delete member_roles"
-  ON member_roles FOR DELETE
+  ON public.member_roles FOR DELETE
   TO authenticated
   USING (true);
 
 -- Agenda items policies
 CREATE POLICY "Authenticated users can read agenda_items"
-  ON agenda_items FOR SELECT
+  ON public.agenda_items FOR SELECT
   TO authenticated
   USING (true);
 
 CREATE POLICY "Authenticated users can insert agenda_items"
-  ON agenda_items FOR INSERT
+  ON public.agenda_items FOR INSERT
   TO authenticated
   WITH CHECK (true);
 
 CREATE POLICY "Authenticated users can update agenda_items"
-  ON agenda_items FOR UPDATE
+  ON public.agenda_items FOR UPDATE
   TO authenticated
   USING (true)
   WITH CHECK (true);
 
 CREATE POLICY "Authenticated users can delete agenda_items"
-  ON agenda_items FOR DELETE
+  ON public.agenda_items FOR DELETE
   TO authenticated
   USING (true);
 
 -- Meeting versions policies
 CREATE POLICY "Authenticated users can read meeting_versions"
-  ON meeting_versions FOR SELECT
+  ON public.meeting_versions FOR SELECT
   TO authenticated
   USING (true);
 
 CREATE POLICY "Authenticated users can insert meeting_versions"
-  ON meeting_versions FOR INSERT
+  ON public.meeting_versions FOR INSERT
   TO authenticated
   WITH CHECK (true);
 
 CREATE POLICY "Authenticated users can delete meeting_versions"
-  ON meeting_versions FOR DELETE
+  ON public.meeting_versions FOR DELETE
   TO authenticated
   USING (true);
 
 -- Decisions policies
 CREATE POLICY "Authenticated users can read decisions"
-  ON decisions FOR SELECT
+  ON public.decisions FOR SELECT
   TO authenticated
   USING (true);
 
 CREATE POLICY "Authenticated users can insert decisions"
-  ON decisions FOR INSERT
+  ON public.decisions FOR INSERT
   TO authenticated
   WITH CHECK (true);
 
 CREATE POLICY "Authenticated users can update decisions"
-  ON decisions FOR UPDATE
+  ON public.decisions FOR UPDATE
   TO authenticated
   USING (true)
   WITH CHECK (true);
 
 CREATE POLICY "Authenticated users can delete decisions"
-  ON decisions FOR DELETE
+  ON public.decisions FOR DELETE
   TO authenticated
   USING (true);
 
 -- Missions policies
 CREATE POLICY "Authenticated users can read missions"
-  ON missions FOR SELECT
+  ON public.missions FOR SELECT
   TO authenticated
   USING (true);
 
 CREATE POLICY "Authenticated users can insert missions"
-  ON missions FOR INSERT
+  ON public.missions FOR INSERT
   TO authenticated
   WITH CHECK (true);
 
 CREATE POLICY "Authenticated users can update missions"
-  ON missions FOR UPDATE
+  ON public.missions FOR UPDATE
   TO authenticated
   USING (true)
   WITH CHECK (true);
 
 CREATE POLICY "Authenticated users can delete missions"
-  ON missions FOR DELETE
+  ON public.missions FOR DELETE
   TO authenticated
   USING (true);
 
@@ -288,6 +305,14 @@ CREATE POLICY "Authenticated users can delete missions"
 -- Reuse the existing update_updated_at function from previous migrations
 -- Create trigger for meetings table
 CREATE TRIGGER meetings_updated_at
-  BEFORE UPDATE ON meetings
+  BEFORE UPDATE ON public.meetings
   FOR EACH ROW
-  EXECUTE FUNCTION update_updated_at();
+  EXECUTE FUNCTION public.update_updated_at();
+
+-- Note: members table already has its trigger (inherited from admin_users)
+-- but we need to recreate it with the new table name
+DROP TRIGGER IF EXISTS set_members_updated_at ON public.members;
+CREATE TRIGGER set_members_updated_at
+  BEFORE UPDATE ON public.members
+  FOR EACH ROW
+  EXECUTE FUNCTION public.handle_updated_at();
