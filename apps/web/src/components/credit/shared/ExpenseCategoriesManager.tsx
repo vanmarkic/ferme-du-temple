@@ -7,6 +7,8 @@ import {
   getFraisGenerauxBreakdown,
   calculateTotalTravauxCommuns,
   calculateTravauxCommunsItemAmount,
+  PROJECT_TYPE_LABELS,
+  BUILDING_TYPE_LABELS,
   type ExpenseCategories,
   type ProjectParams,
   type Participant,
@@ -505,15 +507,38 @@ export function ExpenseCategoriesManager({
           <div className="mt-3 space-y-2 border-t border-gray-200 pt-3">
             <h5 className="text-xs font-semibold text-gray-700 uppercase">Détail du calcul</h5>
 
-            {/* Honoraires */}
+            {/* Honoraires - Belgian Architect Fee Calculator */}
             <div className="bg-blue-50 p-2 rounded">
               <div className="flex justify-between items-center">
-                <span className="text-xs font-medium text-gray-700">Honoraires (15% × 30% CASCO hors TVA sur 3 ans)</span>
+                <span className="text-xs font-medium text-gray-700">Honoraires architecte (formule belge)</span>
                 <span className="text-xs font-bold text-blue-700">{formatCurrency(fraisGenerauxBreakdown.honorairesTotal3Years)}</span>
               </div>
-              <p className="text-xs text-gray-500 mt-0.5">
-                Base CASCO hors TVA: {formatCurrency(fraisGenerauxBreakdown.totalCasco)} | {formatCurrency(fraisGenerauxBreakdown.honorairesYearly)}/an
-              </p>
+              <div className="text-xs text-gray-500 mt-1 space-y-0.5">
+                <div className="flex justify-between">
+                  <span>Surface totale:</span>
+                  <span>{fraisGenerauxBreakdown.totalSurface.toFixed(0)} m²</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Coût CASCO hors TVA:</span>
+                  <span>{formatCurrency(fraisGenerauxBreakdown.totalCasco)}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Type projet:</span>
+                  <span>{PROJECT_TYPE_LABELS[fraisGenerauxBreakdown.architectFeesDetails.projectType].fr}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Type bâtiment:</span>
+                  <span>{BUILDING_TYPE_LABELS[fraisGenerauxBreakdown.architectFeesDetails.buildingType].fr}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Heures estimées:</span>
+                  <span>{fraisGenerauxBreakdown.architectFeesDetails.averageHours} h × {fraisGenerauxBreakdown.architectFeesDetails.costPerHour} €/h</span>
+                </div>
+                <div className="flex justify-between font-medium text-blue-600">
+                  <span>Par an:</span>
+                  <span>{formatCurrency(fraisGenerauxBreakdown.honorairesYearly)}/an</span>
+                </div>
+              </div>
             </div>
 
             {/* Recurring costs */}

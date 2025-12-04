@@ -6,6 +6,17 @@
 import type { Lot } from '../types/timeline';
 import { calculateIndexation, calculateCoproSalePrice } from './portageCalculations';
 import { calculateCoproRedistribution } from './coproRedistribution';
+import {
+  calculateHonoraires,
+  type ProjectType as ArchitectProjectType,
+  type BuildingType as ArchitectBuildingType,
+  PROJECT_TYPE_LABELS,
+  BUILDING_TYPE_LABELS,
+} from 'architect-fees-be';
+
+// Re-export architect fee types and labels for UI usage
+export type { ArchitectProjectType, ArchitectBuildingType };
+export { PROJECT_TYPE_LABELS, BUILDING_TYPE_LABELS };
 
 export interface Participant {
   name: string;
@@ -97,6 +108,10 @@ export interface ProjectParams {
   travauxCommuns?: TravauxCommuns; // Customizable common works with equal cost distribution
   maxTotalLots?: number; // Maximum total number of lots (founder + copropriété). Default: 10
   renovationStartDate?: string; // ISO date string for "début des rénovations" - linked to deedDate
+  // Architect fees calculation parameters
+  architectProjectType?: ArchitectProjectType; // Default: 'MW' (multi-family)
+  architectBuildingType?: ArchitectBuildingType; // Default: 'VB' (renovation)
+  architectCostPerHour?: number; // Default: 60€/hour
 }
 
 // Scenario interface removed - no longer using percentage-based adjustments
@@ -333,8 +348,20 @@ export function calculateTravauxCommunsPerUnit(
 
 export interface FraisGenerauxBreakdown {
   totalCasco: number;
+  totalSurface: number;
   honorairesYearly: number;
   honorairesTotal3Years: number;
+  // Architect fees calculation details
+  architectFeesDetails: {
+    hoursPerM2: number;
+    hoursFromSurface: number;
+    hoursPer10000Euro: number;
+    hoursFromCost: number;
+    averageHours: number;
+    projectType: ArchitectProjectType;
+    buildingType: ArchitectBuildingType;
+    costPerHour: number;
+  };
   recurringYearly: {
     precompteImmobilier: number;
     comptable: number;
@@ -357,6 +384,10 @@ export interface FraisGenerauxBreakdown {
 /**
  * Get detailed breakdown of frais généraux 3 ans
  * Returns all subcategories with their amounts for UI display
+ *
+ * Uses the Belgian architect fee calculator (architect-fees-be) for honoraires calculation.
+ * The formula uses regression coefficients derived from industry data to estimate
+ * required hours based on surface area (m²) and net construction cost (€).
  */
 export function getFraisGenerauxBreakdown(
   participants: Participant[],
@@ -366,6 +397,7 @@ export function getFraisGenerauxBreakdown(
   // Calculate total CASCO costs HORS TVA (not including parachevements or common works)
   // Honoraires are calculated on CASCO HORS TVA
   let totalCascoHorsTva = 0;
+  let totalSurface = 0;
 
   for (const participant of participants) {
     // Skip if legacy fields not present (using new lotsOwned instead)
@@ -376,16 +408,31 @@ export function getFraisGenerauxBreakdown(
     const actualCascoSqm = participant.cascoSqm ?? participant.surface;
     const cascoHorsTva = actualCascoSqm * projectParams.globalCascoPerM2;
     totalCascoHorsTva += cascoHorsTva * participant.quantity;
+    totalSurface += actualCascoSqm * participant.quantity;
   }
 
   // Add common building works CASCO (without TVA) - only CASCO portion, not parachevements
   // When travaux communs is enabled, include only the CASCO amount (sqm * cascoPricePerSqm)
   totalCascoHorsTva += calculateTravauxCommunsCascoAmount(projectParams);
 
-  // Calculate Honoraires (professional fees) = Total CASCO HORS TVA × 15% × 30%
-  // This represents architects, stability experts, study offices, PEB, etc.
-  // This is the TOTAL amount to be paid over 3 years (divided into 3 annual payments)
-  const honorairesTotal3Years = totalCascoHorsTva * 0.15 * 0.30;
+  // Get architect fee calculation parameters with defaults
+  const projectType = projectParams.architectProjectType ?? 'MW';
+  const buildingType = projectParams.architectBuildingType ?? 'VB';
+  const costPerHour = projectParams.architectCostPerHour ?? 60;
+
+  // Calculate Honoraires using the Belgian architect fee calculator
+  // This uses regression coefficients derived from industry data
+  const architectResult = calculateHonoraires(
+    totalSurface > 0 ? totalSurface : 1, // Avoid division by zero
+    totalCascoHorsTva > 0 ? totalCascoHorsTva : 1,
+    {
+      costPerHour,
+      projectType,
+      buildingType,
+    }
+  );
+
+  const honorairesTotal3Years = architectResult.honoraireMoyen;
   const honorairesYearly = honorairesTotal3Years / 3;
 
   // Recurring yearly costs
@@ -412,8 +459,19 @@ export function getFraisGenerauxBreakdown(
 
   return {
     totalCasco: totalCascoHorsTva,
+    totalSurface,
     honorairesYearly,
     honorairesTotal3Years,
+    architectFeesDetails: {
+      hoursPerM2: architectResult.hoursPerM2,
+      hoursFromSurface: architectResult.hoursFromSurface,
+      hoursPer10000Euro: architectResult.hoursPer10000Euro,
+      hoursFromCost: architectResult.hoursFromCost,
+      averageHours: architectResult.averageHours,
+      projectType,
+      buildingType,
+      costPerHour,
+    },
     recurringYearly: {
       precompteImmobilier,
       comptable,

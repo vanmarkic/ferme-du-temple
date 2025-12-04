@@ -4,11 +4,13 @@
  */
 
 import type { CalculationResults, ProjectParams, UnitDetails, Participant } from './calculatorUtils';
-import { 
-  getFraisGenerauxBreakdown, 
+import {
+  getFraisGenerauxBreakdown,
   calculateTotalTravauxCommuns,
   calculateTravauxCommunsItemAmount,
-  calculateQuotiteForFounder
+  calculateQuotiteForFounder,
+  PROJECT_TYPE_LABELS,
+  BUILDING_TYPE_LABELS,
 } from './calculatorUtils';
 import type { ExportWriter, SheetCell, SheetData } from './exportWriter';
 import type { TimelineSnapshot } from './timelineCalculations';
@@ -156,16 +158,32 @@ export function buildExportSheetData(
   addCell(fraisGenerauxRow, 'A', 'FRAIS GENERAUX (3 ANS) - DETAIL');
   let fraisCurrentRow = fraisGenerauxRow + 1;
   
-  // Honoraires section
-  addCell(fraisCurrentRow, 'A', 'HONORAIRES (15% × 30% CASCO hors TVA sur 3 ans)');
+  // Honoraires section - Belgian Architect Fee Calculator
+  const projectTypeLabel = PROJECT_TYPE_LABELS[fraisBreakdown.architectFeesDetails.projectType].fr;
+  const buildingTypeLabel = BUILDING_TYPE_LABELS[fraisBreakdown.architectFeesDetails.buildingType].fr;
+  addCell(fraisCurrentRow, 'A', 'HONORAIRES ARCHITECTE (formule belge)');
   fraisCurrentRow++;
-  addCell(fraisCurrentRow, 'A', '  Base CASCO hors TVA');
+  addCell(fraisCurrentRow, 'A', '  Surface totale');
+  addCell(fraisCurrentRow, 'B', fraisBreakdown.totalSurface);
+  addCell(fraisCurrentRow, 'C', 'm²');
+  fraisCurrentRow++;
+  addCell(fraisCurrentRow, 'A', '  Coût CASCO hors TVA');
   addCell(fraisCurrentRow, 'B', fraisBreakdown.totalCasco);
+  fraisCurrentRow++;
+  addCell(fraisCurrentRow, 'A', '  Type projet');
+  addCell(fraisCurrentRow, 'B', projectTypeLabel);
+  fraisCurrentRow++;
+  addCell(fraisCurrentRow, 'A', '  Type bâtiment');
+  addCell(fraisCurrentRow, 'B', buildingTypeLabel);
+  fraisCurrentRow++;
+  addCell(fraisCurrentRow, 'A', '  Heures estimées');
+  addCell(fraisCurrentRow, 'B', fraisBreakdown.architectFeesDetails.averageHours);
+  addCell(fraisCurrentRow, 'C', `h × ${fraisBreakdown.architectFeesDetails.costPerHour} €/h`);
   fraisCurrentRow++;
   addCell(fraisCurrentRow, 'A', '  Honoraires par an');
   addCell(fraisCurrentRow, 'B', fraisBreakdown.honorairesYearly);
   fraisCurrentRow++;
-  addCell(fraisCurrentRow, 'A', '  Honoraires total 3 ans');
+  addCell(fraisCurrentRow, 'A', '  Honoraires total');
   addCell(fraisCurrentRow, 'B', fraisBreakdown.honorairesTotal3Years);
   fraisCurrentRow++;
   

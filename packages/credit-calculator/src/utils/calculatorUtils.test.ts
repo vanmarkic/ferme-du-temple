@@ -197,7 +197,7 @@ describe('Calculator Utils', () => {
       globalCascoPerM2: 1590
     };
 
-    it('should calculate frais généraux based on Excel formula (Honoraires + recurring costs)', () => {
+    it('should calculate frais généraux based on Belgian architect fee formula (Honoraires + recurring costs)', () => {
       const participants: Participant[] = [
         { name: 'A', surface: 112, capitalApporte: 50000, registrationFeesRate: 12.5, unitId: 1, interestRate: 4.5, durationYears: 25, quantity: 1 },
         { name: 'B', surface: 134, capitalApporte: 170000, registrationFeesRate: 12.5, unitId: 3, interestRate: 4.5, durationYears: 25, quantity: 1 },
@@ -205,14 +205,13 @@ describe('Calculator Utils', () => {
         { name: 'D', surface: 108, capitalApporte: 70000, registrationFeesRate: 12.5, unitId: 6, interestRate: 4.5, durationYears: 25, quantity: 1 },
       ];
 
-      // Total CASCO hors TVA = (112×1590) + (134×1590) + (118×1590) + (108×1590) + travaux communs
-      // = 178080 + 213060 + 187620 + 171720 + 368900 = 1,119,380
-      // Honoraires TOTAL (3 years) = 1,119,380 × 0.15 × 0.30 = 50,371.80
+      // Total surface = 472m², Total CASCO = 1,119,380€
+      // Using Belgian architect fee calculator (MW, VB): ~67,125€ honoraires
       // Recurring costs = 7,988.38 × 3 years = 23,965.14
       // One-time costs = 545 + 5,000 (shared notary fee base) = 5,545
-      // Total = 50,371.80 + 23,965.14 + 5,545 = 79,881.94 (actual: 79,882.24 due to rounding)
+      // Total ≈ 67,125 + 23,965.14 + 5,545 ≈ 96,635
       const result = calculateFraisGeneraux3ans(participants, projectParams, unitDetails);
-      expect(result).toBeCloseTo(79882.24, 1);
+      expect(result).toBeCloseTo(96635, 0);
     });
 
     it('should handle single participant', () => {
@@ -224,13 +223,13 @@ describe('Calculator Utils', () => {
         1: { casco: 178080, parachevements: 56000 },
       };
 
-      // Total CASCO = 178080 + 368900 (common works) = 546,980
-      // Honoraires TOTAL (3 years) = 546,980 × 0.15 × 0.30 = 24,614.10
+      // Surface = 112m², CASCO = 546,980€
+      // Belgian architect fee calculator (MW, VB): ~27,085€ honoraires
       // Recurring costs = 7,988.38 × 3 years = 23,965.14
       // One-time costs = 545 + 5,000 (shared notary fee base) = 5,545
-      // Total = 24,614.10 + 23,965.14 + 5,545 = 54,124.24
+      // Total ≈ 27,085 + 23,965.14 + 5,545 ≈ 56,595
       const result = calculateFraisGeneraux3ans(participants, projectParams, singleUnitDetails);
-      expect(result).toBeCloseTo(54124.24, 2);
+      expect(result).toBeCloseTo(56595, 0);
     });
 
     it('should handle multiple units for same participant', () => {
@@ -242,13 +241,13 @@ describe('Calculator Utils', () => {
         1: { casco: 178080, parachevements: 56000 },
       };
 
-      // Total CASCO = (178080 × 2) + 368900 (common works) = 725,060
-      // Honoraires TOTAL (3 years) = 725,060 × 0.15 × 0.30 = 32,627.70
+      // Surface = 224m² (112 × 2), CASCO = 725,060€
+      // Belgian architect fee calculator (MW, VB): ~40,039€ honoraires
       // Recurring costs = 7,988.38 × 3 years = 23,965.14
       // One-time costs = 545 + 5,000 (shared notary fee base) = 5,545
-      // Total = 32,627.70 + 23,965.14 + 5,545 = 62,137.84
+      // Total ≈ 40,039 + 23,965.14 + 5,545 ≈ 69,549
       const result = calculateFraisGeneraux3ans(participants, projectParams, unitDetails);
-      expect(result).toBeCloseTo(62137.84, 2);
+      expect(result).toBeCloseTo(69549, 0);
     });
 
     it('should include shared notary fee base of €5,000', () => {
@@ -257,21 +256,18 @@ describe('Calculator Utils', () => {
         { name: 'B', surface: 134, capitalApporte: 170000, registrationFeesRate: 12.5, unitId: 3, interestRate: 4.5, durationYears: 25, quantity: 1 },
       ];
 
-      // Calculate expected result:
-      // Total CASCO = 178080 + 213060 + 368900 (common works) = 760,040
-      // Honoraires TOTAL (3 years) = 760,040 × 0.15 × 0.30 = 34,201.80
+      // Surface = 246m², CASCO = 760,040€
+      // Belgian architect fee calculator (MW, VB): ~42,510€ honoraires
       // Recurring costs = 7,988.38 × 3 years = 23,965.14
-      // One-time costs = 545
-      // Shared notary fee base = 5,000
-      // Total = 34,201.80 + 23,965.14 + 545 + 5,000 = 63,711.94
+      // One-time costs = 545 + 5,000 = 5,545
+      // Total ≈ 42,510 + 23,965.14 + 5,545 ≈ 72,020
       const result = calculateFraisGeneraux3ans(participants, projectParams, unitDetails);
-      expect(result).toBeCloseTo(63711.94, 2);
+      expect(result).toBeCloseTo(72020, 0);
     });
 
-    it('should match Excel formula components exactly (verification test)', () => {
-      // This test verifies the formula matches the Excel file:
-      // Excel: FRAIS GENERAUX sheet, C13: ='PRIX TRAVAUX'!E14*0.15*0.3
-      // Where E14 = Total CASCO
+    it('should use Belgian architect fee calculator for honoraires', () => {
+      // This test verifies the formula uses the Belgian architect fee calculator
+      // The formula uses regression coefficients based on surface and construction cost
 
       const participants: Participant[] = [
         { name: 'A', surface: 100, capitalApporte: 50000, registrationFeesRate: 12.5, unitId: 1, interestRate: 4.5, durationYears: 25, quantity: 1 },
@@ -292,34 +288,12 @@ describe('Calculator Utils', () => {
       const result = calculateFraisGeneraux3ans(participants, testParams, unitDetails);
 
       // Break down expected result:
-      // Participant CASCO: 100m² × 1000€/m² = 100,000
-      // Common works CASCO: 50,000 + 200,000 + 50,000 = 300,000
-      const totalCasco = 100000 + 50000 + 200000 + 50000; // 400,000
-      const honorairesTotal3Years = totalCasco * 0.15 * 0.30; // 400,000 × 0.045 = 18,000 TOTAL
-      const honorairesYearly = honorairesTotal3Years / 3; // 18,000 / 3 = 6,000/year
+      // Surface: 100m²
+      // Total CASCO: 100,000 + 300,000 (common works) = 400,000€
+      // Belgian architect fee calculator (MW, VB, 60€/h): ~21,352€ honoraires
 
-      // Recurring yearly costs (from Excel breakdown)
-      const precompteImmobilier = 388.38;
-      const comptable = 1000;
-      const podioAbonnement = 600;
-      const assuranceBatiment = 2000;
-      const fraisReservation = 2000;
-      const imprevus = 2000;
-      const recurringYearly = precompteImmobilier + comptable + podioAbonnement +
-                              assuranceBatiment + fraisReservation + imprevus;
-      const recurringTotal = recurringYearly * 3; // 7,988.38 × 3 = 23,965.14 (3 years)
-
-      // One-time costs
-      const oneTime = 500 + 45 + 5000; // 545 + 5,000 (shared notary fee base) = 5,545
-
-      const expected = honorairesTotal3Years + recurringTotal + oneTime;
-
-      expect(result).toBeCloseTo(expected, 2);
-
-      // Verify honoraires total is exactly 4.5% of total CASCO (15% × 30%)
-      expect(honorairesTotal3Years).toBeCloseTo(totalCasco * 0.045, 2);
-      expect(honorairesTotal3Years).toBe(18000); // Exact for round numbers
-      expect(honorairesYearly).toBe(6000); // Exact for round numbers
+      // Total ≈ 21,352 (honoraires) + 23,965.14 (recurring) + 5,545 (one-time) ≈ 50,862
+      expect(result).toBeCloseTo(50862, 0);
     });
   });
 
@@ -387,13 +361,12 @@ describe('Calculator Utils', () => {
       const expectedTotalCasco = 178080 + 213060 + 43700 + 269200 + 56000;
       expect(result.totalCasco).toBeCloseTo(expectedTotalCasco, 2);
 
-      // Honoraires TOTAL (3 years) = Total CASCO hors TVA × 15% × 30%
-      const expectedHonorairesTotal = expectedTotalCasco * 0.15 * 0.30;
-      expect(result.honorairesTotal3Years).toBeCloseTo(expectedHonorairesTotal, 2);
+      // Honoraires use Belgian architect fee calculator (MW, VB, 60€/h)
+      // Surface = 246m², CASCO = 760,040€ → ~42,510€ honoraires
+      expect(result.honorairesTotal3Years).toBeCloseTo(42510, 0);
 
       // Honoraires yearly = Honoraires total / 3
-      const expectedHonorairesYearly = expectedHonorairesTotal / 3;
-      expect(result.honorairesYearly).toBeCloseTo(expectedHonorairesYearly, 2);
+      expect(result.honorairesYearly).toBeCloseTo(42510 / 3, 0);
     });
 
     it('should include only CASCO portion from travaux communs in honoraires calculation', () => {

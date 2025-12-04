@@ -249,6 +249,9 @@ importers:
 
   packages/credit-calculator:
     dependencies:
+      architect-fees-be:
+        specifier: workspace:*
+        version: link:../architect-fees
       date-fns:
         specifier: ^4.1.0
         version: 4.1.0

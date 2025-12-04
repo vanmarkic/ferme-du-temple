@@ -55,12 +55,15 @@ describe('Frais Généraux Year-by-Year Distribution', () => {
       const year1 = calculateYear1Costs(participants, projectParams, unitDetails, deedDate);
 
       // Then
+      // Honoraires now calculated using Belgian architect fee formula
+      // Surface: 100m², CASCO: 400 000€ (100×1000 + 300 000 travaux communs)
+      // Formula gives: ~21 352€ total → ~7 117€/year
       expect(year1.year).toBe(1);
       expect(year1.date).toEqual(deedDate);
       expect(year1.oneTimeCosts).toBeCloseTo(5545, 2);
       expect(year1.recurringYearlyCosts).toBeCloseTo(7988.38, 2);
-      expect(year1.honorairesThisYear).toBeCloseTo(6000, 0); // Honoraires/3
-      expect(year1.total).toBeCloseTo(19533.38, 2);
+      expect(year1.honorairesThisYear).toBeCloseTo(7117, 0); // Honoraires/3 (Belgian formula)
+      expect(year1.total).toBeCloseTo(20650.71, 0); // oneTime + recurring + honoraires
     });
 
     it('should split Year 1 costs equally among founders at deed date', () => {
@@ -131,11 +134,12 @@ describe('Frais Généraux Year-by-Year Distribution', () => {
       const year2 = calculateYear2Costs(participants, projectParams, unitDetails, deedDate);
 
       // Then
+      // Honoraires: ~7 117€/year (Belgian architect fee formula)
       expect(year2.year).toBe(2);
       expect(year2.oneTimeCosts).toBe(0); // No one-time costs in Year 2
       expect(year2.recurringYearlyCosts).toBeCloseTo(7988.38, 2);
-      expect(year2.honorairesThisYear).toBeCloseTo(6000, 0);
-      expect(year2.total).toBeCloseTo(13988.38, 2);
+      expect(year2.honorairesThisYear).toBeCloseTo(7117, 0); // Belgian formula
+      expect(year2.total).toBeCloseTo(15105.71, 0); // recurring + honoraires
 
       // Year 2 date should be deed date + 1 year
       const expectedYear2Date = new Date(deedDate);
