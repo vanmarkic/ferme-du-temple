@@ -6,8 +6,21 @@ import node from '@astrojs/node';
 import sitemap from '@astrojs/sitemap';
 import keystatic from '@keystatic/astro';
 import mdx from '@astrojs/mdx';
+import { execSync } from 'child_process';
 
 const isDev = import.meta.env?.DEV ?? process.env.NODE_ENV !== 'production';
+
+// Get git version for footer display
+const getGitVersion = () => {
+  try {
+    return execSync('git describe --tags --always 2>/dev/null || git rev-parse --short HEAD')
+      .toString()
+      .trim();
+  } catch {
+    return 'dev';
+  }
+};
+const APP_VERSION = getGitVersion();
 
 export default defineConfig({
   site: 'https://lafermedutemple.be',
@@ -35,6 +48,9 @@ export default defineConfig({
     defaultStrategy: 'viewport', // Prefetch when in viewport
   },
   vite: {
+    define: {
+      __APP_VERSION__: JSON.stringify(APP_VERSION),
+    },
     resolve: {
       alias: {
         '@': '/src',

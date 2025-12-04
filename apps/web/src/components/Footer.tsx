@@ -203,9 +203,12 @@ export const Footer = ({ content, body }: FooterProps = {}) => {
               )}
             </div>
 
-            <div className="border-t border-gray-700 mt-12 pt-8 text-xs text-gray-400">
-              <p>{copyright}</p>
-              <p className="mt-2">{tagline}</p>
+            <div className="border-t border-gray-700 mt-12 pt-8 text-xs text-gray-400 flex justify-between items-end">
+              <div>
+                <p>{copyright}</p>
+                <p className="mt-2">{tagline}</p>
+              </div>
+              <span className="text-[10px] text-gray-500">v{__APP_VERSION__}</span>
             </div>
           </div>
         </div>
