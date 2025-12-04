@@ -30,6 +30,11 @@ export async function getSession(cookies: AstroCookies, config: AuthConfig) {
 }
 
 export async function isAdmin(cookies: AstroCookies, config: AuthConfig): Promise<boolean> {
+  // Test bypass - only works when BYPASS_AUTH=true (for E2E tests)
+  if (process.env.BYPASS_AUTH === 'true') {
+    return true;
+  }
+
   const { session, user } = await getSession(cookies, config);
 
   if (!user || !session) {

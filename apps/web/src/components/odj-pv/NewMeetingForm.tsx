@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { createMeeting } from '../../lib/odj-pv';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
@@ -27,19 +26,30 @@ export function NewMeetingForm({ onSave, onCancel }: NewMeetingFormProps) {
 
     try {
       setSaving(true);
-      const meeting = await createMeeting({
-        title: title.trim(),
-        date,
-        start_time: startTime || null,
-        end_time: null,
-        location: location || null,
-        what_to_bring: null,
-        status: 'draft',
+      const response = await fetch('/api/odj-pv/meetings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: title.trim(),
+          date,
+          start_time: startTime || null,
+          end_time: null,
+          location: location || null,
+          what_to_bring: null,
+          status: 'draft',
+        }),
       });
-      toast.success('Meeting created');
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Failed to create meeting');
+      }
+
+      const meeting = await response.json();
+      toast.success('Reunion creee');
       onSave(meeting.id);
     } catch (err) {
-      toast.error('Failed to create meeting');
+      toast.error(err instanceof Error ? err.message : 'Echec de la creation');
     } finally {
       setSaving(false);
     }
