@@ -186,12 +186,12 @@ export const PUT: APIRoute = async ({ request, cookies }) => {
     });
 
     // Only allow updating specific fields
-    const allowedFields = ['description', 'member_id', 'agenda_item_id', 'email_sent', 'email_sent_at'];
-    const updateData: Partial<Mission> = {};
+    const allowedFields = ['description', 'member_id', 'agenda_item_id', 'email_sent', 'email_sent_at'] as const;
+    const updateData: Record<string, unknown> = {};
 
     for (const field of allowedFields) {
       if (field in updates) {
-        updateData[field as keyof Mission] = updates[field];
+        updateData[field] = updates[field];
       }
     }
 
