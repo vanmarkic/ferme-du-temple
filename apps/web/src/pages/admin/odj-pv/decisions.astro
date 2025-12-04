@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { requireAdmin } from '../../../lib/auth';
+import { DecisionsListWrapper } from '../../../components/odj-pv/DecisionsListWrapper';
+
+export const prerender = false;
+
+const authResult = await requireAdmin(Astro.cookies, '/admin/odj-pv/decisions');
+
+if (!authResult.authenticated) {
+  return Astro.redirect(authResult.redirectTo);
+}
+---
+
+<BaseLayout title="Historique des décisions - La Ferme du Temple">
+  <DecisionsListWrapper client:load />
+</BaseLayout>

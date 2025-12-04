@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { requireAdmin } from '../../../lib/auth';
+import { MeetingListWrapper } from '../../../components/odj-pv/MeetingListWrapper';
+
+export const prerender = false;
+
+const authResult = await requireAdmin(Astro.cookies, '/admin/odj-pv');
+
+if (!authResult.authenticated) {
+  return Astro.redirect(authResult.redirectTo);
+}
+---
+
+<BaseLayout title="Réunions - La Ferme du Temple">
+  <MeetingListWrapper client:load />
+</BaseLayout>

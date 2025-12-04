@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { requireAdmin } from '../../../lib/auth';
+import { MeetingEditorWrapper } from '../../../components/odj-pv/MeetingEditorWrapper';
+
+export const prerender = false;
+
+const authResult = await requireAdmin(Astro.cookies, `/admin/odj-pv/${Astro.params.id}`);
+
+if (!authResult.authenticated) {
+  return Astro.redirect(authResult.redirectTo);
+}
+
+const { id } = Astro.params;
+---
+
+<BaseLayout title="Édition de réunion - La Ferme du Temple">
+  <MeetingEditorWrapper client:load meetingId={id} />
+</BaseLayout>
