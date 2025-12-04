@@ -28,6 +28,7 @@ jobs:
         run: |
           mkdir -p deploy/architect-fees
           cp -r packages/architect-fees/widget/* deploy/architect-fees/
+          cp packages/architect-fees/calculator.xlsx deploy/architect-fees/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
