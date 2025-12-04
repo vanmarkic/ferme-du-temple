@@ -29,7 +29,7 @@ export const GET: APIRoute = async ({ cookies }) => {
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
     const { data, error } = await supabase
-      .from('admin_users')
+      .from('members')
       .select('id, email, role')
       .eq('id', session.user.id)
       .single();

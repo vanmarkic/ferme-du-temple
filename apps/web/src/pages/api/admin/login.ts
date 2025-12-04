@@ -38,7 +38,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
 
     // Check if user is an admin
     const { data: adminData, error: adminError } = await supabase
-      .from('admin_users')
+      .from('members')
       .select('id, email, role')
       .eq('id', authData.user.id)
       .single();

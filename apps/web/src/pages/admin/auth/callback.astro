@@ -32,7 +32,7 @@ if (code) {
     // Verify user is admin
     const supabaseService = createClient(supabaseUrl, supabaseServiceKey);
     const { data: adminUser } = await supabaseService
-      .from('admin_users')
+      .from('members')
       .select('id')
       .eq('id', data.user.id)
       .single();
@@ -62,7 +62,7 @@ if (code) {
   } else {
     // Verify user is admin
     const { data: adminUser } = await supabaseService
-      .from('admin_users')
+      .from('members')
       .select('id')
       .eq('id', user.id)
       .single();

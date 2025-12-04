@@ -14,7 +14,7 @@ async function isSuperAdmin(cookies: Parameters<typeof isAdmin>[0]): Promise<boo
   const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
   const { data } = await supabase
-    .from('admin_users')
+    .from('members')
     .select('role')
     .eq('id', session.user.id)
     .single();

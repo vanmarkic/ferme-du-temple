@@ -1,4 +1,5 @@
 export { MeetingList } from './MeetingList';
+export { MeetingListWrapper } from './MeetingListWrapper';
 export { AgendaEditor } from './AgendaEditor';
 export { RoleSuggester } from './RoleSuggester';
 export { NoteTaker } from './NoteTaker';

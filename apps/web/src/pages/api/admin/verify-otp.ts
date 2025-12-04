@@ -44,10 +44,10 @@ export const POST: APIRoute = async ({ request, cookies }) => {
       );
     }
 
-    // Verify user is in admin_users table
+    // Verify user is in members table
     const supabaseService = createClient(supabaseUrl, supabaseServiceKey);
     const { data: adminUser, error: adminError } = await supabaseService
-      .from('admin_users')
+      .from('members')
       .select('id')
       .eq('id', data.user.id)
       .single();

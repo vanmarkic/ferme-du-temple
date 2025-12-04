@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import type { Decision, Mission, Member, Meeting, AgendaItem, MemberRole } from '../../types/odj-pv';
 import { IMPACT_LABELS } from '../../types/odj-pv';
-import { sendMissionEmails } from '../../lib/odj-pv/email';
 import { generatePVFinalDocx } from '../../lib/odj-pv/docx-generator';
 import { Button } from '../ui/button';
 
@@ -70,7 +69,15 @@ export function Finalizer({
     setIsSending(true);
     try {
       const missionsToSend = missions.filter(m => selectedMissions.has(m.id));
-      const results = await sendMissionEmails(missionsToSend, members, meeting);
+      const response = await fetch('/api/odj-pv/send-missions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ missions: missionsToSend, members, meeting }),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to send emails');
+      }
+      const results = await response.json();
       setEmailResults(results);
     } catch (error) {
       console.error('Failed to send emails:', error);

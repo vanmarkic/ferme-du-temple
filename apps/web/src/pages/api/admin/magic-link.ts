@@ -26,9 +26,9 @@ export const POST: APIRoute = async ({ request, url }) => {
 
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-    // Check if user is in admin_users table
+    // Check if user is in members table
     const { data: adminUser, error: adminError } = await supabase
-      .from('admin_users')
+      .from('members')
       .select('id, email')
       .eq('email', email.toLowerCase())
       .single();

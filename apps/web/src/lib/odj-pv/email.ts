@@ -1,8 +1,21 @@
-import { Resend } from 'resend';
+import type { Resend } from 'resend';
 import type { Mission, Member, Meeting } from '../../types/odj-pv';
 
-// Initialize Resend with API key from env
-const resend = new Resend(import.meta.env.RESEND_API_KEY);
+// Lazy initialize Resend only when needed (server-side only)
+let resend: Resend | null = null;
+
+async function getResend(): Promise<Resend> {
+  if (!resend) {
+    // Dynamic import to avoid loading Resend on client
+    const { Resend: ResendClass } = await import('resend');
+    const apiKey = import.meta.env.RESEND_API_KEY;
+    if (!apiKey) {
+      throw new Error('RESEND_API_KEY is not configured');
+    }
+    resend = new ResendClass(apiKey);
+  }
+  return resend;
+}
 
 interface SendMissionEmailParams {
   mission: Mission;
@@ -31,7 +44,8 @@ export async function sendMissionEmail({
   const fromEmail = `"BEAVER" <${baseFromEmail}>`;
 
   try {
-    await resend.emails.send({
+    const resendClient = await getResend();
+    await resendClient.emails.send({
       from: fromEmail,
       to: member.email,
       subject: `Mission - Réunion BEAVER ${formattedDate}`,
