@@ -336,6 +336,24 @@ export function calculateTravauxCommunsCascoAmount(
 }
 
 /**
+ * Calculate total surface from travaux communs (for honoraires calculation)
+ * Returns the sum of all sqm from customizable travaux communs items
+ */
+export function calculateTravauxCommunsSurface(
+  projectParams: ProjectParams
+): number {
+  // Only customizable travaux communs have surface info
+  // Base travaux communs (batimentFondation...) don't have separate surface
+  const customSurface = projectParams.travauxCommuns?.enabled
+    ? projectParams.travauxCommuns.items.reduce((sum, item) => {
+        return sum + (item.sqm || 0);
+      }, 0)
+    : 0;
+
+  return customSurface;
+}
+
+/**
  * Calculate travaux communs per unit
  */
 export function calculateTravauxCommunsPerUnit(
@@ -414,6 +432,9 @@ export function getFraisGenerauxBreakdown(
   // Add common building works CASCO (without TVA) - only CASCO portion, not parachevements
   // When travaux communs is enabled, include only the CASCO amount (sqm * cascoPricePerSqm)
   totalCascoHorsTva += calculateTravauxCommunsCascoAmount(projectParams);
+
+  // Add surface from customizable travaux communs (e.g., 338m² from "Rénovation complète")
+  totalSurface += calculateTravauxCommunsSurface(projectParams);
 
   // Get architect fee calculation parameters with defaults
   const projectType = projectParams.architectProjectType ?? 'MW';
