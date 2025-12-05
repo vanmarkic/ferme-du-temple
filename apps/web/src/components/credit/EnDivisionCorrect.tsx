@@ -42,7 +42,7 @@ interface CoproSnapshot {
 }
 
 export default function EnDivisionCorrect() {
-  const [isCostBreakdownExpanded, setIsCostBreakdownExpanded] = useState(false);
+  const [isCostBreakdownExpanded, setIsCostBreakdownExpanded] = useState(true);
   const [showAllFoundersPrint, setShowAllFoundersPrint] = useState(false);
   
   // Get state and actions from context
@@ -389,16 +389,17 @@ export default function EnDivisionCorrect() {
                 <div className="text-2xl font-bold text-gray-400 flex-shrink-0">+</div>
 
                 <div className="p-3 bg-white rounded-lg border border-orange-200 flex-1">
-                  <FormulaTooltip formula={[
-                    "Rénovations personnelles",
-                    `CASCO (gros œuvre): ${formatCurrency(calculations.participantBreakdown.reduce((sum, p) => sum + p.casco, 0))}`,
-                    `+ Parachèvements: ${formatCurrency(calculations.participantBreakdown.reduce((sum, p) => sum + p.parachevements, 0))}`,
-                    `= ${formatCurrency(calculations.participantBreakdown.reduce((sum, p) => sum + p.personalRenovationCost, 0))}`
-                  ]}>
-                    <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">Rénovations Perso.</p>
-                  </FormulaTooltip>
-                  <p className="text-lg font-bold text-orange-700">{formatCurrency(calculations.participantBreakdown.reduce((sum, p) => sum + p.personalRenovationCost, 0))}</p>
-                  <p className="text-xs text-orange-500 mt-1">CASCO + Parachèv.</p>
+                  <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">CASCO</p>
+                  <p className="text-lg font-bold text-orange-700">{formatCurrency(calculations.participantBreakdown.reduce((sum, p) => sum + p.casco, 0))}</p>
+                  <p className="text-xs text-orange-500 mt-1">gros œuvre</p>
+                </div>
+
+                <div className="text-2xl font-bold text-gray-400 flex-shrink-0">+</div>
+
+                <div className="p-3 bg-white rounded-lg border border-amber-200 flex-1">
+                  <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">Parachèvements</p>
+                  <p className="text-lg font-bold text-amber-700">{formatCurrency(calculations.participantBreakdown.reduce((sum, p) => sum + p.parachevements, 0))}</p>
+                  <p className="text-xs text-amber-500 mt-1">finitions</p>
                 </div>
 
                 <div className="text-2xl font-bold text-gray-400 flex-shrink-0">+</div>
