@@ -12,6 +12,7 @@ import { LocationSection } from '@/components/LocationSection';
 import { InscriptionForm } from '@/components/InscriptionForm';
 import { TimelineSection } from '@/components/TimelineSection';
 import { Footer } from '@/components/Footer';
+import { FAQSection } from '@/components/FAQSection';
 import { getEntry, render } from 'astro:content';
 
 // Load content from Content Collections
@@ -81,6 +82,9 @@ const { Content: FooterContent } = await render(footerEntry);
         content={timelineEntry.data}
         body={timelineEntry.body}
       />
+    </div>
+    <div id="faq">
+      <FAQSection client:visible />
     </div>
     <div id="inscription">
       <Providers client:load>

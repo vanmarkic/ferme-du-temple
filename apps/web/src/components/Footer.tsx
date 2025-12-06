@@ -211,9 +211,9 @@ export const Footer = ({ content, body }: FooterProps = {}) => {
         </div>
       </div>
 
-      {/* Version badge - centered on white background */}
-      <div className="bg-white py-2 text-center">
-        <span className="text-[10px] text-gray-400">v{__APP_VERSION__}</span>
+      {/* Version badge - centered */}
+      <div className="py-2 text-center">
+        <span className="text-[10px] text-gray-500">v{__APP_VERSION__}</span>
       </div>
     </footer>
   );
